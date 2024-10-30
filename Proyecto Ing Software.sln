@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servicios", "Servicios", "{84C8D301-DD86-47EC-B519-CA42B8DDBA78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internos", "Seguridad\Internos.csproj", "{4C0DD407-2751-4F33-928E-1A51B87D47CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{60DD537F-5702-4872-B5F1-DA19A2D3CB19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aplication", "Aplication", "{6AD749FC-F938-4130-AE92-9106B9852A33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maper", "Maper", "{2E739CB5-8718-41CF-8D5E-C0BC051D7C09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{8996C1CD-087D-48D1-A3E2-DF15E3B629F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Form", "Form1\Form.csproj", "{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPP", "MPPs\MPP.csproj", "{35EF7750-29B9-4004-88AB-966778C8585C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C0DD407-2751-4F33-928E-1A51B87D47CF} = {4C0DD407-2751-4F33-928E-1A51B87D47CF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Externos", "Externos\Externos.csproj", "{E70349A2-E9AD-471B-9D5F-6AF9C28496CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLLs\BLL.csproj", "{5764FC25-E67B-4030-BEFA-05AE93B29C28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE", "BEs\BE.csproj", "{D854F6CC-77B8-414E-B36A-FB2233D6706A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backup", "Backup", "{BB460114-82DD-4E25-94D7-3A49CA252BC2}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\Backup\BackUpIngSoftware12_6_2024.bak = ..\..\..\..\..\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\Backup\BackUpIngSoftware12_6_2024.bak
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C0DD407-2751-4F33-928E-1A51B87D47CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C0DD407-2751-4F33-928E-1A51B87D47CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C0DD407-2751-4F33-928E-1A51B87D47CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C0DD407-2751-4F33-928E-1A51B87D47CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35EF7750-29B9-4004-88AB-966778C8585C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35EF7750-29B9-4004-88AB-966778C8585C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35EF7750-29B9-4004-88AB-966778C8585C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35EF7750-29B9-4004-88AB-966778C8585C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E70349A2-E9AD-471B-9D5F-6AF9C28496CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70349A2-E9AD-471B-9D5F-6AF9C28496CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70349A2-E9AD-471B-9D5F-6AF9C28496CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70349A2-E9AD-471B-9D5F-6AF9C28496CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5764FC25-E67B-4030-BEFA-05AE93B29C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5764FC25-E67B-4030-BEFA-05AE93B29C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5764FC25-E67B-4030-BEFA-05AE93B29C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5764FC25-E67B-4030-BEFA-05AE93B29C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D854F6CC-77B8-414E-B36A-FB2233D6706A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D854F6CC-77B8-414E-B36A-FB2233D6706A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D854F6CC-77B8-414E-B36A-FB2233D6706A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D854F6CC-77B8-414E-B36A-FB2233D6706A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C0DD407-2751-4F33-928E-1A51B87D47CF} = {84C8D301-DD86-47EC-B519-CA42B8DDBA78}
+		{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2} = {8996C1CD-087D-48D1-A3E2-DF15E3B629F1}
+		{35EF7750-29B9-4004-88AB-966778C8585C} = {2E739CB5-8718-41CF-8D5E-C0BC051D7C09}
+		{E70349A2-E9AD-471B-9D5F-6AF9C28496CE} = {84C8D301-DD86-47EC-B519-CA42B8DDBA78}
+		{5764FC25-E67B-4030-BEFA-05AE93B29C28} = {6AD749FC-F938-4130-AE92-9106B9852A33}
+		{D854F6CC-77B8-414E-B36A-FB2233D6706A} = {60DD537F-5702-4872-B5F1-DA19A2D3CB19}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7DEE32B-9063-4AEA-81C1-932A09F7A8B8}
+	EndGlobalSection
+EndGlobal

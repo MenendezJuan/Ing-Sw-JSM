@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5764FC25-E67B-4030-BEFA-05AE93B29C28}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BLLs</RootNamespace>
+    <AssemblyName>BLLs</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracciones\IBLL.cs" />
+    <Compile Include="Negocio\BLL_COMPRA.cs" />
+    <Compile Include="Negocio\BLL_PRODUCTO.cs" />
+    <Compile Include="Negocio\BLL_PROVEEDOR.cs" />
+    <Compile Include="Tecnica\BLL_BITACORA.cs" />
+    <Compile Include="Tecnica\BLL_IDIOMA.cs" />
+    <Compile Include="Tecnica\BLL_PERMISO.cs" />
+    <Compile Include="Tecnica\BLL_TRADUCCION.cs" />
+    <Compile Include="Tecnica\BLL_USUARIO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BEs\BE.csproj">
+      <Project>{d854f6cc-77b8-414e-b36a-fb2233d6706a}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPPs\MPP.csproj">
+      <Project>{35ef7750-29b9-4004-88ab-966778c8585c}</Project>
+      <Name>MPP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Seguridad\Internos.csproj">
+      <Project>{4c0dd407-2751-4f33-928e-1a51b87d47cf}</Project>
+      <Name>Internos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
