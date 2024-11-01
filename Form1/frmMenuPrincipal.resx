@@ -117,17 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="menuStripOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnReportes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAFDSURBVEhL7ZW/agJBEMaXgNj6BJGApSDuHFYpxM4/dZ4j
-        FunTpM2jaJUXSEhnIdhZmNNDknQpDjs13yzjcVHj3Zxi5Q8+nJ2Z2+9m90BzdqZEjzOidVpNrX0Zl0p5
-        eTwdbMKS5UGkN4T6A6KcpJPRmmCaJ/z2VBNpTVg8hcooiwnHKqOsJkxqI63J9tcWydoHadtFY/IfiXtc
-        THxrOz5Rm+PMJrjId1zomyx3wDMh6j8S600CojpyK2g587yypCPwyd6jNgw8r+nWWhPEt9A3jqOBze6g
-        YE50LWU+pgam/PJrtRtJ6Uz4iBCveBJXBFh3YTT6qFQKk2q1iJ5PNpKyI77HXuINfAfQqyvEwMbP8gJD
-        qCvpiPgee0lsAGtjrjDNAn2hpP5wEhMGR9jaXPQ2JzM5xMVERSoT939wpI590QwY8wuPrlNjP9Nx4AAA
-        AABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DQAACw0B7QfALAAAAUNJREFUSEvtlb9qAkEQxpeA2PoEkYClIO4cVinEzj91niMW6dOkzaNolRdISGch
+        2FmY00OSdCkOOzXfLONxUePdnGLlDz6cnZnb72b3QHN2pkSPM6J1Wk2tfRmXSnl5PB1swpLlQaQ3hPoD
+        opykk9GaYJon/PZUE2lNWDyFyiiLCccqo6wmTGojrcn21xbJ2gdp20Vj8h+Je1xMfGs7PlGb48wmuMh3
+        XOibLHfAMyHqPxLrTQKiOnIraDnzvLKkI/DJ3qM2DDyv6dZaE8S30DeOo4HN7qBgTnQtZT6mBqb88mu1
+        G0npTPiIEK94ElcEWHdhNPqoVAqTarWInk82krIjvsde4g18B9CrK8TAxs/yAkOoK+mI+B57SWwAa2Ou
+        MM0CfaGk/nASEwZH2Npc9DYnMznExURFKhP3f3Ckjn3RDBjzC4+uU2M/03HgAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnCaja.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -243,10 +245,4 @@
         nswA+1M7XCUAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="menuStripOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="menuStripOpciones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

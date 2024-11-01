@@ -4,6 +4,6 @@
     {
         Pendiente = 0,
         Cancelada = 1,
-        Finalizada = 2
+        Pagada = 2
     }
 }

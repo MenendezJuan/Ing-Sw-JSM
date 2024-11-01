@@ -146,8 +146,23 @@
     <Compile Include="frmRegistro.Designer.cs">
       <DependentUpon>frmRegistro.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmAgregarComprasProductos.resx">
+      <DependentUpon>frmAgregarComprasProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmControl.resx">
+      <DependentUpon>frmControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmControlSolicitudesCotizacion.resx">
+      <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGenerarOrdenCompra.resx">
+      <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGestionCompraProductos.resx">
+      <DependentUpon>frmGestionCompraProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGestorBitacora.resx">
       <DependentUpon>frmGestorBitacora.cs</DependentUpon>
