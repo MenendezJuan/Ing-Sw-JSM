@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracciones\IRepositorio.cs" />
+    <Compile Include="Negocio\MPP_COTIZACION.cs" />
     <Compile Include="Negocio\MPP_DETALLECOMPRA.cs" />
     <Compile Include="Negocio\MPP_PRODUCTO.cs" />
     <Compile Include="Tecnica\MPP_BITACORA.cs" />

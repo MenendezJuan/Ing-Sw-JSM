@@ -32,6 +32,9 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelCentral = new System.Windows.Forms.Panel();
             this.menuStripOpciones = new System.Windows.Forms.MenuStrip();
+            this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.administracionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBoxIdioma = new System.Windows.Forms.ToolStripComboBox();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.panelUserInfo = new System.Windows.Forms.Panel();
@@ -46,20 +49,17 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.line = new System.Windows.Forms.Panel();
             this.panelSideMenu = new System.Windows.Forms.Panel();
-            this.panelInsumos = new System.Windows.Forms.Panel();
-            this.btnComprasProductos = new System.Windows.Forms.Button();
-            this.btnStockProductos = new System.Windows.Forms.Button();
-            this.panelBottomMenu = new System.Windows.Forms.Panel();
-            this.panelLogo = new System.Windows.Forms.Panel();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnCaja = new System.Windows.Forms.Button();
             this.btnFacturar = new System.Windows.Forms.Button();
             this.btnControl = new System.Windows.Forms.Button();
+            this.panelInsumos = new System.Windows.Forms.Panel();
+            this.btnComprasProductos = new System.Windows.Forms.Button();
+            this.btnStockProductos = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
+            this.panelBottomMenu = new System.Windows.Forms.Panel();
+            this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.administracionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain.SuspendLayout();
             this.panelCentral.SuspendLayout();
             this.menuStripOpciones.SuspendLayout();
@@ -103,6 +103,27 @@
             this.menuStripOpciones.Size = new System.Drawing.Size(1015, 27);
             this.menuStripOpciones.TabIndex = 1;
             this.menuStripOpciones.Text = "menuStrip1";
+            // 
+            // usuarioToolStripMenuItem
+            // 
+            this.usuarioToolStripMenuItem.Image = global::Form1.Properties.Resources.icons8_admin_48;
+            this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
+            this.usuarioToolStripMenuItem.Text = "Usuario";
+            // 
+            // administracionToolStripMenuItem
+            // 
+            this.administracionToolStripMenuItem.Image = global::Form1.Properties.Resources.icons8_key_50;
+            this.administracionToolStripMenuItem.Name = "administracionToolStripMenuItem";
+            this.administracionToolStripMenuItem.Size = new System.Drawing.Size(116, 23);
+            this.administracionToolStripMenuItem.Text = "Administracion";
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            this.ayudaToolStripMenuItem.Image = global::Form1.Properties.Resources.icons8_help_50;
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(69, 23);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // toolStripComboBoxIdioma
             // 
@@ -265,67 +286,6 @@
             this.panelSideMenu.Size = new System.Drawing.Size(228, 578);
             this.panelSideMenu.TabIndex = 2;
             // 
-            // panelInsumos
-            // 
-            this.panelInsumos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelInsumos.Controls.Add(this.btnComprasProductos);
-            this.panelInsumos.Controls.Add(this.btnStockProductos);
-            this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInsumos.Location = new System.Drawing.Point(0, 164);
-            this.panelInsumos.Name = "panelInsumos";
-            this.panelInsumos.Size = new System.Drawing.Size(228, 101);
-            this.panelInsumos.TabIndex = 16;
-            // 
-            // btnComprasProductos
-            // 
-            this.btnComprasProductos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnComprasProductos.FlatAppearance.BorderSize = 0;
-            this.btnComprasProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnComprasProductos.ForeColor = System.Drawing.Color.LightGray;
-            this.btnComprasProductos.Location = new System.Drawing.Point(0, 45);
-            this.btnComprasProductos.Name = "btnComprasProductos";
-            this.btnComprasProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnComprasProductos.Size = new System.Drawing.Size(228, 52);
-            this.btnComprasProductos.TabIndex = 3;
-            this.btnComprasProductos.Text = "Compras";
-            this.btnComprasProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnComprasProductos.UseVisualStyleBackColor = true;
-            this.btnComprasProductos.Click += new System.EventHandler(this.btnComprasProductos_Click);
-            // 
-            // btnStockProductos
-            // 
-            this.btnStockProductos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStockProductos.FlatAppearance.BorderSize = 0;
-            this.btnStockProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockProductos.ForeColor = System.Drawing.Color.LightGray;
-            this.btnStockProductos.Location = new System.Drawing.Point(0, 0);
-            this.btnStockProductos.Name = "btnStockProductos";
-            this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnStockProductos.Size = new System.Drawing.Size(228, 45);
-            this.btnStockProductos.TabIndex = 2;
-            this.btnStockProductos.Text = "Stock";
-            this.btnStockProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockProductos.UseVisualStyleBackColor = true;
-            this.btnStockProductos.Click += new System.EventHandler(this.btnStockProductos_Click);
-            // 
-            // panelBottomMenu
-            // 
-            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomMenu.Location = new System.Drawing.Point(0, 447);
-            this.panelBottomMenu.Name = "panelBottomMenu";
-            this.panelBottomMenu.Size = new System.Drawing.Size(228, 131);
-            this.panelBottomMenu.TabIndex = 14;
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.Controls.Add(this.pictureBoxLogo);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(228, 119);
-            this.panelLogo.TabIndex = 0;
-            // 
             // btnReportes
             // 
             this.btnReportes.Dock = System.Windows.Forms.DockStyle.Top;
@@ -404,6 +364,49 @@
             this.btnControl.Text = "Control";
             this.btnControl.UseVisualStyleBackColor = true;
             // 
+            // panelInsumos
+            // 
+            this.panelInsumos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelInsumos.Controls.Add(this.btnComprasProductos);
+            this.panelInsumos.Controls.Add(this.btnStockProductos);
+            this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelInsumos.Location = new System.Drawing.Point(0, 164);
+            this.panelInsumos.Name = "panelInsumos";
+            this.panelInsumos.Size = new System.Drawing.Size(228, 101);
+            this.panelInsumos.TabIndex = 16;
+            // 
+            // btnComprasProductos
+            // 
+            this.btnComprasProductos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnComprasProductos.FlatAppearance.BorderSize = 0;
+            this.btnComprasProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComprasProductos.ForeColor = System.Drawing.Color.LightGray;
+            this.btnComprasProductos.Location = new System.Drawing.Point(0, 45);
+            this.btnComprasProductos.Name = "btnComprasProductos";
+            this.btnComprasProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnComprasProductos.Size = new System.Drawing.Size(228, 52);
+            this.btnComprasProductos.TabIndex = 3;
+            this.btnComprasProductos.Text = "Compras";
+            this.btnComprasProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnComprasProductos.UseVisualStyleBackColor = true;
+            this.btnComprasProductos.Click += new System.EventHandler(this.btnComprasProductos_Click);
+            // 
+            // btnStockProductos
+            // 
+            this.btnStockProductos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockProductos.FlatAppearance.BorderSize = 0;
+            this.btnStockProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockProductos.ForeColor = System.Drawing.Color.LightGray;
+            this.btnStockProductos.Location = new System.Drawing.Point(0, 0);
+            this.btnStockProductos.Name = "btnStockProductos";
+            this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnStockProductos.Size = new System.Drawing.Size(228, 45);
+            this.btnStockProductos.TabIndex = 2;
+            this.btnStockProductos.Text = "Stock";
+            this.btnStockProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStockProductos.UseVisualStyleBackColor = true;
+            this.btnStockProductos.Click += new System.EventHandler(this.btnStockProductos_Click);
+            // 
             // btnProductos
             // 
             this.btnProductos.Dock = System.Windows.Forms.DockStyle.Top;
@@ -424,6 +427,24 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
+            // panelBottomMenu
+            // 
+            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomMenu.Location = new System.Drawing.Point(0, 447);
+            this.panelBottomMenu.Name = "panelBottomMenu";
+            this.panelBottomMenu.Size = new System.Drawing.Size(228, 131);
+            this.panelBottomMenu.TabIndex = 14;
+            // 
+            // panelLogo
+            // 
+            this.panelLogo.Controls.Add(this.pictureBoxLogo);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLogo.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(228, 119);
+            this.panelLogo.TabIndex = 0;
+            // 
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -434,27 +455,6 @@
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLogo.TabIndex = 0;
             this.pictureBoxLogo.TabStop = false;
-            // 
-            // usuarioToolStripMenuItem
-            // 
-            this.usuarioToolStripMenuItem.Image = global::Form1.Properties.Resources.icons8_admin_48;
-            this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
-            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
-            this.usuarioToolStripMenuItem.Text = "Usuario";
-            // 
-            // administracionToolStripMenuItem
-            // 
-            this.administracionToolStripMenuItem.Image = global::Form1.Properties.Resources.icons8_key_50;
-            this.administracionToolStripMenuItem.Name = "administracionToolStripMenuItem";
-            this.administracionToolStripMenuItem.Size = new System.Drawing.Size(116, 23);
-            this.administracionToolStripMenuItem.Text = "Administracion";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            this.ayudaToolStripMenuItem.Image = global::Form1.Properties.Resources.icons8_help_50;
-            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(69, 23);
-            this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // frmMenuPrincipal
             // 

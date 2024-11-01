@@ -49,9 +49,11 @@
     <Compile Include="Clases\HistorialUsuario.cs" />
     <Compile Include="Clases\Idioma.cs" />
     <Compile Include="Clases\Negocio\Compras\Compra.cs" />
+    <Compile Include="Clases\Negocio\Compras\Cotizacion.cs" />
     <Compile Include="Clases\Negocio\Enums\EstadoCompra.cs" />
     <Compile Include="Clases\Negocio\Enums\Categoria.cs" />
     <Compile Include="Clases\Negocio\Compras\DetalleCompra.cs" />
+    <Compile Include="Clases\Negocio\Enums\EstadoCotizacion.cs" />
     <Compile Include="Clases\Negocio\Inventario\Producto.cs" />
     <Compile Include="Clases\Negocio\Compras\Proveedor.cs" />
     <Compile Include="Clases\Negocio\Enums\TipoPago.cs" />

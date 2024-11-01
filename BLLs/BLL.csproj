@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Abstracciones\IBLL.cs" />
     <Compile Include="Negocio\BLL_COMPRA.cs" />
+    <Compile Include="Negocio\BLL_COTIZACION.cs" />
     <Compile Include="Negocio\BLL_PRODUCTO.cs" />
     <Compile Include="Negocio\BLL_PROVEEDOR.cs" />
     <Compile Include="Tecnica\BLL_BITACORA.cs" />
