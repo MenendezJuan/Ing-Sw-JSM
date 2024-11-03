@@ -1,84 +1,89 @@
 ﻿using BEs.Clases.Negocio;
-using BLLs.Abstracciones;
+using MPPs;
 using MPPs.Negocio;
 using System;
 using System.Collections.Generic;
 
 namespace BLLs.Negocio
 {
-    public class BLL_PRODUCTO : IBLL<Producto>
+    public class BLL_PRODUCTO
     {
-        private readonly MPP_PRODUCTO productoRepository;
+        private readonly MPP_PRODUCTO _productoRepository;
+        private readonly MPP_PROVEEDOR _proveedorRepository;
+
         public BLL_PRODUCTO()
         {
-            productoRepository = new MPP_PRODUCTO();
+            _productoRepository = new MPP_PRODUCTO();
+            _proveedorRepository = new MPP_PROVEEDOR(); ;
         }
 
-        // Método para insertar un nuevo producto
-        public void Insertar(Producto producto)
+        public void Insertar(Producto producto, int proveedorId)
         {
             ValidarProducto(producto);
-            productoRepository.Insertar(producto);
+            ValidarProveedor(proveedorId);
+            _productoRepository.Insertar(producto, proveedorId);
         }
 
-        // Método para actualizar un producto existente
-        public void Actualizar(Producto producto)
+        public void Actualizar(Producto producto, int nuevoProveedorId)
         {
             ValidarExistenciaProducto(producto.Id);
             ValidarProducto(producto);
-            productoRepository.Actualizar(producto);
+            ValidarProveedor(nuevoProveedorId);
+            _productoRepository.Actualizar(producto, nuevoProveedorId);
         }
 
-        // Método para eliminar un producto
         public void Eliminar(int id)
         {
             ValidarExistenciaProducto(id);
-            productoRepository.Eliminar(id);
+            _productoRepository.Eliminar(id);
         }
 
-        // Método para obtener un producto por su ID
         public Producto ObtenerPorId(int id)
         {
-            return productoRepository.ObtenerPorId(id);
+            return _productoRepository.ObtenerPorId(id);
         }
 
-        // Método para obtener todos los productos
         public List<Producto> ObtenerTodos()
         {
-            return productoRepository.ObtenerTodos();
+            return _productoRepository.ObtenerTodos();
         }
 
-        // Método de validación para verificar la integridad del producto antes de insertarlo o actualizarlo
         private void ValidarProducto(Producto producto)
         {
             if (producto == null)
-                throw new ArgumentNullException("El producto no puede ser nulo.");
+                throw new ArgumentNullException(nameof(producto), "El producto no puede ser nulo.");
 
             if (string.IsNullOrWhiteSpace(producto.Codigo))
-                throw new ArgumentException("El código del producto es obligatorio.");
+                throw new ArgumentException("El código del producto es obligatorio.", nameof(producto.Codigo));
 
             if (producto.Stock < 0)
-                throw new ArgumentException("El stock del producto no puede ser negativo.");
+                throw new ArgumentException("El stock del producto no puede ser negativo.", nameof(producto.Stock));
 
             if (string.IsNullOrWhiteSpace(producto.Nombre))
-                throw new ArgumentException("El nombre del producto es obligatorio.");
+                throw new ArgumentException("El nombre del producto es obligatorio.", nameof(producto.Nombre));
 
             if (producto.PrecioCompra <= 0)
-                throw new ArgumentException("El precio de compra debe ser mayor a cero.");
+                throw new ArgumentException("El precio de compra debe ser mayor a cero.", nameof(producto.PrecioCompra));
 
             if (producto.PrecioVenta <= 0)
-                throw new ArgumentException("El precio de venta debe ser mayor a cero.");
+                throw new ArgumentException("El precio de venta debe ser mayor a cero.", nameof(producto.PrecioVenta));
 
             if (producto.PrecioVenta < producto.PrecioCompra)
-                throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.");
+                throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
         }
 
-        // Método de validación para verificar la existencia del producto antes de actualizar o eliminar
+        private void ValidarProveedor(int proveedorId)
+        {
+            var proveedor = _proveedorRepository.ObtenerPorId(proveedorId);
+            if (proveedor == null)
+                throw new ArgumentException("El proveedor especificado no existe o no está activo.", nameof(proveedorId));
+        }
+
         private void ValidarExistenciaProducto(int productoId)
         {
-            var producto = productoRepository.ObtenerPorId(productoId);
+            var producto = _productoRepository.ObtenerPorId(productoId);
             if (producto == null)
-                throw new ArgumentException($"El producto con Id {productoId} no existe.");
+                throw new ArgumentException($"El producto con Id {productoId} no existe.", nameof(productoId));
         }
     }
 }

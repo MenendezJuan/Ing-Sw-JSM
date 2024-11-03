@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BEs.Clases.Negocio.Inventario;
+using System;
+using System.Collections.Generic;
 
 namespace BEs.Clases.Negocio
 {
@@ -14,5 +16,7 @@ namespace BEs.Clases.Negocio
         public decimal PrecioVenta { get; set; }
         public bool Estado { get; set; }
         public DateTime Fecha { get; set; }
+
+        public List<ProductoProveedor> Proveedores { get; set; } = new List<ProductoProveedor>();
     }
 }

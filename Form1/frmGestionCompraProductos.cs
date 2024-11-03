@@ -10,9 +10,13 @@ namespace Form1
             InitializeComponent();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private void btnSolicitarCotizacion_Click(object sender, EventArgs e)
         {
-
+            frmMenuPrincipal pform = Owner as frmMenuPrincipal;
+            frmAgregarComprasProductos compraInsumo = new frmAgregarComprasProductos();
+            pform.AddOwnedForm(compraInsumo);
+            pform.FormHijo(compraInsumo);
+            this.Close();
         }
     }
 }

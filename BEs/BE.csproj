@@ -57,6 +57,7 @@
     <Compile Include="Clases\Negocio\Inventario\Producto.cs" />
     <Compile Include="Clases\Negocio\Compras\Proveedor.cs" />
     <Compile Include="Clases\Negocio\Enums\TipoPago.cs" />
+    <Compile Include="Clases\Negocio\Inventario\ProductoProveedor.cs" />
     <Compile Include="Clases\Permiso.cs" />
     <Compile Include="Clases\PropiedadVerificable.cs" />
     <Compile Include="Clases\SessionManager.cs" />
