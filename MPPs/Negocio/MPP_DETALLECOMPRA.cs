@@ -9,13 +9,13 @@ namespace MPPs.Negocio
 {
     public class MPP_DETALLECOMPRA : IRepositorio<DetalleCompra>
     {
+        private Conexion oCnx;
+        private readonly MPP_PRODUCTO productoRepositorio;
         public MPP_DETALLECOMPRA()
         {
             oCnx = Conexion.Instance;
+            productoRepositorio = new MPP_PRODUCTO();
         }
-
-        private Conexion oCnx;
-        private readonly MPP_PRODUCTO productoRepositorio = new MPP_PRODUCTO();
 
         public void Insertar(DetalleCompra detalleCompra)
         {
@@ -26,7 +26,6 @@ namespace MPPs.Negocio
                 { "@ProductoId", detalleCompra.oProducto.Id },
                 { "@Cantidad", detalleCompra.Cantidad },
                 { "@CompraId", detalleCompra.oCompra.Id },
-                { "@CotizacionId", detalleCompra.CotizacionId },
                 { "@Precio", detalleCompra.Precio },
                 { "@SubTotal", detalleCompra.SubTotal },
                 { "@Fecha", detalleCompra.Fecha }
@@ -34,7 +33,6 @@ namespace MPPs.Negocio
 
             oCnx.Guardar("InsertarDetalleCompra", parametros);
         }
-
 
         public void Actualizar(DetalleCompra detalleCompra)
         {
@@ -45,7 +43,6 @@ namespace MPPs.Negocio
                 { "@Id", detalleCompra.Id },
                 { "@ProductoId", detalleCompra.oProducto.Id },
                 { "@Cantidad", detalleCompra.Cantidad },
-                { "@CotizacionId", detalleCompra.CotizacionId },
                 { "@Precio", detalleCompra.Precio },
                 { "@SubTotal", detalleCompra.SubTotal },
                 { "@Fecha", detalleCompra.Fecha }
@@ -53,7 +50,6 @@ namespace MPPs.Negocio
 
             oCnx.Guardar("ActualizarDetalleCompra", parametros);
         }
-
 
         public void Eliminar(int id)
         {
@@ -105,22 +101,6 @@ namespace MPPs.Negocio
             return detalles;
         }
 
-        public List<DetalleCompra> ObtenerPorCotizacionId(int cotizacionId)
-        {
-            var parametros = new Hashtable
-            {
-                { "@CotizacionId", cotizacionId }
-            };
-
-            DataTable dt = oCnx.Leer("ObtenerDetallesCompraPorCotizacionId", parametros);
-            List<DetalleCompra> detalles = new List<DetalleCompra>();
-            foreach (DataRow row in dt.Rows)
-            {
-                detalles.Add(Map(row));
-            }
-            return detalles;
-        }
-
         private DetalleCompra Map(DataRow row)
         {
             Producto producto = productoRepositorio.ObtenerPorId(Convert.ToInt32(row["ProductoId"]));
@@ -130,7 +110,6 @@ namespace MPPs.Negocio
                 oProducto = producto,
                 Cantidad = Convert.ToDecimal(row["Cantidad"]),
                 CompraId = Convert.ToInt32(row["CompraId"]),
-                CotizacionId = row["CotizacionId"] != DBNull.Value ? (int?)Convert.ToInt32(row["CotizacionId"]) : null,
                 Precio = Convert.ToDecimal(row["Precio"]),
                 SubTotal = Convert.ToDecimal(row["SubTotal"]),
                 Fecha = Convert.ToDateTime(row["Fecha"])

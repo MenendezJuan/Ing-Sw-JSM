@@ -33,17 +33,6 @@ namespace Form1
         private BLL_TRADUCCION Bll_Traduccion;
 
         List<Control> ListaControles = new List<Control>();
-        //public void BuscarControles(ICollection controles)
-        //{
-        //    foreach (Control c in controles)
-        //    {
-        //        ListaControles.Add(c);
-        //        if (c.HasChildren)
-        //        {
-        //            BuscarControles(c.Controls);
-        //        }
-        //    }
-        //}
 
         public void BuscarControles(ICollection controles)
         {

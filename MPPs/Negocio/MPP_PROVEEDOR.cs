@@ -31,7 +31,7 @@ namespace MPPs
                 { "@FechaRegistro", proveedor.FechaRegistro }
             };
 
-            proveedor.Id = Convert.ToInt32(oCnx.Guardar("InsertarProveedor", parametros));
+            proveedor.Id = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProveedor", parametros));
         }
 
         public void Actualizar(Proveedor proveedor)
@@ -91,6 +91,21 @@ namespace MPPs
             }
             return proveedores;
         }
+
+        public List<Proveedor> ObtenerProveedoresPorCategoriaProducto(Categoria categoria)
+        {
+            var parametros = new Hashtable { { "@Categoria", (int)categoria } };
+            DataTable dt = oCnx.Leer("ObtenerProveedoresPorCategoriaProducto", parametros);
+
+            List<Proveedor> proveedores = new List<Proveedor>();
+            foreach (DataRow row in dt.Rows)
+            {
+                proveedores.Add(Map(row));
+            }
+
+            return proveedores;
+        }
+
 
         private bool HayProductosAsociados(int proveedorId)
         {

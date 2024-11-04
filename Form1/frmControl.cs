@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Form1
@@ -15,6 +8,15 @@ namespace Form1
         public frmControl()
         {
             InitializeComponent();
+        }
+
+        private void btnEvOrdenCompra_Click(object sender, EventArgs e)
+        {
+            frmMenuPrincipal pform = Owner as frmMenuPrincipal;
+            frmControlSolicitudesCotizacion evaluarSolicitudes = new frmControlSolicitudesCotizacion();
+            pform.AddOwnedForm(evaluarSolicitudes);
+            pform.FormHijo(evaluarSolicitudes);
+            this.Close();
         }
     }
 }

@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmAgregarComprasProductos.cs">
+    <Compile Include="frmGestionarEnvioCotizacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAgregarComprasProductos.Designer.cs">
-      <DependentUpon>frmAgregarComprasProductos.cs</DependentUpon>
+    <Compile Include="frmGestionarEnvioCotizacion.Designer.cs">
+      <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </Compile>
     <Compile Include="frmConfigurarIdioma.cs">
       <SubType>Form</SubType>
@@ -146,8 +146,8 @@
     <Compile Include="frmRegistro.Designer.cs">
       <DependentUpon>frmRegistro.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmAgregarComprasProductos.resx">
-      <DependentUpon>frmAgregarComprasProductos.cs</DependentUpon>
+    <EmbeddedResource Include="frmGestionarEnvioCotizacion.resx">
+      <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>

@@ -73,6 +73,39 @@ namespace Servicios
             }
         }
 
+        // Método para ejecutar comandos de guardado en la base de datos y devolver un valor
+        public int GuardarConRetorno(string Query, Hashtable Parametros)
+        {
+            oCnx.Open(); // Abrir la conexión
+            oTransaction = oCnx.BeginTransaction(); // Iniciar una transacción
+            oCmd = new SqlCommand(Query, oCnx, oTransaction); // Crear el comando SQL
+            oCmd.CommandType = CommandType.StoredProcedure;
+
+            // Agregar parámetros al comando
+            foreach (string key in Parametros.Keys)
+            {
+                oCmd.Parameters.AddWithValue(key, Parametros[key]);
+            }
+
+            try
+            {
+                // Ejecutar el comando y devolver el valor generado
+                var result = oCmd.ExecuteScalar();
+                oTransaction.Commit(); // Confirmar la transacción
+                return Convert.ToInt32(result); // Devolver el ID como un entero
+            }
+            catch (SqlException ex)
+            {
+                oTransaction.Rollback(); // Revertir la transacción en caso de error SQL
+                throw new Exception("SQL Error: " + ex.Message, ex);
+            }
+            finally
+            {
+                oCnx.Close(); // Cerrar la conexión
+            }
+        }
+
+
         // Método para leer datos de la base de datos de forma asincrona
         public DataTable Leer(string Query, Hashtable Parametros)
         {

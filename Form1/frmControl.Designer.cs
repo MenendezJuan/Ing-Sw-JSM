@@ -49,6 +49,7 @@
             this.btnEvOrdenCompra.TabIndex = 67;
             this.btnEvOrdenCompra.Text = "Evaluar Solicitudes de Cotizacion";
             this.btnEvOrdenCompra.UseVisualStyleBackColor = true;
+            this.btnEvOrdenCompra.Click += new System.EventHandler(this.btnEvOrdenCompra_Click);
             // 
             // lblTitulo
             // 

@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmControlSolicitudesCotizacion));
             this.groupBoxAcc = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -50,18 +50,18 @@
             this.panelProveedor = new System.Windows.Forms.Panel();
             this.btnRegProv = new System.Windows.Forms.Button();
             this.panelRechazar = new System.Windows.Forms.Panel();
-            this.btnRechOrden = new System.Windows.Forms.Button();
+            this.btnRechSolicitud = new System.Windows.Forms.Button();
             this.panelAprobar = new System.Windows.Forms.Panel();
-            this.btnAprobOrden = new System.Windows.Forms.Button();
+            this.btnAprobSolicitud = new System.Windows.Forms.Button();
             this.groupBoxNoti = new System.Windows.Forms.GroupBox();
             this.labelNotificacion = new System.Windows.Forms.Label();
             this.groupBoxCompra = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.rbPendiente = new System.Windows.Forms.RadioButton();
             this.rbFinalizado = new System.Windows.Forms.RadioButton();
-            this.dataGridViewCompras = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCotizaciones = new System.Windows.Forms.DataGridView();
             this.groupBoxDetalle = new System.Windows.Forms.GroupBox();
-            this.dataGridViewDetalle = new System.Windows.Forms.DataGridView();
+            this.dataGridViewDetalleCotizacion = new System.Windows.Forms.DataGridView();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.groupBoxAcc.SuspendLayout();
@@ -76,9 +76,9 @@
             this.groupBoxNoti.SuspendLayout();
             this.groupBoxCompra.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
             this.groupBoxDetalle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxAcc
@@ -238,55 +238,57 @@
             // 
             // panelRechazar
             // 
-            this.panelRechazar.Controls.Add(this.btnRechOrden);
+            this.panelRechazar.Controls.Add(this.btnRechSolicitud);
             this.panelRechazar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelRechazar.Location = new System.Drawing.Point(0, 36);
             this.panelRechazar.Name = "panelRechazar";
             this.panelRechazar.Size = new System.Drawing.Size(356, 36);
             this.panelRechazar.TabIndex = 1;
             // 
-            // btnRechOrden
+            // btnRechSolicitud
             // 
-            this.btnRechOrden.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRechOrden.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnRechOrden.FlatAppearance.BorderSize = 2;
-            this.btnRechOrden.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnRechOrden.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnRechOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRechOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRechOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnRechOrden.Location = new System.Drawing.Point(0, 0);
-            this.btnRechOrden.Name = "btnRechOrden";
-            this.btnRechOrden.Size = new System.Drawing.Size(356, 29);
-            this.btnRechOrden.TabIndex = 79;
-            this.btnRechOrden.Text = "Rechazar Orden";
-            this.btnRechOrden.UseVisualStyleBackColor = true;
+            this.btnRechSolicitud.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnRechSolicitud.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnRechSolicitud.FlatAppearance.BorderSize = 2;
+            this.btnRechSolicitud.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnRechSolicitud.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnRechSolicitud.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRechSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRechSolicitud.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnRechSolicitud.Location = new System.Drawing.Point(0, 0);
+            this.btnRechSolicitud.Name = "btnRechSolicitud";
+            this.btnRechSolicitud.Size = new System.Drawing.Size(356, 29);
+            this.btnRechSolicitud.TabIndex = 79;
+            this.btnRechSolicitud.Text = "Rechazar Solicitud";
+            this.btnRechSolicitud.UseVisualStyleBackColor = true;
+            this.btnRechSolicitud.Click += new System.EventHandler(this.btnRechSolicitud_Click);
             // 
             // panelAprobar
             // 
-            this.panelAprobar.Controls.Add(this.btnAprobOrden);
+            this.panelAprobar.Controls.Add(this.btnAprobSolicitud);
             this.panelAprobar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAprobar.Location = new System.Drawing.Point(0, 0);
             this.panelAprobar.Name = "panelAprobar";
             this.panelAprobar.Size = new System.Drawing.Size(356, 36);
             this.panelAprobar.TabIndex = 0;
             // 
-            // btnAprobOrden
+            // btnAprobSolicitud
             // 
-            this.btnAprobOrden.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAprobOrden.FlatAppearance.BorderColor = System.Drawing.Color.YellowGreen;
-            this.btnAprobOrden.FlatAppearance.BorderSize = 2;
-            this.btnAprobOrden.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnAprobOrden.FlatAppearance.MouseOverBackColor = System.Drawing.Color.YellowGreen;
-            this.btnAprobOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAprobOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAprobOrden.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnAprobOrden.Location = new System.Drawing.Point(0, 0);
-            this.btnAprobOrden.Name = "btnAprobOrden";
-            this.btnAprobOrden.Size = new System.Drawing.Size(356, 29);
-            this.btnAprobOrden.TabIndex = 80;
-            this.btnAprobOrden.Text = "Aprobar Orden";
-            this.btnAprobOrden.UseVisualStyleBackColor = true;
+            this.btnAprobSolicitud.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAprobSolicitud.FlatAppearance.BorderColor = System.Drawing.Color.YellowGreen;
+            this.btnAprobSolicitud.FlatAppearance.BorderSize = 2;
+            this.btnAprobSolicitud.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnAprobSolicitud.FlatAppearance.MouseOverBackColor = System.Drawing.Color.YellowGreen;
+            this.btnAprobSolicitud.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAprobSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAprobSolicitud.ForeColor = System.Drawing.Color.YellowGreen;
+            this.btnAprobSolicitud.Location = new System.Drawing.Point(0, 0);
+            this.btnAprobSolicitud.Name = "btnAprobSolicitud";
+            this.btnAprobSolicitud.Size = new System.Drawing.Size(356, 29);
+            this.btnAprobSolicitud.TabIndex = 80;
+            this.btnAprobSolicitud.Text = "Aprobar Solicitud";
+            this.btnAprobSolicitud.UseVisualStyleBackColor = true;
+            this.btnAprobSolicitud.Click += new System.EventHandler(this.btnAprobSolicitud_Click);
             // 
             // groupBoxNoti
             // 
@@ -312,7 +314,7 @@
             // groupBoxCompra
             // 
             this.groupBoxCompra.Controls.Add(this.panel3);
-            this.groupBoxCompra.Controls.Add(this.dataGridViewCompras);
+            this.groupBoxCompra.Controls.Add(this.dataGridViewCotizaciones);
             this.groupBoxCompra.Location = new System.Drawing.Point(12, 54);
             this.groupBoxCompra.Name = "groupBoxCompra";
             this.groupBoxCompra.Size = new System.Drawing.Size(393, 230);
@@ -352,6 +354,7 @@
             this.rbPendiente.TabStop = true;
             this.rbPendiente.Text = "Pendiente";
             this.rbPendiente.UseVisualStyleBackColor = false;
+            this.rbPendiente.CheckedChanged += new System.EventHandler(this.rbPendiente_CheckedChanged);
             // 
             // rbFinalizado
             // 
@@ -372,105 +375,107 @@
             this.rbFinalizado.TabIndex = 48;
             this.rbFinalizado.Text = "Finalizado";
             this.rbFinalizado.UseVisualStyleBackColor = false;
+            this.rbFinalizado.CheckedChanged += new System.EventHandler(this.rbFinalizado_CheckedChanged);
             // 
-            // dataGridViewCompras
+            // dataGridViewCotizaciones
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewCompras.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewCompras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCompras.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewCompras.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewCompras.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewCompras.EnableHeadersVisualStyles = false;
-            this.dataGridViewCompras.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewCompras.Location = new System.Drawing.Point(6, 26);
-            this.dataGridViewCompras.Name = "dataGridViewCompras";
-            this.dataGridViewCompras.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCompras.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewCompras.RowHeadersVisible = false;
-            this.dataGridViewCompras.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCompras.Size = new System.Drawing.Size(378, 164);
-            this.dataGridViewCompras.TabIndex = 43;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dataGridViewCotizaciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
+            this.dataGridViewCotizaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCotizaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewCotizaciones.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCotizaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            this.dataGridViewCotizaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCotizaciones.DefaultCellStyle = dataGridViewCellStyle19;
+            this.dataGridViewCotizaciones.EnableHeadersVisualStyles = false;
+            this.dataGridViewCotizaciones.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewCotizaciones.Location = new System.Drawing.Point(6, 26);
+            this.dataGridViewCotizaciones.Name = "dataGridViewCotizaciones";
+            this.dataGridViewCotizaciones.ReadOnly = true;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCotizaciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            this.dataGridViewCotizaciones.RowHeadersVisible = false;
+            this.dataGridViewCotizaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewCotizaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCotizaciones.Size = new System.Drawing.Size(378, 164);
+            this.dataGridViewCotizaciones.TabIndex = 43;
+            this.dataGridViewCotizaciones.SelectionChanged += new System.EventHandler(this.dataGridViewCotizaciones_SelectionChanged);
             // 
             // groupBoxDetalle
             // 
-            this.groupBoxDetalle.Controls.Add(this.dataGridViewDetalle);
+            this.groupBoxDetalle.Controls.Add(this.dataGridViewDetalleCotizacion);
             this.groupBoxDetalle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBoxDetalle.Location = new System.Drawing.Point(410, 54);
             this.groupBoxDetalle.Name = "groupBoxDetalle";
             this.groupBoxDetalle.Size = new System.Drawing.Size(403, 232);
             this.groupBoxDetalle.TabIndex = 86;
             this.groupBoxDetalle.TabStop = false;
-            this.groupBoxDetalle.Text = "Detalle de Compra";
+            this.groupBoxDetalle.Text = "Detalle de Cotizacion";
             // 
-            // dataGridViewDetalle
+            // dataGridViewDetalleCotizacion
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewDetalle.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewDetalle.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewDetalle.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDetalle.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewDetalle.EnableHeadersVisualStyles = false;
-            this.dataGridViewDetalle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewDetalle.Location = new System.Drawing.Point(14, 26);
-            this.dataGridViewDetalle.Name = "dataGridViewDetalle";
-            this.dataGridViewDetalle.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalle.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewDetalle.RowHeadersVisible = false;
-            this.dataGridViewDetalle.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDetalle.Size = new System.Drawing.Size(378, 184);
-            this.dataGridViewDetalle.TabIndex = 60;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dataGridViewDetalleCotizacion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            this.dataGridViewDetalleCotizacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewDetalleCotizacion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewDetalleCotizacion.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalleCotizacion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            this.dataGridViewDetalleCotizacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDetalleCotizacion.DefaultCellStyle = dataGridViewCellStyle23;
+            this.dataGridViewDetalleCotizacion.EnableHeadersVisualStyles = false;
+            this.dataGridViewDetalleCotizacion.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewDetalleCotizacion.Location = new System.Drawing.Point(14, 26);
+            this.dataGridViewDetalleCotizacion.Name = "dataGridViewDetalleCotizacion";
+            this.dataGridViewDetalleCotizacion.ReadOnly = true;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalleCotizacion.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            this.dataGridViewDetalleCotizacion.RowHeadersVisible = false;
+            this.dataGridViewDetalleCotizacion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewDetalleCotizacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDetalleCotizacion.Size = new System.Drawing.Size(378, 184);
+            this.dataGridViewDetalleCotizacion.TabIndex = 60;
             // 
             // lblTitulo
             // 
@@ -516,6 +521,7 @@
             this.Controls.Add(this.lblTitulo);
             this.Name = "frmControlSolicitudesCotizacion";
             this.Text = "frmControlSolicitudesCotizacion";
+            this.Load += new System.EventHandler(this.frmControlSolicitudesCotizacion_Load);
             this.groupBoxAcc.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panelRechProv.ResumeLayout(false);
@@ -530,9 +536,9 @@
             this.groupBoxCompra.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).EndInit();
             this.groupBoxDetalle.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -553,18 +559,18 @@
         private System.Windows.Forms.Panel panelProveedor;
         private System.Windows.Forms.Button btnRegProv;
         private System.Windows.Forms.Panel panelRechazar;
-        private System.Windows.Forms.Button btnRechOrden;
+        private System.Windows.Forms.Button btnRechSolicitud;
         private System.Windows.Forms.Panel panelAprobar;
-        private System.Windows.Forms.Button btnAprobOrden;
+        private System.Windows.Forms.Button btnAprobSolicitud;
         private System.Windows.Forms.GroupBox groupBoxNoti;
         private System.Windows.Forms.Label labelNotificacion;
         private System.Windows.Forms.GroupBox groupBoxCompra;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RadioButton rbPendiente;
         private System.Windows.Forms.RadioButton rbFinalizado;
-        internal System.Windows.Forms.DataGridView dataGridViewCompras;
+        internal System.Windows.Forms.DataGridView dataGridViewCotizaciones;
         private System.Windows.Forms.GroupBox groupBoxDetalle;
-        internal System.Windows.Forms.DataGridView dataGridViewDetalle;
+        internal System.Windows.Forms.DataGridView dataGridViewDetalleCotizacion;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Label lblTitulo;
     }

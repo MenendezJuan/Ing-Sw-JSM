@@ -44,6 +44,11 @@ namespace BLLs.Negocio
             return _proveedorRepository.ObtenerTodos();
         }
 
+        public List<Proveedor> ObtenerProveedoresPorCategoriaProducto(Categoria categoria)
+        {
+            return _proveedorRepository.ObtenerProveedoresPorCategoriaProducto(categoria);
+        }
+
         private void ValidarProveedor(Proveedor proveedor)
         {
             if (proveedor == null)

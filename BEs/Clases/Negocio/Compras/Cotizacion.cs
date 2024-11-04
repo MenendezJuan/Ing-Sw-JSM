@@ -11,6 +11,8 @@ namespace BEs.Clases.Negocio.Compras
         public int ProveedorId { get; set; }
         public EstadoCotizacion EstadoCotizacionEnum { get; set; }
         public Proveedor Proveedor { get; set; }
-        public List<DetalleCompra> DetallesCompra { get; set; }
+        public List<DetalleCotizacion> DetallesCotizacion { get; set; }
+
+        public string DescripcionProveedor => Proveedor?.Descripcion ?? "Sin Proveedor";
     }
 }

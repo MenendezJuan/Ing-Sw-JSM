@@ -12,13 +12,17 @@ namespace MPPs.Negocio
 {
     public class MPP_COTIZACION : IRepositorio<Cotizacion>
     {
+
+        private Conexion oCnx;
+        private readonly MPP_DETALLECOTIZACION detalleCotizacionRepositorio;
+        private readonly MPP_PROVEEDOR proveedorRepository;
         public MPP_COTIZACION()
         {
             oCnx = Conexion.Instance;
+            detalleCotizacionRepositorio = new MPP_DETALLECOTIZACION();
+            proveedorRepository = new MPP_PROVEEDOR();
         }
 
-        private Conexion oCnx;
-        private readonly MPP_DETALLECOMPRA detalleCompraRepositorio = new MPP_DETALLECOMPRA();
 
         public void Insertar(Cotizacion cotizacion)
         {
@@ -29,16 +33,16 @@ namespace MPPs.Negocio
                 { "@EstadoCotizacion", (int)cotizacion.EstadoCotizacionEnum }
             };
 
-            int cotizacionId = Convert.ToInt32(oCnx.Guardar("InsertarCotizacion", parametros));
+            int cotizacionId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarCotizacion", parametros));
 
-            foreach (var detalle in cotizacion.DetallesCompra)
+            foreach (var detalle in cotizacion.DetallesCotizacion)
             {
                 detalle.CotizacionId = cotizacionId;
-                detalleCompraRepositorio.Insertar(detalle);
+                detalleCotizacionRepositorio.Insertar(detalle);
             }
         }
 
-        public void CambiarEstadoCotizacion(int cotizacionId, EstadoCotizacion nuevoEstado)
+        public bool CambiarEstadoCotizacion(int cotizacionId, EstadoCotizacion nuevoEstado)
         {
             var parametros = new Hashtable
             {
@@ -46,7 +50,7 @@ namespace MPPs.Negocio
                 { "@Estado", (int)nuevoEstado }
             };
 
-            oCnx.Guardar("ActualizarEstadoCotizacion", parametros);
+            return oCnx.Guardar("ActualizarEstadoCotizacion", parametros);
         }
 
         public void Actualizar(Cotizacion cotizacion)
@@ -60,28 +64,6 @@ namespace MPPs.Negocio
             };
 
             oCnx.Guardar("ActualizarCotizacion", parametros);
-
-            var detallesActuales = detalleCompraRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
-
-            var detallesAActualizar = cotizacion.DetallesCompra.Where(d => detallesActuales.Any(da => da.Id == d.Id)).ToList();
-            var detallesAEliminar = detallesActuales.Where(da => !cotizacion.DetallesCompra.Any(d => d.Id == da.Id)).ToList();
-            var detallesAAgregar = cotizacion.DetallesCompra.Where(d => d.Id == 0).ToList();
-
-            foreach (var detalle in detallesAEliminar)
-            {
-                detalleCompraRepositorio.Eliminar(detalle.Id);
-            }
-
-            foreach (var detalle in detallesAActualizar)
-            {
-                detalleCompraRepositorio.Actualizar(detalle);
-            }
-
-            foreach (var detalle in detallesAAgregar)
-            {
-                detalle.CotizacionId = cotizacion.Id;
-                detalleCompraRepositorio.Insertar(detalle);
-            }
         }
 
         public void Eliminar(int id)
@@ -105,7 +87,7 @@ namespace MPPs.Negocio
             if (dt.Rows.Count == 0) return null;
 
             Cotizacion cotizacion = Map(dt.Rows[0]);
-            cotizacion.DetallesCompra = detalleCompraRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
+            cotizacion.DetallesCotizacion = detalleCotizacionRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
             return cotizacion;
         }
 
@@ -117,11 +99,73 @@ namespace MPPs.Negocio
             foreach (DataRow row in dt.Rows)
             {
                 Cotizacion cotizacion = Map(row);
-                cotizacion.DetallesCompra = detalleCompraRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
+                cotizacion.DetallesCotizacion = detalleCotizacionRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
+                int proveedorId = (int)row["ProveedorId"];
+                cotizacion.Proveedor = proveedorRepository.ObtenerPorId(proveedorId);
                 cotizaciones.Add(cotizacion);
             }
             return cotizaciones;
         }
+
+        public List<Cotizacion> ObtenerCotizacionesPorFecha(DateTime desde, DateTime hasta)
+        {
+            var parametros = new Hashtable
+    {
+        { "@FechaDesde", desde },
+        { "@FechaHasta", hasta }
+    };
+
+            DataTable dt = oCnx.Leer("ObtenerCotizacionesPorFecha", parametros);
+            List<Cotizacion> cotizaciones = new List<Cotizacion>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Cotizacion cotizacion = Map(row);
+                cotizacion.DetallesCotizacion = detalleCotizacionRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
+                int proveedorId = (int)row["ProveedorId"];
+                cotizacion.Proveedor = proveedorRepository.ObtenerPorId(proveedorId);
+                cotizaciones.Add(cotizacion);
+            }
+
+            return cotizaciones;
+        }
+
+        // En MPP_COTIZACION:
+
+        public List<Cotizacion> ObtenerPorEstado(EstadoCotizacion estado)
+        {
+            var parametros = new Hashtable
+            {
+                { "@EstadoCotizacion", (int)estado }
+            };
+            DataTable dt = oCnx.Leer("ObtenerCotizacionesPorEstado", parametros);
+            return MapearCotizaciones(dt);
+        }
+
+        public List<Cotizacion> ObtenerPorEstados(List<EstadoCotizacion> estados)
+        {
+            string estadosParametros = string.Join(",", estados.Select(e => (int)e));
+            var parametros = new Hashtable
+            {
+                { "@Estados", estadosParametros }
+            };
+            DataTable dt = oCnx.Leer("ObtenerCotizacionesPorEstados", parametros);
+            return MapearCotizaciones(dt);
+        }
+
+        private List<Cotizacion> MapearCotizaciones(DataTable dt)
+        {
+            List<Cotizacion> cotizaciones = new List<Cotizacion>();
+            foreach (DataRow row in dt.Rows)
+            {
+                Cotizacion cotizacion = Map(row);
+                cotizacion.DetallesCotizacion = detalleCotizacionRepositorio.ObtenerPorCotizacionId(cotizacion.Id);
+                cotizacion.Proveedor = proveedorRepository.ObtenerPorId(cotizacion.ProveedorId);
+                cotizaciones.Add(cotizacion);
+            }
+            return cotizaciones;
+        }
+
 
         private Cotizacion Map(DataRow row)
         {

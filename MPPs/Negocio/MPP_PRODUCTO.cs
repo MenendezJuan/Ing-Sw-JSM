@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace MPPs.Negocio
 {
@@ -38,7 +39,7 @@ namespace MPPs.Negocio
                 { "@Fecha", producto.Fecha }
             };
 
-            int productoId = Convert.ToInt32(oCnx.Guardar("InsertarProducto", parametros)); // Se espera que el SP devuelva el ID
+            int productoId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProducto", parametros)); // Se espera que el SP devuelva el ID
             AsociarProductoAProveedor(productoId, proveedorId); // Asociar producto con proveedor
             return productoId;
         }
@@ -127,6 +128,41 @@ namespace MPPs.Negocio
             oCnx.Guardar("InsertarProductoProveedor", parametros);
         }
 
+        // Método para obtener productos por categoría
+        public List<Producto> ObtenerProductosPorCategoria(Categoria categoria)
+        {
+            var parametros = new Hashtable { { "@Categoria", (int)categoria } };
+            DataTable dt = oCnx.Leer("ObtenerProductosPorCategoria", parametros);
+
+            List<Producto> productos = new List<Producto>();
+            foreach (DataRow row in dt.Rows)
+            {
+                productos.Add(Map(row));
+            }
+
+            return productos;
+        }
+
+        // Método para obtener productos de un proveedor por categoría
+        public List<Producto> ObtenerProductosProveedorPorCategoria(int proveedorId, Categoria categoria)
+        {
+            var parametros = new Hashtable
+    {
+        { "@ProveedorId", proveedorId },
+        { "@Categoria", (int)categoria }
+    };
+            DataTable dt = oCnx.Leer("ObtenerProductosProveedorPorCategoria", parametros);
+
+            List<Producto> productos = new List<Producto>();
+            foreach (DataRow row in dt.Rows)
+            {
+                productos.Add(Map(row));
+            }
+
+            return productos;
+        }
+
+
         // Método auxiliar para desasociar un producto de un proveedor
         private void DesasociarProductoDeProveedor(int productoId, int proveedorId)
         {
@@ -162,6 +198,38 @@ namespace MPPs.Negocio
             }
 
             return productos;
+        }
+
+        //public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
+        //{
+        //    var categorias = new List<string>();
+
+        //    var parametros = new Hashtable { { "@ProveedorId", proveedorId } };
+        //    DataTable dt = oCnx.Leer("ObtenerCategoriasPorProveedor", parametros);
+
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        categorias.Add(row["Categoria"].ToString());
+        //    }
+
+        //    return categorias;
+        //}
+
+        public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
+        {
+            var categorias = new List<string>();
+
+            var parametros = new Hashtable { { "@ProveedorId", proveedorId } };
+            DataTable dt = oCnx.Leer("ObtenerCategoriasPorProveedor", parametros);
+
+            // Verificar si el DataTable tiene filas
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                // Usar LINQ para agregar las categorías directamente a la lista
+                categorias.AddRange(dt.AsEnumerable().Select(row => row["Categoria"].ToString()).Distinct());
+            }
+
+            return categorias;
         }
 
         // Método para mapear un DataRow a un objeto Producto

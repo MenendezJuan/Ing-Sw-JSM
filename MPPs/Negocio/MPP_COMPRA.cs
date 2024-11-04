@@ -34,7 +34,7 @@ namespace MPPs
                 { "@EstadoCompra", (int)compra.EstadoCompraEnum }
             };
 
-            int compraId = Convert.ToInt32(oCnx.Guardar("InsertarCompra", parametros));
+            int compraId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarCompra", parametros));
 
             // Insertar detalles de la compra
             foreach (var detalle in compra.oDetalleCompra)

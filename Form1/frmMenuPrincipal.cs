@@ -151,5 +151,13 @@ namespace Form1
             FormHijo(compraProductos);
             HideSubMenu();
         }
+
+        private void gestionIdiomasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMenuAdmin gestorIdiomas = new frmMenuAdmin();
+            AddOwnedForm(gestorIdiomas);
+            FormHijo(gestorIdiomas);
+            HideSubMenu();
+        }
     }
 }

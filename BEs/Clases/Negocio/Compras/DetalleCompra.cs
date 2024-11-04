@@ -7,7 +7,6 @@ namespace BEs.Clases.Negocio
     {
         public int Id { get; set; }
         public int CompraId { get; set; }
-        public int? CotizacionId { get; set; }
         public Compra oCompra { get; set; }
         public int ProductoId { get; set; }
         public Producto oProducto { get; set; }

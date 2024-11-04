@@ -1,5 +1,4 @@
-﻿using BEs.Clases.Negocio;
-using BEs.Clases.Negocio.Compras;
+﻿using BEs.Clases.Negocio.Compras;
 using BEs.Clases.Negocio.Enums;
 using MPPs.Negocio;
 using System;
@@ -11,12 +10,12 @@ namespace BLLs.Negocio
     public class BLL_COTIZACION
     {
         private readonly MPP_COTIZACION cotizacionRepository;
-        private readonly MPP_DETALLECOMPRA detalleCompraRepository;
+        private readonly MPP_DETALLECOTIZACION detalleCotizacionRepository;
 
         public BLL_COTIZACION()
         {
             cotizacionRepository = new MPP_COTIZACION();
-            detalleCompraRepository = new MPP_DETALLECOMPRA();
+            detalleCotizacionRepository = new MPP_DETALLECOTIZACION();
         }
 
         // Método para insertar una nueva cotización
@@ -27,7 +26,7 @@ namespace BLLs.Negocio
             cotizacionRepository.Insertar(cotizacion);
         }
 
-        public void EvaluarYActualizarEstadoCotizacion(int cotizacionId, EstadoCotizacion nuevoEstado)
+        public bool EvaluarYActualizarEstadoCotizacion(int cotizacionId, EstadoCotizacion nuevoEstado)
         {
             var cotizacion = cotizacionRepository.ObtenerPorId(cotizacionId);
             if (cotizacion == null)
@@ -36,7 +35,7 @@ namespace BLLs.Negocio
             if (cotizacion.EstadoCotizacionEnum == EstadoCotizacion.Aprobada || cotizacion.EstadoCotizacionEnum == EstadoCotizacion.Rechazada)
                 throw new InvalidOperationException("No se puede cambiar el estado de una cotización que ya fue aprobada o rechazada.");
 
-            cotizacionRepository.CambiarEstadoCotizacion(cotizacionId, nuevoEstado);
+            return cotizacionRepository.CambiarEstadoCotizacion(cotizacionId, nuevoEstado);
         }
 
         // Método para actualizar una cotización existente
@@ -47,25 +46,25 @@ namespace BLLs.Negocio
             cotizacionRepository.Actualizar(cotizacion);
 
             // Actualización de los detalles de la cotización
-            var detallesActuales = detalleCompraRepository.ObtenerPorCotizacionId(cotizacion.Id);
-            var detallesAActualizar = cotizacion.DetallesCompra.Where(d => detallesActuales.Any(da => da.Id == d.Id)).ToList();
-            var detallesAEliminar = detallesActuales.Where(da => !cotizacion.DetallesCompra.Any(d => d.Id == da.Id)).ToList();
-            var detallesAAgregar = cotizacion.DetallesCompra.Where(d => d.Id == 0).ToList();
+            var detallesActuales = detalleCotizacionRepository.ObtenerPorCotizacionId(cotizacion.Id);
+            var detallesAActualizar = cotizacion.DetallesCotizacion.Where(d => detallesActuales.Any(da => da.Id == d.Id)).ToList();
+            var detallesAEliminar = detallesActuales.Where(da => !cotizacion.DetallesCotizacion.Any(d => d.Id == da.Id)).ToList();
+            var detallesAAgregar = cotizacion.DetallesCotizacion.Where(d => d.Id == 0).ToList();
 
             foreach (var detalle in detallesAEliminar)
             {
-                detalleCompraRepository.Eliminar(detalle.Id);
+                detalleCotizacionRepository.Eliminar(detalle.Id);
             }
 
             foreach (var detalle in detallesAActualizar)
             {
-                detalleCompraRepository.Actualizar(detalle);
+                detalleCotizacionRepository.Actualizar(detalle);
             }
 
             foreach (var detalle in detallesAAgregar)
             {
                 detalle.CotizacionId = cotizacion.Id;
-                detalleCompraRepository.Insertar(detalle);
+                detalleCotizacionRepository.Insertar(detalle);
             }
         }
 
@@ -78,9 +77,9 @@ namespace BLLs.Negocio
             var cotizacion = cotizacionRepository.ObtenerPorId(id);
             if (cotizacion != null)
             {
-                foreach (var detalle in cotizacion.DetallesCompra)
+                foreach (var detalle in cotizacion.DetallesCotizacion)
                 {
-                    detalleCompraRepository.Eliminar(detalle.Id);
+                    detalleCotizacionRepository.Eliminar(detalle.Id);
                 }
                 cotizacionRepository.Eliminar(id);
             }
@@ -99,9 +98,26 @@ namespace BLLs.Negocio
         }
 
         // Método para obtener los detalles de una cotización específica por CotizacionId
-        public List<DetalleCompra> ObtenerDetallesPorCotizacionId(int cotizacionId)
+        public List<DetalleCotizacion> ObtenerDetallesPorCotizacionId(int cotizacionId)
         {
-            return detalleCompraRepository.ObtenerPorCotizacionId(cotizacionId);
+            return detalleCotizacionRepository.ObtenerPorCotizacionId(cotizacionId);
+        }
+
+        public List<Cotizacion> ObtenerCotizacionesPorFecha(DateTime desde, DateTime hasta)
+        {
+            return cotizacionRepository.ObtenerCotizacionesPorFecha(desde, hasta);
+        }
+
+        // Método para obtener cotizaciones por un único estado
+        public List<Cotizacion> ObtenerPorEstado(EstadoCotizacion estado)
+        {
+            return cotizacionRepository.ObtenerPorEstado(estado);
+        }
+
+        // Método para obtener cotizaciones por múltiples estados
+        public List<Cotizacion> ObtenerPorEstados(List<EstadoCotizacion> estados)
+        {
+            return cotizacionRepository.ObtenerPorEstados(estados);
         }
 
         // Método de validación para verificar la integridad de la cotización antes de insertar o actualizar
@@ -113,10 +129,10 @@ namespace BLLs.Negocio
             if (cotizacion.ProveedorId <= 0)
                 throw new ArgumentException("Proveedor inválido.");
 
-            if (cotizacion.DetallesCompra == null || !cotizacion.DetallesCompra.Any())
+            if (cotizacion.DetallesCotizacion == null || !cotizacion.DetallesCotizacion.Any())
                 throw new ArgumentException("La cotización debe tener al menos un detalle.");
 
-            foreach (var detalle in cotizacion.DetallesCompra)
+            foreach (var detalle in cotizacion.DetallesCotizacion)
             {
                 if (detalle.Cantidad <= 0)
                     throw new ArgumentException("La cantidad en el detalle debe ser mayor a cero.");

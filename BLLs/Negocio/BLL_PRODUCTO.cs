@@ -3,6 +3,7 @@ using MPPs;
 using MPPs.Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLLs.Negocio
 {
@@ -46,6 +47,31 @@ namespace BLLs.Negocio
         public List<Producto> ObtenerTodos()
         {
             return _productoRepository.ObtenerTodos();
+        }
+
+        public List<Producto> ObtenerProductosPorCategoria(Categoria categoria)
+        {
+            return _productoRepository.ObtenerProductosPorCategoria(categoria);
+        }
+
+        public List<Producto> ObtenerProductosProveedorPorCategoria(int proveedorId, Categoria categoria)
+        {
+            ValidarProveedor(proveedorId);
+            return _productoRepository.ObtenerProductosProveedorPorCategoria(proveedorId, categoria);
+        }
+
+        public List<Categoria> ObtenerCategoriasPorProveedor(int proveedorId)
+        {
+            ValidarProveedor(proveedorId);
+            var categoriasStrings = _productoRepository.ObtenerCategoriasPorProveedor(proveedorId);
+
+            var categorias = categoriasStrings
+                .Select(categoriaString => Enum.TryParse<Categoria>(categoriaString, out var categoria) ? categoria : (Categoria?)null)
+                .Where(categoria => categoria.HasValue)
+                .Select(categoria => categoria.Value)
+                .ToList();
+
+            return categorias;
         }
 
         private void ValidarProducto(Producto producto)
