@@ -85,7 +85,10 @@
             // button_Agregar
             // 
             this.button_Agregar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Agregar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Agregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Agregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Agregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Agregar.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_Agregar.Location = new System.Drawing.Point(25, 30);
             this.button_Agregar.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_Agregar.Name = "button_Agregar";
@@ -93,13 +96,16 @@
             this.button_Agregar.TabIndex = 1;
             this.button_Agregar.Tag = "Button_Agregar_GPer";
             this.button_Agregar.Text = "Agregar";
-            this.button_Agregar.UseVisualStyleBackColor = true;
+            this.button_Agregar.UseVisualStyleBackColor = false;
             this.button_Agregar.Click += new System.EventHandler(this.button_Agregar_Click);
             // 
             // button_Salir
             // 
             this.button_Salir.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Salir.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Salir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Salir.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_Salir.Location = new System.Drawing.Point(123, 596);
             this.button_Salir.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_Salir.Name = "button_Salir";
@@ -107,7 +113,7 @@
             this.button_Salir.TabIndex = 4;
             this.button_Salir.Tag = "Button_Salir_GPer";
             this.button_Salir.Text = "Salir";
-            this.button_Salir.UseVisualStyleBackColor = true;
+            this.button_Salir.UseVisualStyleBackColor = false;
             this.button_Salir.Click += new System.EventHandler(this.button_Salir_Click);
             // 
             // comboBox_Grupos
@@ -140,12 +146,12 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Gainsboro;
             this.label7.Location = new System.Drawing.Point(2, 0);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(123, 17);
+            this.label7.Size = new System.Drawing.Size(135, 15);
             this.label7.TabIndex = 46;
             this.label7.Tag = "Label_SelecIdioma_GPer";
             this.label7.Text = "Seleccionar idioma:";
@@ -180,7 +186,10 @@
             // button_CrearGrupo
             // 
             this.button_CrearGrupo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_CrearGrupo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_CrearGrupo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_CrearGrupo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_CrearGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_CrearGrupo.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_CrearGrupo.Location = new System.Drawing.Point(120, 216);
             this.button_CrearGrupo.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_CrearGrupo.Name = "button_CrearGrupo";
@@ -188,7 +197,7 @@
             this.button_CrearGrupo.TabIndex = 48;
             this.button_CrearGrupo.Tag = "Button_CrearGrupo_GPer";
             this.button_CrearGrupo.Text = "Crear Grupo";
-            this.button_CrearGrupo.UseVisualStyleBackColor = true;
+            this.button_CrearGrupo.UseVisualStyleBackColor = false;
             this.button_CrearGrupo.Click += new System.EventHandler(this.button_CrearGrupo_Click);
             // 
             // textBox_Nombre
@@ -219,12 +228,12 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label3.Location = new System.Drawing.Point(151, 0);
+            this.label3.Location = new System.Drawing.Point(149, 1);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 17);
+            this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 52;
             this.label3.Tag = "Label_Permisos_GPer";
             this.label3.Text = "Permisos";
@@ -244,7 +253,10 @@
             // button_Borrar
             // 
             this.button_Borrar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Borrar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Borrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Borrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Borrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Borrar.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_Borrar.Location = new System.Drawing.Point(208, 30);
             this.button_Borrar.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_Borrar.Name = "button_Borrar";
@@ -252,13 +264,16 @@
             this.button_Borrar.TabIndex = 53;
             this.button_Borrar.Tag = "Button_Borrar_GPer";
             this.button_Borrar.Text = "Borrar";
-            this.button_Borrar.UseVisualStyleBackColor = true;
+            this.button_Borrar.UseVisualStyleBackColor = false;
             this.button_Borrar.Click += new System.EventHandler(this.button_Borrar_Click);
             // 
             // button_BorrarGrupo
             // 
             this.button_BorrarGrupo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_BorrarGrupo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_BorrarGrupo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_BorrarGrupo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_BorrarGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_BorrarGrupo.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_BorrarGrupo.Location = new System.Drawing.Point(58, 69);
             this.button_BorrarGrupo.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_BorrarGrupo.Name = "button_BorrarGrupo";
@@ -266,7 +281,7 @@
             this.button_BorrarGrupo.TabIndex = 54;
             this.button_BorrarGrupo.Tag = "Button_BorrarGrupo_GPer";
             this.button_BorrarGrupo.Text = "Borrar Grupo";
-            this.button_BorrarGrupo.UseVisualStyleBackColor = true;
+            this.button_BorrarGrupo.UseVisualStyleBackColor = false;
             this.button_BorrarGrupo.Click += new System.EventHandler(this.button_BorrarGrupo_Click);
             // 
             // label4
@@ -312,12 +327,12 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label5.Location = new System.Drawing.Point(117, 6);
+            this.label5.Location = new System.Drawing.Point(112, 7);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(138, 17);
+            this.label5.Size = new System.Drawing.Size(148, 15);
             this.label5.TabIndex = 58;
             this.label5.Tag = "Label_PermisosAsignados_GPer";
             this.label5.Text = "Permisos de Usuarios";
@@ -325,7 +340,10 @@
             // button_AsignarGrupo
             // 
             this.button_AsignarGrupo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_AsignarGrupo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_AsignarGrupo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_AsignarGrupo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_AsignarGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_AsignarGrupo.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_AsignarGrupo.Location = new System.Drawing.Point(120, 219);
             this.button_AsignarGrupo.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_AsignarGrupo.Name = "button_AsignarGrupo";
@@ -333,27 +351,33 @@
             this.button_AsignarGrupo.TabIndex = 59;
             this.button_AsignarGrupo.Tag = "Button_AsignarGrupo_GPer";
             this.button_AsignarGrupo.Text = "Asignar Grupo";
-            this.button_AsignarGrupo.UseVisualStyleBackColor = true;
+            this.button_AsignarGrupo.UseVisualStyleBackColor = false;
             this.button_AsignarGrupo.Click += new System.EventHandler(this.button_AsignarGrupo_Click);
             // 
             // button_DesasignarGrupo
             // 
             this.button_DesasignarGrupo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_DesasignarGrupo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_DesasignarGrupo.Location = new System.Drawing.Point(120, 98);
+            this.button_DesasignarGrupo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_DesasignarGrupo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_DesasignarGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_DesasignarGrupo.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button_DesasignarGrupo.Location = new System.Drawing.Point(120, 90);
             this.button_DesasignarGrupo.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_DesasignarGrupo.Name = "button_DesasignarGrupo";
-            this.button_DesasignarGrupo.Size = new System.Drawing.Size(131, 48);
+            this.button_DesasignarGrupo.Size = new System.Drawing.Size(131, 64);
             this.button_DesasignarGrupo.TabIndex = 61;
             this.button_DesasignarGrupo.Tag = "Button_DesAsignarGrupo_GPer";
             this.button_DesasignarGrupo.Text = "Desasignar Grupo";
-            this.button_DesasignarGrupo.UseVisualStyleBackColor = true;
+            this.button_DesasignarGrupo.UseVisualStyleBackColor = false;
             this.button_DesasignarGrupo.Click += new System.EventHandler(this.button_DesasignarGrupo_Click);
             // 
             // button_LimpiarArbol
             // 
             this.button_LimpiarArbol.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_LimpiarArbol.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_LimpiarArbol.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_LimpiarArbol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_LimpiarArbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_LimpiarArbol.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_LimpiarArbol.Location = new System.Drawing.Point(563, 596);
             this.button_LimpiarArbol.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_LimpiarArbol.Name = "button_LimpiarArbol";
@@ -361,7 +385,7 @@
             this.button_LimpiarArbol.TabIndex = 62;
             this.button_LimpiarArbol.Tag = "Button_LimpiarArbol_GPer";
             this.button_LimpiarArbol.Text = "Limpiar Arbol";
-            this.button_LimpiarArbol.UseVisualStyleBackColor = true;
+            this.button_LimpiarArbol.UseVisualStyleBackColor = false;
             this.button_LimpiarArbol.Click += new System.EventHandler(this.button_LimpiarArbol_Click);
             // 
             // tableLayoutPanel1
@@ -369,7 +393,7 @@
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));

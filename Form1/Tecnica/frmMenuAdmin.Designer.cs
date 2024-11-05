@@ -47,8 +47,10 @@
             // button_Usuarios
             // 
             this.button_Usuarios.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Usuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button_Usuarios.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Usuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Usuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Usuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Usuarios.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_Usuarios.Location = new System.Drawing.Point(18, 48);
             this.button_Usuarios.Margin = new System.Windows.Forms.Padding(2);
             this.button_Usuarios.Name = "button_Usuarios";
@@ -63,12 +65,14 @@
             // button_Bitacora
             // 
             this.button_Bitacora.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Bitacora.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button_Bitacora.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Bitacora.Location = new System.Drawing.Point(283, 53);
+            this.button_Bitacora.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Bitacora.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Bitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Bitacora.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button_Bitacora.Location = new System.Drawing.Point(283, 48);
             this.button_Bitacora.Margin = new System.Windows.Forms.Padding(2);
             this.button_Bitacora.Name = "button_Bitacora";
-            this.button_Bitacora.Size = new System.Drawing.Size(88, 73);
+            this.button_Bitacora.Size = new System.Drawing.Size(88, 82);
             this.button_Bitacora.TabIndex = 2;
             this.button_Bitacora.Tag = "Button_GestionBitacora_FormIni";
             this.button_Bitacora.Text = "Gestion de bitacora";
@@ -79,8 +83,10 @@
             // button_Salir
             // 
             this.button_Salir.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Salir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button_Salir.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Salir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Salir.ForeColor = System.Drawing.Color.Gainsboro;
             this.button_Salir.Location = new System.Drawing.Point(488, 440);
             this.button_Salir.Margin = new System.Windows.Forms.Padding(2);
             this.button_Salir.Name = "button_Salir";
@@ -94,12 +100,14 @@
             // button_Permisos
             // 
             this.button_Permisos.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Permisos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button_Permisos.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Permisos.Location = new System.Drawing.Point(152, 49);
+            this.button_Permisos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.button_Permisos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Permisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Permisos.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button_Permisos.Location = new System.Drawing.Point(152, 48);
             this.button_Permisos.Margin = new System.Windows.Forms.Padding(2);
             this.button_Permisos.Name = "button_Permisos";
-            this.button_Permisos.Size = new System.Drawing.Size(88, 81);
+            this.button_Permisos.Size = new System.Drawing.Size(88, 83);
             this.button_Permisos.TabIndex = 5;
             this.button_Permisos.Tag = "Button_GestionPermisos_FormIni";
             this.button_Permisos.Text = "Gestion de Permiso";
@@ -111,11 +119,12 @@
             // 
             this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSeleccionarIdioma.AutoSize = true;
-            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(20, 67);
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(18, 71);
             this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(89, 40);
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(94, 32);
             this.lblSeleccionarIdioma.TabIndex = 46;
             this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
             this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
@@ -137,8 +146,10 @@
             // btnIdioma
             // 
             this.btnIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnIdioma.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnIdioma.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIdioma.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIdioma.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnIdioma.Location = new System.Drawing.Point(412, 48);
             this.btnIdioma.Margin = new System.Windows.Forms.Padding(2);
             this.btnIdioma.Name = "btnIdioma";
@@ -152,6 +163,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -212,13 +224,14 @@
             // 
             this.label_MenuAdmin.AutoSize = true;
             this.label_MenuAdmin.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_MenuAdmin.ForeColor = System.Drawing.Color.Gainsboro;
             this.label_MenuAdmin.Location = new System.Drawing.Point(3, 0);
             this.label_MenuAdmin.Name = "label_MenuAdmin";
             this.label_MenuAdmin.Size = new System.Drawing.Size(128, 25);
             this.label_MenuAdmin.TabIndex = 50;
             this.label_MenuAdmin.Text = "Menú Admin";
             // 
-            // MenuInicio
+            // frmMenuAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -226,7 +239,7 @@
             this.ClientSize = new System.Drawing.Size(1066, 544);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "MenuInicio";
+            this.Name = "frmMenuAdmin";
             this.ShowIcon = false;
             this.Tag = "Form_MenuInicio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuInicio_FormClosing);
