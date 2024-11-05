@@ -221,6 +221,7 @@
             this.lblTxtProveedor.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblTxtProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTxtProveedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.lblTxtProveedor.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTxtProveedor.Location = new System.Drawing.Point(0, 0);
             this.lblTxtProveedor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTxtProveedor.Name = "lblTxtProveedor";
@@ -271,6 +272,7 @@
             this.lblTxtFech.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblTxtFech.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTxtFech.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.lblTxtFech.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTxtFech.Location = new System.Drawing.Point(0, 0);
             this.lblTxtFech.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTxtFech.Name = "lblTxtFech";
@@ -442,10 +444,10 @@
             // textBoxComentario
             // 
             this.textBoxComentario.Dock = System.Windows.Forms.DockStyle.Right;
-            this.textBoxComentario.Location = new System.Drawing.Point(5, 0);
+            this.textBoxComentario.Location = new System.Drawing.Point(172, 0);
             this.textBoxComentario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxComentario.Name = "textBoxComentario";
-            this.textBoxComentario.Size = new System.Drawing.Size(390, 26);
+            this.textBoxComentario.Size = new System.Drawing.Size(223, 26);
             this.textBoxComentario.TabIndex = 82;
             // 
             // dataGridViewCotizaciones
@@ -539,6 +541,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Left;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
@@ -589,6 +592,7 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Left;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
