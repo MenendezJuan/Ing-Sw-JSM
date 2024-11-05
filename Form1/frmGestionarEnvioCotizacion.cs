@@ -86,11 +86,6 @@ namespace Form1
                 return;
             }
 
-            if (btnG.Checked)
-            {
-                cantidad /= 1000;
-            }
-
             Producto producto = (Producto)comboBoxProducto.SelectedItem;
 
             DetalleCotizacion detalle = new DetalleCotizacion
@@ -255,18 +250,10 @@ namespace Form1
             if (comboBoxProducto.SelectedValue != null)
             {
                 textBoxCantidad.Enabled = true;
-
-                // Habilita los RadioButtons
-                btnG.Enabled = true;
-                btnK.Enabled = true;
-
-                btnG.Checked = true;
             }
             else
             {
                 textBoxCantidad.Enabled = false;
-                btnG.Enabled = false;
-                btnK.Enabled = false;
             }
         }
 
