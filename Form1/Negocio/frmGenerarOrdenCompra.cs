@@ -245,5 +245,10 @@ namespace Form1
                 ActualizarDataGridViewDetalle(compraSeleccionada.oDetalleCompra);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
