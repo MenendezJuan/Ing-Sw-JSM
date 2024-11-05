@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvTraducciones = new System.Windows.Forms.DataGridView();
             this.tboxPalabra = new System.Windows.Forms.TextBox();
             this.tboxTraduccion = new System.Windows.Forms.TextBox();
@@ -51,6 +53,9 @@
             this.dgvTraducciones.AllowUserToDeleteRows = false;
             this.dgvTraducciones.AllowUserToResizeColumns = false;
             this.dgvTraducciones.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dgvTraducciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTraducciones.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvTraducciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTraducciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -217,6 +222,10 @@
             this.dgvPalabras.AllowUserToDeleteRows = false;
             this.dgvPalabras.AllowUserToResizeColumns = false;
             this.dgvPalabras.AllowUserToResizeRows = false;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dgvPalabras.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPalabras.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvPalabras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPalabras.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
