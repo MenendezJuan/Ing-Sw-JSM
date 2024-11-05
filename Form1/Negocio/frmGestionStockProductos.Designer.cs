@@ -28,12 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.lblTituloProductos = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // lblTituloProductos
+            // 
+            this.lblTituloProductos.AutoSize = true;
+            this.lblTituloProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lblTituloProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.lblTituloProductos.Location = new System.Drawing.Point(12, 18);
+            this.lblTituloProductos.Name = "lblTituloProductos";
+            this.lblTituloProductos.Size = new System.Drawing.Size(189, 25);
+            this.lblTituloProductos.TabIndex = 101;
+            this.lblTituloProductos.Text = "Gestionar Productos";
+            // 
+            // frmGestionStockProductos
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.ClientSize = new System.Drawing.Size(1071, 568);
+            this.Controls.Add(this.lblTituloProductos);
+            this.ForeColor = System.Drawing.SystemColors.Control;
+            this.Name = "frmGestionStockProductos";
             this.Text = "GestionStockProductos";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label lblTituloProductos;
     }
 }

@@ -143,6 +143,9 @@
     <EmbeddedResource Include="Negocio\frmGestionarEnvioCotizacion.resx">
       <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\frmGestionStockProductos.resx">
+      <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tecnica\frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </EmbeddedResource>
