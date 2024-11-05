@@ -369,7 +369,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblTitulo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 2);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -389,7 +389,7 @@
             this.tableLayoutPanel2.Controls.Add(this.groupBoxBuscar, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.groupBoxDetalle, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(408, 52);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -407,7 +407,7 @@
             this.tableLayoutPanel3.Controls.Add(this.groupBoxCompra, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnSolicitarCotizacion, 0, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 52);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
