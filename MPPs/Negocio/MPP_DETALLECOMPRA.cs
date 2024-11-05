@@ -19,13 +19,13 @@ namespace MPPs.Negocio
 
         public void Insertar(DetalleCompra detalleCompra)
         {
-            detalleCompra.SubTotal = detalleCompra.Cantidad * detalleCompra.oProducto.PrecioCompra;
+            //detalleCompra.SubTotal = detalleCompra.Cantidad * detalleCompra.oProducto.PrecioCompra;
 
             var parametros = new Hashtable
             {
                 { "@ProductoId", detalleCompra.oProducto.Id },
                 { "@Cantidad", detalleCompra.Cantidad },
-                { "@CompraId", detalleCompra.oCompra.Id },
+                { "@CompraId", detalleCompra.CompraId},
                 { "@Precio", detalleCompra.Precio },
                 { "@SubTotal", detalleCompra.SubTotal },
                 { "@Fecha", detalleCompra.Fecha }

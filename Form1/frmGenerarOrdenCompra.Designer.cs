@@ -33,11 +33,18 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnPago = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewLista = new System.Windows.Forms.DataGridView();
-            this.btnEliminar = new System.Windows.Forms.Button();
+            this.dataGridViewCompra = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblProveedor = new System.Windows.Forms.Label();
             this.labelP1 = new System.Windows.Forms.Label();
@@ -51,51 +58,39 @@
             this.lblSimbolo = new System.Windows.Forms.Label();
             this.labelP3 = new System.Windows.Forms.Label();
             this.lblTxtTotal = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.comboBoxMarca = new System.Windows.Forms.ComboBox();
-            this.lblTxtMarca = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.lblMedidaPr = new System.Windows.Forms.Label();
-            this.lblP = new System.Windows.Forms.Label();
-            this.lbltxtFor = new System.Windows.Forms.Label();
-            this.textBoxPrecio = new System.Windows.Forms.TextBox();
-            this.lblTxtPrecio = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.btnG = new System.Windows.Forms.RadioButton();
-            this.btnK = new System.Windows.Forms.RadioButton();
-            this.textBoxCantidad = new System.Windows.Forms.TextBox();
-            this.lblTxtCantidad = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.comboBoxProv = new System.Windows.Forms.ComboBox();
-            this.lblTxtProv = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.comboBoxRubro = new System.Windows.Forms.ComboBox();
-            this.lblTxtRubro = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.cbPago = new System.Windows.Forms.ComboBox();
-            this.lblTxtPago = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.comboBoxProducto = new System.Windows.Forms.ComboBox();
-            this.lblTxtProducto = new System.Windows.Forms.Label();
-            this.btnGenerar = new System.Windows.Forms.Button();
+            this.btnGenerarOrdenCompra = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridViewCotizaciones = new System.Windows.Forms.DataGridView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dataGridViewDetalles = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelFecha = new System.Windows.Forms.Label();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelProv = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxComentario = new System.Windows.Forms.TextBox();
+            this.labelComentarios = new System.Windows.Forms.Label();
+            this.lblTxtPago = new System.Windows.Forms.Label();
+            this.cbPago = new System.Windows.Forms.ComboBox();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLista)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompra)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel8.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel9.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalles)).BeginInit();
+            this.panel13.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPago
@@ -107,12 +102,13 @@
             this.btnPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPago.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnPago.Location = new System.Drawing.Point(120, 487);
+            this.btnPago.Location = new System.Drawing.Point(342, 323);
             this.btnPago.Name = "btnPago";
-            this.btnPago.Size = new System.Drawing.Size(148, 37);
+            this.btnPago.Size = new System.Drawing.Size(302, 37);
             this.btnPago.TabIndex = 82;
             this.btnPago.Text = "Realizar Pago";
             this.btnPago.UseVisualStyleBackColor = true;
+            this.btnPago.Click += new System.EventHandler(this.btnPago_Click);
             // 
             // btnCerrar
             // 
@@ -124,7 +120,7 @@
             this.btnCerrar.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(702, 459);
+            this.btnCerrar.Location = new System.Drawing.Point(1520, 547);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCerrar.Size = new System.Drawing.Size(95, 30);
@@ -135,25 +131,27 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridViewLista);
-            this.groupBox3.Controls.Add(this.btnEliminar);
+            this.groupBox3.Controls.Add(this.dataGridViewCompra);
+            this.groupBox3.Controls.Add(this.btnPago);
             this.groupBox3.Controls.Add(this.panel1);
             this.groupBox3.Controls.Add(this.panel2);
             this.groupBox3.Controls.Add(this.panel3);
-            this.groupBox3.Location = new System.Drawing.Point(17, 31);
+            this.groupBox3.ForeColor = System.Drawing.Color.Gainsboro;
+            this.groupBox3.Location = new System.Drawing.Point(501, 31);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(395, 366);
+            this.groupBox3.Size = new System.Drawing.Size(662, 393);
             this.groupBox3.TabIndex = 103;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Ordenes de Compra";
             // 
-            // dataGridViewLista
+            // dataGridViewCompra
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewLista.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewLista.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewLista.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewLista.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewCompra.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewCompra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCompra.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewCompra.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.IndianRed;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -161,21 +159,21 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewLista.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewLista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCompra.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewLista.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewLista.EnableHeadersVisualStyles = false;
-            this.dataGridViewLista.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewLista.Location = new System.Drawing.Point(9, 19);
-            this.dataGridViewLista.Name = "dataGridViewLista";
-            this.dataGridViewLista.ReadOnly = true;
+            this.dataGridViewCompra.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewCompra.EnableHeadersVisualStyles = false;
+            this.dataGridViewCompra.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewCompra.Location = new System.Drawing.Point(9, 19);
+            this.dataGridViewCompra.Name = "dataGridViewCompra";
+            this.dataGridViewCompra.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -183,28 +181,13 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewLista.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewLista.RowHeadersVisible = false;
-            this.dataGridViewLista.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewLista.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewLista.Size = new System.Drawing.Size(378, 223);
-            this.dataGridViewLista.TabIndex = 84;
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnEliminar.FlatAppearance.BorderSize = 2;
-            this.btnEliminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnEliminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnEliminar.Location = new System.Drawing.Point(272, 261);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(103, 74);
-            this.btnEliminar.TabIndex = 78;
-            this.btnEliminar.Text = "Eliminar de  Lista";
-            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.dataGridViewCompra.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewCompra.RowHeadersVisible = false;
+            this.dataGridViewCompra.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewCompra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCompra.Size = new System.Drawing.Size(635, 223);
+            this.dataGridViewCompra.TabIndex = 84;
+            this.dataGridViewCompra.SelectionChanged += new System.EventHandler(this.dataGridViewCompra_SelectionChanged);
             // 
             // panel1
             // 
@@ -357,307 +340,270 @@
             this.lblTxtTotal.Text = "Total";
             this.lblTxtTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // groupBox1
+            // btnGenerarOrdenCompra
             // 
-            this.groupBox1.Controls.Add(this.panel11);
-            this.groupBox1.Controls.Add(this.panel10);
-            this.groupBox1.Controls.Add(this.btnAdd);
-            this.groupBox1.Controls.Add(this.panel6);
-            this.groupBox1.Controls.Add(this.panel7);
-            this.groupBox1.Controls.Add(this.panel5);
-            this.groupBox1.Controls.Add(this.panel9);
-            this.groupBox1.Controls.Add(this.panel4);
-            this.groupBox1.Location = new System.Drawing.Point(417, 31);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 366);
-            this.groupBox1.TabIndex = 102;
-            this.groupBox1.TabStop = false;
+            this.btnGenerarOrdenCompra.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnGenerarOrdenCompra.FlatAppearance.BorderSize = 2;
+            this.btnGenerarOrdenCompra.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnGenerarOrdenCompra.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnGenerarOrdenCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarOrdenCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerarOrdenCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnGenerarOrdenCompra.Location = new System.Drawing.Point(76, 448);
+            this.btnGenerarOrdenCompra.Name = "btnGenerarOrdenCompra";
+            this.btnGenerarOrdenCompra.Size = new System.Drawing.Size(257, 37);
+            this.btnGenerarOrdenCompra.TabIndex = 101;
+            this.btnGenerarOrdenCompra.Text = "Generar Orden de Compra";
+            this.btnGenerarOrdenCompra.UseVisualStyleBackColor = true;
+            this.btnGenerarOrdenCompra.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
-            // panel11
+            // lblTitulo
             // 
-            this.panel11.Controls.Add(this.comboBoxMarca);
-            this.panel11.Controls.Add(this.lblTxtMarca);
-            this.panel11.Location = new System.Drawing.Point(3, 93);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(372, 39);
-            this.panel11.TabIndex = 93;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.lblTitulo.Location = new System.Drawing.Point(21, 3);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(157, 25);
+            this.lblTitulo.TabIndex = 100;
+            this.lblTitulo.Text = "Agregar Compra";
             // 
-            // comboBoxMarca
+            // groupBox2
             // 
-            this.comboBoxMarca.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxMarca.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.comboBoxMarca.Enabled = false;
-            this.comboBoxMarca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxMarca.FormattingEnabled = true;
-            this.comboBoxMarca.Location = new System.Drawing.Point(125, 9);
-            this.comboBoxMarca.Name = "comboBoxMarca";
-            this.comboBoxMarca.Size = new System.Drawing.Size(223, 24);
-            this.comboBoxMarca.TabIndex = 81;
+            this.groupBox2.Controls.Add(this.panel9);
+            this.groupBox2.Controls.Add(this.panel4);
+            this.groupBox2.Controls.Add(this.dataGridViewCotizaciones);
+            this.groupBox2.Controls.Add(this.panel12);
+            this.groupBox2.Controls.Add(this.btnGenerarOrdenCompra);
+            this.groupBox2.Controls.Add(this.panel13);
+            this.groupBox2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.groupBox2.Location = new System.Drawing.Point(70, 31);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(395, 523);
+            this.groupBox2.TabIndex = 104;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Cotizaciones";
             // 
-            // lblTxtMarca
+            // dataGridViewCotizaciones
             // 
-            this.lblTxtMarca.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtMarca.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtMarca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtMarca.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtMarca.Name = "lblTxtMarca";
-            this.lblTxtMarca.Size = new System.Drawing.Size(119, 39);
-            this.lblTxtMarca.TabIndex = 80;
-            this.lblTxtMarca.Text = "Marca";
-            this.lblTxtMarca.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dataGridViewCotizaciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewCotizaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCotizaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewCotizaciones.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCotizaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewCotizaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCotizaciones.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewCotizaciones.EnableHeadersVisualStyles = false;
+            this.dataGridViewCotizaciones.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewCotizaciones.Location = new System.Drawing.Point(9, 19);
+            this.dataGridViewCotizaciones.Name = "dataGridViewCotizaciones";
+            this.dataGridViewCotizaciones.ReadOnly = true;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCotizaciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewCotizaciones.RowHeadersVisible = false;
+            this.dataGridViewCotizaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewCotizaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCotizaciones.Size = new System.Drawing.Size(378, 223);
+            this.dataGridViewCotizaciones.TabIndex = 84;
+            this.dataGridViewCotizaciones.SelectionChanged += new System.EventHandler(this.dataGridViewCotizaciones_SelectionChanged);
             // 
-            // panel10
+            // groupBox4
             // 
-            this.panel10.Controls.Add(this.panel8);
-            this.panel10.Controls.Add(this.textBoxPrecio);
-            this.panel10.Controls.Add(this.lblTxtPrecio);
-            this.panel10.Location = new System.Drawing.Point(4, 171);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(372, 39);
-            this.panel10.TabIndex = 92;
+            this.groupBox4.Controls.Add(this.dataGridViewDetalles);
+            this.groupBox4.ForeColor = System.Drawing.Color.Gainsboro;
+            this.groupBox4.Location = new System.Drawing.Point(1226, 31);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(408, 264);
+            this.groupBox4.TabIndex = 104;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Detalles de Compra";
             // 
-            // panel8
+            // dataGridViewDetalles
             // 
-            this.panel8.Controls.Add(this.lblMedidaPr);
-            this.panel8.Controls.Add(this.lblP);
-            this.panel8.Controls.Add(this.lbltxtFor);
-            this.panel8.Location = new System.Drawing.Point(274, 6);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(95, 36);
-            this.panel8.TabIndex = 94;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dataGridViewDetalles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridViewDetalles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewDetalles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewDetalles.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridViewDetalles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDetalles.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridViewDetalles.EnableHeadersVisualStyles = false;
+            this.dataGridViewDetalles.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewDetalles.Location = new System.Drawing.Point(9, 19);
+            this.dataGridViewDetalles.Name = "dataGridViewDetalles";
+            this.dataGridViewDetalles.ReadOnly = true;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalles.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridViewDetalles.RowHeadersVisible = false;
+            this.dataGridViewDetalles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewDetalles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDetalles.Size = new System.Drawing.Size(378, 223);
+            this.dataGridViewDetalles.TabIndex = 84;
             // 
-            // lblMedidaPr
+            // label5
             // 
-            this.lblMedidaPr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMedidaPr.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblMedidaPr.Location = new System.Drawing.Point(45, -4);
-            this.lblMedidaPr.Name = "lblMedidaPr";
-            this.lblMedidaPr.Size = new System.Drawing.Size(42, 36);
-            this.lblMedidaPr.TabIndex = 95;
-            this.lblMedidaPr.Text = "Kg";
-            this.lblMedidaPr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label5.Location = new System.Drawing.Point(109, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 29);
+            this.label5.TabIndex = 79;
+            this.label5.Text = ":";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblP
+            // labelFecha
             // 
-            this.lblP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblP.Location = new System.Drawing.Point(33, -5);
-            this.lblP.Name = "lblP";
-            this.lblP.Size = new System.Drawing.Size(10, 36);
-            this.lblP.TabIndex = 83;
-            this.lblP.Text = ":";
-            this.lblP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelFecha.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.labelFecha.Location = new System.Drawing.Point(122, 0);
+            this.labelFecha.Name = "labelFecha";
+            this.labelFecha.Size = new System.Drawing.Size(140, 29);
+            this.labelFecha.TabIndex = 81;
+            this.labelFecha.Text = "-";
+            this.labelFecha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lbltxtFor
+            // panel13
             // 
-            this.lbltxtFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltxtFor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lbltxtFor.Location = new System.Drawing.Point(0, -4);
-            this.lbltxtFor.Name = "lbltxtFor";
-            this.lbltxtFor.Size = new System.Drawing.Size(33, 36);
-            this.lbltxtFor.TabIndex = 94;
-            this.lbltxtFor.Text = "Por";
-            this.lbltxtFor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.panel13.Controls.Add(this.labelFecha);
+            this.panel13.Controls.Add(this.label5);
+            this.panel13.Controls.Add(this.label6);
+            this.panel13.Location = new System.Drawing.Point(1, 283);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(265, 29);
+            this.panel13.TabIndex = 82;
             // 
-            // textBoxPrecio
+            // label3
             // 
-            this.textBoxPrecio.Enabled = false;
-            this.textBoxPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPrecio.Location = new System.Drawing.Point(122, 9);
-            this.textBoxPrecio.Name = "textBoxPrecio";
-            this.textBoxPrecio.Size = new System.Drawing.Size(146, 22);
-            this.textBoxPrecio.TabIndex = 82;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(112, 29);
+            this.label3.TabIndex = 80;
+            this.label3.Text = "Proveedor";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblTxtPrecio
+            // label2
             // 
-            this.lblTxtPrecio.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtPrecio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtPrecio.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtPrecio.Name = "lblTxtPrecio";
-            this.lblTxtPrecio.Size = new System.Drawing.Size(116, 39);
-            this.lblTxtPrecio.TabIndex = 80;
-            this.lblTxtPrecio.Text = "Precio";
-            this.lblTxtPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label2.Location = new System.Drawing.Point(112, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 29);
+            this.label2.TabIndex = 79;
+            this.label2.Text = ":";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnAdd
+            // labelProv
             // 
-            this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAdd.FlatAppearance.BorderSize = 2;
-            this.btnAdd.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAdd.Location = new System.Drawing.Point(88, 305);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(223, 37);
-            this.btnAdd.TabIndex = 91;
-            this.btnAdd.Text = "Agregar a Lista";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.labelProv.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelProv.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.labelProv.Location = new System.Drawing.Point(125, 0);
+            this.labelProv.Name = "labelProv";
+            this.labelProv.Size = new System.Drawing.Size(137, 29);
+            this.labelProv.TabIndex = 81;
+            this.labelProv.Text = "-";
+            this.labelProv.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel6
+            // panel12
             // 
-            this.panel6.Controls.Add(this.btnG);
-            this.panel6.Controls.Add(this.btnK);
-            this.panel6.Controls.Add(this.textBoxCantidad);
-            this.panel6.Controls.Add(this.lblTxtCantidad);
-            this.panel6.Location = new System.Drawing.Point(7, 208);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(369, 39);
-            this.panel6.TabIndex = 87;
+            this.panel12.Controls.Add(this.labelProv);
+            this.panel12.Controls.Add(this.label2);
+            this.panel12.Controls.Add(this.label3);
+            this.panel12.Location = new System.Drawing.Point(1, 248);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(265, 29);
+            this.panel12.TabIndex = 81;
             // 
-            // btnG
+            // panel4
             // 
-            this.btnG.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnG.AutoSize = true;
-            this.btnG.BackColor = System.Drawing.Color.Gray;
-            this.btnG.Enabled = false;
-            this.btnG.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.btnG.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(50)))), ((int)(((byte)(40)))));
-            this.btnG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(50)))), ((int)(((byte)(40)))));
-            this.btnG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnG.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnG.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnG.Location = new System.Drawing.Point(271, 6);
-            this.btnG.Name = "btnG";
-            this.btnG.Size = new System.Drawing.Size(33, 28);
-            this.btnG.TabIndex = 84;
-            this.btnG.Text = "Gr";
-            this.btnG.UseVisualStyleBackColor = false;
+            this.panel4.Controls.Add(this.labelComentarios);
+            this.panel4.Controls.Add(this.textBoxComentario);
+            this.panel4.Location = new System.Drawing.Point(3, 333);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(386, 27);
+            this.panel4.TabIndex = 102;
             // 
-            // btnK
+            // label6
             // 
-            this.btnK.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnK.AutoSize = true;
-            this.btnK.BackColor = System.Drawing.Color.Gray;
-            this.btnK.Checked = true;
-            this.btnK.Enabled = false;
-            this.btnK.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.btnK.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(50)))), ((int)(((byte)(40)))));
-            this.btnK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(50)))), ((int)(((byte)(40)))));
-            this.btnK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnK.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnK.Location = new System.Drawing.Point(309, 6);
-            this.btnK.Name = "btnK";
-            this.btnK.Size = new System.Drawing.Size(35, 28);
-            this.btnK.TabIndex = 83;
-            this.btnK.TabStop = true;
-            this.btnK.Text = "Kg";
-            this.btnK.UseVisualStyleBackColor = false;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(109, 29);
+            this.label6.TabIndex = 80;
+            this.label6.Text = "Fecha";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBoxCantidad
+            // textBoxComentario
             // 
-            this.textBoxCantidad.Enabled = false;
-            this.textBoxCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCantidad.Location = new System.Drawing.Point(119, 8);
-            this.textBoxCantidad.Name = "textBoxCantidad";
-            this.textBoxCantidad.Size = new System.Drawing.Size(146, 22);
-            this.textBoxCantidad.TabIndex = 81;
+            this.textBoxComentario.Dock = System.Windows.Forms.DockStyle.Right;
+            this.textBoxComentario.Location = new System.Drawing.Point(118, 0);
+            this.textBoxComentario.Name = "textBoxComentario";
+            this.textBoxComentario.Size = new System.Drawing.Size(268, 20);
+            this.textBoxComentario.TabIndex = 82;
             // 
-            // lblTxtCantidad
+            // labelComentarios
             // 
-            this.lblTxtCantidad.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtCantidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtCantidad.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtCantidad.Name = "lblTxtCantidad";
-            this.lblTxtCantidad.Size = new System.Drawing.Size(113, 39);
-            this.lblTxtCantidad.TabIndex = 80;
-            this.lblTxtCantidad.Text = "Cantidad";
-            this.lblTxtCantidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.comboBoxProv);
-            this.panel7.Controls.Add(this.lblTxtProv);
-            this.panel7.Location = new System.Drawing.Point(2, 132);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(372, 39);
-            this.panel7.TabIndex = 88;
-            // 
-            // comboBoxProv
-            // 
-            this.comboBoxProv.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxProv.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.comboBoxProv.Enabled = false;
-            this.comboBoxProv.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxProv.FormattingEnabled = true;
-            this.comboBoxProv.Location = new System.Drawing.Point(125, 9);
-            this.comboBoxProv.Name = "comboBoxProv";
-            this.comboBoxProv.Size = new System.Drawing.Size(223, 24);
-            this.comboBoxProv.TabIndex = 81;
-            // 
-            // lblTxtProv
-            // 
-            this.lblTxtProv.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtProv.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtProv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtProv.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtProv.Name = "lblTxtProv";
-            this.lblTxtProv.Size = new System.Drawing.Size(119, 39);
-            this.lblTxtProv.TabIndex = 80;
-            this.lblTxtProv.Text = "Proveedor";
-            this.lblTxtProv.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.comboBoxRubro);
-            this.panel5.Controls.Add(this.lblTxtRubro);
-            this.panel5.Location = new System.Drawing.Point(3, 15);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(372, 39);
-            this.panel5.TabIndex = 86;
-            // 
-            // comboBoxRubro
-            // 
-            this.comboBoxRubro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxRubro.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxRubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxRubro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxRubro.FormattingEnabled = true;
-            this.comboBoxRubro.Location = new System.Drawing.Point(125, 9);
-            this.comboBoxRubro.Name = "comboBoxRubro";
-            this.comboBoxRubro.Size = new System.Drawing.Size(223, 24);
-            this.comboBoxRubro.TabIndex = 81;
-            // 
-            // lblTxtRubro
-            // 
-            this.lblTxtRubro.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtRubro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtRubro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtRubro.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtRubro.Name = "lblTxtRubro";
-            this.lblTxtRubro.Size = new System.Drawing.Size(119, 39);
-            this.lblTxtRubro.TabIndex = 80;
-            this.lblTxtRubro.Text = "Rubro";
-            this.lblTxtRubro.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.cbPago);
-            this.panel9.Controls.Add(this.lblTxtPago);
-            this.panel9.Location = new System.Drawing.Point(4, 247);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(372, 39);
-            this.panel9.TabIndex = 90;
-            // 
-            // cbPago
-            // 
-            this.cbPago.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cbPago.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPago.FormattingEnabled = true;
-            this.cbPago.Location = new System.Drawing.Point(122, 9);
-            this.cbPago.Name = "cbPago";
-            this.cbPago.Size = new System.Drawing.Size(225, 24);
-            this.cbPago.TabIndex = 81;
+            this.labelComentarios.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelComentarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComentarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.labelComentarios.Location = new System.Drawing.Point(0, 0);
+            this.labelComentarios.Name = "labelComentarios";
+            this.labelComentarios.Size = new System.Drawing.Size(109, 27);
+            this.labelComentarios.TabIndex = 84;
+            this.labelComentarios.Text = "Comentario";
+            this.labelComentarios.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTxtPago
             // 
@@ -671,96 +617,55 @@
             this.lblTxtPago.Text = "Pago";
             this.lblTxtPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // panel4
+            // cbPago
             // 
-            this.panel4.Controls.Add(this.comboBoxProducto);
-            this.panel4.Controls.Add(this.lblTxtProducto);
-            this.panel4.Location = new System.Drawing.Point(3, 54);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(372, 39);
-            this.panel4.TabIndex = 85;
+            this.cbPago.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbPago.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPago.FormattingEnabled = true;
+            this.cbPago.Location = new System.Drawing.Point(122, 9);
+            this.cbPago.Name = "cbPago";
+            this.cbPago.Size = new System.Drawing.Size(225, 24);
+            this.cbPago.TabIndex = 81;
             // 
-            // comboBoxProducto
+            // panel9
             // 
-            this.comboBoxProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxProducto.Enabled = false;
-            this.comboBoxProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxProducto.FormattingEnabled = true;
-            this.comboBoxProducto.Location = new System.Drawing.Point(125, 9);
-            this.comboBoxProducto.Name = "comboBoxProducto";
-            this.comboBoxProducto.Size = new System.Drawing.Size(223, 24);
-            this.comboBoxProducto.TabIndex = 81;
-            // 
-            // lblTxtProducto
-            // 
-            this.lblTxtProducto.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtProducto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtProducto.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtProducto.Name = "lblTxtProducto";
-            this.lblTxtProducto.Size = new System.Drawing.Size(119, 39);
-            this.lblTxtProducto.TabIndex = 80;
-            this.lblTxtProducto.Text = "Producto";
-            this.lblTxtProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnGenerar
-            // 
-            this.btnGenerar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnGenerar.FlatAppearance.BorderSize = 2;
-            this.btnGenerar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnGenerar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnGenerar.Location = new System.Drawing.Point(21, 423);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(395, 37);
-            this.btnGenerar.TabIndex = 101;
-            this.btnGenerar.Text = "Generar Orden de Compra";
-            this.btnGenerar.UseVisualStyleBackColor = true;
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTitulo.Location = new System.Drawing.Point(21, 3);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(157, 25);
-            this.lblTitulo.TabIndex = 100;
-            this.lblTitulo.Text = "Agregar Compra";
+            this.panel9.Controls.Add(this.cbPago);
+            this.panel9.Controls.Add(this.lblTxtPago);
+            this.panel9.Location = new System.Drawing.Point(9, 375);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(372, 39);
+            this.panel9.TabIndex = 90;
             // 
             // frmGenerarOrdenCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(815, 560);
+            this.ClientSize = new System.Drawing.Size(1678, 702);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.lblTitulo);
-            this.Controls.Add(this.btnPago);
             this.Name = "frmGenerarOrdenCompra";
             this.Text = "frmEvaluarSolicitudesCotizacion";
+            this.Load += new System.EventHandler(this.frmGenerarOrdenCompra_Load);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLista)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompra)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel9.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalles)).EndInit();
+            this.panel13.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -771,8 +676,7 @@
         private System.Windows.Forms.Button btnPago;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.GroupBox groupBox3;
-        internal System.Windows.Forms.DataGridView dataGridViewLista;
-        private System.Windows.Forms.Button btnEliminar;
+        internal System.Windows.Forms.DataGridView dataGridViewCompra;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblProveedor;
         private System.Windows.Forms.Label labelP1;
@@ -786,36 +690,25 @@
         private System.Windows.Forms.Label lblSimbolo;
         private System.Windows.Forms.Label labelP3;
         private System.Windows.Forms.Label lblTxtTotal;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.ComboBox comboBoxMarca;
-        private System.Windows.Forms.Label lblTxtMarca;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Label lblMedidaPr;
-        private System.Windows.Forms.Label lblP;
-        private System.Windows.Forms.Label lbltxtFor;
-        private System.Windows.Forms.TextBox textBoxPrecio;
-        private System.Windows.Forms.Label lblTxtPrecio;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.RadioButton btnG;
-        private System.Windows.Forms.RadioButton btnK;
-        private System.Windows.Forms.TextBox textBoxCantidad;
-        private System.Windows.Forms.Label lblTxtCantidad;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.ComboBox comboBoxProv;
-        private System.Windows.Forms.Label lblTxtProv;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.ComboBox comboBoxRubro;
-        private System.Windows.Forms.Label lblTxtRubro;
+        private System.Windows.Forms.Button btnGenerarOrdenCompra;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.GroupBox groupBox2;
+        internal System.Windows.Forms.DataGridView dataGridViewCotizaciones;
+        private System.Windows.Forms.GroupBox groupBox4;
+        internal System.Windows.Forms.DataGridView dataGridViewDetalles;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label labelProv;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Label labelFecha;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label labelComentarios;
+        private System.Windows.Forms.TextBox textBoxComentario;
+        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.ComboBox cbPago;
         private System.Windows.Forms.Label lblTxtPago;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.ComboBox comboBoxProducto;
-        private System.Windows.Forms.Label lblTxtProducto;
-        private System.Windows.Forms.Button btnGenerar;
-        private System.Windows.Forms.Label lblTitulo;
     }
 }

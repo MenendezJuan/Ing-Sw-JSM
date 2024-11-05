@@ -60,12 +60,6 @@
     <Compile Include="frmConfigurarIdioma.Designer.cs">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmControl.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmControl.Designer.cs">
-      <DependentUpon>frmControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmControlSolicitudesCotizacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,11 +72,11 @@
     <Compile Include="frmGenerarOrdenCompra.Designer.cs">
       <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestionCompraProductos.cs">
+    <Compile Include="frmGestionCotizacionProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestionCompraProductos.Designer.cs">
-      <DependentUpon>frmGestionCompraProductos.cs</DependentUpon>
+    <Compile Include="frmGestionCotizacionProductos.Designer.cs">
+      <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="frmGestionStockProductos.cs">
       <SubType>Form</SubType>
@@ -152,17 +146,14 @@
     <EmbeddedResource Include="frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmControl.resx">
-      <DependentUpon>frmControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmControlSolicitudesCotizacion.resx">
       <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGenerarOrdenCompra.resx">
       <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGestionCompraProductos.resx">
-      <DependentUpon>frmGestionCompraProductos.cs</DependentUpon>
+    <EmbeddedResource Include="frmGestionCotizacionProductos.resx">
+      <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGestorBitacora.resx">
       <DependentUpon>frmGestorBitacora.cs</DependentUpon>

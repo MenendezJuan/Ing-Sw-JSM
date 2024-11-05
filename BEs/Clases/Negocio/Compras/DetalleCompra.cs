@@ -14,6 +14,8 @@ namespace BEs.Clases.Negocio
         public decimal Cantidad { get; set; }
         public decimal SubTotal { get; set; }
         public DateTime Fecha { get; set; }
+
+        public string NombreProducto => oProducto?.Nombre ?? "Sin Proveedor";
     }
 
 }

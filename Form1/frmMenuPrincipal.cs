@@ -37,12 +37,15 @@ namespace Form1
         private void CustomizeDesing()
         {
             panelInsumos.Visible = false;
+            panelCotizaciones.Visible = false;
         }
 
         private void HideSubMenu()
         {
-            if (panelInsumos.Visible == true)
+            if (panelInsumos.Visible)
                 panelInsumos.Visible = false;
+            if (panelCotizaciones.Visible)
+                panelCotizaciones.Visible = false;
         }
         private void ShowSubMenu(Panel subMenu)
         {
@@ -146,7 +149,7 @@ namespace Form1
 
         private void btnComprasProductos_Click(object sender, EventArgs e)
         {
-            frmGestionCompraProductos compraProductos = new frmGestionCompraProductos();
+            frmGenerarOrdenCompra compraProductos = new frmGenerarOrdenCompra();
             AddOwnedForm(compraProductos);
             FormHijo(compraProductos);
             HideSubMenu();
@@ -157,6 +160,27 @@ namespace Form1
             frmMenuAdmin gestorIdiomas = new frmMenuAdmin();
             AddOwnedForm(gestorIdiomas);
             FormHijo(gestorIdiomas);
+            HideSubMenu();
+        }
+
+        private void btnControl_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(panelCotizaciones);
+        }
+
+        private void buttonSolicitarCotizacion_Click(object sender, EventArgs e)
+        {
+            frmGestionCotizacionProductos solicitarCotizacion = new frmGestionCotizacionProductos();
+            AddOwnedForm(solicitarCotizacion);
+            FormHijo(solicitarCotizacion);
+            HideSubMenu();
+        }
+
+        private void buttonEvaluarSolicitudes_Click(object sender, EventArgs e)
+        {
+            frmControlSolicitudesCotizacion controlSolicitudesCotizacion = new frmControlSolicitudesCotizacion();
+            AddOwnedForm(controlSolicitudesCotizacion);
+            FormHijo(controlSolicitudesCotizacion);
             HideSubMenu();
         }
     }

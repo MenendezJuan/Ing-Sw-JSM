@@ -116,6 +116,17 @@ namespace MPPs
             return compras;
         }
 
+        public void CambiarEstadoCompra(int compraId, EstadoCompra nuevoEstado)
+        {
+            var parametros = new Hashtable
+            {
+                { "@CompraId", compraId },
+                { "@NuevoEstado", (int)nuevoEstado }
+            };
+
+            oCnx.Guardar("CambiarEstadoCompra", parametros);
+        }
+
         public List<Compra> ObtenerComprasPorProveedorId(int proveedorId)
         {
             var parametros = new Hashtable

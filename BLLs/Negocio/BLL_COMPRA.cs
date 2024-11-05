@@ -1,5 +1,6 @@
 ﻿using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Compras;
+using BEs.Clases.Negocio.Compras.Enums;
 using BLLs.Abstracciones;
 using MPPs;
 using MPPs.Negocio;
@@ -94,6 +95,12 @@ namespace BLLs.Negocio
         public List<DetalleCompra> ObtenerDetallesPorCompraId(int compraId)
         {
             return detalleCompraRepository.ObtenerPorCompraId(compraId);
+        }
+
+        public void CambiarEstadoCompra(int compraId, EstadoCompra nuevoEstado)
+        {
+            ValidarExistenciaCompra(compraId);
+            compraRepository.CambiarEstadoCompra(compraId, nuevoEstado);
         }
 
         // Método de validación para verificar la integridad de la compra antes de insertar o actualizar

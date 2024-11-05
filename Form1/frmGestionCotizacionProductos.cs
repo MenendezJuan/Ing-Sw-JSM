@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace Form1
 {
-    public partial class frmGestionCompraProductos : Form
+    public partial class frmGestionCotizacionProductos : Form
     {
         private BLL_COTIZACION _bllCotizacion;
-        public frmGestionCompraProductos()
+        public frmGestionCotizacionProductos()
         {
             InitializeComponent();
             _bllCotizacion = new BLL_COTIZACION();
@@ -120,15 +120,6 @@ namespace Form1
 
             // Volver a cargar todas las cotizaciones
             ActualizarDataGridViewCotizacion();
-        }
-
-        private void buttonEvaluarOrdenesExistentes_Click(object sender, EventArgs e)
-        {
-            frmMenuPrincipal pform = Owner as frmMenuPrincipal;
-            frmControl controlSolicitudes = new frmControl();
-            pform.AddOwnedForm(controlSolicitudes);
-            pform.FormHijo(controlSolicitudes);
-            this.Close();
         }
     }
 }

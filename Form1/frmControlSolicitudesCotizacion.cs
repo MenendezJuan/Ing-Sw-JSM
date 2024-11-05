@@ -24,6 +24,8 @@ namespace Form1
         private void btnAprobSolicitud_Click(object sender, EventArgs e)
         {
             CambiarEstadoCotizacionSeleccionada(EstadoCotizacion.Aprobada);
+            MessageBox.Show("Cotización aprobada exitosamente.", "Cambio de Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void btnRechSolicitud_Click(object sender, EventArgs e)
@@ -190,6 +192,11 @@ namespace Form1
             {
                 CargarCotizacionesPorEstado();
             }
+        }
+
+        private void buttonfrmOrdenCompra_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

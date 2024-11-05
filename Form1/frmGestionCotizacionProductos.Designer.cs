@@ -1,6 +1,6 @@
 ﻿namespace Form1
 {
-    partial class frmGestionCompraProductos
+    partial class frmGestionCotizacionProductos
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGestionCompraProductos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGestionCotizacionProductos));
             this.groupBoxBuscar = new System.Windows.Forms.GroupBox();
             this.btnReestablecer = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -53,7 +53,6 @@
             this.labelEstado = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.buttonEvaluarOrdenesExistentes = new System.Windows.Forms.Button();
             this.groupBoxBuscar.SuspendLayout();
             this.groupBoxCompra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
@@ -333,38 +332,20 @@
             this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCerrar.UseVisualStyleBackColor = true;
             // 
-            // buttonEvaluarOrdenesExistentes
-            // 
-            this.buttonEvaluarOrdenesExistentes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.buttonEvaluarOrdenesExistentes.FlatAppearance.BorderSize = 2;
-            this.buttonEvaluarOrdenesExistentes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.buttonEvaluarOrdenesExistentes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.buttonEvaluarOrdenesExistentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonEvaluarOrdenesExistentes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEvaluarOrdenesExistentes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.buttonEvaluarOrdenesExistentes.Location = new System.Drawing.Point(17, 453);
-            this.buttonEvaluarOrdenesExistentes.Name = "buttonEvaluarOrdenesExistentes";
-            this.buttonEvaluarOrdenesExistentes.Size = new System.Drawing.Size(373, 37);
-            this.buttonEvaluarOrdenesExistentes.TabIndex = 85;
-            this.buttonEvaluarOrdenesExistentes.Text = "Evaluar Ordenes Existentes";
-            this.buttonEvaluarOrdenesExistentes.UseVisualStyleBackColor = true;
-            this.buttonEvaluarOrdenesExistentes.Click += new System.EventHandler(this.buttonEvaluarOrdenesExistentes_Click);
-            // 
-            // frmGestionCompraProductos
+            // frmGestionCotizacionProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(819, 508);
-            this.Controls.Add(this.buttonEvaluarOrdenesExistentes);
             this.Controls.Add(this.groupBoxBuscar);
             this.Controls.Add(this.groupBoxCompra);
             this.Controls.Add(this.btnSolicitarCotizacion);
             this.Controls.Add(this.groupBoxDetalle);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnCerrar);
-            this.Name = "frmGestionCompraProductos";
-            this.Text = "GestionCompraProductos";
+            this.Name = "frmGestionCotizacionProductos";
+            this.Text = "GestionCotizacionProductos";
             this.Load += new System.EventHandler(this.frmGestionCompraProductos_Load);
             this.groupBoxBuscar.ResumeLayout(false);
             this.groupBoxBuscar.PerformLayout();
@@ -397,6 +378,5 @@
         private System.Windows.Forms.Label labelEstado;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.Button buttonEvaluarOrdenesExistentes;
     }
 }
