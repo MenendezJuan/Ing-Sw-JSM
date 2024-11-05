@@ -50,20 +50,20 @@
             this.labelDate = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panelSideMenu = new System.Windows.Forms.Panel();
-            this.panelBottomMenu = new System.Windows.Forms.Panel();
-            this.btnControl = new System.Windows.Forms.Button();
-            this.panelInsumos = new System.Windows.Forms.Panel();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.btnProductos = new System.Windows.Forms.Button();
-            this.panelCotizaciones = new System.Windows.Forms.Panel();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnCaja = new System.Windows.Forms.Button();
             this.btnFacturar = new System.Windows.Forms.Button();
+            this.panelCotizaciones = new System.Windows.Forms.Panel();
             this.buttonEvaluarSolicitudes = new System.Windows.Forms.Button();
             this.buttonSolicitarCotizacion = new System.Windows.Forms.Button();
-            this.btnStockProductos = new System.Windows.Forms.Button();
+            this.panelBottomMenu = new System.Windows.Forms.Panel();
+            this.btnControl = new System.Windows.Forms.Button();
+            this.panelInsumos = new System.Windows.Forms.Panel();
             this.btnComprasProductos = new System.Windows.Forms.Button();
+            this.btnStockProductos = new System.Windows.Forms.Button();
+            this.btnProductos = new System.Windows.Forms.Button();
+            this.panelLogo = new System.Windows.Forms.Panel();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelMain.SuspendLayout();
             this.panelCentral.SuspendLayout();
             this.menuStripOpciones.SuspendLayout();
@@ -71,10 +71,10 @@
             this.panelUserInfo.SuspendLayout();
             this.panelDateHour.SuspendLayout();
             this.panelSideMenu.SuspendLayout();
+            this.panelCotizaciones.SuspendLayout();
             this.panelInsumos.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            this.panelCotizaciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -302,97 +302,6 @@
             this.panelSideMenu.Size = new System.Drawing.Size(228, 578);
             this.panelSideMenu.TabIndex = 2;
             // 
-            // panelBottomMenu
-            // 
-            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomMenu.Location = new System.Drawing.Point(0, 528);
-            this.panelBottomMenu.Name = "panelBottomMenu";
-            this.panelBottomMenu.Size = new System.Drawing.Size(211, 86);
-            this.panelBottomMenu.TabIndex = 24;
-            // 
-            // btnControl
-            // 
-            this.btnControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnControl.FlatAppearance.BorderSize = 0;
-            this.btnControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnControl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnControl.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnControl.Image = ((System.Drawing.Image)(resources.GetObject("btnControl.Image")));
-            this.btnControl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnControl.Location = new System.Drawing.Point(0, 265);
-            this.btnControl.Name = "btnControl";
-            this.btnControl.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnControl.Size = new System.Drawing.Size(211, 45);
-            this.btnControl.TabIndex = 17;
-            this.btnControl.Text = "Cotizaciones";
-            this.btnControl.UseVisualStyleBackColor = true;
-            this.btnControl.Click += new System.EventHandler(this.btnControl_Click);
-            // 
-            // panelInsumos
-            // 
-            this.panelInsumos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelInsumos.Controls.Add(this.btnComprasProductos);
-            this.panelInsumos.Controls.Add(this.btnStockProductos);
-            this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInsumos.Location = new System.Drawing.Point(0, 164);
-            this.panelInsumos.Name = "panelInsumos";
-            this.panelInsumos.Size = new System.Drawing.Size(211, 101);
-            this.panelInsumos.TabIndex = 16;
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.Controls.Add(this.pictureBoxLogo);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(211, 119);
-            this.panelLogo.TabIndex = 0;
-            // 
-            // pictureBoxLogo
-            // 
-            this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxLogo.Image = global::Form1.Properties.Resources.Cheese_Logix_removebg_preview;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(211, 119);
-            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxLogo.TabIndex = 0;
-            this.pictureBoxLogo.TabStop = false;
-            // 
-            // btnProductos
-            // 
-            this.btnProductos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnProductos.FlatAppearance.BorderSize = 0;
-            this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProductos.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
-            this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(0, 119);
-            this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnProductos.Size = new System.Drawing.Size(211, 45);
-            this.btnProductos.TabIndex = 15;
-            this.btnProductos.Text = "Productos";
-            this.btnProductos.UseVisualStyleBackColor = true;
-            this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
-            // 
-            // panelCotizaciones
-            // 
-            this.panelCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelCotizaciones.Controls.Add(this.buttonEvaluarSolicitudes);
-            this.panelCotizaciones.Controls.Add(this.buttonSolicitarCotizacion);
-            this.panelCotizaciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCotizaciones.Location = new System.Drawing.Point(0, 310);
-            this.panelCotizaciones.Name = "panelCotizaciones";
-            this.panelCotizaciones.Size = new System.Drawing.Size(211, 83);
-            this.panelCotizaciones.TabIndex = 25;
-            // 
             // btnReportes
             // 
             this.btnReportes.Dock = System.Windows.Forms.DockStyle.Top;
@@ -452,6 +361,17 @@
             this.btnFacturar.Text = "Facturar";
             this.btnFacturar.UseVisualStyleBackColor = true;
             // 
+            // panelCotizaciones
+            // 
+            this.panelCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelCotizaciones.Controls.Add(this.buttonEvaluarSolicitudes);
+            this.panelCotizaciones.Controls.Add(this.buttonSolicitarCotizacion);
+            this.panelCotizaciones.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCotizaciones.Location = new System.Drawing.Point(0, 310);
+            this.panelCotizaciones.Name = "panelCotizaciones";
+            this.panelCotizaciones.Size = new System.Drawing.Size(211, 83);
+            this.panelCotizaciones.TabIndex = 25;
+            // 
             // buttonEvaluarSolicitudes
             // 
             this.buttonEvaluarSolicitudes.Dock = System.Windows.Forms.DockStyle.Top;
@@ -484,21 +404,45 @@
             this.buttonSolicitarCotizacion.UseVisualStyleBackColor = true;
             this.buttonSolicitarCotizacion.Click += new System.EventHandler(this.buttonSolicitarCotizacion_Click);
             // 
-            // btnStockProductos
+            // panelBottomMenu
             // 
-            this.btnStockProductos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStockProductos.FlatAppearance.BorderSize = 0;
-            this.btnStockProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockProductos.ForeColor = System.Drawing.Color.LightGray;
-            this.btnStockProductos.Location = new System.Drawing.Point(0, 0);
-            this.btnStockProductos.Name = "btnStockProductos";
-            this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnStockProductos.Size = new System.Drawing.Size(211, 45);
-            this.btnStockProductos.TabIndex = 2;
-            this.btnStockProductos.Text = "Stock";
-            this.btnStockProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockProductos.UseVisualStyleBackColor = true;
-            this.btnStockProductos.Click += new System.EventHandler(this.btnStockProductos_Click);
+            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomMenu.Location = new System.Drawing.Point(0, 528);
+            this.panelBottomMenu.Name = "panelBottomMenu";
+            this.panelBottomMenu.Size = new System.Drawing.Size(211, 86);
+            this.panelBottomMenu.TabIndex = 24;
+            // 
+            // btnControl
+            // 
+            this.btnControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnControl.FlatAppearance.BorderSize = 0;
+            this.btnControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnControl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnControl.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnControl.Image = ((System.Drawing.Image)(resources.GetObject("btnControl.Image")));
+            this.btnControl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnControl.Location = new System.Drawing.Point(0, 265);
+            this.btnControl.Name = "btnControl";
+            this.btnControl.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnControl.Size = new System.Drawing.Size(211, 45);
+            this.btnControl.TabIndex = 17;
+            this.btnControl.Text = "Cotizaciones";
+            this.btnControl.UseVisualStyleBackColor = true;
+            this.btnControl.Click += new System.EventHandler(this.btnControl_Click);
+            // 
+            // panelInsumos
+            // 
+            this.panelInsumos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelInsumos.Controls.Add(this.btnComprasProductos);
+            this.panelInsumos.Controls.Add(this.btnStockProductos);
+            this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelInsumos.Location = new System.Drawing.Point(0, 164);
+            this.panelInsumos.Name = "panelInsumos";
+            this.panelInsumos.Size = new System.Drawing.Size(211, 101);
+            this.panelInsumos.TabIndex = 16;
             // 
             // btnComprasProductos
             // 
@@ -515,6 +459,62 @@
             this.btnComprasProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnComprasProductos.UseVisualStyleBackColor = true;
             this.btnComprasProductos.Click += new System.EventHandler(this.btnComprasProductos_Click);
+            // 
+            // btnStockProductos
+            // 
+            this.btnStockProductos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockProductos.FlatAppearance.BorderSize = 0;
+            this.btnStockProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockProductos.ForeColor = System.Drawing.Color.LightGray;
+            this.btnStockProductos.Location = new System.Drawing.Point(0, 0);
+            this.btnStockProductos.Name = "btnStockProductos";
+            this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnStockProductos.Size = new System.Drawing.Size(211, 45);
+            this.btnStockProductos.TabIndex = 2;
+            this.btnStockProductos.Text = "Stock";
+            this.btnStockProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStockProductos.UseVisualStyleBackColor = true;
+            this.btnStockProductos.Click += new System.EventHandler(this.btnStockProductos_Click);
+            // 
+            // btnProductos
+            // 
+            this.btnProductos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnProductos.FlatAppearance.BorderSize = 0;
+            this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProductos.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
+            this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProductos.Location = new System.Drawing.Point(0, 119);
+            this.btnProductos.Name = "btnProductos";
+            this.btnProductos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnProductos.Size = new System.Drawing.Size(211, 45);
+            this.btnProductos.TabIndex = 15;
+            this.btnProductos.Text = "Productos";
+            this.btnProductos.UseVisualStyleBackColor = true;
+            this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
+            // 
+            // panelLogo
+            // 
+            this.panelLogo.Controls.Add(this.pictureBoxLogo);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLogo.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(211, 119);
+            this.panelLogo.TabIndex = 0;
+            // 
+            // pictureBoxLogo
+            // 
+            this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxLogo.Image = global::Form1.Properties.Resources.Cheese_Logix_removebg_preview;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(211, 119);
+            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxLogo.TabIndex = 0;
+            this.pictureBoxLogo.TabStop = false;
             // 
             // frmMenuPrincipal
             // 
@@ -540,10 +540,10 @@
             this.panelDateHour.ResumeLayout(false);
             this.panelDateHour.PerformLayout();
             this.panelSideMenu.ResumeLayout(false);
+            this.panelCotizaciones.ResumeLayout(false);
             this.panelInsumos.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            this.panelCotizaciones.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

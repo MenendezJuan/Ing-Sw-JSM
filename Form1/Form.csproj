@@ -48,132 +48,132 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmGestionarEnvioCotizacion.cs">
+    <Compile Include="Negocio\frmGestionarEnvioCotizacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestionarEnvioCotizacion.Designer.cs">
+    <Compile Include="Negocio\frmGestionarEnvioCotizacion.Designer.cs">
       <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmConfigurarIdioma.cs">
+    <Compile Include="Tecnica\frmConfigurarIdioma.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConfigurarIdioma.Designer.cs">
+    <Compile Include="Tecnica\frmConfigurarIdioma.Designer.cs">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmControlSolicitudesCotizacion.cs">
+    <Compile Include="Negocio\frmControlSolicitudesCotizacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmControlSolicitudesCotizacion.Designer.cs">
+    <Compile Include="Negocio\frmControlSolicitudesCotizacion.Designer.cs">
       <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGenerarOrdenCompra.cs">
+    <Compile Include="Negocio\frmGenerarOrdenCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGenerarOrdenCompra.Designer.cs">
+    <Compile Include="Negocio\frmGenerarOrdenCompra.Designer.cs">
       <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestionCotizacionProductos.cs">
+    <Compile Include="Negocio\frmGestionCotizacionProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestionCotizacionProductos.Designer.cs">
+    <Compile Include="Negocio\frmGestionCotizacionProductos.Designer.cs">
       <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestionStockProductos.cs">
+    <Compile Include="Negocio\frmGestionStockProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestionStockProductos.Designer.cs">
+    <Compile Include="Negocio\frmGestionStockProductos.Designer.cs">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestorBitacora.cs">
+    <Compile Include="Tecnica\frmGestorBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestorBitacora.Designer.cs">
+    <Compile Include="Tecnica\frmGestorBitacora.Designer.cs">
       <DependentUpon>frmGestorBitacora.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestorIdiomas.cs">
+    <Compile Include="Tecnica\frmGestorIdiomas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestorIdiomas.Designer.cs">
+    <Compile Include="Tecnica\frmGestorIdiomas.Designer.cs">
       <DependentUpon>frmGestorIdiomas.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestorPermisos.cs">
+    <Compile Include="Tecnica\frmGestorPermisos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestorPermisos.Designer.cs">
+    <Compile Include="Tecnica\frmGestorPermisos.Designer.cs">
       <DependentUpon>frmGestorPermisos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGestorUsuarios.cs">
+    <Compile Include="Tecnica\frmGestorUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGestorUsuarios.Designer.cs">
+    <Compile Include="Tecnica\frmGestorUsuarios.Designer.cs">
       <DependentUpon>frmGestorUsuarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmInicioSesion.cs">
+    <Compile Include="Tecnica\frmInicioSesion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInicioSesion.Designer.cs">
+    <Compile Include="Tecnica\frmInicioSesion.Designer.cs">
       <DependentUpon>frmInicioSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMenuAdmin.cs">
+    <Compile Include="Tecnica\frmMenuAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMenuAdmin.Designer.cs">
+    <Compile Include="Tecnica\frmMenuAdmin.Designer.cs">
       <DependentUpon>frmMenuAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMenuPrincipal.cs">
+    <Compile Include="Negocio\frmMenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMenuPrincipal.Designer.cs">
+    <Compile Include="Negocio\frmMenuPrincipal.Designer.cs">
       <DependentUpon>frmMenuPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmReportes.cs">
+    <Compile Include="Tecnica\frmReportes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReportes.Designer.cs">
+    <Compile Include="Tecnica\frmReportes.Designer.cs">
       <DependentUpon>frmReportes.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="frmRegistro.cs">
+    <Compile Include="Tecnica\frmRegistro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRegistro.Designer.cs">
+    <Compile Include="Tecnica\frmRegistro.Designer.cs">
       <DependentUpon>frmRegistro.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmGestionarEnvioCotizacion.resx">
+    <EmbeddedResource Include="Negocio\frmGestionarEnvioCotizacion.resx">
       <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmConfigurarIdioma.resx">
+    <EmbeddedResource Include="Tecnica\frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmControlSolicitudesCotizacion.resx">
+    <EmbeddedResource Include="Negocio\frmControlSolicitudesCotizacion.resx">
       <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGenerarOrdenCompra.resx">
+    <EmbeddedResource Include="Negocio\frmGenerarOrdenCompra.resx">
       <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGestionCotizacionProductos.resx">
+    <EmbeddedResource Include="Negocio\frmGestionCotizacionProductos.resx">
       <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGestorBitacora.resx">
+    <EmbeddedResource Include="Tecnica\frmGestorBitacora.resx">
       <DependentUpon>frmGestorBitacora.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGestorIdiomas.resx">
+    <EmbeddedResource Include="Tecnica\frmGestorIdiomas.resx">
       <DependentUpon>frmGestorIdiomas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGestorPermisos.resx">
+    <EmbeddedResource Include="Tecnica\frmGestorPermisos.resx">
       <DependentUpon>frmGestorPermisos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGestorUsuarios.resx">
+    <EmbeddedResource Include="Tecnica\frmGestorUsuarios.resx">
       <DependentUpon>frmGestorUsuarios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInicioSesion.resx">
+    <EmbeddedResource Include="Tecnica\frmInicioSesion.resx">
       <DependentUpon>frmInicioSesion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMenuAdmin.resx">
+    <EmbeddedResource Include="Tecnica\frmMenuAdmin.resx">
       <DependentUpon>frmMenuAdmin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMenuPrincipal.resx">
+    <EmbeddedResource Include="Negocio\frmMenuPrincipal.resx">
       <DependentUpon>frmMenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -186,7 +186,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="frmRegistro.resx">
+    <EmbeddedResource Include="Tecnica\frmRegistro.resx">
       <DependentUpon>frmRegistro.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

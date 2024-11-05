@@ -61,36 +61,36 @@
             this.btnGenerarOrdenCompra = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.cbPago = new System.Windows.Forms.ComboBox();
+            this.lblTxtPago = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.labelComentarios = new System.Windows.Forms.Label();
+            this.textBoxComentario = new System.Windows.Forms.TextBox();
             this.dataGridViewCotizaciones = new System.Windows.Forms.DataGridView();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.labelProv = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.labelFecha = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridViewDetalles = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
-            this.labelFecha = new System.Windows.Forms.Label();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelProv = new System.Windows.Forms.Label();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxComentario = new System.Windows.Forms.TextBox();
-            this.labelComentarios = new System.Windows.Forms.Label();
-            this.lblTxtPago = new System.Windows.Forms.Label();
-            this.cbPago = new System.Windows.Forms.ComboBox();
-            this.panel9 = new System.Windows.Forms.Panel();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompra)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
+            this.panel12.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalles)).BeginInit();
-            this.panel13.SuspendLayout();
-            this.panel12.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPago
@@ -384,6 +384,68 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cotizaciones";
             // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.cbPago);
+            this.panel9.Controls.Add(this.lblTxtPago);
+            this.panel9.Location = new System.Drawing.Point(9, 375);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(372, 39);
+            this.panel9.TabIndex = 90;
+            // 
+            // cbPago
+            // 
+            this.cbPago.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbPago.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPago.FormattingEnabled = true;
+            this.cbPago.Location = new System.Drawing.Point(122, 9);
+            this.cbPago.Name = "cbPago";
+            this.cbPago.Size = new System.Drawing.Size(225, 24);
+            this.cbPago.TabIndex = 81;
+            // 
+            // lblTxtPago
+            // 
+            this.lblTxtPago.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblTxtPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTxtPago.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.lblTxtPago.Location = new System.Drawing.Point(0, 0);
+            this.lblTxtPago.Name = "lblTxtPago";
+            this.lblTxtPago.Size = new System.Drawing.Size(116, 39);
+            this.lblTxtPago.TabIndex = 80;
+            this.lblTxtPago.Text = "Pago";
+            this.lblTxtPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.labelComentarios);
+            this.panel4.Controls.Add(this.textBoxComentario);
+            this.panel4.Location = new System.Drawing.Point(3, 333);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(386, 27);
+            this.panel4.TabIndex = 102;
+            // 
+            // labelComentarios
+            // 
+            this.labelComentarios.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelComentarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComentarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.labelComentarios.Location = new System.Drawing.Point(0, 0);
+            this.labelComentarios.Name = "labelComentarios";
+            this.labelComentarios.Size = new System.Drawing.Size(109, 27);
+            this.labelComentarios.TabIndex = 84;
+            this.labelComentarios.Text = "Comentario";
+            this.labelComentarios.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBoxComentario
+            // 
+            this.textBoxComentario.Dock = System.Windows.Forms.DockStyle.Right;
+            this.textBoxComentario.Location = new System.Drawing.Point(118, 0);
+            this.textBoxComentario.Name = "textBoxComentario";
+            this.textBoxComentario.Size = new System.Drawing.Size(268, 20);
+            this.textBoxComentario.TabIndex = 82;
+            // 
             // dataGridViewCotizaciones
             // 
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -428,6 +490,98 @@
             this.dataGridViewCotizaciones.Size = new System.Drawing.Size(378, 223);
             this.dataGridViewCotizaciones.TabIndex = 84;
             this.dataGridViewCotizaciones.SelectionChanged += new System.EventHandler(this.dataGridViewCotizaciones_SelectionChanged);
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.labelProv);
+            this.panel12.Controls.Add(this.label2);
+            this.panel12.Controls.Add(this.label3);
+            this.panel12.Location = new System.Drawing.Point(1, 248);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(265, 29);
+            this.panel12.TabIndex = 81;
+            // 
+            // labelProv
+            // 
+            this.labelProv.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelProv.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.labelProv.Location = new System.Drawing.Point(125, 0);
+            this.labelProv.Name = "labelProv";
+            this.labelProv.Size = new System.Drawing.Size(137, 29);
+            this.labelProv.TabIndex = 81;
+            this.labelProv.Text = "-";
+            this.labelProv.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label2.Location = new System.Drawing.Point(112, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 29);
+            this.label2.TabIndex = 79;
+            this.label2.Text = ":";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(112, 29);
+            this.label3.TabIndex = 80;
+            this.label3.Text = "Proveedor";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.labelFecha);
+            this.panel13.Controls.Add(this.label5);
+            this.panel13.Controls.Add(this.label6);
+            this.panel13.Location = new System.Drawing.Point(1, 283);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(265, 29);
+            this.panel13.TabIndex = 82;
+            // 
+            // labelFecha
+            // 
+            this.labelFecha.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.labelFecha.Location = new System.Drawing.Point(122, 0);
+            this.labelFecha.Name = "labelFecha";
+            this.labelFecha.Size = new System.Drawing.Size(140, 29);
+            this.labelFecha.TabIndex = 81;
+            this.labelFecha.Text = "-";
+            this.labelFecha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label5.Location = new System.Drawing.Point(109, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 29);
+            this.label5.TabIndex = 79;
+            this.label5.Text = ":";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(109, 29);
+            this.label6.TabIndex = 80;
+            this.label6.Text = "Fecha";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox4
             // 
@@ -484,160 +638,6 @@
             this.dataGridViewDetalles.Size = new System.Drawing.Size(378, 223);
             this.dataGridViewDetalles.TabIndex = 84;
             // 
-            // label5
-            // 
-            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.label5.Location = new System.Drawing.Point(109, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(13, 29);
-            this.label5.TabIndex = 79;
-            this.label5.Text = ":";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelFecha
-            // 
-            this.labelFecha.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.labelFecha.Location = new System.Drawing.Point(122, 0);
-            this.labelFecha.Name = "labelFecha";
-            this.labelFecha.Size = new System.Drawing.Size(140, 29);
-            this.labelFecha.TabIndex = 81;
-            this.labelFecha.Text = "-";
-            this.labelFecha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.labelFecha);
-            this.panel13.Controls.Add(this.label5);
-            this.panel13.Controls.Add(this.label6);
-            this.panel13.Location = new System.Drawing.Point(1, 283);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(265, 29);
-            this.panel13.TabIndex = 82;
-            // 
-            // label3
-            // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 29);
-            this.label3.TabIndex = 80;
-            this.label3.Text = "Proveedor";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.label2.Location = new System.Drawing.Point(112, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(13, 29);
-            this.label2.TabIndex = 79;
-            this.label2.Text = ":";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelProv
-            // 
-            this.labelProv.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelProv.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.labelProv.Location = new System.Drawing.Point(125, 0);
-            this.labelProv.Name = "labelProv";
-            this.labelProv.Size = new System.Drawing.Size(137, 29);
-            this.labelProv.TabIndex = 81;
-            this.labelProv.Text = "-";
-            this.labelProv.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel12
-            // 
-            this.panel12.Controls.Add(this.labelProv);
-            this.panel12.Controls.Add(this.label2);
-            this.panel12.Controls.Add(this.label3);
-            this.panel12.Location = new System.Drawing.Point(1, 248);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(265, 29);
-            this.panel12.TabIndex = 81;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.labelComentarios);
-            this.panel4.Controls.Add(this.textBoxComentario);
-            this.panel4.Location = new System.Drawing.Point(3, 333);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(386, 27);
-            this.panel4.TabIndex = 102;
-            // 
-            // label6
-            // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 29);
-            this.label6.TabIndex = 80;
-            this.label6.Text = "Fecha";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxComentario
-            // 
-            this.textBoxComentario.Dock = System.Windows.Forms.DockStyle.Right;
-            this.textBoxComentario.Location = new System.Drawing.Point(118, 0);
-            this.textBoxComentario.Name = "textBoxComentario";
-            this.textBoxComentario.Size = new System.Drawing.Size(268, 20);
-            this.textBoxComentario.TabIndex = 82;
-            // 
-            // labelComentarios
-            // 
-            this.labelComentarios.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelComentarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComentarios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.labelComentarios.Location = new System.Drawing.Point(0, 0);
-            this.labelComentarios.Name = "labelComentarios";
-            this.labelComentarios.Size = new System.Drawing.Size(109, 27);
-            this.labelComentarios.TabIndex = 84;
-            this.labelComentarios.Text = "Comentario";
-            this.labelComentarios.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblTxtPago
-            // 
-            this.lblTxtPago.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTxtPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTxtPago.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTxtPago.Location = new System.Drawing.Point(0, 0);
-            this.lblTxtPago.Name = "lblTxtPago";
-            this.lblTxtPago.Size = new System.Drawing.Size(116, 39);
-            this.lblTxtPago.TabIndex = 80;
-            this.lblTxtPago.Text = "Pago";
-            this.lblTxtPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cbPago
-            // 
-            this.cbPago.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cbPago.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPago.FormattingEnabled = true;
-            this.cbPago.Location = new System.Drawing.Point(122, 9);
-            this.cbPago.Name = "cbPago";
-            this.cbPago.Size = new System.Drawing.Size(225, 24);
-            this.cbPago.TabIndex = 81;
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.cbPago);
-            this.panel9.Controls.Add(this.lblTxtPago);
-            this.panel9.Location = new System.Drawing.Point(9, 375);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(372, 39);
-            this.panel9.TabIndex = 90;
-            // 
             // frmGenerarOrdenCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -658,14 +658,14 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalles)).EndInit();
-            this.panel13.ResumeLayout(false);
-            this.panel12.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.panel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).EndInit();
+            this.panel12.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
