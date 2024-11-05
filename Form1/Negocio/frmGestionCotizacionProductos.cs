@@ -121,5 +121,10 @@ namespace Form1
             // Volver a cargar todas las cotizaciones
             ActualizarDataGridViewCotizacion();
         }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
