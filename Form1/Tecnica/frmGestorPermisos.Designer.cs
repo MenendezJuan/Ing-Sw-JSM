@@ -75,6 +75,7 @@
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.treeView1.Location = new System.Drawing.Point(379, 131);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.treeView1.Name = "treeView1";

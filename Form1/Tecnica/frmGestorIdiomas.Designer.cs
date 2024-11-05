@@ -144,12 +144,12 @@
             // lblSeleccionarIdioma
             // 
             this.lblSeleccionarIdioma.AutoSize = true;
-            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(341, 320);
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(319, 321);
             this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(118, 13);
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(135, 15);
             this.lblSeleccionarIdioma.TabIndex = 48;
             this.lblSeleccionarIdioma.Tag = "Label_Seleccionar_GIdi";
             this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
