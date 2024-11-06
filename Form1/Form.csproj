@@ -256,5 +256,29 @@
   <ItemGroup>
     <None Include="Resources\icons8-reports-251.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\32%3b 30%3b 45 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\32%3b 30%3b 45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\211%3b 119.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WhatsApp Image 2024-11-06 at 12.21.14 AM.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %284%291.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %284%292.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %285%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

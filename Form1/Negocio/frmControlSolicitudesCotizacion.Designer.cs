@@ -41,17 +41,17 @@
             this.btnRegProv = new System.Windows.Forms.Button();
             this.btnRechSolicitud = new System.Windows.Forms.Button();
             this.btnAprobSolicitud = new System.Windows.Forms.Button();
-            this.labelNotificacion = new System.Windows.Forms.Label();
             this.rbPendiente = new System.Windows.Forms.RadioButton();
             this.rbFinalizado = new System.Windows.Forms.RadioButton();
             this.dataGridViewCotizaciones = new System.Windows.Forms.DataGridView();
             this.dataGridViewDetalleCotizacion = new System.Windows.Forms.DataGridView();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.btnCerrar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelNotificacion = new System.Windows.Forms.Label();
+            this.btnCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -129,16 +129,6 @@
             this.btnAprobSolicitud.Text = "Aprobar Solicitud";
             this.btnAprobSolicitud.UseVisualStyleBackColor = true;
             this.btnAprobSolicitud.Click += new System.EventHandler(this.btnAprobSolicitud_Click);
-            // 
-            // labelNotificacion
-            // 
-            this.labelNotificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNotificacion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.labelNotificacion.Location = new System.Drawing.Point(3, 307);
-            this.labelNotificacion.Name = "labelNotificacion";
-            this.labelNotificacion.Size = new System.Drawing.Size(372, 148);
-            this.labelNotificacion.TabIndex = 81;
-            this.labelNotificacion.Text = "Atención: Nuevo Proveedor";
             // 
             // rbPendiente
             // 
@@ -290,26 +280,6 @@
             this.lblTitulo.TabIndex = 84;
             this.lblTitulo.Text = "Evaluación de Solicitudes de Cotizacion";
             // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrar.FlatAppearance.BorderSize = 0;
-            this.btnCerrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCerrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCerrar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(983, 479);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnCerrar.Size = new System.Drawing.Size(95, 30);
-            this.btnCerrar.TabIndex = 85;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCerrar.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -322,7 +292,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnRechSolicitud, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnAprobSolicitud, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(542, 309);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -337,6 +307,7 @@
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -346,8 +317,8 @@
             this.tableLayoutPanel2.Controls.Add(this.lblTitulo, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewDetalleCotizacion, 1, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 1);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(1, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -367,7 +338,7 @@
             this.tableLayoutPanel3.Controls.Add(this.dataGridViewCotizaciones, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 53);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
@@ -389,7 +360,7 @@
             this.tableLayoutPanel4.Controls.Add(this.rbFinalizado, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.rbPendiente, 3, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 203);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -397,13 +368,46 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(532, 47);
             this.tableLayoutPanel4.TabIndex = 44;
             // 
+            // labelNotificacion
+            // 
+            this.labelNotificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNotificacion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelNotificacion.Image = global::Form1.Properties.Resources.Diseño_sin_título__5_;
+            this.labelNotificacion.Location = new System.Drawing.Point(3, 307);
+            this.labelNotificacion.Name = "labelNotificacion";
+            this.labelNotificacion.Size = new System.Drawing.Size(534, 148);
+            this.labelNotificacion.TabIndex = 81;
+            this.labelNotificacion.Text = "Atención: Nuevo Proveedor";
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrar.FlatAppearance.BorderSize = 0;
+            this.btnCerrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCerrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrar.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
+            this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCerrar.Location = new System.Drawing.Point(983, 479);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnCerrar.Size = new System.Drawing.Size(95, 30);
+            this.btnCerrar.TabIndex = 85;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            // 
             // frmControlSolicitudesCotizacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1084, 516);
             this.Controls.Add(this.tableLayoutPanel2);
+            this.DoubleBuffered = true;
             this.Name = "frmControlSolicitudesCotizacion";
             this.ShowIcon = false;
             this.Text = "frmControlSolicitudesCotizacion";
