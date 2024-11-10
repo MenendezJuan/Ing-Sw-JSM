@@ -176,6 +176,10 @@
             // 
             // dataGridViewCotizaciones
             // 
+            this.dataGridViewCotizaciones.AllowUserToAddRows = false;
+            this.dataGridViewCotizaciones.AllowUserToDeleteRows = false;
+            this.dataGridViewCotizaciones.AllowUserToResizeColumns = false;
+            this.dataGridViewCotizaciones.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.dataGridViewCotizaciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -202,9 +206,11 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewCotizaciones.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewCotizaciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewCotizaciones.EnableHeadersVisualStyles = false;
             this.dataGridViewCotizaciones.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.dataGridViewCotizaciones.Location = new System.Drawing.Point(6, 19);
+            this.dataGridViewCotizaciones.MultiSelect = false;
             this.dataGridViewCotizaciones.Name = "dataGridViewCotizaciones";
             this.dataGridViewCotizaciones.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -257,6 +263,10 @@
             // 
             // dataGridViewDetalle
             // 
+            this.dataGridViewDetalle.AllowUserToAddRows = false;
+            this.dataGridViewDetalle.AllowUserToDeleteRows = false;
+            this.dataGridViewDetalle.AllowUserToResizeColumns = false;
+            this.dataGridViewDetalle.AllowUserToResizeRows = false;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.dataGridViewDetalle.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
@@ -283,10 +293,12 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewDetalle.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewDetalle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewDetalle.Enabled = false;
             this.dataGridViewDetalle.EnableHeadersVisualStyles = false;
             this.dataGridViewDetalle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.dataGridViewDetalle.Location = new System.Drawing.Point(9, 19);
+            this.dataGridViewDetalle.MultiSelect = false;
             this.dataGridViewDetalle.Name = "dataGridViewDetalle";
             this.dataGridViewDetalle.ReadOnly = true;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;

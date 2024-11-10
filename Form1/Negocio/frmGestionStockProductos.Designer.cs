@@ -38,6 +38,8 @@
             this.buttonActualizarProducto = new System.Windows.Forms.Button();
             this.buttonEliminarProducto = new System.Windows.Forms.Button();
             this.panelDatosProducto = new System.Windows.Forms.Panel();
+            this.numericUpDownPrecioCompra = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.comboCategoria = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblSeleccionadoEspecifico = new System.Windows.Forms.Label();
@@ -49,7 +51,7 @@
             this.btnBorrarIngresoDatos = new System.Windows.Forms.Button();
             this.estadolbl = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.comboEstado = new System.Windows.Forms.ComboBox();
+            this.comboProveedor = new System.Windows.Forms.ComboBox();
             this.lblDatos = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,19 +63,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
             this.btnExportar = new FontAwesome.Sharp.IconButton();
+            this.checkBoxActivo = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProductos)).BeginInit();
             this.panelDatosProducto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrecioCompra)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTituloProductos
@@ -89,6 +84,10 @@
             // 
             // dataGridViewProductos
             // 
+            this.dataGridViewProductos.AllowUserToAddRows = false;
+            this.dataGridViewProductos.AllowUserToDeleteRows = false;
+            this.dataGridViewProductos.AllowUserToResizeColumns = false;
+            this.dataGridViewProductos.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.dataGridViewProductos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -112,9 +111,11 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewProductos.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewProductos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProductos.EnableHeadersVisualStyles = false;
             this.dataGridViewProductos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.dataGridViewProductos.Location = new System.Drawing.Point(75, 65);
+            this.dataGridViewProductos.MultiSelect = false;
             this.dataGridViewProductos.Name = "dataGridViewProductos";
             this.dataGridViewProductos.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -130,6 +131,7 @@
             this.dataGridViewProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProductos.Size = new System.Drawing.Size(973, 272);
             this.dataGridViewProductos.TabIndex = 84;
+            this.dataGridViewProductos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProductos_CellFormatting);
             this.dataGridViewProductos.SelectionChanged += new System.EventHandler(this.dataGridViewProductos_SelectionChanged);
             // 
             // buttonAgregarProductoProveedorSelec
@@ -187,11 +189,8 @@
             // 
             this.panelDatosProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.panelDatosProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelDatosProducto.Controls.Add(this.numericUpDown3);
-            this.panelDatosProducto.Controls.Add(this.label9);
-            this.panelDatosProducto.Controls.Add(this.numericUpDown2);
-            this.panelDatosProducto.Controls.Add(this.numericUpDown1);
-            this.panelDatosProducto.Controls.Add(this.label7);
+            this.panelDatosProducto.Controls.Add(this.checkBoxActivo);
+            this.panelDatosProducto.Controls.Add(this.numericUpDownPrecioCompra);
             this.panelDatosProducto.Controls.Add(this.label6);
             this.panelDatosProducto.Controls.Add(this.comboCategoria);
             this.panelDatosProducto.Controls.Add(this.label4);
@@ -204,7 +203,7 @@
             this.panelDatosProducto.Controls.Add(this.btnBorrarIngresoDatos);
             this.panelDatosProducto.Controls.Add(this.estadolbl);
             this.panelDatosProducto.Controls.Add(this.btnAceptar);
-            this.panelDatosProducto.Controls.Add(this.comboEstado);
+            this.panelDatosProducto.Controls.Add(this.comboProveedor);
             this.panelDatosProducto.Controls.Add(this.lblDatos);
             this.panelDatosProducto.Controls.Add(this.txtCodigo);
             this.panelDatosProducto.Controls.Add(this.label1);
@@ -215,12 +214,33 @@
             this.panelDatosProducto.TabIndex = 110;
             this.panelDatosProducto.Visible = false;
             // 
+            // numericUpDownPrecioCompra
+            // 
+            this.numericUpDownPrecioCompra.Location = new System.Drawing.Point(428, 118);
+            this.numericUpDownPrecioCompra.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numericUpDownPrecioCompra.Name = "numericUpDownPrecioCompra";
+            this.numericUpDownPrecioCompra.Size = new System.Drawing.Size(180, 21);
+            this.numericUpDownPrecioCompra.TabIndex = 76;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(425, 93);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(89, 15);
+            this.label6.TabIndex = 74;
+            this.label6.Tag = "Descripcion";
+            this.label6.Text = "Precio Compra";
+            // 
             // comboCategoria
             // 
+            this.comboCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategoria.FormattingEnabled = true;
-            this.comboCategoria.Items.AddRange(new object[] {
-            "Activado",
-            "Desactivado"});
             this.comboCategoria.Location = new System.Drawing.Point(428, 61);
             this.comboCategoria.Name = "comboCategoria";
             this.comboCategoria.Size = new System.Drawing.Size(180, 23);
@@ -241,7 +261,7 @@
             // 
             this.lblSeleccionadoEspecifico.AutoSize = true;
             this.lblSeleccionadoEspecifico.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionadoEspecifico.Location = new System.Drawing.Point(425, 182);
+            this.lblSeleccionadoEspecifico.Location = new System.Drawing.Point(12, 182);
             this.lblSeleccionadoEspecifico.Name = "lblSeleccionadoEspecifico";
             this.lblSeleccionadoEspecifico.Size = new System.Drawing.Size(11, 16);
             this.lblSeleccionadoEspecifico.TabIndex = 69;
@@ -271,7 +291,7 @@
             // 
             this.lblSeleccionado.AutoSize = true;
             this.lblSeleccionado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionado.Location = new System.Drawing.Point(425, 163);
+            this.lblSeleccionado.Location = new System.Drawing.Point(12, 163);
             this.lblSeleccionado.Name = "lblSeleccionado";
             this.lblSeleccionado.Size = new System.Drawing.Size(159, 15);
             this.lblSeleccionado.TabIndex = 68;
@@ -348,16 +368,17 @@
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // comboEstado
+            // comboProveedor
             // 
-            this.comboEstado.FormattingEnabled = true;
-            this.comboEstado.Items.AddRange(new object[] {
+            this.comboProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboProveedor.FormattingEnabled = true;
+            this.comboProveedor.Items.AddRange(new object[] {
             "Activado",
             "Desactivado"});
-            this.comboEstado.Location = new System.Drawing.Point(225, 115);
-            this.comboEstado.Name = "comboEstado";
-            this.comboEstado.Size = new System.Drawing.Size(179, 23);
-            this.comboEstado.TabIndex = 68;
+            this.comboProveedor.Location = new System.Drawing.Point(225, 115);
+            this.comboProveedor.Name = "comboProveedor";
+            this.comboProveedor.Size = new System.Drawing.Size(179, 23);
+            this.comboProveedor.TabIndex = 68;
             // 
             // lblDatos
             // 
@@ -373,6 +394,7 @@
             // 
             this.txtCodigo.Location = new System.Drawing.Point(15, 59);
             this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.ReadOnly = true;
             this.txtCodigo.Size = new System.Drawing.Size(180, 21);
             this.txtCodigo.TabIndex = 45;
             // 
@@ -452,6 +474,7 @@
             // 
             // comboBuscar
             // 
+            this.comboBuscar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBuscar.FormattingEnabled = true;
             this.comboBuscar.Location = new System.Drawing.Point(11, 85);
             this.comboBuscar.Name = "comboBuscar";
@@ -500,75 +523,6 @@
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 152);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 15);
-            this.label6.TabIndex = 74;
-            this.label6.Tag = "Descripcion";
-            this.label6.Text = "Precio Compra";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(221, 152);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 15);
-            this.label7.TabIndex = 75;
-            this.label7.Tag = "Descripcion";
-            this.label7.Text = "Precio Venta";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(15, 177);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(180, 21);
-            this.numericUpDown1.TabIndex = 76;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(224, 177);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(180, 21);
-            this.numericUpDown2.TabIndex = 77;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(428, 118);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(180, 21);
-            this.numericUpDown3.TabIndex = 79;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(425, 93);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 15);
-            this.label9.TabIndex = 78;
-            this.label9.Tag = "Descripcion";
-            this.label9.Text = "Stock";
-            // 
             // btnExportar
             // 
             this.btnExportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
@@ -595,6 +549,17 @@
             this.btnExportar.UseVisualStyleBackColor = false;
             this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
+            // checkBoxActivo
+            // 
+            this.checkBoxActivo.AutoSize = true;
+            this.checkBoxActivo.Location = new System.Drawing.Point(224, 163);
+            this.checkBoxActivo.Name = "checkBoxActivo";
+            this.checkBoxActivo.Size = new System.Drawing.Size(91, 19);
+            this.checkBoxActivo.TabIndex = 77;
+            this.checkBoxActivo.Text = "Esta activo?";
+            this.checkBoxActivo.UseVisualStyleBackColor = true;
+            this.checkBoxActivo.Visible = false;
+            // 
             // frmGestionStockProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,11 +582,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProductos)).EndInit();
             this.panelDatosProducto.ResumeLayout(false);
             this.panelDatosProducto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrecioCompra)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -646,7 +609,7 @@
         private System.Windows.Forms.Button btnBorrarIngresoDatos;
         private System.Windows.Forms.Label estadolbl;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.ComboBox comboEstado;
+        private System.Windows.Forms.ComboBox comboProveedor;
         private System.Windows.Forms.Label lblDatos;
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label label1;
@@ -660,10 +623,7 @@
         private FontAwesome.Sharp.IconButton btnExportar;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown numericUpDownPrecioCompra;
+        private System.Windows.Forms.CheckBox checkBoxActivo;
     }
 }

@@ -50,8 +50,10 @@
             this.dgvIdiomas.AllowUserToResizeRows = false;
             this.dgvIdiomas.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvIdiomas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvIdiomas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvIdiomas.Location = new System.Drawing.Point(173, 74);
             this.dgvIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.dgvIdiomas.MultiSelect = false;
             this.dgvIdiomas.Name = "dgvIdiomas";
             this.dgvIdiomas.ReadOnly = true;
             this.dgvIdiomas.RowHeadersWidth = 51;

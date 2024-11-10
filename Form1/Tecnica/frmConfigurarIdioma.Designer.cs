@@ -61,6 +61,7 @@
             this.dgvTraducciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvTraducciones.Location = new System.Drawing.Point(171, 79);
             this.dgvTraducciones.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.dgvTraducciones.MultiSelect = false;
             this.dgvTraducciones.Name = "dgvTraducciones";
             this.dgvTraducciones.ReadOnly = true;
             this.dgvTraducciones.RowHeadersWidth = 51;
@@ -223,7 +224,6 @@
             this.dgvPalabras.AllowUserToResizeColumns = false;
             this.dgvPalabras.AllowUserToResizeRows = false;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Empty;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.dgvPalabras.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPalabras.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -231,6 +231,7 @@
             this.dgvPalabras.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvPalabras.Location = new System.Drawing.Point(484, 79);
             this.dgvPalabras.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.dgvPalabras.MultiSelect = false;
             this.dgvPalabras.Name = "dgvPalabras";
             this.dgvPalabras.ReadOnly = true;
             this.dgvPalabras.RowHeadersWidth = 51;

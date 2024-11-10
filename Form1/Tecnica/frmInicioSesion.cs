@@ -139,8 +139,10 @@ namespace Form1
 
         private void label_Registrarse_Click(object sender, EventArgs e)
         {
-            frmRegistro formRegistro = new frmRegistro(null);
-            formRegistro.ShowDialog();
+            MessageBox.Show("Por favor, comuníquese con el administrador para registrarse.",
+                            "Registro Requerido",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
         private void InicioSesion_FormClosing(object sender, FormClosingEventArgs e)

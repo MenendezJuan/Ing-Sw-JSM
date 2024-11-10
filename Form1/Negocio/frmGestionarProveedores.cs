@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Form1.Negocio
@@ -15,6 +8,46 @@ namespace Form1.Negocio
         public frmGestionarProveedores()
         {
             InitializeComponent();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAgregarProductoProveedorSelec_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonActualizarProducto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonEliminarProducto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBorrarBusqueda_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,13 +30,13 @@ namespace MPPs.Negocio
             {
                 { "@Codigo", producto.Codigo },
                 { "@CategoriaEnum", (int)producto.CategoriaEnum }, // Convertir enum a int
-                { "@Stock", producto.Stock },
+                { "@Stock", producto.Stock ?? 0},
                 { "@Nombre", producto.Nombre },
                 { "@Descripcion", producto.Descripcion },
-                { "@PrecioCompra", producto.PrecioCompra },
-                { "@PrecioVenta", producto.PrecioVenta },
+                { "@PrecioCompra", producto.PrecioCompra},
+                { "@PrecioVenta", producto.PrecioVenta ?? 0 },
                 { "@Estado", producto.Estado },
-                { "@Fecha", producto.Fecha }
+                { "@Fecha", producto.Fecha = DateTime.Now }
             };
 
             int productoId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProducto", parametros)); // Se espera que el SP devuelva el ID
@@ -200,20 +200,26 @@ namespace MPPs.Negocio
             return productos;
         }
 
-        //public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
-        //{
-        //    var categorias = new List<string>();
+        public bool ExisteCodigoProducto(string codigo)
+        {
+            if (string.IsNullOrEmpty(codigo))
+            {
+                throw new ArgumentException("El código no puede ser nulo o vacío.", nameof(codigo));
+            }
 
-        //    var parametros = new Hashtable { { "@ProveedorId", proveedorId } };
-        //    DataTable dt = oCnx.Leer("ObtenerCategoriasPorProveedor", parametros);
+            var parametros = new Hashtable { { "@Codigo", codigo } };
 
-        //    foreach (DataRow row in dt.Rows)
-        //    {
-        //        categorias.Add(row["Categoria"].ToString());
-        //    }
+            DataTable dt = oCnx.Leer("ExisteCodigoProducto", parametros);
 
-        //    return categorias;
-        //}
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+
+                return count > 0;
+            }
+
+            return false;
+        }
 
         public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
         {
@@ -240,11 +246,11 @@ namespace MPPs.Negocio
                 Id = Convert.ToInt32(row["Id"]),
                 Codigo = row["Codigo"].ToString(),
                 CategoriaEnum = (Categoria)Enum.ToObject(typeof(Categoria), Convert.ToInt32(row["CategoriaEnum"])), // Convertir int a enum
-                Stock = Convert.ToDecimal(row["Stock"]),
+                Stock = row["Stock"] == DBNull.Value ? 0 : Convert.ToDecimal(row["Stock"]),
                 Nombre = row["Nombre"].ToString(),
                 Descripcion = row["Descripcion"].ToString(),
                 PrecioCompra = Convert.ToDecimal(row["PrecioCompra"]),
-                PrecioVenta = Convert.ToDecimal(row["PrecioVenta"]),
+                PrecioVenta = row["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(row["PrecioVenta"]),
                 Estado = Convert.ToBoolean(row["Estado"]),
                 Fecha = Convert.ToDateTime(row["Fecha"])
             };

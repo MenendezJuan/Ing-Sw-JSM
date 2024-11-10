@@ -59,9 +59,9 @@
             this.dataGridViewProveedor = new System.Windows.Forms.DataGridView();
             this.buttonEliminarProducto = new System.Windows.Forms.Button();
             this.buttonActualizarProducto = new System.Windows.Forms.Button();
-            this.buttonAgregarProductoProveedorSelec = new System.Windows.Forms.Button();
             this.lblTituloProductos = new System.Windows.Forms.Label();
             this.btnExportar = new FontAwesome.Sharp.IconButton();
+            this.buttonAgregarProductoProveedorSelec = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProveedor)).BeginInit();
@@ -86,6 +86,7 @@
             this.btnRefresh.Tag = "btnRefresh";
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // panel1
             // 
@@ -121,6 +122,7 @@
             this.btnBorrarBusqueda.Tag = "btnBorrar";
             this.btnBorrarBusqueda.Text = "Borrar";
             this.btnBorrarBusqueda.UseVisualStyleBackColor = false;
+            this.btnBorrarBusqueda.Click += new System.EventHandler(this.btnBorrarBusqueda_Click);
             // 
             // btnBuscar
             // 
@@ -140,6 +142,7 @@
             this.btnBuscar.Tag = "lblBuscar";
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtBuscar
             // 
@@ -366,6 +369,7 @@
             this.btnAceptar.Tag = "btnAceptar";
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // lblDatos
             // 
@@ -380,6 +384,10 @@
             // 
             // dataGridViewProveedor
             // 
+            this.dataGridViewProveedor.AllowUserToAddRows = false;
+            this.dataGridViewProveedor.AllowUserToDeleteRows = false;
+            this.dataGridViewProveedor.AllowUserToResizeColumns = false;
+            this.dataGridViewProveedor.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.dataGridViewProveedor.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -403,6 +411,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewProveedor.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewProveedor.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProveedor.EnableHeadersVisualStyles = false;
             this.dataGridViewProveedor.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.dataGridViewProveedor.Location = new System.Drawing.Point(69, 69);
@@ -437,6 +446,7 @@
             this.buttonEliminarProducto.TabIndex = 119;
             this.buttonEliminarProducto.Text = "Eliminar";
             this.buttonEliminarProducto.UseVisualStyleBackColor = true;
+            this.buttonEliminarProducto.Click += new System.EventHandler(this.buttonEliminarProducto_Click);
             // 
             // buttonActualizarProducto
             // 
@@ -453,22 +463,7 @@
             this.buttonActualizarProducto.TabIndex = 118;
             this.buttonActualizarProducto.Text = "Actualizar";
             this.buttonActualizarProducto.UseVisualStyleBackColor = true;
-            // 
-            // buttonAgregarProductoProveedorSelec
-            // 
-            this.buttonAgregarProductoProveedorSelec.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.buttonAgregarProductoProveedorSelec.FlatAppearance.BorderSize = 2;
-            this.buttonAgregarProductoProveedorSelec.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.buttonAgregarProductoProveedorSelec.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.buttonAgregarProductoProveedorSelec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAgregarProductoProveedorSelec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAgregarProductoProveedorSelec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.buttonAgregarProductoProveedorSelec.Location = new System.Drawing.Point(85, 366);
-            this.buttonAgregarProductoProveedorSelec.Name = "buttonAgregarProductoProveedorSelec";
-            this.buttonAgregarProductoProveedorSelec.Size = new System.Drawing.Size(164, 38);
-            this.buttonAgregarProductoProveedorSelec.TabIndex = 117;
-            this.buttonAgregarProductoProveedorSelec.Text = "Agregar";
-            this.buttonAgregarProductoProveedorSelec.UseVisualStyleBackColor = true;
+            this.buttonActualizarProducto.Click += new System.EventHandler(this.buttonActualizarProducto_Click);
             // 
             // lblTituloProductos
             // 
@@ -505,6 +500,24 @@
             this.btnExportar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // buttonAgregarProductoProveedorSelec
+            // 
+            this.buttonAgregarProductoProveedorSelec.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.buttonAgregarProductoProveedorSelec.FlatAppearance.BorderSize = 2;
+            this.buttonAgregarProductoProveedorSelec.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.buttonAgregarProductoProveedorSelec.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.buttonAgregarProductoProveedorSelec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAgregarProductoProveedorSelec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAgregarProductoProveedorSelec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.buttonAgregarProductoProveedorSelec.Location = new System.Drawing.Point(85, 366);
+            this.buttonAgregarProductoProveedorSelec.Name = "buttonAgregarProductoProveedorSelec";
+            this.buttonAgregarProductoProveedorSelec.Size = new System.Drawing.Size(164, 38);
+            this.buttonAgregarProductoProveedorSelec.TabIndex = 117;
+            this.buttonAgregarProductoProveedorSelec.Text = "Agregar";
+            this.buttonAgregarProductoProveedorSelec.UseVisualStyleBackColor = true;
+            this.buttonAgregarProductoProveedorSelec.Click += new System.EventHandler(this.buttonAgregarProductoProveedorSelec_Click);
             // 
             // frmGestionarProveedores
             // 
@@ -551,7 +564,6 @@
         internal System.Windows.Forms.DataGridView dataGridViewProveedor;
         private System.Windows.Forms.Button buttonEliminarProducto;
         private System.Windows.Forms.Button buttonActualizarProducto;
-        private System.Windows.Forms.Button buttonAgregarProductoProveedorSelec;
         private System.Windows.Forms.Label lblTituloProductos;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label label4;
@@ -565,5 +577,6 @@
         private System.Windows.Forms.ComboBox comboEstado;
         private System.Windows.Forms.TextBox txtDocumento;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonAgregarProductoProveedorSelec;
     }
 }
