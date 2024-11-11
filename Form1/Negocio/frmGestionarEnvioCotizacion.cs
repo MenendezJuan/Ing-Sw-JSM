@@ -69,6 +69,7 @@ namespace Form1
 
             _bllCotizacion.Insertar(cotizacion);
             MessageBox.Show($"Cotización enviada al proveedor {comboBoxProv.Text}, exitosamente.");
+            llenarDataGridCotizaciones();
             LimpiarFormulario();
         }
 
@@ -203,6 +204,27 @@ namespace Form1
             }
         }
 
+        private void llenarDataGridCotizaciones()
+        {
+            dataGridViewCotizaciones.DataSource = null;
+            var cotizaciones = _bllCotizacion.ObtenerPorEstado(EstadoCotizacion.Pendiente);
+            dataGridViewCotizaciones.DataSource = cotizaciones;
+
+            // Ocultar columnas que no deseas mostrar
+            dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
+            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
+
+            // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
+
+            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Nro. Cotizacion";
+
+            // Configurar encabezados de otras columnas
+            dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
+            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+        }
+
         #endregion
 
         private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
@@ -242,6 +264,7 @@ namespace Form1
                 CargarCategoriasProveedor(proveedor.Id);
             }
 
+            llenarDataGridCotizaciones();
             ActualizarDataGridViewDetalles();
         }
 

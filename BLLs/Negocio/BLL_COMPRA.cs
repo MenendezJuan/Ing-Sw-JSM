@@ -1,7 +1,6 @@
 ﻿using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Compras;
 using BEs.Clases.Negocio.Compras.Enums;
-using BLLs.Abstracciones;
 using MPPs;
 using MPPs.Negocio;
 using System;
@@ -10,7 +9,7 @@ using System.Linq;
 
 namespace BLLs.Negocio
 {
-    public class BLL_COMPRA : IBLL<Compra>
+    public class BLL_COMPRA
     {
         private readonly MPP_COMPRA compraRepository;
         private readonly MPP_DETALLECOMPRA detalleCompraRepository;
@@ -24,10 +23,10 @@ namespace BLLs.Negocio
         }
 
         // Método para insertar una nueva compra
-        public void Insertar(Compra compra)
+        public int Insertar(Compra compra)
         {
             ValidarCompra(compra);
-            compraRepository.Insertar(compra);
+            return compraRepository.Insertar(compra);
         }
 
         // Método para actualizar una compra existente
@@ -103,6 +102,11 @@ namespace BLLs.Negocio
         {
             ValidarExistenciaCompra(compraId);
             compraRepository.CambiarEstadoCompra(compraId, nuevoEstado);
+        }
+
+        public void EliminarReferenciaCotizacion(int compraId)
+        {
+            compraRepository.EliminarReferenciaCotizacion(compraId);
         }
 
         public void CambiarEstadoCompraYActualizarStock(int compraId, EstadoCompra nuevoEstado)

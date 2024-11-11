@@ -25,8 +25,7 @@ namespace Form1
 
         private void frmGenerarOrdenCompra_Load(object sender, EventArgs e)
         {
-            CargarCotizacionesAprobadas();
-            CargarOrdenesCompra();
+            ActualizarDataGrids();
             CargarComboBoxTipoPago();
         }
 
@@ -63,6 +62,7 @@ namespace Form1
                 oProveedor = cotizacionSeleccionada.Proveedor,
                 TipoPagoEnum = (TipoPago)cbPago.SelectedItem,
                 EstadoCompraEnum = EstadoCompra.Pendiente,
+                CotizacionId = cotizacionSeleccionada.Id,
                 oDetalleCompra = new List<DetalleCompra>()
             };
 
@@ -95,23 +95,16 @@ namespace Form1
             nuevaCompra.MontoTotal = montoTotal;
 
             // Guardar la compra en la base de datos usando BLL_COMPRA
-            _bllCompra.Insertar(nuevaCompra);
+            int compraId = _bllCompra.Insertar(nuevaCompra);
 
-            // Eliminar la cotización seleccionada
-            _bllCotizacion.Eliminar(cotizacionSeleccionada.Id);
+            nuevaCompra.Id = compraId;
 
             // Notificar al usuario
             MessageBox.Show("La orden de compra ha sido generada exitosamente y está en estado Pendiente.", "Orden de Compra Generada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             LimpiarFormulario();
 
-            // Actualizar las cotizaciones y las órdenes de compra en los DataGrids
-            CargarCotizacionesAprobadas();
-            CargarOrdenesCompra();
-
-            frmVerificacionProductos formVerificacion = new frmVerificacionProductos();
-            formVerificacion.CargarOrdenCompraYCotizacion(nuevaCompra, cotizacionSeleccionada);
-            formVerificacion.Show();
+            AbrirFormularioVerificacionProductos(nuevaCompra, cotizacionSeleccionada);
         }
 
         private void btnPago_Click(object sender, EventArgs e)
@@ -126,9 +119,22 @@ namespace Form1
                     {
                         // Cambiar el estado a Pagada y actualizar el stock
                         _bllCompra.CambiarEstadoCompraYActualizarStock(compra.Id, EstadoCompra.Pagada);
-                        MessageBox.Show("La compra ha sido marcada como pagada y el stock de los productos se ha actualizado.");
+
+                        // Eliminar la cotización asociada y sus detalles
+                        var cotizacionId = compra.CotizacionId; // Asegúrate de que el modelo de Compra tenga esta referencia
+                        if (compra != null && compra.CotizacionId.HasValue)
+                        {
+                            // Eliminar la referencia a CotizacionId en la base de datos
+                            _bllCompra.EliminarReferenciaCotizacion(compra.Id);
+
+                            // Eliminar la cotización y sus detalles
+                            _bllCotizacion.Eliminar(compra.CotizacionId.Value);
+                        }
+
+                        MessageBox.Show("La compra ha sido marcada como pagada y la cotización asociada ha sido eliminada.");
 
                         CargarOrdenesCompra();
+                        CargarCotizacionesAprobadas();
                     }
                     catch (Exception ex)
                     {
@@ -224,6 +230,9 @@ namespace Form1
             if (dataGridViewCompra.Columns["oProveedor"] != null)
                 dataGridViewCompra.Columns["oProveedor"].Visible = false;
 
+            if (dataGridViewCompra.Columns["CotizacionId"] != null)
+                dataGridViewCompra.Columns["CotizacionId"].Visible = false;
+
             if (dataGridViewCompra.Columns["NombreProveedor"] != null)
                 dataGridViewCompra.Columns["NombreProveedor"].HeaderText = "Proveedor";
 
@@ -254,6 +263,25 @@ namespace Form1
             dataGridViewDetalles.DataSource = null;
             labelProv.Text = string.Empty;
             labelFecha.Text = string.Empty;
+        }
+
+        private void AbrirFormularioVerificacionProductos(Compra compra, Cotizacion cotizacion)
+        {
+            frmVerificacionProductos formVerificacion = new frmVerificacionProductos();
+            formVerificacion.Owner = this;
+
+            // Suscribirse al evento OnRecepcionRechazada para actualizar los DataGridViews
+            formVerificacion.OnRecepcionRechazada += ActualizarDataGrids;
+            formVerificacion.OnRecepcionAprobada += ActualizarDataGrids;
+
+            formVerificacion.CargarOrdenCompraYCotizacion(compra, cotizacion);
+            formVerificacion.Show();
+        }
+
+        private void ActualizarDataGrids()
+        {
+            CargarCotizacionesAprobadas();
+            CargarOrdenesCompra();
         }
 
         #endregion

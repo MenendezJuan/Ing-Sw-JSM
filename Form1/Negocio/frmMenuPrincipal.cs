@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Form1.Negocio;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -38,6 +39,7 @@ namespace Form1
         {
             panelInsumos.Visible = false;
             panelCotizaciones.Visible = false;
+            PanelEntidades.Visible = false;
         }
 
         private void HideSubMenu()
@@ -46,6 +48,8 @@ namespace Form1
                 panelInsumos.Visible = false;
             if (panelCotizaciones.Visible)
                 panelCotizaciones.Visible = false;
+            if (PanelEntidades.Visible)
+                PanelEntidades.Visible = false;
         }
         private void ShowSubMenu(Panel subMenu)
         {
@@ -147,13 +151,6 @@ namespace Form1
             HideSubMenu();
         }
 
-        private void btnComprasProductos_Click(object sender, EventArgs e)
-        {
-            frmGenerarOrdenCompra compraProductos = new frmGenerarOrdenCompra();
-            AddOwnedForm(compraProductos);
-            FormHijo(compraProductos);
-            HideSubMenu();
-        }
 
         private void gestionIdiomasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -197,6 +194,27 @@ namespace Form1
         private void btnFacturar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnComprasProductos_Click(object sender, EventArgs e)
+        {
+            frmGenerarOrdenCompra compraProductos = new frmGenerarOrdenCompra();
+            AddOwnedForm(compraProductos);
+            FormHijo(compraProductos);
+            HideSubMenu();
+        }
+
+        private void buttonGestionarProveedores_Click(object sender, EventArgs e)
+        {
+            frmGestionarProveedores gestionarProveedores = new frmGestionarProveedores();
+            AddOwnedForm(gestionarProveedores);
+            FormHijo(gestionarProveedores);
+            HideSubMenu();
+        }
+
+        private void buttonEntidades_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(PanelEntidades);
         }
     }
 }

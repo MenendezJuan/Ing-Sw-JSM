@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace MPPs
 {
-    public class MPP_COMPRA : IRepositorio<Compra>
+    public class MPP_COMPRA
     {
         public MPP_COMPRA()
         {
@@ -22,8 +22,9 @@ namespace MPPs
         private readonly MPP_PRODUCTO productoRepositorio = new MPP_PRODUCTO();
         private readonly MPP_DETALLECOMPRA detalleCompraRepositorio = new MPP_DETALLECOMPRA();
 
-        public void Insertar(Compra compra)
+        public int Insertar(Compra compra)
         {
+            // Crear un Hashtable para los parámetros del procedimiento almacenado InsertarCompra
             var parametros = new Hashtable
             {
                 { "@Comentario", compra.Comentario },
@@ -31,17 +32,28 @@ namespace MPPs
                 { "@Fecha", compra.Fecha },
                 { "@TipoPagoEnum", (int)compra.TipoPagoEnum },
                 { "@ProveedorId", compra.oProveedor.Id },
-                { "@EstadoCompra", (int)compra.EstadoCompraEnum }
+                { "@EstadoCompra", (int)compra.EstadoCompraEnum },
+                { "@CotizacionId", compra.CotizacionId }
             };
 
+            // Ejecutar el procedimiento para insertar la compra y obtener el ID generado
             int compraId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarCompra", parametros));
 
-            // Insertar detalles de la compra
+            // Asignar el ID de la compra insertada al objeto Compra
+            compra.Id = compraId;
+
+            // Insertar los detalles de la compra
             foreach (var detalle in compra.oDetalleCompra)
             {
+                // Asignar el ID de la compra al detalle
                 detalle.CompraId = compraId;
+
+                // Insertar el detalle en la base de datos
                 detalleCompraRepositorio.Insertar(detalle);
             }
+
+            // Retornar el ID de la compra insertada
+            return compraId;
         }
 
         public void Actualizar(Compra compra)
@@ -54,7 +66,8 @@ namespace MPPs
                 { "@Fecha", compra.Fecha },
                 { "@TipoPagoEnum", (int)compra.TipoPagoEnum },
                 { "@ProveedorId", compra.oProveedor.Id },
-                { "@EstadoCompra", (int)compra.EstadoCompraEnum }
+                { "@EstadoCompra", (int)compra.EstadoCompraEnum },
+                { "@CotizacionId", compra.CotizacionId }
             };
 
             oCnx.Guardar("ActualizarCompra", parametros);
@@ -127,6 +140,16 @@ namespace MPPs
             oCnx.Guardar("CambiarEstadoCompra", parametros);
         }
 
+        public void EliminarReferenciaCotizacion(int compraId)
+        {
+            var parametros = new Hashtable
+            {
+                { "@CompraId", compraId }
+            };
+            oCnx.Guardar("EliminarReferenciaCotizacionEnCompra", parametros);
+        }
+
+
         public List<Compra> ObtenerComprasPorProveedorId(int proveedorId)
         {
             var parametros = new Hashtable
@@ -157,8 +180,10 @@ namespace MPPs
                 Comentario = row["Comentario"].ToString(),
                 MontoTotal = Convert.ToDecimal(row["MontoTotal"]),
                 Fecha = Convert.ToDateTime(row["Fecha"]),
+
                 TipoPagoEnum = (TipoPago)Enum.Parse(typeof(TipoPago), row["TipoPagoEnum"].ToString()),
                 EstadoCompraEnum = (EstadoCompra)Enum.Parse(typeof(EstadoCompra), row["EstadoCompra"].ToString()),
+                CotizacionId = row["CotizacionId"] != DBNull.Value ? Convert.ToInt32(row["CotizacionId"]) : 0,
                 oProveedor = new Proveedor
                 {
                     Id = Convert.ToInt32(row["ProveedorId"]),
