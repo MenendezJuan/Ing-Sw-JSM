@@ -159,7 +159,16 @@ namespace MPPs
                 Fecha = Convert.ToDateTime(row["Fecha"]),
                 TipoPagoEnum = (TipoPago)Enum.Parse(typeof(TipoPago), row["TipoPagoEnum"].ToString()),
                 EstadoCompraEnum = (EstadoCompra)Enum.Parse(typeof(EstadoCompra), row["EstadoCompra"].ToString()),
-                oProveedor = new Proveedor { Id = Convert.ToInt32(row["ProveedorId"]) },
+                oProveedor = new Proveedor
+                {
+                    Id = Convert.ToInt32(row["ProveedorId"]),
+                    Descripcion = row["Descripcion"].ToString(),
+                    Direccion = row["Direccion"].ToString(),
+                    Mail = row["Mail"].ToString(),
+                    Telefono = row["Telefono"].ToString(),
+                    Estado = Convert.ToBoolean(row["Estado"]),
+                    FechaRegistro = Convert.ToDateTime(row["FechaRegistro"])
+                },
                 oDetalleCompra = detalleCompraRepositorio.ObtenerPorCompraId(Convert.ToInt32(row["Id"]))
             };
 

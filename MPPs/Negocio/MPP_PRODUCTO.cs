@@ -72,9 +72,27 @@ namespace MPPs.Negocio
             }
         }
 
+        public void ActualizarStock(int productoId, decimal nuevoStock)
+        {
+            var parametros = new Hashtable
+            {
+                { "@Id", productoId },
+                { "@Stock", nuevoStock }
+            };
+
+            oCnx.Guardar("ActualizarStockProducto", parametros);
+        }
+
         // Método para eliminar un producto y su asociación con el proveedor
         public void Eliminar(int productoId)
         {
+            Producto producto = ObtenerPorId(productoId);
+
+            if (producto.Stock > 0)
+            {
+                throw new InvalidOperationException("No se puede desactivar un producto con stock disponible.");
+            }
+
             // Desasociar el producto de su proveedor en la tabla intermedia
             int proveedorId = ObtenerProveedorIdPorProducto(productoId);
             if (proveedorId > 0)
@@ -82,7 +100,7 @@ namespace MPPs.Negocio
                 DesasociarProductoDeProveedor(productoId, proveedorId);
             }
 
-            // Eliminar el producto
+            // Actualizar el estado del producto a inactivo
             var parametros = new Hashtable { { "@Id", productoId } };
             oCnx.Guardar("EliminarProducto", parametros);
         }
@@ -147,10 +165,10 @@ namespace MPPs.Negocio
         public List<Producto> ObtenerProductosProveedorPorCategoria(int proveedorId, Categoria categoria)
         {
             var parametros = new Hashtable
-    {
-        { "@ProveedorId", proveedorId },
-        { "@Categoria", (int)categoria }
-    };
+            {
+                { "@ProveedorId", proveedorId },
+                { "@Categoria", (int)categoria }
+            };
             DataTable dt = oCnx.Leer("ObtenerProductosProveedorPorCategoria", parametros);
 
             List<Producto> productos = new List<Producto>();
@@ -200,6 +218,19 @@ namespace MPPs.Negocio
             return productos;
         }
 
+        public List<Producto> ObtenerProductosInactivos()
+        {
+            DataTable dt = oCnx.Leer("ObtenerProductosInactivos", null);
+            List<Producto> productosInactivos = new List<Producto>();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                productosInactivos.AddRange(dt.AsEnumerable().Select(Map));
+            }
+
+            return productosInactivos;
+        }
+
         public bool ExisteCodigoProducto(string codigo)
         {
             if (string.IsNullOrEmpty(codigo))
@@ -220,6 +251,7 @@ namespace MPPs.Negocio
 
             return false;
         }
+
 
         public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
         {

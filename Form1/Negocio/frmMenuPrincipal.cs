@@ -183,5 +183,20 @@ namespace Form1
             FormHijo(controlSolicitudesCotizacion);
             HideSubMenu();
         }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCaja_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFacturar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -14,11 +14,13 @@ namespace BLLs.Negocio
     {
         private readonly MPP_COMPRA compraRepository;
         private readonly MPP_DETALLECOMPRA detalleCompraRepository;
+        private readonly MPP_PRODUCTO productoRepository;
 
         public BLL_COMPRA()
         {
             compraRepository = new MPP_COMPRA();
             detalleCompraRepository = new MPP_DETALLECOMPRA();
+            productoRepository = new MPP_PRODUCTO();
         }
 
         // Método para insertar una nueva compra
@@ -101,6 +103,30 @@ namespace BLLs.Negocio
         {
             ValidarExistenciaCompra(compraId);
             compraRepository.CambiarEstadoCompra(compraId, nuevoEstado);
+        }
+
+        public void CambiarEstadoCompraYActualizarStock(int compraId, EstadoCompra nuevoEstado)
+        {
+            ValidarExistenciaCompra(compraId);
+            var compra = compraRepository.ObtenerPorId(compraId);
+
+            if (compra != null && compra.EstadoCompraEnum == EstadoCompra.Pendiente)
+            {
+                compra.EstadoCompraEnum = nuevoEstado;
+                compraRepository.CambiarEstadoCompra(compraId, nuevoEstado);
+
+                if (nuevoEstado == EstadoCompra.Pagada)
+                {
+                    foreach (var detalle in compra.oDetalleCompra)
+                    {
+                        productoRepository.ActualizarStock(detalle.oProducto.Id, detalle.Cantidad);
+                    }
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("La compra no es válida o ya está pagada.");
+            }
         }
 
         // Método de validación para verificar la integridad de la compra antes de insertar o actualizar

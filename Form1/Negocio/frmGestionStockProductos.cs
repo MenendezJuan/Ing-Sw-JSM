@@ -2,6 +2,7 @@
 using BEs.Clases.Negocio.Inventario;
 using BLLs.Negocio;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -41,7 +42,6 @@ namespace Form1
             // Mostrar el panel para actualizar y rellenar los controles con los datos del producto
             panelDatosProducto.Visible = true;
             txtCodigo.ReadOnly = true;  // Código no editable al actualizar
-            checkBoxActivo.Visible = true;
             lblSeleccionado.Visible = true;
             lblSeleccionadoEspecifico.Visible = true;
             lblSeleccionadoEspecifico.Text = _productoSeleccionado.Nombre;
@@ -53,26 +53,33 @@ namespace Form1
 
         private void buttonEliminarProducto_Click(object sender, System.EventArgs e)
         {
-            if (_productoSeleccionado != null)
+            try
             {
-                DialogResult resultado = MessageBox.Show(
-                    "¿Estás seguro de que deseas eliminar este producto?",
-                    "Confirmar eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (resultado == DialogResult.Yes)
+                if (_productoSeleccionado != null)
                 {
-                    _bllProducto.Eliminar(_productoSeleccionado.Id);
-                    CargarProductos();
-                    MessageBox.Show("Producto eliminado correctamente.");
-                    _productoSeleccionado = null;
+                    DialogResult resultado = MessageBox.Show(
+                        "¿Estás seguro de que deseas eliminar este producto?",
+                        "Confirmar eliminación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        _bllProducto.Eliminar(_productoSeleccionado.Id);
+                        CargarProductos();
+                        MessageBox.Show("Producto eliminado correctamente.");
+                        _productoSeleccionado = null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selecciona un producto para eliminar.");
                 }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Selecciona un producto para eliminar.");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -82,7 +89,7 @@ namespace Form1
             {
                 return;
             }
-            // Crear o usar el producto en base a la operación
+
             Producto producto = (btnAceptar.Tag.ToString() == "Actualizar") ? _productoSeleccionado : new Producto();
             MapearControlesAProducto(producto);
 
@@ -90,17 +97,19 @@ namespace Form1
 
             if (btnAceptar.Tag.ToString() == "Agregar")
             {
+                producto.Estado = true;
                 _bllProducto.Insertar(producto, proveedorId);
                 MessageBox.Show("Producto agregado correctamente.");
             }
             else if (btnAceptar.Tag.ToString() == "Actualizar")
             {
+                producto.Estado = true;
                 _bllProducto.Actualizar(producto, proveedorId);
                 MessageBox.Show("Producto actualizado correctamente.");
             }
 
-            CargarProductos();  // Actualizar la lista de productos
-            panelDatosProducto.Visible = false;  // Ocultar el panel
+            CargarProductos();
+            panelDatosProducto.Visible = false;
         }
 
         private void btnBorrarIngresoDatos_Click(object sender, System.EventArgs e)
@@ -189,7 +198,6 @@ namespace Form1
         private void frmGestionStockProductos_Load(object sender, System.EventArgs e)
         {
             CargarProveedores();
-            CargarProductos();
             CargarCategorias();
             ConfigurarEncabezadosColumnas();
         }
@@ -230,19 +238,6 @@ namespace Form1
             txtDescripcion.Text = producto.Descripcion;
             numericUpDownPrecioCompra.Value = producto.PrecioCompra;
             lblSeleccionadoEspecifico.Text = producto.Nombre;
-
-            int? proveedorId = producto.Proveedores.FirstOrDefault()?.ProveedorId;
-            if (proveedorId.HasValue && comboProveedor.Items.Cast<Proveedor>().Any(p => p.Id == proveedorId.Value))
-            {
-                comboProveedor.SelectedValue = proveedorId.Value;
-            }
-            else
-            {
-                comboProveedor.SelectedIndex = -1;
-            }
-
-            // Mapear el estado del producto al CheckBox
-            checkBoxActivo.Checked = producto.Estado.GetValueOrDefault(true);
         }
 
         private void MapearControlesAProducto(Producto producto)
@@ -253,14 +248,12 @@ namespace Form1
             producto.Descripcion = txtDescripcion.Text;
             producto.PrecioCompra = numericUpDownPrecioCompra.Value;
 
-            // Asociación de producto con proveedor seleccionado
             int proveedorId = (int)comboProveedor.SelectedValue;
             if (!producto.Proveedores.Any(pp => pp.ProveedorId == proveedorId))
             {
-                producto.Proveedores.Clear(); // Limpiar asociaciones previas
+                producto.Proveedores.Clear();
                 producto.Proveedores.Add(new ProductoProveedor { ProductoId = producto.Id, ProveedorId = proveedorId });
             }
-            producto.Estado = checkBoxActivo.Checked;
         }
 
         private void LimpiarControles()
@@ -269,7 +262,6 @@ namespace Form1
             txtNombre.Clear();
             comboCategoria.SelectedIndex = -1;
             txtDescripcion.Clear();
-            comboProveedor.SelectedIndex = -1;
             numericUpDownPrecioCompra.Value = 0;
             lblSeleccionadoEspecifico.Text = string.Empty;
         }
@@ -288,17 +280,20 @@ namespace Form1
             dataGridViewProductos.Columns["Nombre"].HeaderText = "Nombre del Producto";
             dataGridViewProductos.Columns["PrecioCompra"].HeaderText = "Precio de Compra";
             dataGridViewProductos.Columns["PrecioVenta"].HeaderText = "Precio de Venta";
-            dataGridViewProductos.Columns["Estado"].HeaderText = "Estado";
             dataGridViewProductos.Columns["Fecha"].HeaderText = "Fecha de Registro";
+            dataGridViewProductos.Columns["Estado"].Visible = false;
         }
-
 
         private void CargarProveedores()
         {
             var proveedores = _bllProveedor.ObtenerTodos();
-            comboProveedor.DataSource = proveedores;
             comboProveedor.DisplayMember = "Descripcion";
             comboProveedor.ValueMember = "Id";
+            comboProveedor.DataSource = proveedores;
+            if (comboProveedor.Items.Count > 0)
+            {
+                comboProveedor.SelectedIndex = 0;
+            }
         }
 
         private bool ValidarCampos()
@@ -342,6 +337,82 @@ namespace Form1
             return true;
         }
 
+        private void MostrarControlesNormales()
+        {
+            buttonAgregarProductoProveedorSelec.Enabled = true;
+            buttonActualizarProducto.Enabled = true;
+            buttonEliminarProducto.Enabled = true;
+            btnExportar.Enabled = true;
+            btnRefresh.Enabled = true;
+            panelDatosProducto.Enabled = true;
+            panelFiltrar.Enabled = true;
+            btnReactivarProductos.Enabled = false;
+        }
+
+        private void OcultarControlesNormalesSinMover()
+        {
+            buttonAgregarProductoProveedorSelec.Enabled = false;
+            buttonActualizarProducto.Enabled = false;
+            buttonEliminarProducto.Enabled = false;
+            btnExportar.Enabled = false;
+            btnRefresh.Enabled = false;
+            panelDatosProducto.Enabled = false;
+            panelFiltrar.Enabled = false;
+            btnReactivarProductos.Enabled = true;
+        }
+
+        private void CargarProductosInactivosEnGrid()
+        {
+            var productosInactivos = _bllProducto.ObtenerProductosInactivos();
+            if (productosInactivos != null && productosInactivos.Count > 0)
+            {
+                dataGridViewProductos.DataSource = productosInactivos;
+                OcultarControlesNormalesSinMover();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos inactivos para mostrar.");
+                MostrarControlesNormales();
+            }
+        }
+
+        private void ReactivarProductoSeleccionado()
+        {
+            if (dataGridViewProductos.SelectedRows.Count > 0)
+            {
+                var productoSeleccionado = (Producto)dataGridViewProductos.SelectedRows[0].DataBoundItem;
+
+                if (comboProveedor.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Por favor, seleccione un proveedor para reactivar el producto.");
+                    return;
+                }
+
+                int proveedorId = (int)comboProveedor.SelectedValue;
+
+                try
+                {
+                    productoSeleccionado.Estado = true;
+                    _bllProducto.Actualizar(productoSeleccionado, proveedorId);
+
+                    MessageBox.Show($"El producto '{productoSeleccionado.Nombre}' ha sido reactivado y asociado al proveedor seleccionado.");
+
+                    // Volver a cargar la vista normal
+                    CargarProductos();
+                    ConfigurarEncabezadosColumnas();
+                    MostrarControlesNormales();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al reactivar el producto: {ex.Message}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione un producto inactivo para reactivar.");
+            }
+        }
+
         #endregion
 
         #region PropiedadesAux
@@ -356,6 +427,46 @@ namespace Form1
                 e.Value = estado ? "Activo" : "Inactivo";
                 e.FormattingApplied = true;
             }
+        }
+
+        private void comboProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboProveedor.SelectedValue != null)
+            {
+                int proveedorId = (int)comboProveedor.SelectedValue;
+                var productos = _bllProducto.ObtenerProductosPorProveedor(proveedorId);
+
+                if (productos != null)
+                {
+                    dataGridViewProductos.DataSource = productos;
+                }
+                else
+                {
+                    dataGridViewProductos.DataSource = null;
+                }
+            }
+        }
+
+        private void dataGridViewProductos_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var row = dataGridViewProductos.Rows[e.RowIndex];
+            bool estado = Convert.ToBoolean(row.Cells["Estado"].Value);
+
+            if (!estado)
+            {
+                row.DefaultCellStyle.BackColor = Color.Gray;
+                row.DefaultCellStyle.ForeColor = Color.White;
+            }
+        }
+
+        private void buttonReactivarProductos_Click(object sender, EventArgs e)
+        {
+            CargarProductosInactivosEnGrid();
+        }
+
+        private void btnReactivarProductos_Click(object sender, EventArgs e)
+        {
+            ReactivarProductoSeleccionado();
         }
     }
 }

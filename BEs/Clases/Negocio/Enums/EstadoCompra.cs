@@ -3,6 +3,7 @@
     public enum EstadoCompra
     {
         Pendiente = 0,
-        Pagada = 1
+        Pagada = 1,
+        Rechazada = 2
     }
 }

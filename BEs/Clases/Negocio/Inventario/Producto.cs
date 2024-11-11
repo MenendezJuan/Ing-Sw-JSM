@@ -14,7 +14,7 @@ namespace BEs.Clases.Negocio
         public string Descripcion { get; set; }
         public decimal PrecioCompra { get; set; }
         public decimal? PrecioVenta { get; set; }
-        public bool? Estado { get; set; }
+        public bool Estado { get; set; }
         public DateTime Fecha { get; set; }
 
         public List<ProductoProveedor> Proveedores { get; set; } = new List<ProductoProveedor>();

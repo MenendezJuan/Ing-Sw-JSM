@@ -24,8 +24,6 @@ namespace Form1
         private void btnAprobSolicitud_Click(object sender, EventArgs e)
         {
             CambiarEstadoCotizacionSeleccionada(EstadoCotizacion.Aprobada);
-            MessageBox.Show("Cotización aprobada exitosamente.", "Cambio de Estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         private void btnRechSolicitud_Click(object sender, EventArgs e)
@@ -41,8 +39,12 @@ namespace Form1
 
             if (rbPendiente.Checked)
             {
-                // Cargar solo las cotizaciones pendientes
                 cotizaciones = _bllCotizacion.ObtenerPorEstado(EstadoCotizacion.Pendiente);
+
+                int solicitudesPendientes = cotizaciones.Count;
+
+                // Actualizar el labelNotificacion con el número de solicitudes pendientes
+                labelNotificacion.Text = $"Atención: {solicitudesPendientes} Ordenes pendientes de aprobación.";
             }
             else if (rbFinalizado.Checked)
             {
@@ -135,7 +137,6 @@ namespace Form1
             dataGridViewCotizaciones.DataSource = null;
             List<Cotizacion> cotizaciones = _bllCotizacion.ObtenerTodos();
             dataGridViewCotizaciones.DataSource = cotizaciones;
-
             ConfigurarColumnasCotizacion();
         }
 
@@ -195,6 +196,16 @@ namespace Form1
         }
 
         private void buttonfrmOrdenCompra_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegProv_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegProd_Click(object sender, EventArgs e)
         {
 
         }

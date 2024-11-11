@@ -121,6 +121,17 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonEntidades.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAUNJREFUSEvtlb9qAkEQxpeA2PoEkYClIO4cVinEzj91niMW6dOkzaNolRdISGch
+        2FmY00OSdCkOOzXfLONxUePdnGLlDz6cnZnb72b3QHN2pkSPM6J1Wk2tfRmXSnl5PB1swpLlQaQ3hPoD
+        opykk9GaYJon/PZUE2lNWDyFyiiLCccqo6wmTGojrcn21xbJ2gdp20Vj8h+Je1xMfGs7PlGb48wmuMh3
+        XOibLHfAMyHqPxLrTQKiOnIraDnzvLKkI/DJ3qM2DDyv6dZaE8S30DeOo4HN7qBgTnQtZT6mBqb88mu1
+        G0npTPiIEK94ElcEWHdhNPqoVAqTarWInk82krIjvsde4g18B9CrK8TAxs/yAkOoK+mI+B57SWwAa2Ou
+        MM0CfaGk/nASEwZH2Npc9DYnMznExURFKhP3f3Ckjn3RDBjzC4+uU2M/03HgAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="btnReportes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL

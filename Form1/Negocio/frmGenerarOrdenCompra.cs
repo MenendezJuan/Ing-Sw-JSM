@@ -3,6 +3,7 @@ using BEs.Clases.Negocio.Compras;
 using BEs.Clases.Negocio.Compras.Enums;
 using BEs.Clases.Negocio.Enums;
 using BLLs.Negocio;
+using Form1.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -107,6 +108,10 @@ namespace Form1
             // Actualizar las cotizaciones y las órdenes de compra en los DataGrids
             CargarCotizacionesAprobadas();
             CargarOrdenesCompra();
+
+            frmVerificacionProductos formVerificacion = new frmVerificacionProductos();
+            formVerificacion.CargarOrdenCompraYCotizacion(nuevaCompra, cotizacionSeleccionada);
+            formVerificacion.Show();
         }
 
         private void btnPago_Click(object sender, EventArgs e)
@@ -117,11 +122,18 @@ namespace Form1
                 // Verificar si el estado de la compra es Pendiente
                 if (compra.EstadoCompraEnum == EstadoCompra.Pendiente)
                 {
-                    // Cambiar el estado a Pagada
-                    _bllCompra.CambiarEstadoCompra(compra.Id, EstadoCompra.Pagada);
-                    MessageBox.Show("La compra ha sido marcada como pagada.");
+                    try
+                    {
+                        // Cambiar el estado a Pagada y actualizar el stock
+                        _bllCompra.CambiarEstadoCompraYActualizarStock(compra.Id, EstadoCompra.Pagada);
+                        MessageBox.Show("La compra ha sido marcada como pagada y el stock de los productos se ha actualizado.");
 
-                    CargarOrdenesCompra();
+                        CargarOrdenesCompra();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al procesar la compra: {ex.Message}");
+                    }
                 }
                 else
                 {
@@ -143,6 +155,10 @@ namespace Form1
         private void CargarComboBoxTipoPago()
         {
             cbPago.DataSource = Enum.GetValues(typeof(TipoPago));
+        }
+        public void HabilitarBotonPago(bool habilitar)
+        {
+            btnPago.Enabled = habilitar;
         }
 
         private void ActualizarDataGridViewDetalle(List<DetalleCompra> detalles)
@@ -201,16 +217,34 @@ namespace Form1
             var ordenesCompra = _bllCompra.ObtenerTodos();
             dataGridViewCompra.DataSource = ordenesCompra;
 
-            // Configurar las columnas visibles y sus encabezados
-            dataGridViewCompra.Columns["ProveedorId"].Visible = false;
-            dataGridViewCompra.Columns["oProveedor"].Visible = false;
+            // Ocultar columnas de objetos complejos
+            if (dataGridViewCompra.Columns["ProveedorId"] != null)
+                dataGridViewCompra.Columns["ProveedorId"].Visible = false;
 
-            dataGridViewCompra.Columns["Id"].HeaderText = "Nro. Orden";
-            dataGridViewCompra.Columns["Fecha"].HeaderText = "Fecha";
-            dataGridViewCompra.Columns["MontoTotal"].HeaderText = "Monto Total";
-            dataGridViewCompra.Columns["Comentario"].HeaderText = "Comentario";
-            dataGridViewCompra.Columns["EstadoCompraEnum"].HeaderText = "Estado";
-            dataGridViewCompra.Columns["TipoPagoEnum"].HeaderText = "TipoPago";
+            if (dataGridViewCompra.Columns["oProveedor"] != null)
+                dataGridViewCompra.Columns["oProveedor"].Visible = false;
+
+            if (dataGridViewCompra.Columns["NombreProveedor"] != null)
+                dataGridViewCompra.Columns["NombreProveedor"].HeaderText = "Proveedor";
+
+            // Configurar encabezados de columnas y orden
+            if (dataGridViewCompra.Columns["Id"] != null)
+                dataGridViewCompra.Columns["Id"].HeaderText = "Nro. Orden";
+
+            if (dataGridViewCompra.Columns["Fecha"] != null)
+                dataGridViewCompra.Columns["Fecha"].HeaderText = "Fecha";
+
+            if (dataGridViewCompra.Columns["MontoTotal"] != null)
+                dataGridViewCompra.Columns["MontoTotal"].HeaderText = "Monto Total";
+
+            if (dataGridViewCompra.Columns["Comentario"] != null)
+                dataGridViewCompra.Columns["Comentario"].HeaderText = "Comentario";
+
+            if (dataGridViewCompra.Columns["EstadoCompraEnum"] != null)
+                dataGridViewCompra.Columns["EstadoCompraEnum"].HeaderText = "Estado";
+
+            if (dataGridViewCompra.Columns["TipoPagoEnum"] != null)
+                dataGridViewCompra.Columns["TipoPagoEnum"].HeaderText = "Tipo de Pago";
         }
 
         private void LimpiarFormulario()
@@ -238,8 +272,15 @@ namespace Form1
             if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compraSeleccionada)
             {
                 // Obtener y mostrar los detalles de la orden de compra seleccionada
-                var proveedosSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);
-                lblProveedor.Text = proveedosSeleccionado.Descripcion;
+                if (compraSeleccionada.oProveedor != null)
+                {
+                    var proveedosSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);
+                    lblProveedor.Text = proveedosSeleccionado.Descripcion;
+                }
+                else
+                {
+                    lblProveedor.Text = "Proveedor no disponible";
+                }
                 lblFecha.Text = compraSeleccionada.Fecha.ToShortDateString();
                 lblTotal.Text = compraSeleccionada.MontoTotal.ToString("C");
                 ActualizarDataGridViewDetalle(compraSeleccionada.oDetalleCompra);
@@ -249,6 +290,18 @@ namespace Form1
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dataGridViewCompra_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            e.ThrowException = false; // Evita que el programa se bloquee
+        }
+
+        private void dataGridViewDetalles_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            e.ThrowException = false; // Evita que el programa se bloquee
         }
     }
 }

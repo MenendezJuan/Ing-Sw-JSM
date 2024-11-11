@@ -15,5 +15,7 @@ namespace BEs.Clases.Negocio.Compras
         public int ProveedorId { get; set; }
         public Proveedor oProveedor { get; set; }
         public List<DetalleCompra> oDetalleCompra { get; set; }
+        public string NombreProveedor => oProveedor?.Descripcion ?? "Proveedor no disponible";
+
     }
 }

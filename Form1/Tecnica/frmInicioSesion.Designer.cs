@@ -57,7 +57,10 @@
             // btn_IniciarSesion
             // 
             this.btn_IniciarSesion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_IniciarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btn_IniciarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_IniciarSesion.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_IniciarSesion.ForeColor = System.Drawing.Color.Gainsboro;
             this.btn_IniciarSesion.Location = new System.Drawing.Point(37, 16);
             this.btn_IniciarSesion.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.btn_IniciarSesion.Name = "btn_IniciarSesion";
@@ -65,7 +68,7 @@
             this.btn_IniciarSesion.TabIndex = 0;
             this.btn_IniciarSesion.Tag = "btn_IniciarSesion_ISes";
             this.btn_IniciarSesion.Text = "Iniciar Sesion";
-            this.btn_IniciarSesion.UseVisualStyleBackColor = true;
+            this.btn_IniciarSesion.UseVisualStyleBackColor = false;
             this.btn_IniciarSesion.Click += new System.EventHandler(this.button_IniciarSesion_Click);
             // 
             // lbl_Email

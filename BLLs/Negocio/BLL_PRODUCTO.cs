@@ -22,6 +22,7 @@ namespace BLLs.Negocio
         {
             ValidarProducto(producto);
             ValidarProveedor(proveedorId);
+            producto.PrecioVenta = CalcularPrecioVenta(producto.PrecioCompra, producto.CategoriaEnum);
             _productoRepository.Insertar(producto, proveedorId);
         }
 
@@ -30,13 +31,30 @@ namespace BLLs.Negocio
             ValidarExistenciaProducto(producto.Id);
             ValidarProducto(producto);
             ValidarProveedor(nuevoProveedorId);
+            producto.PrecioVenta = CalcularPrecioVenta(producto.PrecioCompra, producto.CategoriaEnum);
             _productoRepository.Actualizar(producto, nuevoProveedorId);
         }
 
         public void Eliminar(int id)
         {
             ValidarExistenciaProducto(id);
+            var producto = _productoRepository.ObtenerPorId(id);
+            if (producto.Stock > 0)
+            {
+                throw new InvalidOperationException("No se puede dar de baja un producto con stock disponible.");
+            }
+
+            if (!producto.Estado)
+            {
+                throw new InvalidOperationException("El producto ya ha sido dado de baja.");
+            }
+
             _productoRepository.Eliminar(id);
+        }
+
+        public List<Producto> ObtenerProductosInactivos()
+        {
+            return _productoRepository.ObtenerProductosInactivos();
         }
 
         public Producto ObtenerPorId(int id)
@@ -58,6 +76,10 @@ namespace BLLs.Negocio
         {
             ValidarProveedor(proveedorId);
             return _productoRepository.ObtenerProductosProveedorPorCategoria(proveedorId, categoria);
+        }
+        public List<Producto> ObtenerProductosPorProveedor(int proveedorId)
+        {
+            return _productoRepository.ObtenerProductosPorProveedorId(proveedorId);
         }
 
         public List<Categoria> ObtenerCategoriasPorProveedor(int proveedorId)
@@ -97,10 +119,10 @@ namespace BLLs.Negocio
             if (producto.PrecioVenta < producto.PrecioCompra)
                 throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
 
-            if (_productoRepository.ExisteCodigoProducto(producto.Codigo))
-            {
-                throw new ArgumentException($"El código de producto {producto.Codigo} ya existe.", nameof(producto.Codigo));
-            }
+            //if (_productoRepository.ExisteCodigoProducto(producto.Codigo))
+            //{
+            //    throw new ArgumentException($"El código de producto {producto.Codigo} ya existe.", nameof(producto.Codigo));
+            //}
         }
 
         private void ValidarProveedor(int proveedorId)
@@ -116,5 +138,38 @@ namespace BLLs.Negocio
             if (producto == null)
                 throw new ArgumentException($"El producto con Id {productoId} no existe.", nameof(productoId));
         }
+
+        #region MetodosPrivados
+        private decimal CalcularPrecioVenta(decimal precioCompra, Categoria categoria)
+        {
+            if (categoria == Categoria.Fiambres)
+            {
+                return precioCompra * (1 + MARGEN_FIAMBRES);
+            }
+            else if (categoria == Categoria.Quesos)
+            {
+                return precioCompra * (1 + MARGEN_QUESOS);
+            }
+            else if (categoria == Categoria.Almacen)
+            {
+                return precioCompra * (1 + MARGEN_ALMACEN);
+            }
+            else if (categoria == Categoria.Conservas)
+            {
+                return precioCompra * (1 + MARGEN_CONSERVAS);
+            }
+            else
+            {
+                throw new ArgumentException("Categoría de producto no válida.", nameof(categoria));
+            }
+        }
+        #endregion
+
+        #region propAuxiliares
+        private const decimal MARGEN_FIAMBRES = 0.25m;
+        private const decimal MARGEN_QUESOS = 0.20m;
+        private const decimal MARGEN_ALMACEN = 0.35m;
+        private const decimal MARGEN_CONSERVAS = 0.50m;
+        #endregion
     }
 }

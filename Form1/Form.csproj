@@ -71,6 +71,12 @@
     <Compile Include="Negocio\frmGestionarProveedores.Designer.cs">
       <DependentUpon>frmGestionarProveedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\frmVerificacionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\frmVerificacionProductos.Designer.cs">
+      <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tecnica\frmConfigurarIdioma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\frmGestionStockProductos.resx">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\frmVerificacionProductos.resx">
+      <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tecnica\frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
