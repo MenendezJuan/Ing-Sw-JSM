@@ -9,23 +9,23 @@ namespace MPPs.Negocio
 {
     public class MPP_DETALLECOMPRA : IRepositorio<DetalleCompra>
     {
+        private Conexion oCnx;
+        private readonly MPP_PRODUCTO productoRepositorio;
         public MPP_DETALLECOMPRA()
         {
             oCnx = Conexion.Instance;
+            productoRepositorio = new MPP_PRODUCTO();
         }
-
-        private Conexion oCnx;
-        private readonly MPP_PRODUCTO productoRepositorio = new MPP_PRODUCTO();
 
         public void Insertar(DetalleCompra detalleCompra)
         {
-            detalleCompra.SubTotal = detalleCompra.Cantidad * detalleCompra.oProducto.PrecioCompra;
+            //detalleCompra.SubTotal = detalleCompra.Cantidad * detalleCompra.oProducto.PrecioCompra;
 
             var parametros = new Hashtable
             {
                 { "@ProductoId", detalleCompra.oProducto.Id },
                 { "@Cantidad", detalleCompra.Cantidad },
-                { "@CompraId", detalleCompra.oCompra.Id },
+                { "@CompraId", detalleCompra.CompraId},
                 { "@Precio", detalleCompra.Precio },
                 { "@SubTotal", detalleCompra.SubTotal },
                 { "@Fecha", detalleCompra.Fecha }
@@ -116,5 +116,6 @@ namespace MPPs.Negocio
             };
             return detalleCompra;
         }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BEs.Clases.Negocio.Inventario;
+using System;
+using System.Collections.Generic;
 
 namespace BEs.Clases.Negocio
 {
@@ -11,6 +13,11 @@ namespace BEs.Clases.Negocio
         public string Mail { get; set; }
         public string Telefono { get; set; }
         public bool Estado { get; set; }
-        public DateTime FechaRegistro { get; set; }
+        public DateTime FechaRegistro { get; set; } = DateTime.Now;
+        public List<ProductoProveedor> Productos { get; set; } = new List<ProductoProveedor>();
+        public override string ToString()
+        {
+            return Descripcion;
+        }
     }
 }

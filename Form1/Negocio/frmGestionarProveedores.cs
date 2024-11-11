@@ -1,0 +1,252 @@
+﻿using BEs.Clases.Negocio;
+using BLLs.Negocio;
+using System;
+using System.Windows.Forms;
+
+namespace Form1.Negocio
+{
+    public partial class frmGestionarProveedores : Form
+    {
+        private BLL_PROVEEDOR _bllProveedor;
+        private Proveedor _proveedorSeleccionado;
+        public frmGestionarProveedores()
+        {
+            InitializeComponent();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (!ValidarCampos())
+            {
+                return;
+            }
+
+            Proveedor proveedor = (btnAceptar.Tag.ToString() == "Actualizar") ? _proveedorSeleccionado : new Proveedor();
+            MapearControlesAProveedor(proveedor);
+
+            if (btnAceptar.Tag.ToString() == "Agregar")
+            {
+                proveedor.Estado = true;
+                _bllProveedor.Insertar(proveedor);
+                MessageBox.Show("Proveedor agregado correctamente.");
+            }
+            else if (btnAceptar.Tag.ToString() == "Actualizar")
+            {
+                proveedor.Estado = true;
+                _bllProveedor.Actualizar(proveedor);
+                MessageBox.Show("Proveedor actualizado correctamente.");
+            }
+
+            CargarProveedores();
+            panelDatosProv.Visible = false;
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+
+            app.Visible = true;
+            worksheet = workbook.ActiveSheet;
+            worksheet.Name = "Exportado desde DataGridView";
+
+            for (int i = 1; i <= dataGridViewProveedor.Columns.Count; i++)
+            {
+                worksheet.Cells[1, i] = dataGridViewProveedor.Columns[i - 1].HeaderText;
+            }
+
+            for (int i = 0; i < dataGridViewProveedor.Rows.Count; i++)
+            {
+                for (int j = 0; j < dataGridViewProveedor.Columns.Count; j++)
+                {
+                    worksheet.Cells[i + 2, j + 1] = dataGridViewProveedor.Rows[i].Cells[j].Value?.ToString();
+                }
+            }
+
+            string filePath = "C:\\InformacionProveedor" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xlsx";
+            workbook.SaveAs(filePath);
+            workbook.Close();
+            app.Quit();
+
+            ReleaseObject(worksheet);
+            ReleaseObject(workbook);
+            ReleaseObject(app);
+
+            MessageBox.Show("Archivo exportado correctamente a: " + filePath);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBorrarBusqueda_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBorrarIngresoDatos_Click(object sender, EventArgs e)
+        {
+            LimpiarControles();
+        }
+
+        #region MetodosPrivados
+        private void LimpiarControles()
+        {
+            txtCuit.Clear();
+            txtDireccion.Clear();
+            txtDescripcion.Clear();
+            txtTelefono.Clear();
+            textBoxEmail.Clear();
+            lblSeleccionadoEspecifico.Text = string.Empty;
+        }
+
+        private void MapearProveedorAControles(Proveedor proveedor)
+        {
+            txtCuit.Text = proveedor.CUIT;
+            txtDescripcion.Text = proveedor.Descripcion;
+            txtDireccion.Text = proveedor.Direccion;
+            txtTelefono.Text = proveedor.Telefono;
+            textBoxEmail.Text = proveedor.Mail;
+            lblSeleccionadoEspecifico.Text = proveedor.Descripcion;
+        }
+
+        private void MapearControlesAProveedor(Proveedor proveedor)
+        {
+            proveedor.CUIT = txtCuit.Text;
+            proveedor.Descripcion = txtDescripcion.Text;
+            proveedor.Direccion = txtDireccion.Text;
+            proveedor.Telefono = txtTelefono.Text;
+            proveedor.Mail = textBoxEmail.Text;
+        }
+
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtCuit.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un CUIT para el proveedor.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                MessageBox.Show("Por favor, ingrese una descripcion para el proveedor.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDireccion.Text))
+            {
+                MessageBox.Show("Por favor, ingrese una direccion para el proveedor.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un telefono para el proveedor.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un mail para el proveedor.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void CargarProveedores()
+        {
+            var proveedores = _bllProveedor.ObtenerTodos();
+            dataGridViewProveedor.DataSource = proveedores;
+        }
+
+        private void ReleaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Excepción al liberar objeto " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+        #endregion
+
+        private void buttonAgregarProveedor_Click(object sender, EventArgs e)
+        {
+            panelDatosProv.Visible = true;
+            txtCuit.ReadOnly = false;  // Código editable en agregar
+            lblSeleccionado.Visible = false;  // Ocultar etiquetas de selección
+            lblSeleccionadoEspecifico.Visible = false;
+            LimpiarControles();  // Limpiar los controles para ingresar nuevos datos
+            _proveedorSeleccionado = null;  // Resetear el producto seleccionado
+            btnAceptar.Tag = "Agregar";  // Usar la etiqueta del botón para distinguir si es agregar o actualizar
+        }
+
+        private void buttonActualizarProveedor_Click(object sender, EventArgs e)
+        {
+            if (_proveedorSeleccionado == null)
+            {
+                MessageBox.Show("Por favor, seleccione un producto para actualizar.");
+                return;
+            }
+
+            // Mostrar el panel para actualizar y rellenar los controles con los datos del producto
+            panelDatosProv.Visible = true;
+            txtCuit.ReadOnly = true;  // Código no editable al actualizar
+            lblSeleccionado.Visible = true;
+            lblSeleccionadoEspecifico.Visible = true;
+            lblSeleccionadoEspecifico.Text = _proveedorSeleccionado.Descripcion;
+
+            // Mapear los datos del producto seleccionado a los controles
+            MapearProveedorAControles(_proveedorSeleccionado);
+            btnAceptar.Tag = "Actualizar";  // Distinguir si es agregar o actualizar
+        }
+
+        private void buttonEliminarProveedor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_proveedorSeleccionado != null)
+                {
+                    DialogResult resultado = MessageBox.Show(
+                        "¿Estás seguro de que deseas eliminar este proveedor?",
+                        "Confirmar eliminación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        _bllProveedor.Eliminar(_proveedorSeleccionado.Id);
+                        CargarProveedores();
+                        MessageBox.Show("Proveedor eliminado correctamente.");
+                        _proveedorSeleccionado = null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selecciona un proveedor para eliminar.");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}

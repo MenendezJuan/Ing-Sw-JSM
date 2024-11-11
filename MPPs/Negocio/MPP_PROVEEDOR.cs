@@ -1,4 +1,5 @@
 ﻿using BEs.Clases.Negocio;
+using MPPs.Negocio;
 using Servicios;
 using System;
 using System.Collections;
@@ -9,7 +10,13 @@ namespace MPPs
 {
     public class MPP_PROVEEDOR : IRepositorio<Proveedor>
     {
-        private readonly Conexion oCnx = Conexion.Instance;
+        private readonly Conexion oCnx;
+        private readonly MPP_PRODUCTO mppProducto;
+        public MPP_PROVEEDOR()
+        {
+            oCnx = Conexion.Instance;
+            mppProducto = new MPP_PRODUCTO();
+        }
 
         public void Insertar(Proveedor proveedor)
         {
@@ -24,7 +31,7 @@ namespace MPPs
                 { "@FechaRegistro", proveedor.FechaRegistro }
             };
 
-            proveedor.Id = Convert.ToInt32(oCnx.Guardar("InsertarProveedor", parametros));
+            proveedor.Id = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProveedor", parametros));
         }
 
         public void Actualizar(Proveedor proveedor)
@@ -46,6 +53,12 @@ namespace MPPs
 
         public void Eliminar(int id)
         {
+            if (HayProductosAsociados(id))
+            {
+                throw new InvalidOperationException("No se puede eliminar el proveedor porque tiene productos asociados.");
+            }
+
+            // Si no hay productos asociados, procede con la eliminación
             var parametros = new Hashtable
             {
                 { "@Id", id }
@@ -77,6 +90,26 @@ namespace MPPs
                 proveedores.Add(Map(row));
             }
             return proveedores;
+        }
+
+        public List<Proveedor> ObtenerProveedoresPorCategoriaProducto(Categoria categoria)
+        {
+            var parametros = new Hashtable { { "@Categoria", (int)categoria } };
+            DataTable dt = oCnx.Leer("ObtenerProveedoresPorCategoriaProducto", parametros);
+
+            List<Proveedor> proveedores = new List<Proveedor>();
+            foreach (DataRow row in dt.Rows)
+            {
+                proveedores.Add(Map(row));
+            }
+
+            return proveedores;
+        }
+
+
+        private bool HayProductosAsociados(int proveedorId)
+        {
+            return mppProducto.ObtenerProductosPorProveedorId(proveedorId).Count > 0;
         }
 
         private Proveedor Map(DataRow row)
