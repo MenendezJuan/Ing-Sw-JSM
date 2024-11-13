@@ -247,7 +247,7 @@ namespace Form1.Negocio
                 Directory.CreateDirectory(folderPath);
             }
 
-            string filePath = Path.Combine(folderPath, $"firma{DateTime.Now}.png");
+            string filePath = Path.Combine(folderPath, "firma.png");
 
             firmaBitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
             MessageBox.Show("Firma guardada correctamente en la carpeta 'FirmadoConforme' en el escritorio.", "Guardar Firma", MessageBoxButtons.OK, MessageBoxIcon.Information);

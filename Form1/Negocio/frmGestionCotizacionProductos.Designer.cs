@@ -217,7 +217,7 @@
             this.dataGridViewCotizaciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewCotizaciones.EnableHeadersVisualStyles = false;
             this.dataGridViewCotizaciones.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewCotizaciones.Location = new System.Drawing.Point(6, 19);
+            this.dataGridViewCotizaciones.Location = new System.Drawing.Point(6, 11);
             this.dataGridViewCotizaciones.MultiSelect = false;
             this.dataGridViewCotizaciones.Name = "dataGridViewCotizaciones";
             this.dataGridViewCotizaciones.ReadOnly = true;
@@ -232,7 +232,7 @@
             this.dataGridViewCotizaciones.RowHeadersVisible = false;
             this.dataGridViewCotizaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewCotizaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCotizaciones.Size = new System.Drawing.Size(377, 246);
+            this.dataGridViewCotizaciones.Size = new System.Drawing.Size(384, 254);
             this.dataGridViewCotizaciones.TabIndex = 43;
             this.dataGridViewCotizaciones.SelectionChanged += new System.EventHandler(this.dataGridViewCotizaciones_SelectionChanged);
             // 

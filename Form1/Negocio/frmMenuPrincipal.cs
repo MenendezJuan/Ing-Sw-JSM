@@ -430,5 +430,13 @@ namespace Form1
                 sesion.CambiarIdioma(idiomaSeleccionado);
             }
         }
+
+        private void btnAdministracion_Click(object sender, EventArgs e)
+        {
+            frmMenuAdmin frmAdmin = new frmMenuAdmin();
+            AddOwnedForm(frmAdmin);
+            FormHijo(frmAdmin);
+            HideSubMenu();
+        }
     }
 }
