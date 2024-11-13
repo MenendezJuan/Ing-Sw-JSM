@@ -12,6 +12,7 @@ namespace Form1.Negocio
         public frmGestionarProveedores()
         {
             InitializeComponent();
+            _bllProveedor = new BLL_PROVEEDOR();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -165,6 +166,8 @@ namespace Form1.Negocio
         {
             var proveedores = _bllProveedor.ObtenerTodos();
             dataGridViewProveedor.DataSource = proveedores;
+            if (dataGridViewProveedor.Columns["Estado"] != null)
+                dataGridViewProveedor.Columns["Estado"].Visible = false;
         }
 
         private void ReleaseObject(object obj)
@@ -247,6 +250,11 @@ namespace Form1.Negocio
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void frmGestionarProveedores_Load(object sender, EventArgs e)
+        {
+            CargarProveedores();
         }
     }
 }

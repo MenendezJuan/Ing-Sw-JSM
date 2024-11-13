@@ -243,6 +243,7 @@
             this.ShowIcon = false;
             this.Tag = "Form_MenuInicio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuInicio_FormClosing);
+            this.Load += new System.EventHandler(this.frmMenuAdmin_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

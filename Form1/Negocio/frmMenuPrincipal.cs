@@ -1,16 +1,38 @@
-﻿using Form1.Negocio;
+﻿using BEs;
+using BEs.Clases;
+using BEs.Interfaces;
+using BLLs;
+using Form1.Negocio;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Form1
 {
-    public partial class frmMenuPrincipal : Form
+    public partial class frmMenuPrincipal : Form, IObservador
     {
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            CargarIdiomas();
+            Actualizar(oIdioma);
+            if (sesion.Permisos != null)
+            {
+                BuscarControles(this.Controls);
+                Buscar(sesion.Permisos[0]);
+            }
             CustomizeDesing();
             InicializarEstilos();
         }
@@ -151,15 +173,6 @@ namespace Form1
             HideSubMenu();
         }
 
-
-        private void gestionIdiomasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmMenuAdmin gestorIdiomas = new frmMenuAdmin();
-            AddOwnedForm(gestorIdiomas);
-            FormHijo(gestorIdiomas);
-            HideSubMenu();
-        }
-
         private void btnControl_Click(object sender, EventArgs e)
         {
             ShowSubMenu(panelCotizaciones);
@@ -215,6 +228,207 @@ namespace Form1
         private void buttonEntidades_Click(object sender, EventArgs e)
         {
             ShowSubMenu(PanelEntidades);
+        }
+
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sesion.DesregistrarObservador(this);
+            SessionManager.Logout();
+            Cerrar();
+        }
+
+        private void AusuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void perfilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void idiomasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMenuAdmin gestorIdiomas = new frmMenuAdmin();
+            AddOwnedForm(gestorIdiomas);
+            FormHijo(gestorIdiomas);
+            HideSubMenu();
+        }
+
+        private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #region Idiomas
+        private void CargarIdiomas()
+        {
+            try
+            {
+                var idiomas = Bll_Idioma.ListarTodos();
+                cboxIdiomas.DataSource = idiomas;
+                cboxIdiomas.DisplayMember = "Nombre";
+                cboxIdiomas.ValueMember = "Id";
+
+                var idiomaPredeterminado = idiomas.FirstOrDefault(i => i.Nombre == "Español");
+                if (idiomaPredeterminado != null)
+                {
+                    cboxIdiomas.SelectedValue = idiomaPredeterminado.Id;
+                    sesion.CambiarIdioma(idiomaPredeterminado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ActualizarTextosControles(Idioma idioma)
+        {
+            try
+            {
+                var traducciones = Bll_Traduccion.ListarPorIdioma(idioma.Id);
+
+                foreach (Control control in ListaControles)
+                {
+                    var traduccion = traducciones.FirstOrDefault(t => t.Palabra == control.Text);
+                    if (traduccion != null)
+                    {
+                        control.Text = traduccion.TraduccionTexto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+            }
+
+            TraducirMenuStrip(menuStripPrincipal, idioma);
+
+            if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
+            {
+                cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+
+        private void TraducirMenuStrip(MenuStrip menuStrip, IIdioma idioma)
+        {
+            foreach (ToolStripItem item in menuStrip.Items)
+            {
+                TraducirMenuStripItem(item, idioma);
+            }
+        }
+
+        private void TraducirMenuStripItem(ToolStripItem item, IIdioma idioma)
+        {
+            if (item.Tag != null)
+            {
+                string traduccion = Bll_Traduccion.BuscarTraduccion(item.Tag.ToString(), idioma.Id);
+                if (!string.IsNullOrEmpty(traduccion))
+                {
+                    item.Text = traduccion;
+                }
+            }
+
+            // Si el item tiene submenús, los traducimos también
+            if (item is ToolStripMenuItem menuItem && menuItem.DropDownItems.Count > 0)
+            {
+                foreach (ToolStripItem subItem in menuItem.DropDownItems)
+                {
+                    TraducirMenuStripItem(subItem, idioma);
+                }
+            }
+        }
+        #endregion Idiomas
+
+        List<Control> ListaControles = new List<Control>();
+        public void BuscarControles(ICollection controles)
+        {
+            foreach (Control c in controles)
+            {
+                ListaControles.Add(c);
+                if (c.HasChildren)
+                {
+                    BuscarControles(c.Controls);
+                }
+            }
+        }
+
+        #region Permisos
+        public void Buscar(Componente c)
+        {
+            GrupoPermisos grupo = (GrupoPermisos)c;
+            foreach (Componente p in grupo.Permisos)
+            {
+                if (p is GrupoPermisos)
+                {
+                    Buscar(p);
+                    Comprobar(p);
+                }
+                else
+                {
+                    Comprobar(p);
+                }
+            }
+        }
+
+        public void Comprobar(Componente p)
+        {
+            foreach (Control c in ListaControles)
+            {
+                if (c.Tag != null && c.Tag.ToString() == p.Nombre)
+                {
+                    c.Visible = true;
+                }
+            }
+        }
+        #endregion Permisos
+
+        //Ajustar esta logica
+        #region Extras
+        int i = 0;
+        public void Cerrar()
+        {
+            if (i == 0)
+            {
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+                i++;
+                this.Close();
+            }
+        }
+        #endregion Extras
+
+        private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Cerrar();
+        }
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboxIdiomas.SelectedItem != null)
+            {
+                Idioma idiomaSeleccionado = (Idioma)cboxIdiomas.SelectedItem;
+                ListaControles.Clear();
+                BuscarControles(this.Controls);
+                ActualizarTextosControles(idiomaSeleccionado);
+                sesion.CambiarIdioma(idiomaSeleccionado);
+            }
         }
     }
 }

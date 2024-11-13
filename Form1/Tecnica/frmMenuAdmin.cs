@@ -201,5 +201,10 @@ namespace Form1
             }
         }
         #endregion Extras
+
+        private void frmMenuAdmin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

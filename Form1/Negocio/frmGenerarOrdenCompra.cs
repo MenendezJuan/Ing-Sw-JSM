@@ -6,6 +6,7 @@ using BLLs.Negocio;
 using Form1.Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Form1
@@ -36,6 +37,17 @@ namespace Form1
             if (currentRowItem == null || !(currentRowItem is Cotizacion cotizacionSeleccionada))
             {
                 MessageBox.Show("Por favor, seleccione una cotización aprobada antes de generar la orden de compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cotizacionSeleccionada.EstadoCotizacionEnum != EstadoCotizacion.Aprobada)
+            {
+                MessageBox.Show("La cotización seleccionada no está aprobada. No se puede generar la orden de compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (CompraExistente(cotizacionSeleccionada.Id))
+            {
+                MessageBox.Show("Ya existe una orden de compra generada para esta cotización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -103,8 +115,8 @@ namespace Form1
             MessageBox.Show("La orden de compra ha sido generada exitosamente y está en estado Pendiente.", "Orden de Compra Generada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             LimpiarFormulario();
-
-            AbrirFormularioVerificacionProductos(nuevaCompra, cotizacionSeleccionada);
+            CargarOrdenesCompra();
+            CargarCotizacionesAprobadas();
         }
 
         private void btnPago_Click(object sender, EventArgs e)
@@ -165,6 +177,15 @@ namespace Form1
         public void HabilitarBotonPago(bool habilitar)
         {
             btnPago.Enabled = habilitar;
+        }
+
+        private Compra ObtenerCompraSeleccionada()
+        {
+            if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compraSeleccionada)
+            {
+                return compraSeleccionada;
+            }
+            return null;
         }
 
         private void ActualizarDataGridViewDetalle(List<DetalleCompra> detalles)
@@ -283,6 +304,12 @@ namespace Form1
             CargarCotizacionesAprobadas();
             CargarOrdenesCompra();
         }
+        private bool CompraExistente(int cotizacionId)
+        {
+            var compras = _bllCompra.ObtenerTodos();
+
+            return compras.Any(compra => compra.CotizacionId == cotizacionId);
+        }
 
         #endregion
 
@@ -297,21 +324,34 @@ namespace Form1
 
         private void dataGridViewCompra_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compraSeleccionada)
+            var compraSeleccionada = ObtenerCompraSeleccionada();
+
+            if (compraSeleccionada != null)
             {
                 // Obtener y mostrar los detalles de la orden de compra seleccionada
                 if (compraSeleccionada.oProveedor != null)
                 {
-                    var proveedosSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);
-                    lblProveedor.Text = proveedosSeleccionado.Descripcion;
+                    var proveedorSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);
+                    lblProveedor.Text = proveedorSeleccionado.Descripcion;
                 }
                 else
                 {
                     lblProveedor.Text = "Proveedor no disponible";
                 }
+
                 lblFecha.Text = compraSeleccionada.Fecha.ToShortDateString();
                 lblTotal.Text = compraSeleccionada.MontoTotal.ToString("C");
+
+                // Actualizar el DataGridView de detalles de compra
                 ActualizarDataGridViewDetalle(compraSeleccionada.oDetalleCompra);
+
+                // Habilitar el botón de verificación de productos si el estado es "Pendiente"
+                buttonVerificacionProductos.Enabled = compraSeleccionada.EstadoCompraEnum == EstadoCompra.Pendiente;
+            }
+            else
+            {
+                // Deshabilitar el botón si no hay una compra seleccionada o no es válida
+                buttonVerificacionProductos.Enabled = false;
             }
         }
 
@@ -330,6 +370,29 @@ namespace Form1
         {
             MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.ThrowException = false; // Evita que el programa se bloquee
+        }
+
+        private void buttonVerificacionProductos_Click(object sender, EventArgs e)
+        {
+            var compraSeleccionada = ObtenerCompraSeleccionada();
+
+            if (compraSeleccionada != null && compraSeleccionada.EstadoCompraEnum == EstadoCompra.Pendiente)
+            {
+                var cotizacionSeleccionada = _bllCotizacion.ObtenerPorId(compraSeleccionada.CotizacionId ?? 0);
+
+                if (cotizacionSeleccionada != null)
+                {
+                    AbrirFormularioVerificacionProductos(compraSeleccionada, cotizacionSeleccionada);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró la cotización relacionada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una compra válida antes de proceder.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
