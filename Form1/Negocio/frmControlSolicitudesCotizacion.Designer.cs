@@ -46,20 +46,20 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             this.labelNotificacion = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
-            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRechSolicitud
@@ -312,6 +312,51 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1081, 512);
             this.tableLayoutPanel2.TabIndex = 91;
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(543, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(535, 45);
+            this.tableLayoutPanel5.TabIndex = 93;
+            // 
+            // lblSeleccionarIdioma
+            // 
+            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeleccionarIdioma.AutoSize = true;
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(62, 12);
+            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
+            this.lblSeleccionarIdioma.TabIndex = 50;
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            // 
+            // cboxIdiomas
+            // 
+            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIdiomas.FormattingEnabled = true;
+            this.cboxIdiomas.Location = new System.Drawing.Point(306, 8);
+            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cboxIdiomas.Name = "cboxIdiomas";
+            this.cboxIdiomas.Size = new System.Drawing.Size(189, 28);
+            this.cboxIdiomas.TabIndex = 49;
+            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
+            // 
             // labelNotificacion
             // 
             this.labelNotificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -340,7 +385,7 @@
             this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCerrar.Size = new System.Drawing.Size(95, 30);
             this.btnCerrar.TabIndex = 85;
-            this.btnCerrar.Tag = "btnCerrar_tag";
+            this.btnCerrar.Tag = "btnCerrar_frmGestionCot";
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCerrar.UseVisualStyleBackColor = true;
@@ -385,50 +430,6 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(532, 47);
             this.tableLayoutPanel4.TabIndex = 44;
             // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.cboxIdiomas, 1, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(543, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(535, 45);
-            this.tableLayoutPanel5.TabIndex = 93;
-            // 
-            // lblSeleccionarIdioma
-            // 
-            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblSeleccionarIdioma.AutoSize = true;
-            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(62, 12);
-            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
-            this.lblSeleccionarIdioma.TabIndex = 50;
-            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
-            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
-            // 
-            // cboxIdiomas
-            // 
-            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(306, 8);
-            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cboxIdiomas.Name = "cboxIdiomas";
-            this.cboxIdiomas.Size = new System.Drawing.Size(189, 28);
-            this.cboxIdiomas.TabIndex = 49;
-            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
-            // 
             // frmControlSolicitudesCotizacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -438,6 +439,7 @@
             this.ClientSize = new System.Drawing.Size(1084, 516);
             this.Controls.Add(this.tableLayoutPanel2);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmControlSolicitudesCotizacion";
             this.ShowIcon = false;
             this.Text = "frmControlSolicitudesCotizacion";
@@ -447,11 +449,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
 
         }

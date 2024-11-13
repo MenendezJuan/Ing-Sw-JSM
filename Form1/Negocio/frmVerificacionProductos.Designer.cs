@@ -40,23 +40,26 @@
             this.checkBoxCondicionesProductos = new System.Windows.Forms.CheckBox();
             this.checkBoxCantidadProductos = new System.Windows.Forms.CheckBox();
             this.checkBoxEmpaqueProductos = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelObservaciones = new System.Windows.Forms.Label();
             this.textBoxObservaciones = new System.Windows.Forms.TextBox();
             this.btnAprobarRecepcion = new FontAwesome.Sharp.IconButton();
             this.btnRechazarRecepcion = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewDetalleCotizacion = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelProducSoli = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewDetalleCompra = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelDetallesOrden = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxFirma = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.btnFirmarConforme = new FontAwesome.Sharp.IconButton();
             this.btnLimpiarFirm = new FontAwesome.Sharp.IconButton();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
@@ -66,6 +69,7 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFirma)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBoxLlegaronProductos
@@ -76,6 +80,7 @@
             this.checkBoxLlegaronProductos.Name = "checkBoxLlegaronProductos";
             this.checkBoxLlegaronProductos.Size = new System.Drawing.Size(322, 28);
             this.checkBoxLlegaronProductos.TabIndex = 4;
+            this.checkBoxLlegaronProductos.Tag = "checkBoxLlegaronProductos_frmVerificacion";
             this.checkBoxLlegaronProductos.Text = "¿Llegaron todos los productos?";
             this.checkBoxLlegaronProductos.UseVisualStyleBackColor = true;
             // 
@@ -87,6 +92,7 @@
             this.checkBoxCondicionesProductos.Name = "checkBoxCondicionesProductos";
             this.checkBoxCondicionesProductos.Size = new System.Drawing.Size(385, 28);
             this.checkBoxCondicionesProductos.TabIndex = 5;
+            this.checkBoxCondicionesProductos.Tag = "checkBoxCondicionesProductos_frmVerificacion";
             this.checkBoxCondicionesProductos.Text = "¿Están los productos en condiciones?";
             this.checkBoxCondicionesProductos.UseVisualStyleBackColor = true;
             // 
@@ -98,6 +104,7 @@
             this.checkBoxCantidadProductos.Name = "checkBoxCantidadProductos";
             this.checkBoxCantidadProductos.Size = new System.Drawing.Size(365, 28);
             this.checkBoxCantidadProductos.TabIndex = 6;
+            this.checkBoxCantidadProductos.Tag = "checkBoxCantidadProductos_frmVerificacion";
             this.checkBoxCantidadProductos.Text = "¿Las cantidades son las solicitadas?";
             this.checkBoxCantidadProductos.UseVisualStyleBackColor = true;
             // 
@@ -109,19 +116,21 @@
             this.checkBoxEmpaqueProductos.Name = "checkBoxEmpaqueProductos";
             this.checkBoxEmpaqueProductos.Size = new System.Drawing.Size(396, 28);
             this.checkBoxEmpaqueProductos.TabIndex = 7;
+            this.checkBoxEmpaqueProductos.Tag = "checkBoxEmpaqueProductos_frmVerificacion";
             this.checkBoxEmpaqueProductos.Text = "¿Los empaques estan en buen estado?";
             this.checkBoxEmpaqueProductos.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // labelObservaciones
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(441, 453);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 24);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Observaciones";
+            this.labelObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelObservaciones.AutoSize = true;
+            this.labelObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelObservaciones.Location = new System.Drawing.Point(441, 453);
+            this.labelObservaciones.Name = "labelObservaciones";
+            this.labelObservaciones.Size = new System.Drawing.Size(150, 24);
+            this.labelObservaciones.TabIndex = 8;
+            this.labelObservaciones.Tag = "labelObservaciones_frmVerificacion";
+            this.labelObservaciones.Text = "Observaciones";
             // 
             // textBoxObservaciones
             // 
@@ -148,6 +157,7 @@
             this.btnAprobarRecepcion.Name = "btnAprobarRecepcion";
             this.btnAprobarRecepcion.Size = new System.Drawing.Size(183, 57);
             this.btnAprobarRecepcion.TabIndex = 10;
+            this.btnAprobarRecepcion.Tag = "btnAprobarRecepcion_frmVerificacion";
             this.btnAprobarRecepcion.Text = "Aprobar Recepcion";
             this.btnAprobarRecepcion.UseVisualStyleBackColor = false;
             this.btnAprobarRecepcion.Click += new System.EventHandler(this.btnAprobarRecepcion_Click);
@@ -165,6 +175,7 @@
             this.btnRechazarRecepcion.Name = "btnRechazarRecepcion";
             this.btnRechazarRecepcion.Size = new System.Drawing.Size(183, 59);
             this.btnRechazarRecepcion.TabIndex = 11;
+            this.btnRechazarRecepcion.Tag = "btnRechazarRecepcion_frmVerificacion";
             this.btnRechazarRecepcion.Text = "Rechazar Recepcion";
             this.btnRechazarRecepcion.UseVisualStyleBackColor = false;
             this.btnRechazarRecepcion.Click += new System.EventHandler(this.btnRechazarRecepcion_Click);
@@ -178,14 +189,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.90207F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.70652F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.39141F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel7, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewDetalleCotizacion, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelProducSoli, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBoxObservaciones, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.labelObservaciones, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewDetalleCompra, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelDetallesOrden, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 2, 2);
@@ -252,16 +264,17 @@
             this.dataGridViewDetalleCotizacion.Size = new System.Drawing.Size(440, 281);
             this.dataGridViewDetalleCotizacion.TabIndex = 86;
             // 
-            // label2
+            // labelProducSoli
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(889, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(211, 24);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Productos Solicitados";
+            this.labelProducSoli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelProducSoli.AutoSize = true;
+            this.labelProducSoli.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProducSoli.Location = new System.Drawing.Point(889, 30);
+            this.labelProducSoli.Name = "labelProducSoli";
+            this.labelProducSoli.Size = new System.Drawing.Size(211, 24);
+            this.labelProducSoli.TabIndex = 3;
+            this.labelProducSoli.Tag = "labelProducSoli_frmVerificacion";
+            this.labelProducSoli.Text = "Productos Solicitados";
             // 
             // tableLayoutPanel3
             // 
@@ -350,16 +363,17 @@
             this.dataGridViewDetalleCompra.Size = new System.Drawing.Size(432, 281);
             this.dataGridViewDetalleCompra.TabIndex = 85;
             // 
-            // label1
+            // labelDetallesOrden
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 24);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Detalle de la Orden";
+            this.labelDetallesOrden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelDetallesOrden.AutoSize = true;
+            this.labelDetallesOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDetallesOrden.Location = new System.Drawing.Point(3, 30);
+            this.labelDetallesOrden.Name = "labelDetallesOrden";
+            this.labelDetallesOrden.Size = new System.Drawing.Size(191, 24);
+            this.labelDetallesOrden.TabIndex = 2;
+            this.labelDetallesOrden.Tag = "labelDetallesOrden_frmVerificacion";
+            this.labelDetallesOrden.Text = "Detalle de la Orden";
             // 
             // tableLayoutPanel4
             // 
@@ -390,13 +404,13 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 201F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(440, 201);
             this.tableLayoutPanel5.TabIndex = 90;
             // 
             // pictureBoxFirma
             // 
-            this.pictureBoxFirma.BackColor = System.Drawing.Color.Snow;
+            this.pictureBoxFirma.BackColor = System.Drawing.Color.White;
             this.pictureBoxFirma.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxFirma.Name = "pictureBoxFirma";
             this.pictureBoxFirma.Size = new System.Drawing.Size(434, 195);
@@ -437,6 +451,7 @@
             this.btnFirmarConforme.Name = "btnFirmarConforme";
             this.btnFirmarConforme.Size = new System.Drawing.Size(183, 57);
             this.btnFirmarConforme.TabIndex = 11;
+            this.btnFirmarConforme.Tag = "btnFirmarConforme_frmVerificacion";
             this.btnFirmarConforme.Text = "Firmar";
             this.btnFirmarConforme.UseVisualStyleBackColor = false;
             this.btnFirmarConforme.Click += new System.EventHandler(this.btnFirmarConforme_Click);
@@ -454,9 +469,55 @@
             this.btnLimpiarFirm.Name = "btnLimpiarFirm";
             this.btnLimpiarFirm.Size = new System.Drawing.Size(183, 57);
             this.btnLimpiarFirm.TabIndex = 12;
+            this.btnLimpiarFirm.Tag = "btnLimpiarFirm_frmVerificacion";
             this.btnLimpiarFirm.Text = "Limpiar Firma";
             this.btnLimpiarFirm.UseVisualStyleBackColor = false;
             this.btnLimpiarFirm.Click += new System.EventHandler(this.btnLimpiarFirm_Click);
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(441, 3);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(442, 48);
+            this.tableLayoutPanel7.TabIndex = 92;
+            // 
+            // lblSeleccionarIdioma
+            // 
+            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeleccionarIdioma.AutoSize = true;
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(39, 14);
+            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
+            this.lblSeleccionarIdioma.TabIndex = 50;
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            // 
+            // cboxIdiomas
+            // 
+            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIdiomas.FormattingEnabled = true;
+            this.cboxIdiomas.Location = new System.Drawing.Point(234, 10);
+            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cboxIdiomas.Name = "cboxIdiomas";
+            this.cboxIdiomas.Size = new System.Drawing.Size(195, 28);
+            this.cboxIdiomas.TabIndex = 49;
+            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // frmVerificacionProductos
             // 
@@ -466,6 +527,7 @@
             this.ClientSize = new System.Drawing.Size(1332, 682);
             this.Controls.Add(this.tableLayoutPanel1);
             this.ForeColor = System.Drawing.Color.Gainsboro;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmVerificacionProductos";
             this.Text = "frmVerificacionProductos";
             this.Load += new System.EventHandler(this.frmVerificacionProductos_Load);
@@ -481,6 +543,8 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFirma)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -490,7 +554,7 @@
         private System.Windows.Forms.CheckBox checkBoxCondicionesProductos;
         private System.Windows.Forms.CheckBox checkBoxCantidadProductos;
         private System.Windows.Forms.CheckBox checkBoxEmpaqueProductos;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelObservaciones;
         private System.Windows.Forms.TextBox textBoxObservaciones;
         private FontAwesome.Sharp.IconButton btnAprobarRecepcion;
         private FontAwesome.Sharp.IconButton btnRechazarRecepcion;
@@ -499,13 +563,16 @@
         internal System.Windows.Forms.DataGridView dataGridViewDetalleCotizacion;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelProducSoli;
+        private System.Windows.Forms.Label labelDetallesOrden;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.PictureBox pictureBoxFirma;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private FontAwesome.Sharp.IconButton btnFirmarConforme;
         private FontAwesome.Sharp.IconButton btnLimpiarFirm;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label lblSeleccionarIdioma;
+        private System.Windows.Forms.ComboBox cboxIdiomas;
     }
 }

@@ -532,6 +532,7 @@
             this.Controls.Add(this.buttonActualizarProveedor);
             this.Controls.Add(this.buttonAgregarProveedor);
             this.Controls.Add(this.lblTituloProductos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmGestionarProveedores";
             this.Text = "frmGestionarProveedores";
             this.Load += new System.EventHandler(this.frmGestionarProveedores_Load);

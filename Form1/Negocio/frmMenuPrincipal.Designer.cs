@@ -31,17 +31,31 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenuPrincipal));
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelCentral = new System.Windows.Forms.Panel();
+            this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemUsuario = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAdministracion = new System.Windows.Forms.ToolStripMenuItem();
+            this.UsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.idiomasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.line2 = new System.Windows.Forms.Panel();
             this.line = new System.Windows.Forms.Panel();
             this.panelRedes = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             this.panelUserInfo = new System.Windows.Forms.Panel();
-            this.labelName = new System.Windows.Forms.Label();
+            this.labelNombreUser = new System.Windows.Forms.Label();
+            this.labelUsuario = new System.Windows.Forms.Label();
             this.labelUser = new System.Windows.Forms.Label();
             this.panelDateHour = new System.Windows.Forms.Panel();
             this.labelDate = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panelSideMenu = new System.Windows.Forms.Panel();
+            this.btnAdministracion = new FontAwesome.Sharp.IconButton();
             this.PanelEntidades = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonGestionarProveedores = new System.Windows.Forms.Button();
             this.buttonEntidades = new System.Windows.Forms.Button();
@@ -59,25 +73,12 @@
             this.btnProductos = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItemUsuario = new System.Windows.Forms.ToolStripMenuItem();
-            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAdministracion = new System.Windows.Forms.ToolStripMenuItem();
-            this.UsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.perfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.idiomasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
-            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
-            this.btnAdministracion = new FontAwesome.Sharp.IconButton();
-            this.labelUsuario = new System.Windows.Forms.Label();
-            this.labelNombreUser = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             this.panelCentral.SuspendLayout();
+            this.menuStripPrincipal.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelRedes.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.panelUserInfo.SuspendLayout();
             this.panelDateHour.SuspendLayout();
             this.panelSideMenu.SuspendLayout();
@@ -86,8 +87,6 @@
             this.panelInsumos.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            this.menuStripPrincipal.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -103,7 +102,9 @@
             // 
             // panelCentral
             // 
-            this.panelCentral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelCentral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelCentral.BackgroundImage = global::Form1.Properties.Resources._32__30__45;
             this.panelCentral.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panelCentral.Controls.Add(this.menuStripPrincipal);
@@ -111,6 +112,92 @@
             this.panelCentral.Name = "panelCentral";
             this.panelCentral.Size = new System.Drawing.Size(1015, 510);
             this.panelCentral.TabIndex = 15;
+            // 
+            // menuStripPrincipal
+            // 
+            this.menuStripPrincipal.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStripPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemUsuario,
+            this.toolStripMenuItemAdministracion,
+            this.toolStripMenuItemAyuda});
+            this.menuStripPrincipal.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.menuStripPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.menuStripPrincipal.Name = "menuStripPrincipal";
+            this.menuStripPrincipal.Size = new System.Drawing.Size(1015, 32);
+            this.menuStripPrincipal.TabIndex = 3;
+            this.menuStripPrincipal.Text = "menuStripPrincipal";
+            // 
+            // toolStripMenuItemUsuario
+            // 
+            this.toolStripMenuItemUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logOutToolStripMenuItem});
+            this.toolStripMenuItemUsuario.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemUsuario.Image")));
+            this.toolStripMenuItemUsuario.Name = "toolStripMenuItemUsuario";
+            this.toolStripMenuItemUsuario.Size = new System.Drawing.Size(83, 28);
+            this.toolStripMenuItemUsuario.Tag = "toolStripMenuUsuario_frmPrincipal";
+            this.toolStripMenuItemUsuario.Text = "Usuario";
+            // 
+            // logOutToolStripMenuItem
+            // 
+            this.logOutToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logOutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOutToolStripMenuItem.Image")));
+            this.logOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
+            this.logOutToolStripMenuItem.Tag = "logOutToolStripMenuItem_frmPrincipal";
+            this.logOutToolStripMenuItem.Text = "LogOut";
+            this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItemAdministracion
+            // 
+            this.toolStripMenuItemAdministracion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UsuariosToolStripMenuItem,
+            this.perfilesToolStripMenuItem,
+            this.idiomasToolStripMenuItem,
+            this.bitacoraToolStripMenuItem});
+            this.toolStripMenuItemAdministracion.Name = "toolStripMenuItemAdministracion";
+            this.toolStripMenuItemAdministracion.Size = new System.Drawing.Size(100, 28);
+            this.toolStripMenuItemAdministracion.Tag = "toolStripMenuItemAdministracion_frmPrincipal";
+            this.toolStripMenuItemAdministracion.Text = "Administracion";
+            // 
+            // UsuariosToolStripMenuItem
+            // 
+            this.UsuariosToolStripMenuItem.Name = "UsuariosToolStripMenuItem";
+            this.UsuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.UsuariosToolStripMenuItem.Tag = "UsuariosToolStripMenuItem_frmPrincipal";
+            this.UsuariosToolStripMenuItem.Text = "Gestion de Usuarios";
+            this.UsuariosToolStripMenuItem.Click += new System.EventHandler(this.AusuariosToolStripMenuItem_Click);
+            // 
+            // perfilesToolStripMenuItem
+            // 
+            this.perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
+            this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.perfilesToolStripMenuItem.Tag = "perfilesToolStripMenuItem_frmPrincipal";
+            this.perfilesToolStripMenuItem.Text = "Gestion de Permisos";
+            this.perfilesToolStripMenuItem.Click += new System.EventHandler(this.perfilesToolStripMenuItem_Click);
+            // 
+            // idiomasToolStripMenuItem
+            // 
+            this.idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
+            this.idiomasToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.idiomasToolStripMenuItem.Tag = "idiomasToolStripMenuItem_frmPrincipal";
+            this.idiomasToolStripMenuItem.Text = "Gestion de Idiomas";
+            this.idiomasToolStripMenuItem.Click += new System.EventHandler(this.idiomasToolStripMenuItem_Click);
+            // 
+            // bitacoraToolStripMenuItem
+            // 
+            this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
+            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.bitacoraToolStripMenuItem.Tag = "bitacoraToolStripMenuItem_frmPrincipal";
+            this.bitacoraToolStripMenuItem.Text = "Auditar Bitacora";
+            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItemAyuda
+            // 
+            this.toolStripMenuItemAyuda.Name = "toolStripMenuItemAyuda";
+            this.toolStripMenuItemAyuda.Size = new System.Drawing.Size(53, 28);
+            this.toolStripMenuItemAyuda.Tag = "toolStripMenuItemAyuda_frmPrincipal";
+            this.toolStripMenuItemAyuda.Text = "Ayuda";
             // 
             // panelBottom
             // 
@@ -153,11 +240,55 @@
             this.panelRedes.Size = new System.Drawing.Size(225, 68);
             this.panelRedes.TabIndex = 14;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(224, 65);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // lblSeleccionarIdioma
+            // 
+            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeleccionarIdioma.AutoSize = true;
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(10, 12);
+            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(91, 40);
+            this.lblSeleccionarIdioma.TabIndex = 50;
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            // 
+            // cboxIdiomas
+            // 
+            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIdiomas.FormattingEnabled = true;
+            this.cboxIdiomas.Location = new System.Drawing.Point(114, 18);
+            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cboxIdiomas.Name = "cboxIdiomas";
+            this.cboxIdiomas.Size = new System.Drawing.Size(108, 28);
+            this.cboxIdiomas.TabIndex = 49;
+            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
+            // 
             // panelUserInfo
             // 
             this.panelUserInfo.Controls.Add(this.labelNombreUser);
             this.panelUserInfo.Controls.Add(this.labelUsuario);
-            this.panelUserInfo.Controls.Add(this.labelName);
             this.panelUserInfo.Controls.Add(this.labelUser);
             this.panelUserInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelUserInfo.Location = new System.Drawing.Point(0, 0);
@@ -165,18 +296,33 @@
             this.panelUserInfo.Size = new System.Drawing.Size(840, 68);
             this.panelUserInfo.TabIndex = 15;
             // 
-            // labelName
+            // labelNombreUser
             // 
-            this.labelName.AutoSize = true;
-            this.labelName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelName.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelName.Location = new System.Drawing.Point(195, 0);
-            this.labelName.Name = "labelName";
-            this.labelName.Padding = new System.Windows.Forms.Padding(5, 15, 0, 0);
-            this.labelName.Size = new System.Drawing.Size(37, 31);
-            this.labelName.TabIndex = 18;
-            this.labelName.Text = "Mail";
+            this.labelNombreUser.AutoSize = true;
+            this.labelNombreUser.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelNombreUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNombreUser.ForeColor = System.Drawing.Color.Gainsboro;
+            this.labelNombreUser.Location = new System.Drawing.Point(306, 0);
+            this.labelNombreUser.Name = "labelNombreUser";
+            this.labelNombreUser.Padding = new System.Windows.Forms.Padding(5, 15, 0, 0);
+            this.labelNombreUser.Size = new System.Drawing.Size(16, 31);
+            this.labelNombreUser.TabIndex = 20;
+            this.labelNombreUser.Tag = "";
+            this.labelNombreUser.Text = "-";
+            // 
+            // labelUsuario
+            // 
+            this.labelUsuario.AutoSize = true;
+            this.labelUsuario.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUsuario.ForeColor = System.Drawing.Color.Gainsboro;
+            this.labelUsuario.Location = new System.Drawing.Point(195, 0);
+            this.labelUsuario.Name = "labelUsuario";
+            this.labelUsuario.Padding = new System.Windows.Forms.Padding(50, 15, 0, 0);
+            this.labelUsuario.Size = new System.Drawing.Size(111, 31);
+            this.labelUsuario.TabIndex = 19;
+            this.labelUsuario.Tag = "lblUsuario_frmPrincipal";
+            this.labelUsuario.Text = "Usuario";
             // 
             // labelUser
             // 
@@ -245,6 +391,26 @@
             this.panelSideMenu.Name = "panelSideMenu";
             this.panelSideMenu.Size = new System.Drawing.Size(228, 578);
             this.panelSideMenu.TabIndex = 2;
+            // 
+            // btnAdministracion
+            // 
+            this.btnAdministracion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAdministracion.FlatAppearance.BorderSize = 0;
+            this.btnAdministracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdministracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            this.btnAdministracion.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnAdministracion.IconChar = FontAwesome.Sharp.IconChar.AddressCard;
+            this.btnAdministracion.IconColor = System.Drawing.Color.Firebrick;
+            this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAdministracion.IconSize = 35;
+            this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdministracion.Location = new System.Drawing.Point(0, 614);
+            this.btnAdministracion.Name = "btnAdministracion";
+            this.btnAdministracion.Size = new System.Drawing.Size(211, 36);
+            this.btnAdministracion.TabIndex = 34;
+            this.btnAdministracion.Tag = "btnAdministracion_formPrincipal";
+            this.btnAdministracion.Text = "Administracion";
+            this.btnAdministracion.UseVisualStyleBackColor = true;
             // 
             // PanelEntidades
             // 
@@ -520,203 +686,32 @@
             this.pictureBoxLogo.TabIndex = 0;
             this.pictureBoxLogo.TabStop = false;
             // 
-            // menuStripPrincipal
-            // 
-            this.menuStripPrincipal.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStripPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemUsuario,
-            this.toolStripMenuItemAdministracion,
-            this.toolStripMenuItemAyuda});
-            this.menuStripPrincipal.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.menuStripPrincipal.Location = new System.Drawing.Point(0, 0);
-            this.menuStripPrincipal.Name = "menuStripPrincipal";
-            this.menuStripPrincipal.Size = new System.Drawing.Size(1015, 32);
-            this.menuStripPrincipal.TabIndex = 3;
-            this.menuStripPrincipal.Text = "menuStripPrincipal";
-            // 
-            // toolStripMenuItemUsuario
-            // 
-            this.toolStripMenuItemUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logOutToolStripMenuItem});
-            this.toolStripMenuItemUsuario.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemUsuario.Image")));
-            this.toolStripMenuItemUsuario.Name = "toolStripMenuItemUsuario";
-            this.toolStripMenuItemUsuario.Size = new System.Drawing.Size(83, 28);
-            this.toolStripMenuItemUsuario.Tag = "toolStripMenuUsuario_frmPrincipal";
-            this.toolStripMenuItemUsuario.Text = "Usuario";
-            // 
-            // logOutToolStripMenuItem
-            // 
-            this.logOutToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logOutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOutToolStripMenuItem.Image")));
-            this.logOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
-            this.logOutToolStripMenuItem.Tag = "logOutToolStripMenuItem_frmPrincipal";
-            this.logOutToolStripMenuItem.Text = "LogOut";
-            this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItemAdministracion
-            // 
-            this.toolStripMenuItemAdministracion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.UsuariosToolStripMenuItem,
-            this.perfilesToolStripMenuItem,
-            this.idiomasToolStripMenuItem,
-            this.bitacoraToolStripMenuItem});
-            this.toolStripMenuItemAdministracion.Name = "toolStripMenuItemAdministracion";
-            this.toolStripMenuItemAdministracion.Size = new System.Drawing.Size(100, 28);
-            this.toolStripMenuItemAdministracion.Tag = "toolStripMenuItemAdministracion_frmPrincipal";
-            this.toolStripMenuItemAdministracion.Text = "Administracion";
-            // 
-            // UsuariosToolStripMenuItem
-            // 
-            this.UsuariosToolStripMenuItem.Name = "UsuariosToolStripMenuItem";
-            this.UsuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.UsuariosToolStripMenuItem.Tag = "UsuariosToolStripMenuItem_frmPrincipal";
-            this.UsuariosToolStripMenuItem.Text = "Gestion de Usuarios";
-            this.UsuariosToolStripMenuItem.Click += new System.EventHandler(this.AusuariosToolStripMenuItem_Click);
-            // 
-            // perfilesToolStripMenuItem
-            // 
-            this.perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
-            this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.perfilesToolStripMenuItem.Tag = "perfilesToolStripMenuItem_frmPrincipal";
-            this.perfilesToolStripMenuItem.Text = "Gestion de Permisos";
-            this.perfilesToolStripMenuItem.Click += new System.EventHandler(this.perfilesToolStripMenuItem_Click);
-            // 
-            // idiomasToolStripMenuItem
-            // 
-            this.idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
-            this.idiomasToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.idiomasToolStripMenuItem.Tag = "idiomasToolStripMenuItem_frmPrincipal";
-            this.idiomasToolStripMenuItem.Text = "Gestion de Idiomas";
-            this.idiomasToolStripMenuItem.Click += new System.EventHandler(this.idiomasToolStripMenuItem_Click);
-            // 
-            // bitacoraToolStripMenuItem
-            // 
-            this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
-            this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.bitacoraToolStripMenuItem.Tag = "bitacoraToolStripMenuItem_frmPrincipal";
-            this.bitacoraToolStripMenuItem.Text = "Auditar Bitacora";
-            this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitacoraToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItemAyuda
-            // 
-            this.toolStripMenuItemAyuda.Name = "toolStripMenuItemAyuda";
-            this.toolStripMenuItemAyuda.Size = new System.Drawing.Size(53, 28);
-            this.toolStripMenuItemAyuda.Tag = "toolStripMenuItemAyuda_frmPrincipal";
-            this.toolStripMenuItemAyuda.Text = "Ayuda";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cboxIdiomas, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(224, 65);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // lblSeleccionarIdioma
-            // 
-            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblSeleccionarIdioma.AutoSize = true;
-            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(10, 12);
-            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(91, 40);
-            this.lblSeleccionarIdioma.TabIndex = 50;
-            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
-            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
-            // 
-            // cboxIdiomas
-            // 
-            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(114, 18);
-            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cboxIdiomas.Name = "cboxIdiomas";
-            this.cboxIdiomas.Size = new System.Drawing.Size(108, 28);
-            this.cboxIdiomas.TabIndex = 49;
-            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
-            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
-            // 
-            // btnAdministracion
-            // 
-            this.btnAdministracion.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAdministracion.FlatAppearance.BorderSize = 0;
-            this.btnAdministracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdministracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-            this.btnAdministracion.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnAdministracion.IconChar = FontAwesome.Sharp.IconChar.AddressCard;
-            this.btnAdministracion.IconColor = System.Drawing.Color.Firebrick;
-            this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAdministracion.IconSize = 35;
-            this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministracion.Location = new System.Drawing.Point(0, 614);
-            this.btnAdministracion.Name = "btnAdministracion";
-            this.btnAdministracion.Size = new System.Drawing.Size(211, 36);
-            this.btnAdministracion.TabIndex = 34;
-            this.btnAdministracion.Tag = "btnAdministracion_formPrincipal";
-            this.btnAdministracion.Text = "Administracion";
-            this.btnAdministracion.UseVisualStyleBackColor = true;
-            // 
-            // labelUsuario
-            // 
-            this.labelUsuario.AutoSize = true;
-            this.labelUsuario.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUsuario.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelUsuario.Location = new System.Drawing.Point(232, 0);
-            this.labelUsuario.Name = "labelUsuario";
-            this.labelUsuario.Padding = new System.Windows.Forms.Padding(50, 15, 0, 0);
-            this.labelUsuario.Size = new System.Drawing.Size(111, 31);
-            this.labelUsuario.TabIndex = 19;
-            this.labelUsuario.Tag = "lblUsuario_frmPrincipal";
-            this.labelUsuario.Text = "Usuario";
-            // 
-            // labelNombreUser
-            // 
-            this.labelNombreUser.AutoSize = true;
-            this.labelNombreUser.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelNombreUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNombreUser.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelNombreUser.Location = new System.Drawing.Point(343, 0);
-            this.labelNombreUser.Name = "labelNombreUser";
-            this.labelNombreUser.Padding = new System.Windows.Forms.Padding(5, 15, 0, 0);
-            this.labelNombreUser.Size = new System.Drawing.Size(16, 31);
-            this.labelNombreUser.TabIndex = 20;
-            this.labelNombreUser.Tag = "";
-            this.labelNombreUser.Text = "-";
-            // 
             // frmMenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1243, 578);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSideMenu);
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "frmMenuPrincipal";
+            this.Text = "CheeseLogix";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMenuPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.panelMain.ResumeLayout(false);
             this.panelCentral.ResumeLayout(false);
             this.panelCentral.PerformLayout();
+            this.menuStripPrincipal.ResumeLayout(false);
+            this.menuStripPrincipal.PerformLayout();
             this.panelBottom.ResumeLayout(false);
             this.panelRedes.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.panelUserInfo.ResumeLayout(false);
             this.panelUserInfo.PerformLayout();
             this.panelDateHour.ResumeLayout(false);
@@ -727,10 +722,6 @@
             this.panelInsumos.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            this.menuStripPrincipal.ResumeLayout(false);
-            this.menuStripPrincipal.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -749,7 +740,6 @@
         private System.Windows.Forms.Panel line;
         private System.Windows.Forms.Panel panelRedes;
         private System.Windows.Forms.Panel panelUserInfo;
-        private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelUser;
         private System.Windows.Forms.Panel panelDateHour;
         private System.Windows.Forms.Label labelDate;
