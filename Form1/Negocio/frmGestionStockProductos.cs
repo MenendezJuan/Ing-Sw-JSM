@@ -623,5 +623,10 @@ namespace Form1
                 sesion.CambiarIdioma(idiomaSeleccionado);
             }
         }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Cerrar();
+        }
     }
 }

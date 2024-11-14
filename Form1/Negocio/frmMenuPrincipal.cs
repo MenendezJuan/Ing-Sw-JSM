@@ -406,7 +406,7 @@ namespace Form1
         {
             if (i == 0)
             {
-                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                frmInicioSesion FormPrincipal = new frmInicioSesion();
                 FormPrincipal.Show();
                 i++;
                 this.Close();
@@ -416,7 +416,7 @@ namespace Form1
 
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Cerrar();
+            Application.Exit();
         }
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
@@ -437,6 +437,11 @@ namespace Form1
             AddOwnedForm(frmAdmin);
             FormHijo(frmAdmin);
             HideSubMenu();
+        }
+
+        private void toolStripMenuItemUsuario_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

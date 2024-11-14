@@ -1,17 +1,37 @@
-﻿using BEs.Clases.Negocio;
+﻿using BEs;
+using BEs.Clases;
+using BEs.Clases.Negocio;
+using BEs.Interfaces;
+using BLLs;
 using BLLs.Negocio;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Form1.Negocio
 {
-    public partial class frmGestionarProveedores : Form
+    public partial class frmGestionarProveedores : Form, IObservador
     {
         private BLL_PROVEEDOR _bllProveedor;
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
         private Proveedor _proveedorSeleccionado;
         public frmGestionarProveedores()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            Actualizar(oIdioma);
+            if (sesion.Permisos != null)
+            {
+                BuscarControles(this.Controls);
+                Buscar(sesion.Permisos[0]);
+            }
             _bllProveedor = new BLL_PROVEEDOR();
         }
 
@@ -255,6 +275,97 @@ namespace Form1.Negocio
         private void frmGestionarProveedores_Load(object sender, EventArgs e)
         {
             CargarProveedores();
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Cerrar();
+        }
+
+        #region Idiomas
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+            }
+        }
+        #endregion Idiomas
+
+        List<Control> ListaControles = new List<Control>();
+        public void BuscarControles(ICollection controles)
+        {
+            foreach (Control c in controles)
+            {
+                ListaControles.Add(c);
+                if (c.HasChildren)
+                {
+                    BuscarControles(c.Controls);
+                }
+            }
+        }
+
+        #region Permisos
+        public void Buscar(Componente c)
+        {
+            GrupoPermisos grupo = (GrupoPermisos)c;
+            foreach (Componente p in grupo.Permisos)
+            {
+                if (p is GrupoPermisos)
+                {
+                    Buscar(p);
+                    Comprobar(p);
+                }
+                else
+                {
+                    Comprobar(p);
+                }
+            }
+        }
+
+        public void Comprobar(Componente p)
+        {
+            foreach (Control c in ListaControles)
+            {
+                if (c.Tag != null && c.Tag.ToString() == p.Nombre)
+                {
+                    c.Visible = true;
+                }
+            }
+        }
+        #endregion Permisos
+
+        //Ajustar esta logica
+        #region Extras
+        int i = 0;
+        public void Cerrar()
+        {
+            if (i == 0)
+            {
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+                i++;
+                this.Close();
+            }
+        }
+        #endregion Extras
+
+        private void buttonReactivacionProducto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReactivarProductos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

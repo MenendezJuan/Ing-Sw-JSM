@@ -48,7 +48,7 @@ namespace BEs
         {
             if (Sesion != null)
             {
-                Sesion = null;
+                Sesion.oUsuario = null;
             }
             else
             {

@@ -51,7 +51,7 @@
             this.button_Usuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Usuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Usuarios.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Usuarios.Location = new System.Drawing.Point(18, 48);
+            this.button_Usuarios.Location = new System.Drawing.Point(19, 48);
             this.button_Usuarios.Margin = new System.Windows.Forms.Padding(2);
             this.button_Usuarios.Name = "button_Usuarios";
             this.button_Usuarios.Size = new System.Drawing.Size(94, 83);
@@ -69,7 +69,7 @@
             this.button_Bitacora.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Bitacora.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Bitacora.Location = new System.Drawing.Point(283, 48);
+            this.button_Bitacora.Location = new System.Drawing.Point(286, 48);
             this.button_Bitacora.Margin = new System.Windows.Forms.Padding(2);
             this.button_Bitacora.Name = "button_Bitacora";
             this.button_Bitacora.Size = new System.Drawing.Size(88, 82);
@@ -87,10 +87,10 @@
             this.button_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Salir.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Salir.Location = new System.Drawing.Point(488, 440);
+            this.button_Salir.Location = new System.Drawing.Point(471, 439);
             this.button_Salir.Margin = new System.Windows.Forms.Padding(2);
             this.button_Salir.Name = "button_Salir";
-            this.button_Salir.Size = new System.Drawing.Size(87, 28);
+            this.button_Salir.Size = new System.Drawing.Size(126, 30);
             this.button_Salir.TabIndex = 3;
             this.button_Salir.Tag = "Button_Salir_FormIni";
             this.button_Salir.Text = "Salir";
@@ -104,7 +104,7 @@
             this.button_Permisos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Permisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Permisos.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Permisos.Location = new System.Drawing.Point(152, 48);
+            this.button_Permisos.Location = new System.Drawing.Point(154, 48);
             this.button_Permisos.Margin = new System.Windows.Forms.Padding(2);
             this.button_Permisos.Name = "button_Permisos";
             this.button_Permisos.Size = new System.Drawing.Size(88, 83);
@@ -135,7 +135,7 @@
             this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(139, 73);
+            this.cboxIdiomas.Location = new System.Drawing.Point(141, 73);
             this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboxIdiomas.Name = "cboxIdiomas";
             this.cboxIdiomas.Size = new System.Drawing.Size(112, 28);
@@ -150,7 +150,7 @@
             this.btnIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnIdioma.Location = new System.Drawing.Point(412, 48);
+            this.btnIdioma.Location = new System.Drawing.Point(415, 48);
             this.btnIdioma.Margin = new System.Windows.Forms.Padding(2);
             this.btnIdioma.Name = "btnIdioma";
             this.btnIdioma.Size = new System.Drawing.Size(94, 82);
@@ -163,6 +163,9 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -178,7 +181,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1065, 545);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1071, 545);
             this.tableLayoutPanel1.TabIndex = 48;
             // 
             // tableLayoutPanel2
@@ -195,11 +198,11 @@
             this.tableLayoutPanel2.Controls.Add(this.btnIdioma, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Permisos, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Bitacora, 2, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(269, 182);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(270, 182);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(526, 179);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(529, 179);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -212,12 +215,12 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.cboxIdiomas, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(801, 367);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(805, 367);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(261, 175);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(263, 175);
             this.tableLayoutPanel3.TabIndex = 49;
             // 
             // label_MenuAdmin
@@ -235,9 +238,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1066, 544);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.ClientSize = new System.Drawing.Size(1070, 544);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMenuAdmin";
             this.ShowIcon = false;
