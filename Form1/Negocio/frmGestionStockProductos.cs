@@ -44,12 +44,12 @@ namespace Form1
         private void buttonAgregarProductoProveedorSelec_Click(object sender, System.EventArgs e)
         {
             panelDatosProducto.Visible = true;
-            txtCodigo.ReadOnly = false;  // Código editable en agregar
-            lblSeleccionado.Visible = false;  // Ocultar etiquetas de selección
+            txtCodigo.ReadOnly = false;
+            lblSeleccionado.Visible = false;
             lblSeleccionadoEspecifico.Visible = false;
-            LimpiarControles();  // Limpiar los controles para ingresar nuevos datos
-            _productoSeleccionado = null;  // Resetear el producto seleccionado
-            btnAceptar.Tag = "Agregar";  // Usar la etiqueta del botón para distinguir si es agregar o actualizar
+            LimpiarControles();
+            _productoSeleccionado = null;
+            btnAceptar.Tag = "Agregar";
         }
 
         private void buttonActualizarProducto_Click(object sender, System.EventArgs e)
@@ -60,16 +60,20 @@ namespace Form1
                 return;
             }
 
-            // Mostrar el panel para actualizar y rellenar los controles con los datos del producto
+            if (!_productoSeleccionado.Estado)
+            {
+                MessageBox.Show("No se puede actualizar un producto inactivo.");
+                return;
+            }
+
             panelDatosProducto.Visible = true;
-            txtCodigo.ReadOnly = true;  // Código no editable al actualizar
+            txtCodigo.ReadOnly = true;
             lblSeleccionado.Visible = true;
             lblSeleccionadoEspecifico.Visible = true;
             lblSeleccionadoEspecifico.Text = _productoSeleccionado.Nombre;
 
-            // Mapear los datos del producto seleccionado a los controles
             MapearProductoAControles(_productoSeleccionado);
-            btnAceptar.Tag = "Actualizar";  // Distinguir si es agregar o actualizar
+            btnAceptar.Tag = "Actualizar";
         }
 
         private void buttonEliminarProducto_Click(object sender, System.EventArgs e)
@@ -78,6 +82,12 @@ namespace Form1
             {
                 if (_productoSeleccionado != null)
                 {
+                    if (!_productoSeleccionado.Estado)
+                    {
+                        MessageBox.Show("No se puede actualizar un producto inactivo.");
+                        return;
+                    }
+
                     DialogResult resultado = MessageBox.Show(
                         "¿Estás seguro de que deseas eliminar este producto?",
                         "Confirmar eliminación",

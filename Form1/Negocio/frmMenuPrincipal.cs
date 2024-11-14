@@ -48,10 +48,17 @@ namespace Form1
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
+            labelNombreUser.Text = CargarUsuarioLabel();
         }
 
 
         #region MetodosPrivados
+
+        private string CargarUsuarioLabel()
+        {
+            var nombreUsuario = sesion.oUsuario.Email;
+            return nombreUsuario;
+        }
         public void OcultarPanel()
         {
             panelCentral.Visible = false;
@@ -409,7 +416,7 @@ namespace Form1
                 frmInicioSesion FormPrincipal = new frmInicioSesion();
                 FormPrincipal.Show();
                 i++;
-                this.Close();
+                this.Hide();
             }
         }
         #endregion Extras

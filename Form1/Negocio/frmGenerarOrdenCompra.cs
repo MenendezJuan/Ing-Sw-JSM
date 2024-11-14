@@ -141,25 +141,19 @@ namespace Form1
 
         private void btnPago_Click(object sender, EventArgs e)
         {
-            // Obtener el elemento seleccionado en el DataGridView
             if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compra)
             {
-                // Verificar si el estado de la compra es Pendiente
-                if (compra.EstadoCompraEnum == EstadoCompra.Pendiente)
+                if (compra.EstadoCompraEnum == EstadoCompra.Verificada)
                 {
                     try
                     {
-                        // Cambiar el estado a Pagada y actualizar el stock
                         _bllCompra.CambiarEstadoCompraYActualizarStock(compra.Id, EstadoCompra.Pagada);
 
-                        // Eliminar la cotización asociada y sus detalles
-                        var cotizacionId = compra.CotizacionId; // Asegúrate de que el modelo de Compra tenga esta referencia
+                        var cotizacionId = compra.CotizacionId;
                         if (compra != null && compra.CotizacionId.HasValue)
                         {
-                            // Eliminar la referencia a CotizacionId en la base de datos
                             _bllCompra.EliminarReferenciaCotizacion(compra.Id);
 
-                            // Eliminar la cotización y sus detalles
                             _bllCotizacion.Eliminar(compra.CotizacionId.Value);
                         }
 
@@ -311,7 +305,6 @@ namespace Form1
             frmVerificacionProductos formVerificacion = new frmVerificacionProductos();
             formVerificacion.Owner = this;
 
-            // Suscribirse al evento OnRecepcionRechazada para actualizar los DataGridViews
             formVerificacion.OnRecepcionRechazada += ActualizarDataGrids;
             formVerificacion.OnRecepcionAprobada += ActualizarDataGrids;
 
@@ -362,15 +355,12 @@ namespace Form1
                 lblFecha.Text = compraSeleccionada.Fecha.ToShortDateString();
                 lblTotal.Text = compraSeleccionada.MontoTotal.ToString("C");
 
-                // Actualizar el DataGridView de detalles de compra
                 ActualizarDataGridViewDetalle(compraSeleccionada.oDetalleCompra);
 
-                // Habilitar el botón de verificación de productos si el estado es "Pendiente"
                 buttonVerificacionProductos.Enabled = compraSeleccionada.EstadoCompraEnum == EstadoCompra.Pendiente;
             }
             else
             {
-                // Deshabilitar el botón si no hay una compra seleccionada o no es válida
                 buttonVerificacionProductos.Enabled = false;
             }
         }
@@ -383,13 +373,13 @@ namespace Form1
         private void dataGridViewCompra_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            e.ThrowException = false; // Evita que el programa se bloquee
+            e.ThrowException = false;
         }
 
         private void dataGridViewDetalles_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            e.ThrowException = false; // Evita que el programa se bloquee
+            e.ThrowException = false;
         }
 
         private void buttonVerificacionProductos_Click(object sender, EventArgs e)

@@ -45,6 +45,9 @@
             this.btnAprobarRecepcion = new FontAwesome.Sharp.IconButton();
             this.btnRechazarRecepcion = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             this.dataGridViewDetalleCotizacion = new System.Windows.Forms.DataGridView();
             this.labelProducSoli = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -57,10 +60,8 @@
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.btnFirmarConforme = new FontAwesome.Sharp.IconButton();
             this.btnLimpiarFirm = new FontAwesome.Sharp.IconButton();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
-            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -69,7 +70,6 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFirma)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBoxLlegaronProductos
@@ -160,6 +160,7 @@
             this.btnAprobarRecepcion.Tag = "btnAprobarRecepcion_frmVerificacion";
             this.btnAprobarRecepcion.Text = "Aprobar Recepcion";
             this.btnAprobarRecepcion.UseVisualStyleBackColor = false;
+            this.btnAprobarRecepcion.Visible = false;
             this.btnAprobarRecepcion.Click += new System.EventHandler(this.btnAprobarRecepcion_Click);
             // 
             // btnRechazarRecepcion
@@ -178,6 +179,7 @@
             this.btnRechazarRecepcion.Tag = "btnRechazarRecepcion_frmVerificacion";
             this.btnRechazarRecepcion.Text = "Rechazar Recepcion";
             this.btnRechazarRecepcion.UseVisualStyleBackColor = false;
+            this.btnRechazarRecepcion.Visible = false;
             this.btnRechazarRecepcion.Click += new System.EventHandler(this.btnRechazarRecepcion_Click);
             // 
             // tableLayoutPanel1
@@ -210,6 +212,51 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1332, 684);
             this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(441, 3);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(442, 48);
+            this.tableLayoutPanel7.TabIndex = 92;
+            // 
+            // lblSeleccionarIdioma
+            // 
+            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeleccionarIdioma.AutoSize = true;
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(39, 14);
+            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
+            this.lblSeleccionarIdioma.TabIndex = 50;
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            // 
+            // cboxIdiomas
+            // 
+            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIdiomas.FormattingEnabled = true;
+            this.cboxIdiomas.Location = new System.Drawing.Point(234, 10);
+            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cboxIdiomas.Name = "cboxIdiomas";
+            this.cboxIdiomas.Size = new System.Drawing.Size(195, 28);
+            this.cboxIdiomas.TabIndex = 49;
+            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // dataGridViewDetalleCotizacion
             // 
@@ -454,6 +501,7 @@
             this.btnFirmarConforme.Tag = "btnFirmarConforme_frmVerificacion";
             this.btnFirmarConforme.Text = "Firmar";
             this.btnFirmarConforme.UseVisualStyleBackColor = false;
+            this.btnFirmarConforme.Visible = false;
             this.btnFirmarConforme.Click += new System.EventHandler(this.btnFirmarConforme_Click);
             // 
             // btnLimpiarFirm
@@ -472,52 +520,8 @@
             this.btnLimpiarFirm.Tag = "btnLimpiarFirm_frmVerificacion";
             this.btnLimpiarFirm.Text = "Limpiar Firma";
             this.btnLimpiarFirm.UseVisualStyleBackColor = false;
+            this.btnLimpiarFirm.Visible = false;
             this.btnLimpiarFirm.Click += new System.EventHandler(this.btnLimpiarFirm_Click);
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.cboxIdiomas, 1, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(441, 3);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(442, 48);
-            this.tableLayoutPanel7.TabIndex = 92;
-            // 
-            // lblSeleccionarIdioma
-            // 
-            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblSeleccionarIdioma.AutoSize = true;
-            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(39, 14);
-            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
-            this.lblSeleccionarIdioma.TabIndex = 50;
-            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
-            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
-            // 
-            // cboxIdiomas
-            // 
-            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(234, 10);
-            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cboxIdiomas.Name = "cboxIdiomas";
-            this.cboxIdiomas.Size = new System.Drawing.Size(195, 28);
-            this.cboxIdiomas.TabIndex = 49;
-            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
-            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // frmVerificacionProductos
             // 
@@ -533,6 +537,8 @@
             this.Load += new System.EventHandler(this.frmVerificacionProductos_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -543,8 +549,6 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFirma)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }

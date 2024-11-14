@@ -114,7 +114,7 @@ namespace BLLs.Negocio
             ValidarExistenciaCompra(compraId);
             var compra = compraRepository.ObtenerPorId(compraId);
 
-            if (compra != null && compra.EstadoCompraEnum == EstadoCompra.Pendiente)
+            if (compra != null && compra.EstadoCompraEnum == EstadoCompra.Verificada)
             {
                 compra.EstadoCompraEnum = nuevoEstado;
                 compraRepository.CambiarEstadoCompra(compraId, nuevoEstado);

@@ -141,19 +141,40 @@ namespace Form1
         #region Controles de Usuario
         private void button_Usuarios_Click(object sender, EventArgs e)
         {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
             frmGestorUsuarios gestorUsuarios = new frmGestorUsuarios();
+
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(gestorUsuarios);
+                pForm.FormHijo(gestorUsuarios);
+            }
             gestorUsuarios.Show();
         }
 
         private void button_Bitacora_Click(object sender, EventArgs e)
         {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
             frmGestorBitacora gestorBitacora = new frmGestorBitacora();
+
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(gestorBitacora);
+                pForm.FormHijo(gestorBitacora);
+            }
             gestorBitacora.Show();
         }
 
         private void button_Permisos_Click(object sender, EventArgs e)
         {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
             frmGestorPermisos gestorPermisos = new frmGestorPermisos();
+
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(gestorPermisos);
+                pForm.FormHijo(gestorPermisos);
+            }
             gestorPermisos.Show();
         }
 
@@ -171,7 +192,10 @@ namespace Form1
 
         private void btnIdioma_Click(object sender, EventArgs e)
         {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
             frmGestorIdiomas gestorIdiomas = new frmGestorIdiomas();
+            pForm.AddOwnedForm(gestorIdiomas);
+            pForm.FormHijo(gestorIdiomas);
             gestorIdiomas.Show();
 
         }

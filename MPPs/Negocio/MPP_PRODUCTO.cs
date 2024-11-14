@@ -39,7 +39,7 @@ namespace MPPs.Negocio
                 { "@Fecha", producto.Fecha = DateTime.Now }
             };
 
-            int productoId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProducto", parametros)); // Se espera que el SP devuelva el ID
+            int productoId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProducto", parametros));
             AsociarProductoAProveedor(productoId, proveedorId); // Asociar producto con proveedor
             return productoId;
         }

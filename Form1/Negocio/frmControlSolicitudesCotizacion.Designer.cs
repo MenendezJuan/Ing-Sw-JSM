@@ -79,6 +79,7 @@
             this.btnRechSolicitud.Tag = "btnRechazarSolicitud_frmControl";
             this.btnRechSolicitud.Text = "Rechazar Solicitud";
             this.btnRechSolicitud.UseVisualStyleBackColor = true;
+            this.btnRechSolicitud.Visible = false;
             this.btnRechSolicitud.Click += new System.EventHandler(this.btnRechSolicitud_Click);
             // 
             // btnAprobSolicitud
@@ -98,6 +99,7 @@
             this.btnAprobSolicitud.Tag = "btnAprobarSolicitud_frmControl";
             this.btnAprobSolicitud.Text = "Aprobar Solicitud";
             this.btnAprobSolicitud.UseVisualStyleBackColor = true;
+            this.btnAprobSolicitud.Visible = false;
             this.btnAprobSolicitud.Click += new System.EventHandler(this.btnAprobSolicitud_Click);
             // 
             // rbPendiente

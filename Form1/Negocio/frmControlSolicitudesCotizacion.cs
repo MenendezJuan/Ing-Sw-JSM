@@ -64,12 +64,10 @@ namespace Form1
 
                 int solicitudesPendientes = cotizaciones.Count;
 
-                // Actualizar el labelNotificacion con el número de solicitudes pendientes
                 labelNotificacion.Text = $"Atención: {solicitudesPendientes} Ordenes pendientes de aprobación.";
             }
             else if (rbFinalizado.Checked)
             {
-                // Cargar cotizaciones en estados aprobada o rechazada
                 cotizaciones = _bllCotizacion.ObtenerPorEstados(new List<EstadoCotizacion>
                 {
                     EstadoCotizacion.Aprobada,
@@ -91,18 +89,14 @@ namespace Form1
             dataGridViewCotizaciones.DataSource = null;
             dataGridViewDetalleCotizacion.DataSource = null;
 
-            // Asignar la lista de cotizaciones al DataGridView
             dataGridViewCotizaciones.DataSource = cotizaciones;
 
-            // Ocultar columnas que no deseas mostrar
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
-            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false; // Oculta la columna de objeto `Proveedor`
+            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
 
-            // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
 
-            // Configurar encabezados de otras columnas
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
         }
@@ -163,11 +157,9 @@ namespace Form1
 
         private void ConfigurarColumnasCotizacion()
         {
-            // Ocultar columnas no deseadas
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
             dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
 
-            // Configurar encabezados y ubicaciones
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
@@ -179,7 +171,6 @@ namespace Form1
             dataGridViewDetalleCotizacion.DataSource = null;
             dataGridViewDetalleCotizacion.DataSource = detalles;
 
-            // Configurar columnas visibles y sus encabezados
             dataGridViewDetalleCotizacion.Columns["CotizacionId"].Visible = false;
             dataGridViewDetalleCotizacion.Columns["ProductoId"].Visible = false;
             dataGridViewDetalleCotizacion.Columns["oProducto"].Visible = false;

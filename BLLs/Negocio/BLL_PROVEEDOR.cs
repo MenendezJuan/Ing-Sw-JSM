@@ -34,6 +34,12 @@ namespace BLLs.Negocio
             _proveedorRepository.Eliminar(id);
         }
 
+        public void Reactivar(int id)
+        {
+            ValidarExistenciaProveedor(id);
+            _proveedorRepository.Reactivar(id);
+        }
+
         public Proveedor ObtenerPorId(int id)
         {
             return _proveedorRepository.ObtenerPorId(id);
@@ -42,6 +48,10 @@ namespace BLLs.Negocio
         public List<Proveedor> ObtenerTodos()
         {
             return _proveedorRepository.ObtenerTodos();
+        }
+        public List<Proveedor> ObtenerProveedoresInactivos()
+        {
+            return _proveedorRepository.ObtenerProveedoresInactivos();
         }
 
         public List<Proveedor> ObtenerProveedoresPorCategoriaProducto(Categoria categoria)

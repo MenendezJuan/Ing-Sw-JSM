@@ -59,6 +59,8 @@ namespace Form1.Negocio
 
                 if (_formularioGenerarOrdenCompra != null)
                 {
+                    var nuevoEstado = EstadoCompra.Verificada;
+                    _bllCompra.CambiarEstadoCompra(_ordenCompraSeleccionada.Id, nuevoEstado);
                     _formularioGenerarOrdenCompra.HabilitarBotonPago(true);
                     OnRecepcionAprobada?.Invoke();
                 }
