@@ -131,7 +131,7 @@ namespace Form1
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo cambiar el estado de la cotización. Error inesperado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"No se pudo cambiar el estado de la cotización. Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
