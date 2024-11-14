@@ -1,23 +1,44 @@
-﻿using BEs.Clases.Negocio;
+﻿using BEs;
+using BEs.Clases;
+using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Compras;
 using BEs.Clases.Negocio.Compras.Enums;
 using BEs.Clases.Negocio.Enums;
+using BEs.Interfaces;
+using BLLs;
 using BLLs.Negocio;
 using Form1.Negocio;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Form1
 {
-    public partial class frmGenerarOrdenCompra : Form
+    public partial class frmGenerarOrdenCompra : Form, IObservador
     {
         private BLL_COTIZACION _bllCotizacion;
         private BLL_COMPRA _bllCompra;
         private BLL_PROVEEDOR _bllProveedor;
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
         public frmGenerarOrdenCompra()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            CargarIdiomas();
+            Actualizar(oIdioma);
+            if (sesion.Permisos != null)
+            {
+                BuscarControles(this.Controls);
+                Buscar(sesion.Permisos[0]);
+            }
             _bllCotizacion = new BLL_COTIZACION();
             _bllCompra = new BLL_COMPRA();
             _bllProveedor = new BLL_PROVEEDOR();
@@ -36,6 +57,17 @@ namespace Form1
             if (currentRowItem == null || !(currentRowItem is Cotizacion cotizacionSeleccionada))
             {
                 MessageBox.Show("Por favor, seleccione una cotización aprobada antes de generar la orden de compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cotizacionSeleccionada.EstadoCotizacionEnum != EstadoCotizacion.Aprobada)
+            {
+                MessageBox.Show("La cotización seleccionada no está aprobada. No se puede generar la orden de compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (CompraExistente(cotizacionSeleccionada.Id))
+            {
+                MessageBox.Show("Ya existe una orden de compra generada para esta cotización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -103,31 +135,25 @@ namespace Form1
             MessageBox.Show("La orden de compra ha sido generada exitosamente y está en estado Pendiente.", "Orden de Compra Generada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             LimpiarFormulario();
-
-            AbrirFormularioVerificacionProductos(nuevaCompra, cotizacionSeleccionada);
+            CargarOrdenesCompra();
+            CargarCotizacionesAprobadas();
         }
 
         private void btnPago_Click(object sender, EventArgs e)
         {
-            // Obtener el elemento seleccionado en el DataGridView
             if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compra)
             {
-                // Verificar si el estado de la compra es Pendiente
-                if (compra.EstadoCompraEnum == EstadoCompra.Pendiente)
+                if (compra.EstadoCompraEnum == EstadoCompra.Verificada)
                 {
                     try
                     {
-                        // Cambiar el estado a Pagada y actualizar el stock
                         _bllCompra.CambiarEstadoCompraYActualizarStock(compra.Id, EstadoCompra.Pagada);
 
-                        // Eliminar la cotización asociada y sus detalles
-                        var cotizacionId = compra.CotizacionId; // Asegúrate de que el modelo de Compra tenga esta referencia
+                        var cotizacionId = compra.CotizacionId;
                         if (compra != null && compra.CotizacionId.HasValue)
                         {
-                            // Eliminar la referencia a CotizacionId en la base de datos
                             _bllCompra.EliminarReferenciaCotizacion(compra.Id);
 
-                            // Eliminar la cotización y sus detalles
                             _bllCotizacion.Eliminar(compra.CotizacionId.Value);
                         }
 
@@ -165,6 +191,15 @@ namespace Form1
         public void HabilitarBotonPago(bool habilitar)
         {
             btnPago.Enabled = habilitar;
+        }
+
+        private Compra ObtenerCompraSeleccionada()
+        {
+            if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compraSeleccionada)
+            {
+                return compraSeleccionada;
+            }
+            return null;
         }
 
         private void ActualizarDataGridViewDetalle(List<DetalleCompra> detalles)
@@ -270,7 +305,6 @@ namespace Form1
             frmVerificacionProductos formVerificacion = new frmVerificacionProductos();
             formVerificacion.Owner = this;
 
-            // Suscribirse al evento OnRecepcionRechazada para actualizar los DataGridViews
             formVerificacion.OnRecepcionRechazada += ActualizarDataGrids;
             formVerificacion.OnRecepcionAprobada += ActualizarDataGrids;
 
@@ -282,6 +316,12 @@ namespace Form1
         {
             CargarCotizacionesAprobadas();
             CargarOrdenesCompra();
+        }
+        private bool CompraExistente(int cotizacionId)
+        {
+            var compras = _bllCompra.ObtenerTodos();
+
+            return compras.Any(compra => compra.CotizacionId == cotizacionId);
         }
 
         #endregion
@@ -297,39 +337,207 @@ namespace Form1
 
         private void dataGridViewCompra_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewCompra.CurrentRow?.DataBoundItem is Compra compraSeleccionada)
+            var compraSeleccionada = ObtenerCompraSeleccionada();
+
+            if (compraSeleccionada != null)
             {
                 // Obtener y mostrar los detalles de la orden de compra seleccionada
                 if (compraSeleccionada.oProveedor != null)
                 {
-                    var proveedosSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);
-                    lblProveedor.Text = proveedosSeleccionado.Descripcion;
+                    var proveedorSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);
+                    lblProveedor.Text = proveedorSeleccionado.Descripcion;
                 }
                 else
                 {
                     lblProveedor.Text = "Proveedor no disponible";
                 }
+
                 lblFecha.Text = compraSeleccionada.Fecha.ToShortDateString();
                 lblTotal.Text = compraSeleccionada.MontoTotal.ToString("C");
+
                 ActualizarDataGridViewDetalle(compraSeleccionada.oDetalleCompra);
+
+                buttonVerificacionProductos.Enabled = compraSeleccionada.EstadoCompraEnum == EstadoCompra.Pendiente;
+            }
+            else
+            {
+                buttonVerificacionProductos.Enabled = false;
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Cerrar();
         }
 
         private void dataGridViewCompra_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            e.ThrowException = false; // Evita que el programa se bloquee
+            e.ThrowException = false;
         }
 
         private void dataGridViewDetalles_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            e.ThrowException = false; // Evita que el programa se bloquee
+            e.ThrowException = false;
+        }
+
+        private void buttonVerificacionProductos_Click(object sender, EventArgs e)
+        {
+            var compraSeleccionada = ObtenerCompraSeleccionada();
+
+            if (compraSeleccionada != null && compraSeleccionada.EstadoCompraEnum == EstadoCompra.Pendiente)
+            {
+                var cotizacionSeleccionada = _bllCotizacion.ObtenerPorId(compraSeleccionada.CotizacionId ?? 0);
+
+                if (cotizacionSeleccionada != null)
+                {
+                    AbrirFormularioVerificacionProductos(compraSeleccionada, cotizacionSeleccionada);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró la cotización relacionada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una compra válida antes de proceder.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+        #region Idiomas
+        private void CargarIdiomas()
+        {
+            try
+            {
+                var idiomas = Bll_Idioma.ListarTodos();
+                cboxIdiomas.DataSource = idiomas;
+                cboxIdiomas.DisplayMember = "Nombre";
+                cboxIdiomas.ValueMember = "Id";
+
+                var idiomaPredeterminado = idiomas.FirstOrDefault(i => i.Nombre == "Español");
+                if (idiomaPredeterminado != null)
+                {
+                    cboxIdiomas.SelectedValue = idiomaPredeterminado.Id;
+                    sesion.CambiarIdioma(idiomaPredeterminado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ActualizarTextosControles(Idioma idioma)
+        {
+            try
+            {
+                var traducciones = Bll_Traduccion.ListarPorIdioma(idioma.Id);
+
+                foreach (Control control in ListaControles)
+                {
+                    var traduccion = traducciones.FirstOrDefault(t => t.Palabra == control.Text);
+                    if (traduccion != null)
+                    {
+                        control.Text = traduccion.TraduccionTexto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+            }
+
+            if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
+            {
+                cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+        #endregion Idiomas
+
+        List<Control> ListaControles = new List<Control>();
+        public void BuscarControles(ICollection controles)
+        {
+            foreach (Control c in controles)
+            {
+                ListaControles.Add(c);
+                if (c.HasChildren)
+                {
+                    BuscarControles(c.Controls);
+                }
+            }
+        }
+
+        #region Permisos
+        public void Buscar(Componente c)
+        {
+            GrupoPermisos grupo = (GrupoPermisos)c;
+            foreach (Componente p in grupo.Permisos)
+            {
+                if (p is GrupoPermisos)
+                {
+                    Buscar(p);
+                    Comprobar(p);
+                }
+                else
+                {
+                    Comprobar(p);
+                }
+            }
+        }
+
+        public void Comprobar(Componente p)
+        {
+            foreach (Control c in ListaControles)
+            {
+                if (c.Tag != null && c.Tag.ToString() == p.Nombre)
+                {
+                    c.Visible = true;
+                }
+            }
+        }
+        #endregion Permisos
+
+        //Ajustar esta logica
+        #region Extras
+        int i = 0;
+        public void Cerrar()
+        {
+            if (i == 0)
+            {
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+                i++;
+                this.Close();
+            }
+        }
+        #endregion Extras
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboxIdiomas.SelectedItem != null)
+            {
+                Idioma idiomaSeleccionado = (Idioma)cboxIdiomas.SelectedItem;
+                ListaControles.Clear();
+                BuscarControles(this.Controls);
+                ActualizarTextosControles(idiomaSeleccionado);
+                sesion.CambiarIdioma(idiomaSeleccionado);
+            }
         }
     }
 }

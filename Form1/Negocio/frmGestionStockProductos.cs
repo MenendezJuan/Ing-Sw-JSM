@@ -1,21 +1,42 @@
-﻿using BEs.Clases.Negocio;
+﻿using BEs;
+using BEs.Clases;
+using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Inventario;
+using BEs.Interfaces;
+using BLLs;
 using BLLs.Negocio;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Form1
 {
-    public partial class frmGestionStockProductos : Form
+    public partial class frmGestionStockProductos : Form, IObservador
     {
         private BLL_PRODUCTO _bllProducto;
         private BLL_PROVEEDOR _bllProveedor;
         private Producto _productoSeleccionado;
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
         public frmGestionStockProductos()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            CargarIdiomas();
+            Actualizar(oIdioma);
+            if (sesion.Permisos != null)
+            {
+                BuscarControles(this.Controls);
+                Buscar(sesion.Permisos[0]);
+            }
             _bllProducto = new BLL_PRODUCTO();
             _bllProveedor = new BLL_PROVEEDOR();
         }
@@ -23,12 +44,12 @@ namespace Form1
         private void buttonAgregarProductoProveedorSelec_Click(object sender, System.EventArgs e)
         {
             panelDatosProducto.Visible = true;
-            txtCodigo.ReadOnly = false;  // Código editable en agregar
-            lblSeleccionado.Visible = false;  // Ocultar etiquetas de selección
+            txtCodigo.ReadOnly = false;
+            lblSeleccionado.Visible = false;
             lblSeleccionadoEspecifico.Visible = false;
-            LimpiarControles();  // Limpiar los controles para ingresar nuevos datos
-            _productoSeleccionado = null;  // Resetear el producto seleccionado
-            btnAceptar.Tag = "Agregar";  // Usar la etiqueta del botón para distinguir si es agregar o actualizar
+            LimpiarControles();
+            _productoSeleccionado = null;
+            btnAceptar.Tag = "Agregar";
         }
 
         private void buttonActualizarProducto_Click(object sender, System.EventArgs e)
@@ -39,16 +60,20 @@ namespace Form1
                 return;
             }
 
-            // Mostrar el panel para actualizar y rellenar los controles con los datos del producto
+            if (!_productoSeleccionado.Estado)
+            {
+                MessageBox.Show("No se puede actualizar un producto inactivo.");
+                return;
+            }
+
             panelDatosProducto.Visible = true;
-            txtCodigo.ReadOnly = true;  // Código no editable al actualizar
+            txtCodigo.ReadOnly = true;
             lblSeleccionado.Visible = true;
             lblSeleccionadoEspecifico.Visible = true;
             lblSeleccionadoEspecifico.Text = _productoSeleccionado.Nombre;
 
-            // Mapear los datos del producto seleccionado a los controles
             MapearProductoAControles(_productoSeleccionado);
-            btnAceptar.Tag = "Actualizar";  // Distinguir si es agregar o actualizar
+            btnAceptar.Tag = "Actualizar";
         }
 
         private void buttonEliminarProducto_Click(object sender, System.EventArgs e)
@@ -57,6 +82,12 @@ namespace Form1
             {
                 if (_productoSeleccionado != null)
                 {
+                    if (!_productoSeleccionado.Estado)
+                    {
+                        MessageBox.Show("No se puede actualizar un producto inactivo.");
+                        return;
+                    }
+
                     DialogResult resultado = MessageBox.Show(
                         "¿Estás seguro de que deseas eliminar este producto?",
                         "Confirmar eliminación",
@@ -467,6 +498,145 @@ namespace Form1
         private void btnReactivarProductos_Click(object sender, EventArgs e)
         {
             ReactivarProductoSeleccionado();
+        }
+
+        #region Idiomas
+        private void CargarIdiomas()
+        {
+            try
+            {
+                var idiomas = Bll_Idioma.ListarTodos();
+                cboxIdiomas.DataSource = idiomas;
+                cboxIdiomas.DisplayMember = "Nombre";
+                cboxIdiomas.ValueMember = "Id";
+
+                var idiomaPredeterminado = idiomas.FirstOrDefault(i => i.Nombre == "Español");
+                if (idiomaPredeterminado != null)
+                {
+                    cboxIdiomas.SelectedValue = idiomaPredeterminado.Id;
+                    sesion.CambiarIdioma(idiomaPredeterminado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ActualizarTextosControles(Idioma idioma)
+        {
+            try
+            {
+                var traducciones = Bll_Traduccion.ListarPorIdioma(idioma.Id);
+
+                foreach (Control control in ListaControles)
+                {
+                    var traduccion = traducciones.FirstOrDefault(t => t.Palabra == control.Text);
+                    if (traduccion != null)
+                    {
+                        control.Text = traduccion.TraduccionTexto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+            }
+
+            if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
+            {
+                cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+        #endregion Idiomas
+
+        List<Control> ListaControles = new List<Control>();
+        public void BuscarControles(ICollection controles)
+        {
+            foreach (Control c in controles)
+            {
+                ListaControles.Add(c);
+                if (c.HasChildren)
+                {
+                    BuscarControles(c.Controls);
+                }
+            }
+        }
+
+        #region Permisos
+        public void Buscar(Componente c)
+        {
+            GrupoPermisos grupo = (GrupoPermisos)c;
+            foreach (Componente p in grupo.Permisos)
+            {
+                if (p is GrupoPermisos)
+                {
+                    Buscar(p);
+                    Comprobar(p);
+                }
+                else
+                {
+                    Comprobar(p);
+                }
+            }
+        }
+
+        public void Comprobar(Componente p)
+        {
+            foreach (Control c in ListaControles)
+            {
+                if (c.Tag != null && c.Tag.ToString() == p.Nombre)
+                {
+                    c.Visible = true;
+                }
+            }
+        }
+        #endregion Permisos
+
+        //Ajustar esta logica
+        #region Extras
+        int i = 0;
+        public void Cerrar()
+        {
+            if (i == 0)
+            {
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+                i++;
+                this.Close();
+            }
+        }
+        #endregion Extras
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboxIdiomas.SelectedItem != null)
+            {
+                Idioma idiomaSeleccionado = (Idioma)cboxIdiomas.SelectedItem;
+                ListaControles.Clear();
+                BuscarControles(this.Controls);
+                ActualizarTextosControles(idiomaSeleccionado);
+                sesion.CambiarIdioma(idiomaSeleccionado);
+            }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Cerrar();
         }
     }
 }

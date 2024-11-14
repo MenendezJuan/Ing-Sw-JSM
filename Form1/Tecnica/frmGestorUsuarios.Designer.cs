@@ -77,7 +77,7 @@
             this.button_Borrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Borrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_Borrar.ForeColor = System.Drawing.SystemColors.Window;
-            this.button_Borrar.Location = new System.Drawing.Point(157, 45);
+            this.button_Borrar.Location = new System.Drawing.Point(158, 45);
             this.button_Borrar.Margin = new System.Windows.Forms.Padding(2);
             this.button_Borrar.Name = "button_Borrar";
             this.button_Borrar.Size = new System.Drawing.Size(97, 49);
@@ -94,7 +94,7 @@
             this.button_Modificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Modificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_Modificar.ForeColor = System.Drawing.SystemColors.Window;
-            this.button_Modificar.Location = new System.Drawing.Point(294, 45);
+            this.button_Modificar.Location = new System.Drawing.Point(296, 45);
             this.button_Modificar.Margin = new System.Windows.Forms.Padding(2);
             this.button_Modificar.Name = "button_Modificar";
             this.button_Modificar.Size = new System.Drawing.Size(97, 49);
@@ -131,14 +131,14 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 146);
+            this.dataGridView1.Location = new System.Drawing.Point(2, 148);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(553, 285);
+            this.dataGridView1.Size = new System.Drawing.Size(555, 288);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.Tag = "Datagridview_Usuarios_GUs";
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -150,7 +150,7 @@
             this.button_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_Salir.ForeColor = System.Drawing.SystemColors.Window;
-            this.button_Salir.Location = new System.Drawing.Point(570, 481);
+            this.button_Salir.Location = new System.Drawing.Point(572, 486);
             this.button_Salir.Margin = new System.Windows.Forms.Padding(2);
             this.button_Salir.Name = "button_Salir";
             this.button_Salir.Size = new System.Drawing.Size(97, 49);
@@ -167,7 +167,7 @@
             this.button_Actualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Actualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_Actualizar.ForeColor = System.Drawing.SystemColors.Window;
-            this.button_Actualizar.Location = new System.Drawing.Point(432, 45);
+            this.button_Actualizar.Location = new System.Drawing.Point(435, 45);
             this.button_Actualizar.Margin = new System.Windows.Forms.Padding(2);
             this.button_Actualizar.Name = "button_Actualizar";
             this.button_Actualizar.Size = new System.Drawing.Size(97, 49);
@@ -183,7 +183,7 @@
             this.lblSeleccionarIdioma.AutoSize = true;
             this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSeleccionarIdioma.ForeColor = System.Drawing.SystemColors.Window;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(62, 93);
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(62, 94);
             this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
             this.lblSeleccionarIdioma.Size = new System.Drawing.Size(152, 21);
@@ -196,7 +196,7 @@
             this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(278, 93);
+            this.cboxIdiomas.Location = new System.Drawing.Point(279, 94);
             this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2);
             this.cboxIdiomas.Name = "cboxIdiomas";
             this.cboxIdiomas.Size = new System.Drawing.Size(157, 21);
@@ -210,7 +210,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI Black", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.Window;
-            this.label8.Location = new System.Drawing.Point(164, 53);
+            this.label8.Location = new System.Drawing.Point(165, 54);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(228, 37);
@@ -245,14 +245,14 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.Location = new System.Drawing.Point(682, 146);
+            this.dataGridView2.Location = new System.Drawing.Point(685, 148);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.RowTemplate.Height = 28;
-            this.dataGridView2.Size = new System.Drawing.Size(555, 285);
+            this.dataGridView2.Size = new System.Drawing.Size(556, 288);
             this.dataGridView2.TabIndex = 49;
             this.dataGridView2.Tag = "Datagridview_Historial_GUs";
             // 
@@ -263,7 +263,7 @@
             this.button_Restaurar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Restaurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_Restaurar.ForeColor = System.Drawing.SystemColors.Window;
-            this.button_Restaurar.Location = new System.Drawing.Point(570, 257);
+            this.button_Restaurar.Location = new System.Drawing.Point(572, 260);
             this.button_Restaurar.Margin = new System.Windows.Forms.Padding(2);
             this.button_Restaurar.Name = "button_Restaurar";
             this.button_Restaurar.Size = new System.Drawing.Size(97, 63);
@@ -290,13 +290,13 @@
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView2, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, -2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1239, 578);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1243, 584);
             this.tableLayoutPanel1.TabIndex = 51;
             // 
             // tableLayoutPanel3
@@ -309,12 +309,12 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.lblSeleccionarIdioma, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.cboxIdiomas, 1, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(683, 436);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(686, 441);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(553, 139);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(554, 140);
             this.tableLayoutPanel3.TabIndex = 52;
             // 
             // tableLayoutPanel2
@@ -331,11 +331,11 @@
             this.tableLayoutPanel2.Controls.Add(this.button_Borrar, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Modificar, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Actualizar, 3, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 436);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 441);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(551, 139);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(553, 140);
             this.tableLayoutPanel2.TabIndex = 52;
             // 
             // frmGestorUsuarios
@@ -345,6 +345,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1240, 580);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmGestorUsuarios";
             this.ShowIcon = false;

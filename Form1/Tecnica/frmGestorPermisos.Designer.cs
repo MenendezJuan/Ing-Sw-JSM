@@ -76,10 +76,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.treeView1.Location = new System.Drawing.Point(379, 131);
+            this.treeView1.Location = new System.Drawing.Point(380, 132);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(499, 292);
+            this.treeView1.Size = new System.Drawing.Size(500, 292);
             this.treeView1.TabIndex = 0;
             this.treeView1.Tag = "Treeview_Permisos_GPer";
             // 
@@ -90,7 +90,7 @@
             this.button_Agregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Agregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Agregar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Agregar.Location = new System.Drawing.Point(25, 30);
+            this.button_Agregar.Location = new System.Drawing.Point(26, 30);
             this.button_Agregar.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_Agregar.Name = "button_Agregar";
             this.button_Agregar.Size = new System.Drawing.Size(131, 48);
@@ -107,7 +107,7 @@
             this.button_Salir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Salir.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Salir.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Salir.Location = new System.Drawing.Point(123, 596);
+            this.button_Salir.Location = new System.Drawing.Point(123, 597);
             this.button_Salir.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_Salir.Name = "button_Salir";
             this.button_Salir.Size = new System.Drawing.Size(131, 48);
@@ -122,7 +122,7 @@
             this.comboBox_Grupos.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox_Grupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Grupos.FormattingEnabled = true;
-            this.comboBox_Grupos.Location = new System.Drawing.Point(297, 82);
+            this.comboBox_Grupos.Location = new System.Drawing.Point(298, 83);
             this.comboBox_Grupos.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.comboBox_Grupos.Name = "comboBox_Grupos";
             this.comboBox_Grupos.Size = new System.Drawing.Size(151, 21);
@@ -136,7 +136,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label2.Location = new System.Drawing.Point(333, 37);
+            this.label2.Location = new System.Drawing.Point(334, 37);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 25);
@@ -175,7 +175,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label8.Location = new System.Drawing.Point(68, 45);
+            this.label8.Location = new System.Drawing.Point(69, 45);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(240, 40);
@@ -204,7 +204,7 @@
             // textBox_Nombre
             // 
             this.textBox_Nombre.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox_Nombre.Location = new System.Drawing.Point(124, 134);
+            this.textBox_Nombre.Location = new System.Drawing.Point(125, 134);
             this.textBox_Nombre.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.textBox_Nombre.Name = "textBox_Nombre";
             this.textBox_Nombre.Size = new System.Drawing.Size(122, 20);
@@ -217,7 +217,7 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
             this.lblNombre.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblNombre.Location = new System.Drawing.Point(138, 33);
+            this.lblNombre.Location = new System.Drawing.Point(139, 33);
             this.lblNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(94, 30);
@@ -244,10 +244,10 @@
             this.comboBox_Permisos.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox_Permisos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Permisos.FormattingEnabled = true;
-            this.comboBox_Permisos.Location = new System.Drawing.Point(123, 19);
+            this.comboBox_Permisos.Location = new System.Drawing.Point(93, 19);
             this.comboBox_Permisos.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.comboBox_Permisos.Name = "comboBox_Permisos";
-            this.comboBox_Permisos.Size = new System.Drawing.Size(119, 21);
+            this.comboBox_Permisos.Size = new System.Drawing.Size(180, 21);
             this.comboBox_Permisos.TabIndex = 51;
             this.comboBox_Permisos.Tag = "Combobox_Permisos_GPer";
             // 
@@ -258,7 +258,7 @@
             this.button_Borrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Borrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Borrar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Borrar.Location = new System.Drawing.Point(208, 30);
+            this.button_Borrar.Location = new System.Drawing.Point(209, 30);
             this.button_Borrar.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_Borrar.Name = "button_Borrar";
             this.button_Borrar.Size = new System.Drawing.Size(131, 48);
@@ -275,7 +275,7 @@
             this.button_BorrarGrupo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_BorrarGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_BorrarGrupo.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_BorrarGrupo.Location = new System.Drawing.Point(58, 69);
+            this.button_BorrarGrupo.Location = new System.Drawing.Point(59, 69);
             this.button_BorrarGrupo.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_BorrarGrupo.Name = "button_BorrarGrupo";
             this.button_BorrarGrupo.Size = new System.Drawing.Size(131, 48);
@@ -379,7 +379,7 @@
             this.button_LimpiarArbol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_LimpiarArbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_LimpiarArbol.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_LimpiarArbol.Location = new System.Drawing.Point(563, 596);
+            this.button_LimpiarArbol.Location = new System.Drawing.Point(564, 597);
             this.button_LimpiarArbol.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.button_LimpiarArbol.Name = "button_LimpiarArbol";
             this.button_LimpiarArbol.Size = new System.Drawing.Size(131, 48);
@@ -409,14 +409,14 @@
             this.tableLayoutPanel1.Controls.Add(this.button_LimpiarArbol, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1258, 654);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1260, 655);
             this.tableLayoutPanel1.TabIndex = 63;
             // 
             // tableLayoutPanel7
@@ -430,12 +430,12 @@
             this.tableLayoutPanel7.Controls.Add(this.button_BorrarGrupo, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.comboBox_Grupos, 1, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(380, 3);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(381, 3);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(497, 124);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(498, 125);
             this.tableLayoutPanel7.TabIndex = 69;
             // 
             // tableLayoutPanel5
@@ -448,7 +448,7 @@
             this.tableLayoutPanel5.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.comboBox_PermisosAsignados, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.button_DesasignarGrupo, 0, 2);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(883, 427);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(885, 428);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.55882F));
@@ -467,7 +467,7 @@
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.comboBox_Usuarios, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.button_AsignarGrupo, 0, 2);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(883, 133);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(885, 134);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -486,13 +486,13 @@
             this.tableLayoutPanel3.Controls.Add(this.lblNombre, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.textBox_Nombre, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.button_CrearGrupo, 0, 2);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 133);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 134);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 96F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(371, 288);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(372, 288);
             this.tableLayoutPanel3.TabIndex = 65;
             // 
             // tableLayoutPanel2
@@ -506,13 +506,13 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel9, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel8, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 427);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 428);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(371, 157);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(372, 157);
             this.tableLayoutPanel2.TabIndex = 64;
             // 
             // tableLayoutPanel9
@@ -530,7 +530,7 @@
             this.tableLayoutPanel9.RowCount = 2;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(365, 36);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(366, 36);
             this.tableLayoutPanel9.TabIndex = 55;
             // 
             // tableLayoutPanel8
@@ -547,7 +547,7 @@
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(365, 109);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(366, 109);
             this.tableLayoutPanel8.TabIndex = 54;
             // 
             // tableLayoutPanel6
@@ -560,7 +560,7 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.cboxIdiomas, 1, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(883, 590);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(885, 591);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -575,6 +575,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1259, 654);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "frmGestorPermisos";
             this.ShowIcon = false;

@@ -1,17 +1,41 @@
-﻿using BEs.Clases.Negocio;
+﻿using BEs;
+using BEs.Clases;
+using BEs.Clases.Negocio;
+using BEs.Interfaces;
+using BLLs;
 using BLLs.Negocio;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Form1.Negocio
 {
-    public partial class frmGestionarProveedores : Form
+    public partial class frmGestionarProveedores : Form, IObservador
     {
         private BLL_PROVEEDOR _bllProveedor;
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
         private Proveedor _proveedorSeleccionado;
         public frmGestionarProveedores()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            CargarIdiomas();
+            Actualizar(oIdioma);
+            if (sesion.Permisos != null)
+            {
+                BuscarControles(this.Controls);
+                Buscar(sesion.Permisos[0]);
+            }
+            _bllProveedor = new BLL_PROVEEDOR();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -165,6 +189,8 @@ namespace Form1.Negocio
         {
             var proveedores = _bllProveedor.ObtenerTodos();
             dataGridViewProveedor.DataSource = proveedores;
+            if (dataGridViewProveedor.Columns["Estado"] != null)
+                dataGridViewProveedor.Columns["Estado"].Visible = false;
         }
 
         private void ReleaseObject(object obj)
@@ -189,32 +215,37 @@ namespace Form1.Negocio
         private void buttonAgregarProveedor_Click(object sender, EventArgs e)
         {
             panelDatosProv.Visible = true;
-            txtCuit.ReadOnly = false;  // Código editable en agregar
-            lblSeleccionado.Visible = false;  // Ocultar etiquetas de selección
+            txtCuit.ReadOnly = false;
+            lblSeleccionado.Visible = false;
             lblSeleccionadoEspecifico.Visible = false;
-            LimpiarControles();  // Limpiar los controles para ingresar nuevos datos
-            _proveedorSeleccionado = null;  // Resetear el producto seleccionado
-            btnAceptar.Tag = "Agregar";  // Usar la etiqueta del botón para distinguir si es agregar o actualizar
+            LimpiarControles();
+            _proveedorSeleccionado = null;
+            btnAceptar.Tag = "Agregar";
         }
 
         private void buttonActualizarProveedor_Click(object sender, EventArgs e)
         {
             if (_proveedorSeleccionado == null)
             {
-                MessageBox.Show("Por favor, seleccione un producto para actualizar.");
+                MessageBox.Show("Por favor, seleccione un proveedor para actualizar.");
                 return;
             }
 
-            // Mostrar el panel para actualizar y rellenar los controles con los datos del producto
+            if (!_proveedorSeleccionado.Estado)
+            {
+                MessageBox.Show("No se puede actualizar un proveedor inactivo.");
+                return;
+            }
+
             panelDatosProv.Visible = true;
-            txtCuit.ReadOnly = true;  // Código no editable al actualizar
+            txtCuit.ReadOnly = true;
             lblSeleccionado.Visible = true;
             lblSeleccionadoEspecifico.Visible = true;
             lblSeleccionadoEspecifico.Text = _proveedorSeleccionado.Descripcion;
 
-            // Mapear los datos del producto seleccionado a los controles
+
             MapearProveedorAControles(_proveedorSeleccionado);
-            btnAceptar.Tag = "Actualizar";  // Distinguir si es agregar o actualizar
+            btnAceptar.Tag = "Actualizar";
         }
 
         private void buttonEliminarProveedor_Click(object sender, EventArgs e)
@@ -223,6 +254,11 @@ namespace Form1.Negocio
             {
                 if (_proveedorSeleccionado != null)
                 {
+                    if (!_proveedorSeleccionado.Estado)
+                    {
+                        MessageBox.Show("No se puede actualizar un proveedor inactivo.");
+                        return;
+                    }
                     DialogResult resultado = MessageBox.Show(
                         "¿Estás seguro de que deseas eliminar este proveedor?",
                         "Confirmar eliminación",
@@ -246,6 +282,269 @@ namespace Form1.Negocio
             catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void frmGestionarProveedores_Load(object sender, EventArgs e)
+        {
+            CargarProveedores();
+            panelDatosProv.Visible = false;
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Cerrar();
+        }
+
+        #region Idiomas
+        private void CargarIdiomas()
+        {
+            try
+            {
+                var idiomas = Bll_Idioma.ListarTodos();
+                cboxIdiomas.DataSource = idiomas;
+                cboxIdiomas.DisplayMember = "Nombre";
+                cboxIdiomas.ValueMember = "Id";
+
+                var idiomaPredeterminado = idiomas.FirstOrDefault(i => i.Nombre == "Español");
+                if (idiomaPredeterminado != null)
+                {
+                    cboxIdiomas.SelectedValue = idiomaPredeterminado.Id;
+                    sesion.CambiarIdioma(idiomaPredeterminado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ActualizarTextosControles(Idioma idioma)
+        {
+            try
+            {
+                var traducciones = Bll_Traduccion.ListarPorIdioma(idioma.Id);
+
+                foreach (Control control in ListaControles)
+                {
+                    var traduccion = traducciones.FirstOrDefault(t => t.Palabra == control.Text);
+                    if (traduccion != null)
+                    {
+                        control.Text = traduccion.TraduccionTexto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+            }
+
+            if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
+            {
+                cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+        #endregion Idiomas
+
+        List<Control> ListaControles = new List<Control>();
+        public void BuscarControles(ICollection controles)
+        {
+            foreach (Control c in controles)
+            {
+                ListaControles.Add(c);
+                if (c.HasChildren)
+                {
+                    BuscarControles(c.Controls);
+                }
+            }
+        }
+
+        #region Permisos
+        public void Buscar(Componente c)
+        {
+            GrupoPermisos grupo = (GrupoPermisos)c;
+            foreach (Componente p in grupo.Permisos)
+            {
+                if (p is GrupoPermisos)
+                {
+                    Buscar(p);
+                    Comprobar(p);
+                }
+                else
+                {
+                    Comprobar(p);
+                }
+            }
+        }
+
+        public void Comprobar(Componente p)
+        {
+            foreach (Control c in ListaControles)
+            {
+                if (c.Tag != null && c.Tag.ToString() == p.Nombre)
+                {
+                    c.Visible = true;
+                }
+            }
+        }
+        #endregion Permisos
+
+        //Ajustar esta logica
+        #region Extras
+        int i = 0;
+        public void Cerrar()
+        {
+            if (i == 0)
+            {
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+                i++;
+                this.Close();
+            }
+        }
+        #endregion Extras
+
+        private void buttonReactivacionProv_Click(object sender, EventArgs e)
+        {
+            CargarProveedoresInactivosEnGrid();
+        }
+
+        #region
+
+        private void CargarProveedoresInactivosEnGrid()
+        {
+            var proveedoresInactivos = _bllProveedor.ObtenerProveedoresInactivos();
+            if (proveedoresInactivos != null && proveedoresInactivos.Count > 0)
+            {
+                dataGridViewProveedor.DataSource = proveedoresInactivos;
+                OcultarControlesNormalesSinMover();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos inactivos para mostrar.");
+                MostrarControlesNormales();
+            }
+        }
+
+        private void ReactivarProveedorSeleccionado()
+        {
+            if (dataGridViewProveedor.SelectedRows.Count > 0)
+            {
+                var proveedorSeleccionado = (Proveedor)dataGridViewProveedor.SelectedRows[0].DataBoundItem;
+
+                try
+                {
+                    proveedorSeleccionado.Estado = true;
+                    _bllProveedor.Reactivar(proveedorSeleccionado.Id);
+
+                    MessageBox.Show($"El proveedor '{proveedorSeleccionado.Descripcion}' ha sido reactivado.");
+
+                    // Volver a cargar la vista normal
+                    CargarProveedores();
+                    MostrarControlesNormales();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al reactivar el proveedor: {ex.Message}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione un proveedor inactivo para reactivar.");
+            }
+        }
+        private void OcultarControlesNormalesSinMover()
+        {
+            buttonAgregarProveedor.Enabled = false;
+            buttonActualizarProveedor.Enabled = false;
+            buttonEliminarProveedor.Enabled = false;
+            btnExportar.Enabled = false;
+            btnRefresh.Enabled = false;
+            panelDatosProv.Enabled = false;
+            panelDatosFiltrar.Enabled = false;
+            btnReactivarProveedor.Enabled = true;
+        }
+
+        private void MostrarControlesNormales()
+        {
+            buttonAgregarProveedor.Enabled = true;
+            buttonActualizarProveedor.Enabled = true;
+            buttonEliminarProveedor.Enabled = true;
+            btnExportar.Enabled = true;
+            btnRefresh.Enabled = true;
+            panelDatosProv.Enabled = true;
+            panelDatosFiltrar.Enabled = true;
+            btnReactivarProveedor.Enabled = false;
+        }
+        #endregion
+
+        private void btnReactivarProveedor_Click(object sender, EventArgs e)
+        {
+            ReactivarProveedorSeleccionado();
+        }
+
+        private void dataGridViewProveedor_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewProveedor.SelectedRows.Count > 0)
+            {
+                var item = dataGridViewProveedor.SelectedRows[0].DataBoundItem as Proveedor;
+
+                if (item != null)
+                {
+                    _proveedorSeleccionado = item;
+                    lblSeleccionado.Visible = true;
+                    lblSeleccionadoEspecifico.Visible = true;
+                    lblSeleccionadoEspecifico.Text = item.Descripcion;
+
+                    MapearProveedorAControles(_proveedorSeleccionado);
+                }
+            }
+            else
+            {
+                _proveedorSeleccionado = null;
+                lblSeleccionado.Visible = false;
+                lblSeleccionadoEspecifico.Visible = false;
+                LimpiarControles();
+            }
+        }
+
+        private void dataGridViewProveedor_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var row = dataGridViewProveedor.Rows[e.RowIndex];
+            bool estado = Convert.ToBoolean(row.Cells["Estado"].Value);
+
+            if (!estado)
+            {
+                row.DefaultCellStyle.BackColor = Color.Gray;
+                row.DefaultCellStyle.ForeColor = Color.White;
+            }
+        }
+
+
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboxIdiomas.SelectedItem != null)
+            {
+                Idioma idiomaSeleccionado = (Idioma)cboxIdiomas.SelectedItem;
+                ListaControles.Clear();
+                BuscarControles(this.Controls);
+                ActualizarTextosControles(idiomaSeleccionado);
+                sesion.CambiarIdioma(idiomaSeleccionado);
             }
         }
     }

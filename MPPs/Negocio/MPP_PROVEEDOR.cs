@@ -67,6 +67,16 @@ namespace MPPs
             oCnx.Guardar("EliminarProveedor", parametros);
         }
 
+        public void Reactivar(int id)
+        {
+            var parametros = new Hashtable
+                {
+                    { "@Id", id }
+                };
+
+            oCnx.Guardar("ReactivarProveedor", parametros); // Reactivación lógica
+        }
+
         public Proveedor ObtenerPorId(int id)
         {
             var parametros = new Hashtable
@@ -90,6 +100,20 @@ namespace MPPs
                 proveedores.Add(Map(row));
             }
             return proveedores;
+        }
+
+        public List<Proveedor> ObtenerProveedoresInactivos()
+        {
+            var proveedoresInactivos = new List<Proveedor>();
+
+            DataTable dt = oCnx.Leer("ObtenerProveedoresInactivos", null);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                proveedoresInactivos.Add(Map(row));
+            }
+
+            return proveedoresInactivos;
         }
 
         public List<Proveedor> ObtenerProveedoresPorCategoriaProducto(Categoria categoria)

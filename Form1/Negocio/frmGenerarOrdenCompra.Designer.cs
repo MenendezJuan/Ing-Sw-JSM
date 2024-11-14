@@ -89,7 +89,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.labelCotizaciones = new System.Windows.Forms.Label();
             this.labelOrdenesCompra = new System.Windows.Forms.Label();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonVerificacionProductos = new System.Windows.Forms.Button();
             this.labelDetalleOrden = new System.Windows.Forms.Label();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompra)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -112,6 +117,8 @@
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel12.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPago
@@ -129,8 +136,10 @@
             this.btnPago.Name = "btnPago";
             this.btnPago.Size = new System.Drawing.Size(257, 37);
             this.btnPago.TabIndex = 82;
+            this.btnPago.Tag = "btnPago_frmGenerarOrden";
             this.btnPago.Text = "Realizar Pago";
             this.btnPago.UseVisualStyleBackColor = true;
+            this.btnPago.Visible = false;
             this.btnPago.Click += new System.EventHandler(this.btnPago_Click);
             // 
             // dataGridViewCompra
@@ -232,6 +241,7 @@
             this.lblTxtFech.Name = "lblTxtFech";
             this.lblTxtFech.Size = new System.Drawing.Size(109, 46);
             this.lblTxtFech.TabIndex = 83;
+            this.lblTxtFech.Tag = "lblTxtFech_frmGestCoti";
             this.lblTxtFech.Text = "Fecha";
             this.lblTxtFech.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -291,6 +301,7 @@
             this.lblTxtTotal.Name = "lblTxtTotal";
             this.lblTxtTotal.Size = new System.Drawing.Size(109, 34);
             this.lblTxtTotal.TabIndex = 84;
+            this.lblTxtTotal.Tag = "lblTxtTotal_frmGenerarOrden";
             this.lblTxtTotal.Text = "Total";
             this.lblTxtTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -304,12 +315,14 @@
             this.btnGenerarOrdenCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarOrdenCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarOrdenCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnGenerarOrdenCompra.Location = new System.Drawing.Point(28, 479);
+            this.btnGenerarOrdenCompra.Location = new System.Drawing.Point(25, 3);
             this.btnGenerarOrdenCompra.Name = "btnGenerarOrdenCompra";
-            this.btnGenerarOrdenCompra.Size = new System.Drawing.Size(257, 37);
+            this.btnGenerarOrdenCompra.Size = new System.Drawing.Size(257, 33);
             this.btnGenerarOrdenCompra.TabIndex = 101;
+            this.btnGenerarOrdenCompra.Tag = "btnGenerarOrdenCompra_frmGenerarOrden";
             this.btnGenerarOrdenCompra.Text = "Generar Orden de Compra";
             this.btnGenerarOrdenCompra.UseVisualStyleBackColor = true;
+            this.btnGenerarOrdenCompra.Visible = false;
             this.btnGenerarOrdenCompra.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // lblTitulo
@@ -321,6 +334,7 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(157, 25);
             this.lblTitulo.TabIndex = 100;
+            this.lblTitulo.Tag = "lblTitulo_frmGenerarOrden";
             this.lblTitulo.Text = "Agregar Compra";
             // 
             // panel9
@@ -356,6 +370,7 @@
             this.lblTxtPago.Name = "lblTxtPago";
             this.lblTxtPago.Size = new System.Drawing.Size(116, 40);
             this.lblTxtPago.TabIndex = 80;
+            this.lblTxtPago.Tag = "lblTxtPago_frmGenerarOrden";
             this.lblTxtPago.Text = "Pago";
             this.lblTxtPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -380,13 +395,14 @@
             this.labelComentarios.Name = "labelComentarios";
             this.labelComentarios.Size = new System.Drawing.Size(109, 39);
             this.labelComentarios.TabIndex = 86;
+            this.labelComentarios.Tag = "labelComentarios_frmGenerarOrden";
             this.labelComentarios.Text = "Comentario";
             this.labelComentarios.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxComentario
             // 
-            this.textBoxComentario.Dock = System.Windows.Forms.DockStyle.Right;
-            this.textBoxComentario.Location = new System.Drawing.Point(115, 0);
+            this.textBoxComentario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.textBoxComentario.Location = new System.Drawing.Point(115, 10);
             this.textBoxComentario.Name = "textBoxComentario";
             this.textBoxComentario.Size = new System.Drawing.Size(181, 20);
             this.textBoxComentario.TabIndex = 85;
@@ -489,6 +505,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(109, 29);
             this.label6.TabIndex = 86;
+            this.label6.Tag = "lblTxtFech_frmGestCoti";
             this.label6.Text = "Fecha";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -561,10 +578,11 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.button1, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblTitulo, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnGenerarOrdenCompra, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.labelCotizaciones, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelOrdenesCompra, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel8, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.labelDetalleOrden, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel9, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 1);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -584,8 +602,8 @@
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Controls.Add(this.dataGridViewCompra, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.dataGridViewCompra, 0, 0);
             this.tableLayoutPanel6.Location = new System.Drawing.Point(316, 86);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -688,6 +706,7 @@
             this.lblTxtProveedor.Name = "lblTxtProveedor";
             this.lblTxtProveedor.Size = new System.Drawing.Size(112, 48);
             this.lblTxtProveedor.TabIndex = 86;
+            this.lblTxtProveedor.Tag = "lblTxtProv_frmGestCoti";
             this.lblTxtProveedor.Text = "Proveedor";
             this.lblTxtProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -847,6 +866,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 29);
             this.label3.TabIndex = 86;
+            this.label3.Tag = "lblTxtProv_frmGestCoti";
             this.label3.Text = "Proveedor";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -866,6 +886,7 @@
             this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(95, 30);
             this.button1.TabIndex = 105;
+            this.button1.Tag = "btnCerrar_frmGestionCot";
             this.button1.Text = "Cerrar";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
@@ -880,6 +901,7 @@
             this.labelCotizaciones.Name = "labelCotizaciones";
             this.labelCotizaciones.Size = new System.Drawing.Size(129, 24);
             this.labelCotizaciones.TabIndex = 108;
+            this.labelCotizaciones.Tag = "btnCotizaciones_formPrincipal";
             this.labelCotizaciones.Text = "Cotizaciones";
             // 
             // labelOrdenesCompra
@@ -891,7 +913,46 @@
             this.labelOrdenesCompra.Name = "labelOrdenesCompra";
             this.labelOrdenesCompra.Size = new System.Drawing.Size(200, 24);
             this.labelOrdenesCompra.TabIndex = 109;
+            this.labelOrdenesCompra.Tag = "labelOrdenesCompra_frmGenerarOrden";
             this.labelOrdenesCompra.Text = "Ordenes de Compra";
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel8.ColumnCount = 1;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Controls.Add(this.buttonVerificacionProductos, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.btnGenerarOrdenCompra, 0, 0);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 479);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 2;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(308, 78);
+            this.tableLayoutPanel8.TabIndex = 111;
+            // 
+            // buttonVerificacionProductos
+            // 
+            this.buttonVerificacionProductos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonVerificacionProductos.Enabled = false;
+            this.buttonVerificacionProductos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.buttonVerificacionProductos.FlatAppearance.BorderSize = 2;
+            this.buttonVerificacionProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.buttonVerificacionProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.buttonVerificacionProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonVerificacionProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonVerificacionProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.buttonVerificacionProductos.Location = new System.Drawing.Point(25, 42);
+            this.buttonVerificacionProductos.Name = "buttonVerificacionProductos";
+            this.buttonVerificacionProductos.Size = new System.Drawing.Size(257, 33);
+            this.buttonVerificacionProductos.TabIndex = 102;
+            this.buttonVerificacionProductos.Tag = "buttonVerificacionProductos_frmGenerarOrden";
+            this.buttonVerificacionProductos.Text = "Verificar Productos";
+            this.buttonVerificacionProductos.UseVisualStyleBackColor = true;
+            this.buttonVerificacionProductos.Visible = false;
+            this.buttonVerificacionProductos.Click += new System.EventHandler(this.buttonVerificacionProductos_Click);
             // 
             // labelDetalleOrden
             // 
@@ -902,7 +963,53 @@
             this.labelDetalleOrden.Name = "labelDetalleOrden";
             this.labelDetalleOrden.Size = new System.Drawing.Size(139, 24);
             this.labelDetalleOrden.TabIndex = 110;
+            this.labelDetalleOrden.Tag = "labelDetalleOrden_frmGenerarOrden";
             this.labelDetalleOrden.Text = "Detalle Orden";
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel9.ColumnCount = 2;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(317, 3);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 1;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(522, 50);
+            this.tableLayoutPanel9.TabIndex = 112;
+            // 
+            // lblSeleccionarIdioma
+            // 
+            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeleccionarIdioma.AutoSize = true;
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(59, 15);
+            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
+            this.lblSeleccionarIdioma.TabIndex = 50;
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            // 
+            // cboxIdiomas
+            // 
+            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIdiomas.FormattingEnabled = true;
+            this.cboxIdiomas.Location = new System.Drawing.Point(292, 11);
+            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cboxIdiomas.Name = "cboxIdiomas";
+            this.cboxIdiomas.Size = new System.Drawing.Size(199, 28);
+            this.cboxIdiomas.TabIndex = 49;
+            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // frmGenerarOrdenCompra
             // 
@@ -911,6 +1018,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1128, 563);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmGenerarOrdenCompra";
             this.ShowIcon = false;
             this.Text = "frmEvaluarSolicitudesCotizacion";
@@ -939,6 +1047,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -994,5 +1105,10 @@
         private System.Windows.Forms.Label labelCotizaciones;
         private System.Windows.Forms.Label labelOrdenesCompra;
         private System.Windows.Forms.Label labelDetalleOrden;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.Button buttonVerificacionProductos;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.Label lblSeleccionarIdioma;
+        private System.Windows.Forms.ComboBox cboxIdiomas;
     }
 }

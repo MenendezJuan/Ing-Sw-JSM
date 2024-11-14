@@ -24,7 +24,6 @@ namespace MPPs
 
         public int Insertar(Compra compra)
         {
-            // Crear un Hashtable para los parámetros del procedimiento almacenado InsertarCompra
             var parametros = new Hashtable
             {
                 { "@Comentario", compra.Comentario },
@@ -36,23 +35,17 @@ namespace MPPs
                 { "@CotizacionId", compra.CotizacionId }
             };
 
-            // Ejecutar el procedimiento para insertar la compra y obtener el ID generado
             int compraId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarCompra", parametros));
 
-            // Asignar el ID de la compra insertada al objeto Compra
             compra.Id = compraId;
 
-            // Insertar los detalles de la compra
             foreach (var detalle in compra.oDetalleCompra)
             {
-                // Asignar el ID de la compra al detalle
                 detalle.CompraId = compraId;
 
-                // Insertar el detalle en la base de datos
                 detalleCompraRepositorio.Insertar(detalle);
             }
 
-            // Retornar el ID de la compra insertada
             return compraId;
         }
 

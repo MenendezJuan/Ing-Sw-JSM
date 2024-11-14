@@ -1,23 +1,45 @@
-﻿using BEs.Clases.Negocio.Compras;
+﻿using BEs;
+using BEs.Clases;
+using BEs.Clases.Negocio.Compras;
 using BEs.Clases.Negocio.Compras.Enums;
+using BEs.Interfaces;
+using BLLs;
 using BLLs.Negocio;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Form1.Negocio
 {
-    public partial class frmVerificacionProductos : Form
+    public partial class frmVerificacionProductos : Form, IObservador
     {
         private frmGenerarOrdenCompra _formularioGenerarOrdenCompra;
         private BLL_COMPRA _bllCompra;
         private BLL_COTIZACION _bllCotizacion;
         private Compra _ordenCompraSeleccionada;
         private Cotizacion _cotizacionSeleccionada;
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
         public frmVerificacionProductos()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            CargarIdiomas();
+            Actualizar(oIdioma);
+            if (sesion.Permisos != null)
+            {
+                BuscarControles(this.Controls);
+                Buscar(sesion.Permisos[0]);
+            }
             _bllCompra = new BLL_COMPRA();
             _bllCotizacion = new BLL_COTIZACION();
             InicializarFirma();
@@ -37,6 +59,8 @@ namespace Form1.Negocio
 
                 if (_formularioGenerarOrdenCompra != null)
                 {
+                    var nuevoEstado = EstadoCompra.Verificada;
+                    _bllCompra.CambiarEstadoCompra(_ordenCompraSeleccionada.Id, nuevoEstado);
                     _formularioGenerarOrdenCompra.HabilitarBotonPago(true);
                     OnRecepcionAprobada?.Invoke();
                 }
@@ -191,7 +215,7 @@ namespace Form1.Negocio
 
             using (Graphics g = Graphics.FromImage(firmaBitmap))
             {
-                g.Clear(Color.Snow);
+                g.Clear(Color.White);
             }
         }
 
@@ -251,6 +275,140 @@ namespace Form1.Negocio
         private void btnLimpiarFirm_Click(object sender, EventArgs e)
         {
             LimpiarFirma();
+        }
+
+        #region Idiomas
+        private void CargarIdiomas()
+        {
+            try
+            {
+                var idiomas = Bll_Idioma.ListarTodos();
+                cboxIdiomas.DataSource = idiomas;
+                cboxIdiomas.DisplayMember = "Nombre";
+                cboxIdiomas.ValueMember = "Id";
+
+                var idiomaPredeterminado = idiomas.FirstOrDefault(i => i.Nombre == "Español");
+                if (idiomaPredeterminado != null)
+                {
+                    cboxIdiomas.SelectedValue = idiomaPredeterminado.Id;
+                    sesion.CambiarIdioma(idiomaPredeterminado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ActualizarTextosControles(Idioma idioma)
+        {
+            try
+            {
+                var traducciones = Bll_Traduccion.ListarPorIdioma(idioma.Id);
+
+                foreach (Control control in ListaControles)
+                {
+                    var traduccion = traducciones.FirstOrDefault(t => t.Palabra == control.Text);
+                    if (traduccion != null)
+                    {
+                        control.Text = traduccion.TraduccionTexto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+            }
+
+            if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
+            {
+                cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+        #endregion Idiomas
+
+        List<Control> ListaControles = new List<Control>();
+        public void BuscarControles(ICollection controles)
+        {
+            foreach (Control c in controles)
+            {
+                ListaControles.Add(c);
+                if (c.HasChildren)
+                {
+                    BuscarControles(c.Controls);
+                }
+            }
+        }
+
+        #region Permisos
+        public void Buscar(Componente c)
+        {
+            GrupoPermisos grupo = (GrupoPermisos)c;
+            foreach (Componente p in grupo.Permisos)
+            {
+                if (p is GrupoPermisos)
+                {
+                    Buscar(p);
+                    Comprobar(p);
+                }
+                else
+                {
+                    Comprobar(p);
+                }
+            }
+        }
+
+        public void Comprobar(Componente p)
+        {
+            foreach (Control c in ListaControles)
+            {
+                if (c.Tag != null && c.Tag.ToString() == p.Nombre)
+                {
+                    c.Visible = true;
+                }
+            }
+        }
+        #endregion Permisos
+
+        //Ajustar esta logica
+        #region Extras
+        int i = 0;
+        public void Cerrar()
+        {
+            if (i == 0)
+            {
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+                i++;
+                this.Close();
+            }
+        }
+        #endregion Extras
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboxIdiomas.SelectedItem != null)
+            {
+                Idioma idiomaSeleccionado = (Idioma)cboxIdiomas.SelectedItem;
+                ListaControles.Clear();
+                BuscarControles(this.Controls);
+                ActualizarTextosControles(idiomaSeleccionado);
+                sesion.CambiarIdioma(idiomaSeleccionado);
+            }
         }
     }
 }

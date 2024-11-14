@@ -28,29 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.checkBoxLlegaronProductos = new System.Windows.Forms.CheckBox();
             this.checkBoxCondicionesProductos = new System.Windows.Forms.CheckBox();
             this.checkBoxCantidadProductos = new System.Windows.Forms.CheckBox();
             this.checkBoxEmpaqueProductos = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelObservaciones = new System.Windows.Forms.Label();
             this.textBoxObservaciones = new System.Windows.Forms.TextBox();
             this.btnAprobarRecepcion = new FontAwesome.Sharp.IconButton();
             this.btnRechazarRecepcion = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridViewDetalleCompra = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.cboxIdiomas = new System.Windows.Forms.ComboBox();
             this.dataGridViewDetalleCotizacion = new System.Windows.Forms.DataGridView();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelProducSoli = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridViewDetalleCompra = new System.Windows.Forms.DataGridView();
+            this.labelDetallesOrden = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxFirma = new System.Windows.Forms.PictureBox();
@@ -58,10 +61,11 @@
             this.btnFirmarConforme = new FontAwesome.Sharp.IconButton();
             this.btnLimpiarFirm = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCompra)).BeginInit();
+            this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCompra)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFirma)).BeginInit();
@@ -76,6 +80,7 @@
             this.checkBoxLlegaronProductos.Name = "checkBoxLlegaronProductos";
             this.checkBoxLlegaronProductos.Size = new System.Drawing.Size(322, 28);
             this.checkBoxLlegaronProductos.TabIndex = 4;
+            this.checkBoxLlegaronProductos.Tag = "checkBoxLlegaronProductos_frmVerificacion";
             this.checkBoxLlegaronProductos.Text = "¿Llegaron todos los productos?";
             this.checkBoxLlegaronProductos.UseVisualStyleBackColor = true;
             // 
@@ -87,6 +92,7 @@
             this.checkBoxCondicionesProductos.Name = "checkBoxCondicionesProductos";
             this.checkBoxCondicionesProductos.Size = new System.Drawing.Size(385, 28);
             this.checkBoxCondicionesProductos.TabIndex = 5;
+            this.checkBoxCondicionesProductos.Tag = "checkBoxCondicionesProductos_frmVerificacion";
             this.checkBoxCondicionesProductos.Text = "¿Están los productos en condiciones?";
             this.checkBoxCondicionesProductos.UseVisualStyleBackColor = true;
             // 
@@ -98,6 +104,7 @@
             this.checkBoxCantidadProductos.Name = "checkBoxCantidadProductos";
             this.checkBoxCantidadProductos.Size = new System.Drawing.Size(365, 28);
             this.checkBoxCantidadProductos.TabIndex = 6;
+            this.checkBoxCantidadProductos.Tag = "checkBoxCantidadProductos_frmVerificacion";
             this.checkBoxCantidadProductos.Text = "¿Las cantidades son las solicitadas?";
             this.checkBoxCantidadProductos.UseVisualStyleBackColor = true;
             // 
@@ -109,19 +116,21 @@
             this.checkBoxEmpaqueProductos.Name = "checkBoxEmpaqueProductos";
             this.checkBoxEmpaqueProductos.Size = new System.Drawing.Size(396, 28);
             this.checkBoxEmpaqueProductos.TabIndex = 7;
+            this.checkBoxEmpaqueProductos.Tag = "checkBoxEmpaqueProductos_frmVerificacion";
             this.checkBoxEmpaqueProductos.Text = "¿Los empaques estan en buen estado?";
             this.checkBoxEmpaqueProductos.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // labelObservaciones
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(441, 453);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 24);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Observaciones";
+            this.labelObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelObservaciones.AutoSize = true;
+            this.labelObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelObservaciones.Location = new System.Drawing.Point(441, 453);
+            this.labelObservaciones.Name = "labelObservaciones";
+            this.labelObservaciones.Size = new System.Drawing.Size(150, 24);
+            this.labelObservaciones.TabIndex = 8;
+            this.labelObservaciones.Tag = "labelObservaciones_frmVerificacion";
+            this.labelObservaciones.Text = "Observaciones";
             // 
             // textBoxObservaciones
             // 
@@ -148,8 +157,10 @@
             this.btnAprobarRecepcion.Name = "btnAprobarRecepcion";
             this.btnAprobarRecepcion.Size = new System.Drawing.Size(183, 57);
             this.btnAprobarRecepcion.TabIndex = 10;
+            this.btnAprobarRecepcion.Tag = "btnAprobarRecepcion_frmVerificacion";
             this.btnAprobarRecepcion.Text = "Aprobar Recepcion";
             this.btnAprobarRecepcion.UseVisualStyleBackColor = false;
+            this.btnAprobarRecepcion.Visible = false;
             this.btnAprobarRecepcion.Click += new System.EventHandler(this.btnAprobarRecepcion_Click);
             // 
             // btnRechazarRecepcion
@@ -165,8 +176,10 @@
             this.btnRechazarRecepcion.Name = "btnRechazarRecepcion";
             this.btnRechazarRecepcion.Size = new System.Drawing.Size(183, 59);
             this.btnRechazarRecepcion.TabIndex = 11;
+            this.btnRechazarRecepcion.Tag = "btnRechazarRecepcion_frmVerificacion";
             this.btnRechazarRecepcion.Text = "Rechazar Recepcion";
             this.btnRechazarRecepcion.UseVisualStyleBackColor = false;
+            this.btnRechazarRecepcion.Visible = false;
             this.btnRechazarRecepcion.Click += new System.EventHandler(this.btnRechazarRecepcion_Click);
             // 
             // tableLayoutPanel1
@@ -178,14 +191,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.90207F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.70652F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.39141F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel7, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewDetalleCotizacion, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelProducSoli, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBoxObservaciones, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.labelObservaciones, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewDetalleCompra, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelDetallesOrden, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 2, 2);
@@ -199,58 +213,50 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1332, 684);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
-            // dataGridViewDetalleCompra
+            // tableLayoutPanel7
             // 
-            this.dataGridViewDetalleCompra.AllowUserToAddRows = false;
-            this.dataGridViewDetalleCompra.AllowUserToDeleteRows = false;
-            this.dataGridViewDetalleCompra.AllowUserToResizeColumns = false;
-            this.dataGridViewDetalleCompra.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewDetalleCompra.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
-            this.dataGridViewDetalleCompra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewDetalleCompra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewDetalleCompra.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewDetalleCompra.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalleCompra.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
-            this.dataGridViewDetalleCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDetalleCompra.DefaultCellStyle = dataGridViewCellStyle15;
-            this.dataGridViewDetalleCompra.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewDetalleCompra.EnableHeadersVisualStyles = false;
-            this.dataGridViewDetalleCompra.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewDetalleCompra.Location = new System.Drawing.Point(3, 57);
-            this.dataGridViewDetalleCompra.MultiSelect = false;
-            this.dataGridViewDetalleCompra.Name = "dataGridViewDetalleCompra";
-            this.dataGridViewDetalleCompra.ReadOnly = true;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalleCompra.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
-            this.dataGridViewDetalleCompra.RowHeadersVisible = false;
-            this.dataGridViewDetalleCompra.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewDetalleCompra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDetalleCompra.Size = new System.Drawing.Size(432, 281);
-            this.dataGridViewDetalleCompra.TabIndex = 85;
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(441, 3);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(442, 48);
+            this.tableLayoutPanel7.TabIndex = 92;
+            // 
+            // lblSeleccionarIdioma
+            // 
+            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSeleccionarIdioma.AutoSize = true;
+            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(39, 14);
+            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
+            this.lblSeleccionarIdioma.TabIndex = 50;
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            // 
+            // cboxIdiomas
+            // 
+            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIdiomas.FormattingEnabled = true;
+            this.cboxIdiomas.Location = new System.Drawing.Point(234, 10);
+            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cboxIdiomas.Name = "cboxIdiomas";
+            this.cboxIdiomas.Size = new System.Drawing.Size(195, 28);
+            this.cboxIdiomas.TabIndex = 49;
+            this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // dataGridViewDetalleCotizacion
             // 
@@ -258,32 +264,32 @@
             this.dataGridViewDetalleCotizacion.AllowUserToDeleteRows = false;
             this.dataGridViewDetalleCotizacion.AllowUserToResizeColumns = false;
             this.dataGridViewDetalleCotizacion.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewDetalleCotizacion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dataGridViewDetalleCotizacion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDetalleCotizacion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewDetalleCotizacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDetalleCotizacion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewDetalleCotizacion.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalleCotizacion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalleCotizacion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewDetalleCotizacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDetalleCotizacion.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDetalleCotizacion.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewDetalleCotizacion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewDetalleCotizacion.EnableHeadersVisualStyles = false;
             this.dataGridViewDetalleCotizacion.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
@@ -291,36 +297,31 @@
             this.dataGridViewDetalleCotizacion.MultiSelect = false;
             this.dataGridViewDetalleCotizacion.Name = "dataGridViewDetalleCotizacion";
             this.dataGridViewDetalleCotizacion.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalleCotizacion.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalleCotizacion.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewDetalleCotizacion.RowHeadersVisible = false;
             this.dataGridViewDetalleCotizacion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewDetalleCotizacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewDetalleCotizacion.Size = new System.Drawing.Size(440, 281);
             this.dataGridViewDetalleCotizacion.TabIndex = 86;
             // 
-            // tableLayoutPanel2
+            // labelProducSoli
             // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxLlegaronProductos, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxCondicionesProductos, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 480);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 201);
-            this.tableLayoutPanel2.TabIndex = 87;
+            this.labelProducSoli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelProducSoli.AutoSize = true;
+            this.labelProducSoli.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProducSoli.Location = new System.Drawing.Point(889, 30);
+            this.labelProducSoli.Name = "labelProducSoli";
+            this.labelProducSoli.Size = new System.Drawing.Size(211, 24);
+            this.labelProducSoli.TabIndex = 3;
+            this.labelProducSoli.Tag = "labelProducSoli_frmVerificacion";
+            this.labelProducSoli.Text = "Productos Solicitados";
             // 
             // tableLayoutPanel3
             // 
@@ -339,27 +340,87 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(432, 130);
             this.tableLayoutPanel3.TabIndex = 88;
             // 
-            // label1
+            // tableLayoutPanel2
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 24);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Detalle de la Orden";
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxLlegaronProductos, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxCondicionesProductos, 0, 1);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 480);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 201);
+            this.tableLayoutPanel2.TabIndex = 87;
             // 
-            // label2
+            // dataGridViewDetalleCompra
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(889, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(211, 24);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Productos Solicitados";
+            this.dataGridViewDetalleCompra.AllowUserToAddRows = false;
+            this.dataGridViewDetalleCompra.AllowUserToDeleteRows = false;
+            this.dataGridViewDetalleCompra.AllowUserToResizeColumns = false;
+            this.dataGridViewDetalleCompra.AllowUserToResizeRows = false;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dataGridViewDetalleCompra.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewDetalleCompra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewDetalleCompra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewDetalleCompra.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewDetalleCompra.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalleCompra.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewDetalleCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDetalleCompra.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewDetalleCompra.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewDetalleCompra.EnableHeadersVisualStyles = false;
+            this.dataGridViewDetalleCompra.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewDetalleCompra.Location = new System.Drawing.Point(3, 57);
+            this.dataGridViewDetalleCompra.MultiSelect = false;
+            this.dataGridViewDetalleCompra.Name = "dataGridViewDetalleCompra";
+            this.dataGridViewDetalleCompra.ReadOnly = true;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDetalleCompra.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewDetalleCompra.RowHeadersVisible = false;
+            this.dataGridViewDetalleCompra.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewDetalleCompra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDetalleCompra.Size = new System.Drawing.Size(432, 281);
+            this.dataGridViewDetalleCompra.TabIndex = 85;
+            // 
+            // labelDetallesOrden
+            // 
+            this.labelDetallesOrden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelDetallesOrden.AutoSize = true;
+            this.labelDetallesOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDetallesOrden.Location = new System.Drawing.Point(3, 30);
+            this.labelDetallesOrden.Name = "labelDetallesOrden";
+            this.labelDetallesOrden.Size = new System.Drawing.Size(191, 24);
+            this.labelDetallesOrden.TabIndex = 2;
+            this.labelDetallesOrden.Tag = "labelDetallesOrden_frmVerificacion";
+            this.labelDetallesOrden.Text = "Detalle de la Orden";
             // 
             // tableLayoutPanel4
             // 
@@ -385,21 +446,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.pictureBoxFirma, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.pictureBoxFirma, 0, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(889, 480);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 201F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(440, 201);
             this.tableLayoutPanel5.TabIndex = 90;
             // 
             // pictureBoxFirma
             // 
-            this.pictureBoxFirma.BackColor = System.Drawing.Color.Snow;
-            this.pictureBoxFirma.Location = new System.Drawing.Point(3, 23);
+            this.pictureBoxFirma.BackColor = System.Drawing.Color.White;
+            this.pictureBoxFirma.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxFirma.Name = "pictureBoxFirma";
-            this.pictureBoxFirma.Size = new System.Drawing.Size(434, 175);
+            this.pictureBoxFirma.Size = new System.Drawing.Size(434, 195);
             this.pictureBoxFirma.TabIndex = 0;
             this.pictureBoxFirma.TabStop = false;
             this.pictureBoxFirma.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxFirma_MouseDown);
@@ -437,8 +498,10 @@
             this.btnFirmarConforme.Name = "btnFirmarConforme";
             this.btnFirmarConforme.Size = new System.Drawing.Size(183, 57);
             this.btnFirmarConforme.TabIndex = 11;
+            this.btnFirmarConforme.Tag = "btnFirmarConforme_frmVerificacion";
             this.btnFirmarConforme.Text = "Firmar";
             this.btnFirmarConforme.UseVisualStyleBackColor = false;
+            this.btnFirmarConforme.Visible = false;
             this.btnFirmarConforme.Click += new System.EventHandler(this.btnFirmarConforme_Click);
             // 
             // btnLimpiarFirm
@@ -454,8 +517,10 @@
             this.btnLimpiarFirm.Name = "btnLimpiarFirm";
             this.btnLimpiarFirm.Size = new System.Drawing.Size(183, 57);
             this.btnLimpiarFirm.TabIndex = 12;
+            this.btnLimpiarFirm.Tag = "btnLimpiarFirm_frmVerificacion";
             this.btnLimpiarFirm.Text = "Limpiar Firma";
             this.btnLimpiarFirm.UseVisualStyleBackColor = false;
+            this.btnLimpiarFirm.Visible = false;
             this.btnLimpiarFirm.Click += new System.EventHandler(this.btnLimpiarFirm_Click);
             // 
             // frmVerificacionProductos
@@ -466,17 +531,20 @@
             this.ClientSize = new System.Drawing.Size(1332, 682);
             this.Controls.Add(this.tableLayoutPanel1);
             this.ForeColor = System.Drawing.Color.Gainsboro;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmVerificacionProductos";
             this.Text = "frmVerificacionProductos";
             this.Load += new System.EventHandler(this.frmVerificacionProductos_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCompra)).EndInit();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCompra)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFirma)).EndInit();
@@ -490,7 +558,7 @@
         private System.Windows.Forms.CheckBox checkBoxCondicionesProductos;
         private System.Windows.Forms.CheckBox checkBoxCantidadProductos;
         private System.Windows.Forms.CheckBox checkBoxEmpaqueProductos;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelObservaciones;
         private System.Windows.Forms.TextBox textBoxObservaciones;
         private FontAwesome.Sharp.IconButton btnAprobarRecepcion;
         private FontAwesome.Sharp.IconButton btnRechazarRecepcion;
@@ -499,13 +567,16 @@
         internal System.Windows.Forms.DataGridView dataGridViewDetalleCotizacion;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelProducSoli;
+        private System.Windows.Forms.Label labelDetallesOrden;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.PictureBox pictureBoxFirma;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private FontAwesome.Sharp.IconButton btnFirmarConforme;
         private FontAwesome.Sharp.IconButton btnLimpiarFirm;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label lblSeleccionarIdioma;
+        private System.Windows.Forms.ComboBox cboxIdiomas;
     }
 }
