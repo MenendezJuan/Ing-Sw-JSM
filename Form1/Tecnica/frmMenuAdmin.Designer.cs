@@ -232,6 +232,7 @@
             this.label_MenuAdmin.Name = "label_MenuAdmin";
             this.label_MenuAdmin.Size = new System.Drawing.Size(128, 25);
             this.label_MenuAdmin.TabIndex = 50;
+            this.label_MenuAdmin.Tag = "label_MenuAdmin_frmPrin";
             this.label_MenuAdmin.Text = "Menú Admin";
             // 
             // frmMenuAdmin
