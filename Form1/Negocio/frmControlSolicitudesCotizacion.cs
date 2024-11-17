@@ -91,14 +91,7 @@ namespace Form1
 
             dataGridViewCotizaciones.DataSource = cotizaciones;
 
-            dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
-            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
-
-            dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
-            dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
-
-            dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
-            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+            ConfigurarColumnasCotizacion();
         }
 
         private void CargarDetallesCotizacion(int cotizacionId)
@@ -139,31 +132,24 @@ namespace Form1
                 MessageBox.Show("Seleccione una cotización primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private void CargarCotizaciones()
-        {
-            List<Cotizacion> cotizaciones = _bllCotizacion.ObtenerTodos();
-            dataGridViewCotizaciones.DataSource = cotizaciones;
-            dataGridViewCotizaciones.ClearSelection();
-        }
-
-        private void ActualizarDataGridViewCotizacion()
-        {
-            dataGridViewCotizaciones.DataSource = null;
-            List<Cotizacion> cotizaciones = _bllCotizacion.ObtenerTodos();
-            dataGridViewCotizaciones.DataSource = cotizaciones;
-            ConfigurarColumnasCotizacion();
-        }
-
         private void ConfigurarColumnasCotizacion()
         {
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
             dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
 
+            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Id";
+            dataGridViewCotizaciones.Columns["Id"].Tag = "Id_Column";
+
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].Tag = "Proveedor_Column";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
+
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
+            dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
+
+
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
         }
 
         private void ActualizarDataGridViewDetalle(List<DetalleCotizacion> detalles)
@@ -175,9 +161,15 @@ namespace Form1
             dataGridViewDetalleCotizacion.Columns["ProductoId"].Visible = false;
             dataGridViewDetalleCotizacion.Columns["oProducto"].Visible = false;
 
+            dataGridViewDetalleCotizacion.Columns["Id"].HeaderText = "Id";
+            dataGridViewDetalleCotizacion.Columns["Id"].Tag = "Id_Column";
+
             dataGridViewDetalleCotizacion.Columns["NombreProducto"].HeaderText = "Producto";
+            dataGridViewDetalleCotizacion.Columns["NombreProducto"].Tag = "Producto_Column";
             dataGridViewDetalleCotizacion.Columns["Cantidad"].HeaderText = "Cantidad";
+            dataGridViewDetalleCotizacion.Columns["Cantidad"].Tag = "Cantidad_Column";
             dataGridViewDetalleCotizacion.Columns["Fecha"].HeaderText = "Fecha de Solicitud";
+            dataGridViewDetalleCotizacion.Columns["Fecha"].Tag = "FechaSolicitud_Column";
         }
 
         #endregion
@@ -264,9 +256,32 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas

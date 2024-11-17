@@ -301,20 +301,37 @@ namespace Form1
         {
             var productos = _bllProducto.ObtenerTodos();
             dataGridViewProductos.DataSource = productos;
+            ConfigurarEncabezadosColumnas();
         }
 
         private void ConfigurarEncabezadosColumnas()
         {
             dataGridViewProductos.Columns["Codigo"].HeaderText = "Código";
+            dataGridViewProductos.Columns["Codigo"].Tag = "Codigo_Column";
+
             dataGridViewProductos.Columns["CategoriaEnum"].HeaderText = "Categoría";
+            dataGridViewProductos.Columns["CategoriaEnum"].Tag = "Categoria_Column";
+
             dataGridViewProductos.Columns["Stock"].HeaderText = "Stock";
+            dataGridViewProductos.Columns["Stock"].Tag = "Stock_Column";
+
+            dataGridViewProductos.Columns["Descripcion"].HeaderText = "Descripcion";
+            dataGridViewProductos.Columns["Descripcion"].Tag = "Descripcion_Column";
+
             dataGridViewProductos.Columns["Nombre"].HeaderText = "Nombre del Producto";
+            dataGridViewProductos.Columns["Nombre"].Tag = "Producto_Column";
+
             dataGridViewProductos.Columns["PrecioCompra"].HeaderText = "Precio de Compra";
+            dataGridViewProductos.Columns["PrecioCompra"].Tag = "PrecioCompra_Column";
+
             dataGridViewProductos.Columns["PrecioVenta"].HeaderText = "Precio de Venta";
+            dataGridViewProductos.Columns["PrecioVenta"].Tag = "PrecioVenta_Column";
+
             dataGridViewProductos.Columns["Fecha"].HeaderText = "Fecha de Registro";
+            dataGridViewProductos.Columns["Fecha"].Tag = "FechaRegistro_Column";
+
             dataGridViewProductos.Columns["Estado"].Visible = false;
         }
-
         private void CargarProveedores()
         {
             var proveedores = _bllProveedor.ObtenerTodos();
@@ -557,11 +574,35 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Idiomas
 
         List<Control> ListaControles = new List<Control>();

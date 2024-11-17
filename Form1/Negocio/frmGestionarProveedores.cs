@@ -191,6 +191,25 @@ namespace Form1.Negocio
             dataGridViewProveedor.DataSource = proveedores;
             if (dataGridViewProveedor.Columns["Estado"] != null)
                 dataGridViewProveedor.Columns["Estado"].Visible = false;
+
+            dataGridViewProveedor.Columns["CUIT"].HeaderText = "C.U.I.T";
+            dataGridViewProveedor.Columns["CUIT"].Tag = "CUIT_column";
+
+            dataGridViewProveedor.Columns["Descripcion"].HeaderText = "Descripcion";
+            dataGridViewProveedor.Columns["Descripcion"].Tag = "Descripcion_Column";
+
+            dataGridViewProveedor.Columns["Direccion"].HeaderText = "Direccion";
+            dataGridViewProveedor.Columns["Direccion"].Tag = "Direccion_column";
+
+            dataGridViewProveedor.Columns["Mail"].HeaderText = "Email";
+            dataGridViewProveedor.Columns["Mail"].Tag = "Mail_column";
+
+            dataGridViewProveedor.Columns["Telefono"].HeaderText = "Telefono";
+            dataGridViewProveedor.Columns["Telefono"].Tag = "Telefono_column";
+
+            dataGridViewProveedor.Columns["FechaRegistro"].HeaderText = "Fecha de Registro";
+            dataGridViewProveedor.Columns["FechaRegistro"].Tag = "FechaRegistro_Column";
+
         }
 
         private void ReleaseObject(object obj)
@@ -353,11 +372,35 @@ namespace Form1.Negocio
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Idiomas
 
         List<Control> ListaControles = new List<Control>();
