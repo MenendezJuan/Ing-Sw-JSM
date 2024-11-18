@@ -25,6 +25,8 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllCotizacion = new BLL_COTIZACION();
+            CargarCotizacionesPorEstado();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -34,12 +36,12 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllCotizacion = new BLL_COTIZACION();
+
         }
 
         private void frmControlSolicitudesCotizacion_Load(object sender, EventArgs e)
         {
-            CargarCotizacionesPorEstado();
+
         }
 
         private void btnAprobSolicitud_Click(object sender, EventArgs e)
@@ -79,19 +81,19 @@ namespace Form1
                 cotizaciones = new List<Cotizacion>();
             }
 
-            dataGridViewCotizaciones.DataSource = cotizaciones;
             dataGridViewCotizaciones.ClearSelection();
             ActualizarDataGridViewCotizacionRecibiendoLista(cotizaciones);
         }
 
         private void ActualizarDataGridViewCotizacionRecibiendoLista(List<Cotizacion> cotizaciones)
         {
+
             dataGridViewCotizaciones.DataSource = null;
             dataGridViewDetalleCotizacion.DataSource = null;
-
             dataGridViewCotizaciones.DataSource = cotizaciones;
-
             ConfigurarColumnasCotizacion();
+            Actualizar(sesion.Idioma);
+
         }
 
         private void CargarDetallesCotizacion(int cotizacionId)
@@ -329,7 +331,7 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
         int i = 0;
         public void Cerrar()

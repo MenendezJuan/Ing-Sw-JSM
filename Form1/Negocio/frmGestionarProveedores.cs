@@ -26,6 +26,9 @@ namespace Form1.Negocio
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllProveedor = new BLL_PROVEEDOR();
+            CargarProveedores();
+            panelDatosProv.Visible = false;
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -35,7 +38,7 @@ namespace Form1.Negocio
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllProveedor = new BLL_PROVEEDOR();
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -306,8 +309,7 @@ namespace Form1.Negocio
 
         private void frmGestionarProveedores_Load(object sender, EventArgs e)
         {
-            CargarProveedores();
-            panelDatosProv.Visible = false;
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -446,7 +448,7 @@ namespace Form1.Negocio
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
         int i = 0;
         public void Cerrar()
@@ -589,6 +591,11 @@ namespace Form1.Negocio
                 ActualizarTextosControles(idiomaSeleccionado);
                 sesion.CambiarIdioma(idiomaSeleccionado);
             }
+        }
+
+        private void dataGridViewProveedor_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            RecorrerDataGridTraduccion(sesion.Idioma);
         }
     }
 }

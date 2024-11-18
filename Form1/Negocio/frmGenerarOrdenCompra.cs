@@ -30,6 +30,11 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllCotizacion = new BLL_COTIZACION();
+            _bllCompra = new BLL_COMPRA();
+            _bllProveedor = new BLL_PROVEEDOR();
+            ActualizarDataGrids();
+            CargarComboBoxTipoPago();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -39,15 +44,11 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllCotizacion = new BLL_COTIZACION();
-            _bllCompra = new BLL_COMPRA();
-            _bllProveedor = new BLL_PROVEEDOR();
         }
 
         private void frmGenerarOrdenCompra_Load(object sender, EventArgs e)
         {
-            ActualizarDataGrids();
-            CargarComboBoxTipoPago();
+
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)
@@ -100,7 +101,6 @@ namespace Form1
 
             decimal montoTotal = 0;
 
-            // Generar cada DetalleCompra basado en DetalleCotizacion
             foreach (var detalleCotizacion in cotizacionSeleccionada.DetallesCotizacion)
             {
                 var precioProducto = detalleCotizacion.oProducto?.PrecioCompra ?? 0;
@@ -116,22 +116,17 @@ namespace Form1
                     Fecha = DateTime.Now
                 };
 
-                // Agregar el detalle a la lista de detalles de la compra
                 nuevaCompra.oDetalleCompra.Add(detalleCompra);
 
-                // Sumar al total de la compra
                 montoTotal += subtotal;
             }
 
-            // Asignar el monto total a la compra
             nuevaCompra.MontoTotal = montoTotal;
 
-            // Guardar la compra en la base de datos usando BLL_COMPRA
             int compraId = _bllCompra.Insertar(nuevaCompra);
 
             nuevaCompra.Id = compraId;
 
-            // Notificar al usuario
             MessageBox.Show("La orden de compra ha sido generada exitosamente y está en estado Pendiente.", "Orden de Compra Generada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             LimpiarFormulario();
@@ -206,8 +201,14 @@ namespace Form1
         {
             dataGridViewDetalles.DataSource = null;
             dataGridViewDetalles.DataSource = detalles;
+            ConfigurarDataGridDetalle();
+            Actualizar(sesion.Idioma);
 
-            // Verificar si las columnas existen antes de ocultarlas para evitar errores de referencia
+
+        }
+
+        private void ConfigurarDataGridDetalle()
+        {
             if (dataGridViewDetalles.Columns["CompraId"] != null)
                 dataGridViewDetalles.Columns["CompraId"].Visible = false;
 
@@ -220,15 +221,29 @@ namespace Form1
             if (dataGridViewDetalles.Columns["oCompra"] != null)
                 dataGridViewDetalles.Columns["oCompra"].Visible = false;
 
-            // Configurar los encabezados de las columnas visibles
             if (dataGridViewDetalles.Columns["NombreProducto"] != null)
+            {
                 dataGridViewDetalles.Columns["NombreProducto"].HeaderText = "Producto";
+                dataGridViewDetalles.Columns["NombreProducto"].Tag = "NombreProducto_column";
+            }
+
+            dataGridViewDetalles.Columns["Precio"].HeaderText = "Precio";
+            dataGridViewDetalles.Columns["Precio"].Tag = "Precio_column";
+
+            dataGridViewDetalles.Columns["SubTotal"].HeaderText = "Sub-Total";
+            dataGridViewDetalles.Columns["SubTotal"].Tag = "SubTotal_column";
 
             if (dataGridViewDetalles.Columns["Cantidad"] != null)
+            {
                 dataGridViewDetalles.Columns["Cantidad"].HeaderText = "Cantidad";
+                dataGridViewDetalles.Columns["Cantidad"].Tag = "Cantidad_column";
+            }
 
             if (dataGridViewDetalles.Columns["Fecha"] != null)
+            {
                 dataGridViewDetalles.Columns["Fecha"].HeaderText = "Fecha de Compra";
+                dataGridViewDetalles.Columns["Fecha"].Tag = "FechaCompra_column";
+            }
         }
 
         private void ActualizarDataGridViewCotizacionRecibiendoLista(List<Cotizacion> cotizaciones)
@@ -240,15 +255,18 @@ namespace Form1
 
             // Ocultar columnas que no deseas mostrar
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
-            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false; // Oculta la columna de objeto `Proveedor`
+            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
 
             // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].Tag = "Proveedor_Column";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
 
             // Configurar encabezados de otras columnas
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
+            dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
         }
 
 
@@ -270,25 +288,32 @@ namespace Form1
 
             if (dataGridViewCompra.Columns["NombreProveedor"] != null)
                 dataGridViewCompra.Columns["NombreProveedor"].HeaderText = "Proveedor";
+            dataGridViewCompra.Columns["NombreProveedor"].Tag = "Proveedor_Column";
 
-            // Configurar encabezados de columnas y orden
             if (dataGridViewCompra.Columns["Id"] != null)
                 dataGridViewCompra.Columns["Id"].HeaderText = "Nro. Orden";
+            dataGridViewCompra.Columns["Id"].Tag = "Orden_Column";
 
             if (dataGridViewCompra.Columns["Fecha"] != null)
                 dataGridViewCompra.Columns["Fecha"].HeaderText = "Fecha";
+            dataGridViewCompra.Columns["Fecha"].Tag = "FechaC_Column";
 
             if (dataGridViewCompra.Columns["MontoTotal"] != null)
                 dataGridViewCompra.Columns["MontoTotal"].HeaderText = "Monto Total";
+            dataGridViewCompra.Columns["MontoTotal"].Tag = "MontoTotal_Column";
+
 
             if (dataGridViewCompra.Columns["Comentario"] != null)
                 dataGridViewCompra.Columns["Comentario"].HeaderText = "Comentario";
+            dataGridViewCompra.Columns["Comentario"].Tag = "Comentario_Column";
 
             if (dataGridViewCompra.Columns["EstadoCompraEnum"] != null)
                 dataGridViewCompra.Columns["EstadoCompraEnum"].HeaderText = "Estado";
+            dataGridViewCompra.Columns["EstadoCompraEnum"].Tag = "Estado_Column";
 
             if (dataGridViewCompra.Columns["TipoPagoEnum"] != null)
                 dataGridViewCompra.Columns["TipoPagoEnum"].HeaderText = "Tipo de Pago";
+            dataGridViewCompra.Columns["TipoPagoEnum"].Tag = "TipoPago_Column";
         }
 
         private void LimpiarFormulario()
@@ -463,9 +488,32 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas
@@ -513,7 +561,7 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
         int i = 0;
         public void Cerrar()

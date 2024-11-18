@@ -28,6 +28,9 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllProducto = new BLL_PRODUCTO();
+            _bllProveedor = new BLL_PROVEEDOR();
+            CargarDatos();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -37,8 +40,7 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllProducto = new BLL_PRODUCTO();
-            _bllProveedor = new BLL_PROVEEDOR();
+
         }
 
         private void buttonAgregarProductoProveedorSelec_Click(object sender, System.EventArgs e)
@@ -228,12 +230,17 @@ namespace Form1
 
         private void frmGestionStockProductos_Load(object sender, System.EventArgs e)
         {
+
+        }
+
+        #region MetodosPrivados
+
+        private void CargarDatos()
+        {
             CargarProveedores();
             CargarCategorias();
             ConfigurarEncabezadosColumnas();
         }
-
-        #region MetodosPrivados
         private void LimpiarControlesBusqueda()
         {
             comboBuscar.SelectedIndex = -1;
@@ -648,7 +655,7 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
         int i = 0;
         public void Cerrar()

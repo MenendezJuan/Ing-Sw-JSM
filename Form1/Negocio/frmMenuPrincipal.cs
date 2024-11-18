@@ -332,7 +332,6 @@ namespace Form1
             }
         }
 
-
         private void TraducirMenuStrip(MenuStrip menuStrip, IIdioma idioma)
         {
             foreach (ToolStripItem item in menuStrip.Items)
@@ -406,7 +405,6 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
         #region Extras
         int i = 0;
         public void Cerrar()

@@ -31,6 +31,20 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _detallesCotizacion = new List<DetalleCotizacion>();
+            _cotizacion = new Cotizacion();
+            _bllProducto = new BLL_PRODUCTO();
+            _bllProveedor = new BLL_PROVEEDOR();
+            _bllCotizacion = new BLL_COTIZACION();
+            CargarProveedores();
+
+            if (comboBoxProv.SelectedItem is Proveedor proveedor)
+            {
+                CargarCategoriasProveedor(proveedor.Id);
+            }
+
+            llenarDataGridCotizaciones();
+            ActualizarDataGridViewDetalles();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -40,11 +54,6 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _detallesCotizacion = new List<DetalleCotizacion>();
-            _cotizacion = new Cotizacion();
-            _bllProducto = new BLL_PRODUCTO();
-            _bllProveedor = new BLL_PROVEEDOR();
-            _bllCotizacion = new BLL_COTIZACION();
         }
 
         private void buttonEnviarSolicitudCotizacion_Click(object sender, EventArgs e)
@@ -194,8 +203,12 @@ namespace Form1
             dataGridViewLista.Columns.Clear();
 
             dataGridViewLista.Columns.Add("ProductoId", "ID Producto");
-            dataGridViewLista.Columns.Add("Nombre", "Nombre");
+            dataGridViewLista.Columns["ProductoId"].Tag = "ProductoId_Column";
+            dataGridViewLista.Columns.Add("Nombre", "Nombre del Producto");
+            dataGridViewLista.Columns["Nombre"].Tag = "Producto_Column";
             dataGridViewLista.Columns.Add("Cantidad", "Cantidad");
+            dataGridViewLista.Columns["Cantidad"].Tag = "Cantidad_Column";
+
 
             foreach (DetalleCotizacion detalle in _detallesCotizacion)
             {
@@ -236,13 +249,18 @@ namespace Form1
 
             // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].Tag = "Proveedor_Column";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
 
             dataGridViewCotizaciones.Columns["Id"].HeaderText = "Nro. Cotizacion";
+            dataGridViewCotizaciones.Columns["Id"].Tag = "Nro.Cotizacion_Column";
+
 
             // Configurar encabezados de otras columnas
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
+            dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
         }
 
         #endregion
@@ -277,15 +295,7 @@ namespace Form1
 
         private void frmGestionarEnvioCotizacion_Load(object sender, EventArgs e)
         {
-            CargarProveedores();
 
-            if (comboBoxProv.SelectedItem is Proveedor proveedor)
-            {
-                CargarCategoriasProveedor(proveedor.Id);
-            }
-
-            llenarDataGridCotizaciones();
-            ActualizarDataGridViewDetalles();
         }
 
         private void comboBoxProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -370,9 +380,32 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas
@@ -420,7 +453,7 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
         int i = 0;
         public void Cerrar()

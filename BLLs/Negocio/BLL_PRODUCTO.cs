@@ -118,11 +118,6 @@ namespace BLLs.Negocio
 
             if (producto.PrecioVenta < producto.PrecioCompra)
                 throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
-
-            //if (_productoRepository.ExisteCodigoProducto(producto.Codigo))
-            //{
-            //    throw new ArgumentException($"El código de producto {producto.Codigo} ya existe.", nameof(producto.Codigo));
-            //}
         }
 
         private void ValidarProveedor(int proveedorId)
