@@ -152,7 +152,43 @@ namespace Form1
 
         private void btnBuscar_Click(object sender, System.EventArgs e)
         {
+            try
+            {
+                int? categoria = null;
+                if (comboBuscar.SelectedItem is Categoria selectedCategoria)
+                {
+                    categoria = (int)selectedCategoria;
+                }
 
+                string textoBusqueda = txtBuscar.Text.Trim();
+                string nombre = null;
+                bool? estado = null;
+
+                if (!string.IsNullOrWhiteSpace(textoBusqueda))
+                {
+                    if (textoBusqueda.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                    {
+                        estado = true;
+                    }
+                    else if (textoBusqueda.Equals("Inactivo", StringComparison.OrdinalIgnoreCase))
+                    {
+                        estado = false;
+                    }
+                    else
+                    {
+                        nombre = textoBusqueda;
+                    }
+                }
+
+                var productos = _bllProducto.BuscarProductos(categoria, nombre, estado);
+
+                dataGridViewProductos.DataSource = productos;
+                Actualizar(sesion.Idioma);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar productos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBorrarBusqueda_Click(object sender, System.EventArgs e)

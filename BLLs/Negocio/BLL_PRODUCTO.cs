@@ -96,6 +96,16 @@ namespace BLLs.Negocio
             return categorias;
         }
 
+        public List<Producto> BuscarProductos(int? categoria, string nombre, bool? estado)
+        {
+            if (categoria.HasValue && !Enum.IsDefined(typeof(Categoria), categoria.Value))
+            {
+                throw new ArgumentException("Categoría inválida.", nameof(categoria));
+            }
+
+            return _productoRepository.BuscarProductos(categoria, nombre, estado);
+        }
+
         private void ValidarProducto(Producto producto)
         {
             if (producto == null)

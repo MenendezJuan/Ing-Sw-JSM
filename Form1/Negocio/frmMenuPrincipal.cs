@@ -419,9 +419,47 @@ namespace Form1
         }
         #endregion Extras
 
+        private Timer fadeOutTimer;
+        private int fadeOutValue = 100;
+        private bool isClosing = false;
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            if (isClosing)
+            {
+                e.Cancel = false;
+                return;
+            }
+
+            e.Cancel = true;
+
+            isClosing = true;
+
+            if (fadeOutTimer != null && fadeOutTimer.Enabled)
+            {
+                fadeOutTimer.Stop();
+            }
+
+            fadeOutTimer = new Timer();
+            fadeOutTimer.Interval = 10;
+            fadeOutTimer.Tick += FadeOutTimer_Tick;
+            fadeOutTimer.Start();
+        }
+
+        private void FadeOutTimer_Tick(object sender, EventArgs e)
+        {
+            if (fadeOutValue > 0)
+            {
+                fadeOutValue--;
+                this.Opacity = fadeOutValue / 100.0;
+            }
+            else
+            {
+                fadeOutTimer.Stop();
+                this.Close();
+
+                isClosing = false;
+                Application.Exit();
+            }
         }
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
