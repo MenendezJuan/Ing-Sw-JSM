@@ -383,10 +383,13 @@ namespace Form1
                 ActualizarDataGridViewDetalle(compraSeleccionada.oDetalleCompra);
 
                 buttonVerificacionProductos.Enabled = compraSeleccionada.EstadoCompraEnum == EstadoCompra.Pendiente;
+
+                btnPago.Enabled = compraSeleccionada.EstadoCompraEnum == EstadoCompra.Verificada;
             }
             else
             {
                 buttonVerificacionProductos.Enabled = false;
+                btnPago.Enabled = false;
             }
         }
 

@@ -34,6 +34,7 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
+            labelNombreUser.Text = CargarUsuarioLabel();
             CustomizeDesing();
             InicializarEstilos();
         }
@@ -49,7 +50,7 @@ namespace Form1
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            labelNombreUser.Text = CargarUsuarioLabel();
+
         }
 
 
@@ -242,7 +243,7 @@ namespace Form1
         {
             sesion.DesregistrarObservador(this);
             SessionManager.Logout();
-            Cerrar();
+            CerrarFrmPrin();
         }
 
         private void AusuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,6 +408,18 @@ namespace Form1
         #endregion Permisos
 
         #region Extras
+        int i = 0;
+        public void CerrarFrmPrin()
+        {
+            if (i == 0)
+            {
+                frmInicioSesion frmIniciarSesion = new frmInicioSesion();
+                frmIniciarSesion.Show();
+                i++;
+                this.Hide();
+            }
+        }
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
