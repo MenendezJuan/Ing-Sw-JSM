@@ -138,7 +138,7 @@ namespace Form1
 
         private void btnEliminarDeLista_Click(object sender, EventArgs e)
         {
-            if (dataGridViewLista.Rows.Count <= 1)
+            if (dataGridViewLista.Rows.Count <= 0)
             {
                 MessageBox.Show("Debes cargar items primero.");
                 return;
@@ -147,14 +147,16 @@ namespace Form1
             if (dataGridViewLista.SelectedRows.Count > 0)
             {
                 dataGridViewLista.Rows.RemoveAt(dataGridViewLista.SelectedRows[0].Index);
+
+                if (dataGridViewLista.Rows.Count <= 0)
+                {
+                    buttonEnviarSolicitudCotizacion.Enabled = false;
+                    buttonCancelarSolicitudCotizacion.Enabled = false;
+                }
             }
-
-
-            if (dataGridViewLista.Rows.Count <= 1)
+            else
             {
-                buttonEnviarSolicitudCotizacion.Enabled = false;
-                buttonCancelarSolicitudCotizacion.Enabled = false;
-                LimpiarFormulario();
+                MessageBox.Show("Debes seleccionar un elemento para eliminar.");
             }
         }
 
@@ -455,16 +457,24 @@ namespace Form1
 
 
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 

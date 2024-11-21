@@ -127,6 +127,7 @@
             this.panelDatosFiltrar.Name = "panelDatosFiltrar";
             this.panelDatosFiltrar.Size = new System.Drawing.Size(372, 376);
             this.panelDatosFiltrar.TabIndex = 121;
+            this.panelDatosFiltrar.Visible = false;
             // 
             // btnBorrarBusqueda
             // 

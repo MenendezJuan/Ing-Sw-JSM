@@ -218,8 +218,6 @@ namespace Form1
         {
             if (i == 0)
             {
-                frmInicioSesion FormIni = new frmInicioSesion();
-                FormIni.Show();
                 i++;
                 this.Close();
             }

@@ -31,6 +31,7 @@ namespace Form1
             _bllProducto = new BLL_PRODUCTO();
             _bllProveedor = new BLL_PROVEEDOR();
             CargarDatos();
+            CargarComboBuscar();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -154,29 +155,57 @@ namespace Form1
         {
             try
             {
-                int? categoria = null;
-                if (comboBuscar.SelectedItem is Categoria selectedCategoria)
+                if (comboBuscar.SelectedItem == null || string.IsNullOrWhiteSpace(txtBuscar.Text.Trim()))
                 {
-                    categoria = (int)selectedCategoria;
+                    MessageBox.Show("Por favor, seleccione un criterio de búsqueda y escriba un término de búsqueda.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-
+                // Obtener el criterio de búsqueda seleccionado
+                string criterioBusqueda = comboBuscar.SelectedItem.ToString();
                 string textoBusqueda = txtBuscar.Text.Trim();
-                string nombre = null;
+                int? categoria = null;
                 bool? estado = null;
+                string nombre = null;
 
-                if (!string.IsNullOrWhiteSpace(textoBusqueda))
+                if (!string.IsNullOrEmpty(textoBusqueda))
                 {
-                    if (textoBusqueda.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                    switch (criterioBusqueda)
                     {
-                        estado = true;
-                    }
-                    else if (textoBusqueda.Equals("Inactivo", StringComparison.OrdinalIgnoreCase))
-                    {
-                        estado = false;
-                    }
-                    else
-                    {
-                        nombre = textoBusqueda;
+                        case "Categoría":
+                            if (Enum.TryParse<Categoria>(textoBusqueda, true, out var categoriaEnum))
+                            {
+                                categoria = (int)categoriaEnum;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Categoría no válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            break;
+
+                        case "Estado":
+                            if (textoBusqueda.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                            {
+                                estado = true;
+                            }
+                            else if (textoBusqueda.Equals("Inactivo", StringComparison.OrdinalIgnoreCase))
+                            {
+                                estado = false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Estado no válido. Use 'Activo' o 'Inactivo'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            break;
+
+                        case "Nombre del producto":
+                            nombre = textoBusqueda;
+                            break;
+
+                        default:
+                            MessageBox.Show("Criterio de búsqueda no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                     }
                 }
 
@@ -385,6 +414,16 @@ namespace Form1
             {
                 comboProveedor.SelectedIndex = 0;
             }
+        }
+
+        private void CargarComboBuscar()
+        {
+            comboBuscar.Items.Clear();
+            comboBuscar.Items.Add("Categoría");
+            comboBuscar.Items.Add("Estado");
+            comboBuscar.Items.Add("Nombre del producto");
+
+            comboBuscar.SelectedIndex = 0;
         }
 
         private bool ValidarCampos()
@@ -693,16 +732,24 @@ namespace Form1
 
 
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 

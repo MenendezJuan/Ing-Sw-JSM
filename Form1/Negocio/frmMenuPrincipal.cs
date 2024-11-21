@@ -21,6 +21,7 @@ namespace Form1
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            this.MdiChildActivate += frmMenuPrincipal_MdiChildActivate;
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
@@ -406,16 +407,24 @@ namespace Form1
         #endregion Permisos
 
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
-                frmInicioSesion FormPrincipal = new frmInicioSesion();
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Hide();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 
@@ -485,6 +494,14 @@ namespace Form1
         private void toolStripMenuItemUsuario_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmMenuPrincipal_MdiChildActivate(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild == null)
+            {
+                menuStripPrincipal.Visible = true;
+            }
         }
     }
 }

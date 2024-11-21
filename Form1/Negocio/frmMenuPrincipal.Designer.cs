@@ -74,7 +74,6 @@
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelMain.SuspendLayout();
-            this.panelCentral.SuspendLayout();
             this.menuStripPrincipal.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelRedes.SuspendLayout();
@@ -92,6 +91,7 @@
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.panelMain.Controls.Add(this.menuStripPrincipal);
             this.panelMain.Controls.Add(this.panelCentral);
             this.panelMain.Controls.Add(this.panelBottom);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -102,12 +102,9 @@
             // 
             // panelCentral
             // 
-            this.panelCentral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelCentral.BackgroundImage = global::Form1.Properties.Resources._32__30__45;
             this.panelCentral.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panelCentral.Controls.Add(this.menuStripPrincipal);
+            this.panelCentral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCentral.Location = new System.Drawing.Point(0, 0);
             this.panelCentral.Name = "panelCentral";
             this.panelCentral.Size = new System.Drawing.Size(1015, 510);
@@ -144,7 +141,7 @@
             this.logOutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOutToolStripMenuItem.Image")));
             this.logOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(134, 38);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
             this.logOutToolStripMenuItem.Tag = "logOutToolStripMenuItem_frmPrincipal";
             this.logOutToolStripMenuItem.Text = "LogOut";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
@@ -715,9 +712,9 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMenuPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.MenuPrincipal_Load);
+            this.MdiChildActivate += new System.EventHandler(this.frmMenuPrincipal_MdiChildActivate);
             this.panelMain.ResumeLayout(false);
-            this.panelCentral.ResumeLayout(false);
-            this.panelCentral.PerformLayout();
+            this.panelMain.PerformLayout();
             this.menuStripPrincipal.ResumeLayout(false);
             this.menuStripPrincipal.PerformLayout();
             this.panelBottom.ResumeLayout(false);

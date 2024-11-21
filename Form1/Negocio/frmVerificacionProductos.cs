@@ -206,17 +206,29 @@ namespace Form1.Negocio
 
         private bool FirmaRealizada()
         {
+            bool firmaDetectada = false;
             for (int x = 0; x < firmaBitmap.Width; x++)
             {
                 for (int y = 0; y < firmaBitmap.Height; y++)
                 {
-                    if (firmaBitmap.GetPixel(x, y) != Color.White)
+                    Color pixelColor = firmaBitmap.GetPixel(x, y);
+                    if (Math.Abs(pixelColor.R - 255) > 10 ||
+                        Math.Abs(pixelColor.G - 255) > 10 ||
+                        Math.Abs(pixelColor.B - 255) > 10)
                     {
-                        return true;
+                        firmaDetectada = true;
+                        break;
                     }
                 }
+                if (firmaDetectada) break;
             }
-            return false;
+
+            if (!firmaDetectada)
+            {
+                Console.WriteLine("Firma no detectada.");
+            }
+
+            return firmaDetectada;
         }
 
         private void InicializarFirma()
@@ -260,10 +272,18 @@ namespace Form1.Negocio
                 Directory.CreateDirectory(folderPath);
             }
 
-            string filePath = Path.Combine(folderPath, "firma.png");
+            string fechaHora = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+            string compraId = _ordenCompraSeleccionada != null ? _ordenCompraSeleccionada.Id.ToString() : "Desconocido";
+
+            string filePath = Path.Combine(folderPath, $"firma_{compraId}_{fechaHora}.png");
 
             firmaBitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-            MessageBox.Show("Firma guardada correctamente en la carpeta 'FirmadoConforme' en el escritorio.", "Guardar Firma", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            MessageBox.Show("Firma guardada correctamente en la carpeta 'FirmadoConforme' en el escritorio.",
+                            "Guardar Firma",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
 
@@ -420,16 +440,24 @@ namespace Form1.Negocio
 
 
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 
