@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenuPrincipal));
             this.panelMain = new System.Windows.Forms.Panel();
-            this.panelCentral = new System.Windows.Forms.Panel();
             this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemUsuario = new System.Windows.Forms.ToolStripMenuItem();
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +39,7 @@
             this.idiomasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelCentral = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.line2 = new System.Windows.Forms.Panel();
             this.line = new System.Windows.Forms.Panel();
@@ -100,16 +100,6 @@
             this.panelMain.Size = new System.Drawing.Size(1015, 578);
             this.panelMain.TabIndex = 1;
             // 
-            // panelCentral
-            // 
-            this.panelCentral.BackgroundImage = global::Form1.Properties.Resources._32__30__45;
-            this.panelCentral.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panelCentral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCentral.Location = new System.Drawing.Point(0, 0);
-            this.panelCentral.Name = "panelCentral";
-            this.panelCentral.Size = new System.Drawing.Size(1015, 510);
-            this.panelCentral.TabIndex = 15;
-            // 
             // menuStripPrincipal
             // 
             this.menuStripPrincipal.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -141,7 +131,7 @@
             this.logOutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOutToolStripMenuItem.Image")));
             this.logOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(134, 38);
             this.logOutToolStripMenuItem.Tag = "logOutToolStripMenuItem_frmPrincipal";
             this.logOutToolStripMenuItem.Text = "LogOut";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
@@ -196,6 +186,16 @@
             this.toolStripMenuItemAyuda.Size = new System.Drawing.Size(53, 28);
             this.toolStripMenuItemAyuda.Tag = "toolStripMenuItemAyuda_frmPrincipal";
             this.toolStripMenuItemAyuda.Text = "Ayuda";
+            // 
+            // panelCentral
+            // 
+            this.panelCentral.BackgroundImage = global::Form1.Properties.Resources._32__30__45;
+            this.panelCentral.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panelCentral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCentral.Location = new System.Drawing.Point(0, 0);
+            this.panelCentral.Name = "panelCentral";
+            this.panelCentral.Size = new System.Drawing.Size(1015, 510);
+            this.panelCentral.TabIndex = 15;
             // 
             // panelBottom
             // 

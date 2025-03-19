@@ -98,23 +98,29 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Negocio\frmGestionarEnvioCotizacion.cs">
+    <Compile Include="Negocio\Compras\frmGestionarEnvioCotizacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmGestionarEnvioCotizacion.Designer.cs">
+    <Compile Include="Negocio\Compras\frmGestionarEnvioCotizacion.Designer.cs">
       <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\frmGestionarProveedores.cs">
+    <Compile Include="Negocio\Compras\frmGestionarProveedores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmGestionarProveedores.Designer.cs">
+    <Compile Include="Negocio\Compras\frmGestionarProveedores.Designer.cs">
       <DependentUpon>frmGestionarProveedores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\frmVerificacionProductos.cs">
+    <Compile Include="Negocio\Stock\frmVerificacionProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmVerificacionProductos.Designer.cs">
+    <Compile Include="Negocio\Stock\frmVerificacionProductos.Designer.cs">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmVentaPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmVentaPedido.Designer.cs">
+      <DependentUpon>frmVentaPedido.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen\frmSplashScreen.cs">
       <SubType>Form</SubType>
@@ -128,28 +134,28 @@
     <Compile Include="Tecnica\frmConfigurarIdioma.Designer.cs">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\frmControlSolicitudesCotizacion.cs">
+    <Compile Include="Negocio\Compras\frmControlSolicitudesCotizacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmControlSolicitudesCotizacion.Designer.cs">
+    <Compile Include="Negocio\Compras\frmControlSolicitudesCotizacion.Designer.cs">
       <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\frmGenerarOrdenCompra.cs">
+    <Compile Include="Negocio\Compras\frmGenerarOrdenCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmGenerarOrdenCompra.Designer.cs">
+    <Compile Include="Negocio\Compras\frmGenerarOrdenCompra.Designer.cs">
       <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\frmGestionCotizacionProductos.cs">
+    <Compile Include="Negocio\Compras\frmGestionCotizacionProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmGestionCotizacionProductos.Designer.cs">
+    <Compile Include="Negocio\Compras\frmGestionCotizacionProductos.Designer.cs">
       <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\frmGestionStockProductos.cs">
+    <Compile Include="Negocio\Stock\frmGestionStockProductos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Negocio\frmGestionStockProductos.Designer.cs">
+    <Compile Include="Negocio\Stock\frmGestionStockProductos.Designer.cs">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="Tecnica\frmGestorBitacora.cs">
@@ -202,17 +208,20 @@
     <Compile Include="Tecnica\frmRegistro.Designer.cs">
       <DependentUpon>frmRegistro.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Negocio\frmGestionarEnvioCotizacion.resx">
+    <EmbeddedResource Include="Negocio\Compras\frmGestionarEnvioCotizacion.resx">
       <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\frmGestionarProveedores.resx">
+    <EmbeddedResource Include="Negocio\Compras\frmGestionarProveedores.resx">
       <DependentUpon>frmGestionarProveedores.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\frmGestionStockProductos.resx">
+    <EmbeddedResource Include="Negocio\Stock\frmGestionStockProductos.resx">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\frmVerificacionProductos.resx">
+    <EmbeddedResource Include="Negocio\Stock\frmVerificacionProductos.resx">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmVentaPedido.resx">
+      <DependentUpon>frmVentaPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen\frmSplashScreen.resx">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>
@@ -220,13 +229,13 @@
     <EmbeddedResource Include="Tecnica\frmConfigurarIdioma.resx">
       <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\frmControlSolicitudesCotizacion.resx">
+    <EmbeddedResource Include="Negocio\Compras\frmControlSolicitudesCotizacion.resx">
       <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\frmGenerarOrdenCompra.resx">
+    <EmbeddedResource Include="Negocio\Compras\frmGenerarOrdenCompra.resx">
       <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\frmGestionCotizacionProductos.resx">
+    <EmbeddedResource Include="Negocio\Compras\frmGestionCotizacionProductos.resx">
       <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tecnica\frmGestorBitacora.resx">
@@ -344,6 +353,7 @@
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

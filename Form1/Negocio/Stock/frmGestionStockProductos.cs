@@ -248,16 +248,27 @@ namespace Form1
                 }
             }
 
-            string filePath = "C:\\InformacionProducto" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xlsx";
-            workbook.SaveAs(filePath);
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Archivos Excel (*.xlsx)|*.xlsx";
+                saveFileDialog.Title = "Guardar archivo Excel";
+                saveFileDialog.FileName = "InformacionProducto_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    workbook.SaveAs(filePath);
+                    MessageBox.Show("Archivo exportado correctamente a: " + filePath);
+                }
+            }
+
             workbook.Close();
             app.Quit();
 
             ReleaseObject(worksheet);
             ReleaseObject(workbook);
             ReleaseObject(app);
-
-            MessageBox.Show("Archivo exportado correctamente a: " + filePath);
         }
 
         private void btnRefresh_Click(object sender, System.EventArgs e)
