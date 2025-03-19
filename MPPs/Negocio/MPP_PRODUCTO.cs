@@ -252,6 +252,24 @@ namespace MPPs.Negocio
             return false;
         }
 
+        public List<Producto> BuscarProductos(int? categoria, string nombre, bool? estado)
+        {
+            var parametros = new Hashtable
+            {
+                { "@Categoria", categoria.HasValue ? (object)categoria.Value : DBNull.Value },
+                { "@Nombre", !string.IsNullOrWhiteSpace(nombre) ? nombre : "" },
+                { "@Estado", estado.HasValue ? (object)estado.Value : DBNull.Value }
+            };
+
+            DataTable dt = oCnx.Leer("BuscarProductos", parametros);
+            List<Producto> productos = new List<Producto>();
+            foreach (DataRow row in dt.Rows)
+            {
+                productos.Add(Map(row));
+            }
+            return productos;
+        }
+
 
         public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
         {

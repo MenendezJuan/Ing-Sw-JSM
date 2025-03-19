@@ -31,6 +31,8 @@ namespace Form1.Negocio
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllCompra = new BLL_COMPRA();
+            _bllCotizacion = new BLL_COTIZACION();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -40,8 +42,6 @@ namespace Form1.Negocio
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllCompra = new BLL_COMPRA();
-            _bllCotizacion = new BLL_COTIZACION();
             InicializarFirma();
         }
 
@@ -122,7 +122,13 @@ namespace Form1.Negocio
 
             OcultarColumnasDetalleCompra();
 
-            dataGridViewDetalleCompra.Columns["NombreProducto"].HeaderText = "Nombre Producto";
+            dataGridViewDetalleCompra.Columns["NombreProducto"].HeaderText = "Nombre de Producto";
+            dataGridViewDetalleCompra.Columns["NombreProducto"].Tag = "NombreProducto_Column";
+            dataGridViewDetalleCompra.Columns["Fecha"].HeaderText = "Fecha de Compra";
+            dataGridViewDetalleCompra.Columns["Fecha"].Tag = "FechaCompra_column";
+            dataGridViewDetalleCompra.Columns["Cantidad"].HeaderText = "Cantidad";
+            dataGridViewDetalleCompra.Columns["Cantidad"].Tag = "Cantidad_Column";
+
         }
 
         private void OcultarColumnasDetalleCompra()
@@ -146,7 +152,12 @@ namespace Form1.Negocio
 
             OcultarColumnasDetalleCotizacion();
 
-            dataGridViewDetalleCotizacion.Columns["NombreProducto"].HeaderText = "Nombre Producto";
+            dataGridViewDetalleCotizacion.Columns["NombreProducto"].HeaderText = "Nombre de Producto";
+            dataGridViewDetalleCotizacion.Columns["NombreProducto"].Tag = "NombreProducto_Column";
+            dataGridViewDetalleCotizacion.Columns["Fecha"].HeaderText = "Fecha de Cotización";
+            dataGridViewDetalleCotizacion.Columns["Fecha"].Tag = "FechaCotizacion_Column";
+            dataGridViewDetalleCotizacion.Columns["Cantidad"].HeaderText = "Cantidad";
+            dataGridViewDetalleCotizacion.Columns["Cantidad"].Tag = "Cantidad_Column";
         }
 
         private void OcultarColumnasDetalleCotizacion()
@@ -195,17 +206,29 @@ namespace Form1.Negocio
 
         private bool FirmaRealizada()
         {
+            bool firmaDetectada = false;
             for (int x = 0; x < firmaBitmap.Width; x++)
             {
                 for (int y = 0; y < firmaBitmap.Height; y++)
                 {
-                    if (firmaBitmap.GetPixel(x, y) != Color.White)
+                    Color pixelColor = firmaBitmap.GetPixel(x, y);
+                    if (Math.Abs(pixelColor.R - 255) > 10 ||
+                        Math.Abs(pixelColor.G - 255) > 10 ||
+                        Math.Abs(pixelColor.B - 255) > 10)
                     {
-                        return true;
+                        firmaDetectada = true;
+                        break;
                     }
                 }
+                if (firmaDetectada) break;
             }
-            return false;
+
+            if (!firmaDetectada)
+            {
+                Console.WriteLine("Firma no detectada.");
+            }
+
+            return firmaDetectada;
         }
 
         private void InicializarFirma()
@@ -249,10 +272,18 @@ namespace Form1.Negocio
                 Directory.CreateDirectory(folderPath);
             }
 
-            string filePath = Path.Combine(folderPath, "firma.png");
+            string fechaHora = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+            string compraId = _ordenCompraSeleccionada != null ? _ordenCompraSeleccionada.Id.ToString() : "Desconocido";
+
+            string filePath = Path.Combine(folderPath, $"firma_{compraId}_{fechaHora}.png");
 
             firmaBitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-            MessageBox.Show("Firma guardada correctamente en la carpeta 'FirmadoConforme' en el escritorio.", "Guardar Firma", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            MessageBox.Show("Firma guardada correctamente en la carpeta 'FirmadoConforme' en el escritorio.",
+                            "Guardar Firma",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
 
@@ -334,9 +365,32 @@ namespace Form1.Negocio
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas
@@ -384,18 +438,26 @@ namespace Form1.Negocio
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 

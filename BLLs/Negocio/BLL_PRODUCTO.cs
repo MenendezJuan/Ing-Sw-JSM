@@ -96,6 +96,16 @@ namespace BLLs.Negocio
             return categorias;
         }
 
+        public List<Producto> BuscarProductos(int? categoria, string nombre, bool? estado)
+        {
+            if (categoria.HasValue && !Enum.IsDefined(typeof(Categoria), categoria.Value))
+            {
+                throw new ArgumentException("Categoría inválida.", nameof(categoria));
+            }
+
+            return _productoRepository.BuscarProductos(categoria, nombre, estado);
+        }
+
         private void ValidarProducto(Producto producto)
         {
             if (producto == null)
@@ -118,11 +128,6 @@ namespace BLLs.Negocio
 
             if (producto.PrecioVenta < producto.PrecioCompra)
                 throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
-
-            //if (_productoRepository.ExisteCodigoProducto(producto.Codigo))
-            //{
-            //    throw new ArgumentException($"El código de producto {producto.Codigo} ya existe.", nameof(producto.Codigo));
-            //}
         }
 
         private void ValidarProveedor(int proveedorId)

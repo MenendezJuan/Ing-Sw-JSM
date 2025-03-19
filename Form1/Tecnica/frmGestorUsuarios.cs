@@ -165,6 +165,8 @@ namespace Form1
                 Usuario oUsuario = dataGridView1.CurrentRow.DataBoundItem as Usuario;
                 dataGridView2.DataSource = null;
                 dataGridView2.DataSource = Bll_Usuario.ListarHistorial(oUsuario);
+                dataGridView2.Columns["Email"].Tag = "Mail_column";
+                dataGridView2.Columns["Fecha"].Tag = "FechaC_Column";
                 dataGridView2.Columns["DV"].Visible = false;
             }
         }
@@ -174,6 +176,7 @@ namespace Form1
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = Bll_Usuario.Listar();
+            dataGridView1.Columns["Email"].Tag = "Mail_column";
             dataGridView1.Columns["Contraseña"].Visible = false;
             dataGridView1.Columns["DV"].Visible = false;
         }
@@ -192,6 +195,8 @@ namespace Form1
                     }
                 }
             }
+
+            RecorrerDataGridTraduccion(idioma);
 
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
@@ -217,6 +222,27 @@ namespace Form1
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas

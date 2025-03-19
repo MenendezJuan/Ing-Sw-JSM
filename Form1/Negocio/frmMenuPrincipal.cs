@@ -21,6 +21,7 @@ namespace Form1
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            this.MdiChildActivate += frmMenuPrincipal_MdiChildActivate;
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
@@ -33,6 +34,7 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
+            labelNombreUser.Text = CargarUsuarioLabel();
             CustomizeDesing();
             InicializarEstilos();
         }
@@ -48,7 +50,7 @@ namespace Form1
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            labelNombreUser.Text = CargarUsuarioLabel();
+
         }
 
 
@@ -241,7 +243,7 @@ namespace Form1
         {
             sesion.DesregistrarObservador(this);
             SessionManager.Logout();
-            Cerrar();
+            CerrarFrmPrin();
         }
 
         private void AusuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -332,7 +334,6 @@ namespace Form1
             }
         }
 
-
         private void TraducirMenuStrip(MenuStrip menuStrip, IIdioma idioma)
         {
             foreach (ToolStripItem item in menuStrip.Items)
@@ -406,24 +407,81 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
         #region Extras
         int i = 0;
-        public void Cerrar()
+        public void CerrarFrmPrin()
         {
             if (i == 0)
             {
-                frmInicioSesion FormPrincipal = new frmInicioSesion();
-                FormPrincipal.Show();
+                frmInicioSesion frmIniciarSesion = new frmInicioSesion();
+                frmIniciarSesion.Show();
                 i++;
                 this.Hide();
             }
         }
+
+        public void Cerrar()
+        {
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
+            {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
+                frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
+                FormPrincipal.Show();
+            }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
+        }
         #endregion Extras
 
+        private Timer fadeOutTimer;
+        private int fadeOutValue = 100;
+        private bool isClosing = false;
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            if (isClosing)
+            {
+                e.Cancel = false;
+                return;
+            }
+
+            e.Cancel = true;
+
+            isClosing = true;
+
+            if (fadeOutTimer != null && fadeOutTimer.Enabled)
+            {
+                fadeOutTimer.Stop();
+            }
+
+            fadeOutTimer = new Timer();
+            fadeOutTimer.Interval = 10;
+            fadeOutTimer.Tick += FadeOutTimer_Tick;
+            fadeOutTimer.Start();
+        }
+
+        private void FadeOutTimer_Tick(object sender, EventArgs e)
+        {
+            if (fadeOutValue > 0)
+            {
+                fadeOutValue--;
+                this.Opacity = fadeOutValue / 100.0;
+            }
+            else
+            {
+                fadeOutTimer.Stop();
+                this.Close();
+
+                isClosing = false;
+                Application.Exit();
+            }
         }
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
@@ -449,6 +507,14 @@ namespace Form1
         private void toolStripMenuItemUsuario_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmMenuPrincipal_MdiChildActivate(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild == null)
+            {
+                menuStripPrincipal.Visible = true;
+            }
         }
     }
 }

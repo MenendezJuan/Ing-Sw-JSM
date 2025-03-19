@@ -232,6 +232,7 @@
             this.label_MenuAdmin.Name = "label_MenuAdmin";
             this.label_MenuAdmin.Size = new System.Drawing.Size(128, 25);
             this.label_MenuAdmin.TabIndex = 50;
+            this.label_MenuAdmin.Tag = "label_MenuAdmin_frmPrin";
             this.label_MenuAdmin.Text = "Menú Admin";
             // 
             // frmMenuAdmin
@@ -245,6 +246,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMenuAdmin";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "Form_MenuInicio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuInicio_FormClosing);
             this.Load += new System.EventHandler(this.frmMenuAdmin_Load);

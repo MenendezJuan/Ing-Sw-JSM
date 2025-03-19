@@ -26,6 +26,9 @@ namespace Form1.Negocio
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllProveedor = new BLL_PROVEEDOR();
+            CargarProveedores();
+            panelDatosProv.Visible = false;
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -35,7 +38,7 @@ namespace Form1.Negocio
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllProveedor = new BLL_PROVEEDOR();
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -191,6 +194,25 @@ namespace Form1.Negocio
             dataGridViewProveedor.DataSource = proveedores;
             if (dataGridViewProveedor.Columns["Estado"] != null)
                 dataGridViewProveedor.Columns["Estado"].Visible = false;
+
+            dataGridViewProveedor.Columns["CUIT"].HeaderText = "C.U.I.T";
+            dataGridViewProveedor.Columns["CUIT"].Tag = "CUIT_column";
+
+            dataGridViewProveedor.Columns["Descripcion"].HeaderText = "Descripcion";
+            dataGridViewProveedor.Columns["Descripcion"].Tag = "Descripcion_Column";
+
+            dataGridViewProveedor.Columns["Direccion"].HeaderText = "Direccion";
+            dataGridViewProveedor.Columns["Direccion"].Tag = "Direccion_column";
+
+            dataGridViewProveedor.Columns["Mail"].HeaderText = "Email";
+            dataGridViewProveedor.Columns["Mail"].Tag = "Mail_column";
+
+            dataGridViewProveedor.Columns["Telefono"].HeaderText = "Telefono";
+            dataGridViewProveedor.Columns["Telefono"].Tag = "Telefono_column";
+
+            dataGridViewProveedor.Columns["FechaRegistro"].HeaderText = "Fecha de Registro";
+            dataGridViewProveedor.Columns["FechaRegistro"].Tag = "FechaRegistro_Column";
+
         }
 
         private void ReleaseObject(object obj)
@@ -287,8 +309,7 @@ namespace Form1.Negocio
 
         private void frmGestionarProveedores_Load(object sender, EventArgs e)
         {
-            CargarProveedores();
-            panelDatosProv.Visible = false;
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -353,11 +374,35 @@ namespace Form1.Negocio
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Idiomas
 
         List<Control> ListaControles = new List<Control>();
@@ -403,18 +448,26 @@ namespace Form1.Negocio
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 
@@ -546,6 +599,11 @@ namespace Form1.Negocio
                 ActualizarTextosControles(idiomaSeleccionado);
                 sesion.CambiarIdioma(idiomaSeleccionado);
             }
+        }
+
+        private void dataGridViewProveedor_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            RecorrerDataGridTraduccion(sesion.Idioma);
         }
     }
 }

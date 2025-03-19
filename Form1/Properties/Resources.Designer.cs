@@ -93,6 +93,16 @@ namespace Form1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap amplitude_problem___computer_corner_by_valenberg_d8hpsqn {
+            get {
+                object obj = ResourceManager.GetObject("amplitude_problem___computer_corner_by_valenberg_d8hpsqn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cheese_Logix_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("Cheese_Logix-removebg-preview", resourceCulture);

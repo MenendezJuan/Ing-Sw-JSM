@@ -24,6 +24,8 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllCotizacion = new BLL_COTIZACION();
+            ActualizarDataGridViewCotizacion();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -33,7 +35,7 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllCotizacion = new BLL_COTIZACION();
+
         }
 
         private void btnSolicitarCotizacion_Click(object sender, EventArgs e)
@@ -47,7 +49,7 @@ namespace Form1
 
         private void frmGestionCompraProductos_Load(object sender, EventArgs e)
         {
-            ActualizarDataGridViewCotizacion();
+
         }
 
         private void ActualizarDataGridViewCotizacionRecibiendoLista(List<Cotizacion> cotizaciones)
@@ -86,24 +88,26 @@ namespace Form1
 
             // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].Tag = "Proveedor_Column";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
 
             // Configurar encabezados de otras columnas
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
+            dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
         }
 
         private void dataGridViewCotizaciones_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewCotizaciones.SelectedRows.Count > 0)
             {
-                // Obtener la cotización seleccionada
                 var cotizacionSeleccionada = (Cotizacion)dataGridViewCotizaciones.SelectedRows[0].DataBoundItem;
 
-                // Mostrar los detalles en dataGridViewDetalle
                 ActualizarDataGridViewDetalle(cotizacionSeleccionada.DetallesCotizacion);
 
-                // Mostrar el estado en el labelEstado
+                Actualizar(sesion.Idioma);
+
                 labelEstado.Text = cotizacionSeleccionada.EstadoCotizacionEnum.ToString();
             }
         }
@@ -119,8 +123,11 @@ namespace Form1
             dataGridViewDetalle.Columns["oProducto"].Visible = false;
 
             dataGridViewDetalle.Columns["NombreProducto"].HeaderText = "Producto";
+            dataGridViewDetalle.Columns["NombreProducto"].Tag = "Producto_Column";
             dataGridViewDetalle.Columns["Cantidad"].HeaderText = "Cantidad";
+            dataGridViewDetalle.Columns["Cantidad"].Tag = "Cantidad_Column";
             dataGridViewDetalle.Columns["Fecha"].HeaderText = "Fecha de Solicitud";
+            dataGridViewDetalle.Columns["Fecha"].Tag = "FechaSolicitud_Column";
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -205,9 +212,32 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas
@@ -255,18 +285,26 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 

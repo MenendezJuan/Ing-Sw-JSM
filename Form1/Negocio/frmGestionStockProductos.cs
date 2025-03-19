@@ -28,6 +28,10 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllProducto = new BLL_PRODUCTO();
+            _bllProveedor = new BLL_PROVEEDOR();
+            CargarDatos();
+            CargarComboBuscar();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -37,8 +41,7 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllProducto = new BLL_PRODUCTO();
-            _bllProveedor = new BLL_PROVEEDOR();
+
         }
 
         private void buttonAgregarProductoProveedorSelec_Click(object sender, System.EventArgs e)
@@ -150,7 +153,71 @@ namespace Form1
 
         private void btnBuscar_Click(object sender, System.EventArgs e)
         {
+            try
+            {
+                if (comboBuscar.SelectedItem == null || string.IsNullOrWhiteSpace(txtBuscar.Text.Trim()))
+                {
+                    MessageBox.Show("Por favor, seleccione un criterio de búsqueda y escriba un término de búsqueda.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Obtener el criterio de búsqueda seleccionado
+                string criterioBusqueda = comboBuscar.SelectedItem.ToString();
+                string textoBusqueda = txtBuscar.Text.Trim();
+                int? categoria = null;
+                bool? estado = null;
+                string nombre = null;
 
+                if (!string.IsNullOrEmpty(textoBusqueda))
+                {
+                    switch (criterioBusqueda)
+                    {
+                        case "Categoría":
+                            if (Enum.TryParse<Categoria>(textoBusqueda, true, out var categoriaEnum))
+                            {
+                                categoria = (int)categoriaEnum;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Categoría no válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            break;
+
+                        case "Estado":
+                            if (textoBusqueda.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                            {
+                                estado = true;
+                            }
+                            else if (textoBusqueda.Equals("Inactivo", StringComparison.OrdinalIgnoreCase))
+                            {
+                                estado = false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Estado no válido. Use 'Activo' o 'Inactivo'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            break;
+
+                        case "Nombre del producto":
+                            nombre = textoBusqueda;
+                            break;
+
+                        default:
+                            MessageBox.Show("Criterio de búsqueda no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                    }
+                }
+
+                var productos = _bllProducto.BuscarProductos(categoria, nombre, estado);
+
+                dataGridViewProductos.DataSource = productos;
+                Actualizar(sesion.Idioma);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar productos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBorrarBusqueda_Click(object sender, System.EventArgs e)
@@ -228,12 +295,17 @@ namespace Form1
 
         private void frmGestionStockProductos_Load(object sender, System.EventArgs e)
         {
+
+        }
+
+        #region MetodosPrivados
+
+        private void CargarDatos()
+        {
             CargarProveedores();
             CargarCategorias();
             ConfigurarEncabezadosColumnas();
         }
-
-        #region MetodosPrivados
         private void LimpiarControlesBusqueda()
         {
             comboBuscar.SelectedIndex = -1;
@@ -301,20 +373,37 @@ namespace Form1
         {
             var productos = _bllProducto.ObtenerTodos();
             dataGridViewProductos.DataSource = productos;
+            ConfigurarEncabezadosColumnas();
         }
 
         private void ConfigurarEncabezadosColumnas()
         {
             dataGridViewProductos.Columns["Codigo"].HeaderText = "Código";
+            dataGridViewProductos.Columns["Codigo"].Tag = "Codigo_Column";
+
             dataGridViewProductos.Columns["CategoriaEnum"].HeaderText = "Categoría";
+            dataGridViewProductos.Columns["CategoriaEnum"].Tag = "Categoria_Column";
+
             dataGridViewProductos.Columns["Stock"].HeaderText = "Stock";
+            dataGridViewProductos.Columns["Stock"].Tag = "Stock_Column";
+
+            dataGridViewProductos.Columns["Descripcion"].HeaderText = "Descripcion";
+            dataGridViewProductos.Columns["Descripcion"].Tag = "Descripcion_Column";
+
             dataGridViewProductos.Columns["Nombre"].HeaderText = "Nombre del Producto";
+            dataGridViewProductos.Columns["Nombre"].Tag = "Producto_Column";
+
             dataGridViewProductos.Columns["PrecioCompra"].HeaderText = "Precio de Compra";
+            dataGridViewProductos.Columns["PrecioCompra"].Tag = "PrecioCompra_Column";
+
             dataGridViewProductos.Columns["PrecioVenta"].HeaderText = "Precio de Venta";
+            dataGridViewProductos.Columns["PrecioVenta"].Tag = "PrecioVenta_Column";
+
             dataGridViewProductos.Columns["Fecha"].HeaderText = "Fecha de Registro";
+            dataGridViewProductos.Columns["Fecha"].Tag = "FechaRegistro_Column";
+
             dataGridViewProductos.Columns["Estado"].Visible = false;
         }
-
         private void CargarProveedores()
         {
             var proveedores = _bllProveedor.ObtenerTodos();
@@ -325,6 +414,16 @@ namespace Form1
             {
                 comboProveedor.SelectedIndex = 0;
             }
+        }
+
+        private void CargarComboBuscar()
+        {
+            comboBuscar.Items.Clear();
+            comboBuscar.Items.Add("Categoría");
+            comboBuscar.Items.Add("Estado");
+            comboBuscar.Items.Add("Nombre del producto");
+
+            comboBuscar.SelectedIndex = 0;
         }
 
         private bool ValidarCampos()
@@ -557,11 +656,35 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Idiomas
 
         List<Control> ListaControles = new List<Control>();
@@ -607,18 +730,26 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 

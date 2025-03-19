@@ -25,6 +25,8 @@ namespace Form1
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllCotizacion = new BLL_COTIZACION();
+            CargarCotizacionesPorEstado();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -34,12 +36,12 @@ namespace Form1
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-            _bllCotizacion = new BLL_COTIZACION();
+
         }
 
         private void frmControlSolicitudesCotizacion_Load(object sender, EventArgs e)
         {
-            CargarCotizacionesPorEstado();
+
         }
 
         private void btnAprobSolicitud_Click(object sender, EventArgs e)
@@ -79,26 +81,19 @@ namespace Form1
                 cotizaciones = new List<Cotizacion>();
             }
 
-            dataGridViewCotizaciones.DataSource = cotizaciones;
             dataGridViewCotizaciones.ClearSelection();
             ActualizarDataGridViewCotizacionRecibiendoLista(cotizaciones);
         }
 
         private void ActualizarDataGridViewCotizacionRecibiendoLista(List<Cotizacion> cotizaciones)
         {
+
             dataGridViewCotizaciones.DataSource = null;
             dataGridViewDetalleCotizacion.DataSource = null;
-
             dataGridViewCotizaciones.DataSource = cotizaciones;
+            ConfigurarColumnasCotizacion();
+            Actualizar(sesion.Idioma);
 
-            dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
-            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
-
-            dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
-            dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
-
-            dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
-            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
         }
 
         private void CargarDetallesCotizacion(int cotizacionId)
@@ -139,31 +134,24 @@ namespace Form1
                 MessageBox.Show("Seleccione una cotización primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private void CargarCotizaciones()
-        {
-            List<Cotizacion> cotizaciones = _bllCotizacion.ObtenerTodos();
-            dataGridViewCotizaciones.DataSource = cotizaciones;
-            dataGridViewCotizaciones.ClearSelection();
-        }
-
-        private void ActualizarDataGridViewCotizacion()
-        {
-            dataGridViewCotizaciones.DataSource = null;
-            List<Cotizacion> cotizaciones = _bllCotizacion.ObtenerTodos();
-            dataGridViewCotizaciones.DataSource = cotizaciones;
-            ConfigurarColumnasCotizacion();
-        }
-
         private void ConfigurarColumnasCotizacion()
         {
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
             dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
 
+            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Id";
+            dataGridViewCotizaciones.Columns["Id"].Tag = "Id_Column";
+
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
+            dataGridViewCotizaciones.Columns["DescripcionProveedor"].Tag = "Proveedor_Column";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].DisplayIndex = 2;
+
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
+            dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
+
+
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
+            dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
         }
 
         private void ActualizarDataGridViewDetalle(List<DetalleCotizacion> detalles)
@@ -175,9 +163,15 @@ namespace Form1
             dataGridViewDetalleCotizacion.Columns["ProductoId"].Visible = false;
             dataGridViewDetalleCotizacion.Columns["oProducto"].Visible = false;
 
+            dataGridViewDetalleCotizacion.Columns["Id"].HeaderText = "Id";
+            dataGridViewDetalleCotizacion.Columns["Id"].Tag = "Id_Column";
+
             dataGridViewDetalleCotizacion.Columns["NombreProducto"].HeaderText = "Producto";
+            dataGridViewDetalleCotizacion.Columns["NombreProducto"].Tag = "Producto_Column";
             dataGridViewDetalleCotizacion.Columns["Cantidad"].HeaderText = "Cantidad";
+            dataGridViewDetalleCotizacion.Columns["Cantidad"].Tag = "Cantidad_Column";
             dataGridViewDetalleCotizacion.Columns["Fecha"].HeaderText = "Fecha de Solicitud";
+            dataGridViewDetalleCotizacion.Columns["Fecha"].Tag = "FechaSolicitud_Column";
         }
 
         #endregion
@@ -264,9 +258,32 @@ namespace Form1
                 }
             }
 
+            RecorrerDataGridTraduccion(idioma);
+
             if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
             {
                 cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        public void RecorrerDataGridTraduccion(IIdioma idioma)
+        {
+            foreach (Control control in ListaControles)
+            {
+                if (control is DataGridView dataGridView)
+                {
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        if (column.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(column.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                column.HeaderText = traduccion;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Idiomas
@@ -314,18 +331,26 @@ namespace Form1
         }
         #endregion Permisos
 
-        //Ajustar esta logica
+
         #region Extras
-        int i = 0;
         public void Cerrar()
         {
-            if (i == 0)
+            Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
+
+            if (frmMenu == null)
             {
+                // Si no existe una instancia de frmMenuPrincipal, crea una nueva
                 frmMenuPrincipal FormPrincipal = new frmMenuPrincipal();
                 FormPrincipal.Show();
-                i++;
-                this.Close();
             }
+            else
+            {
+                // Si ya existe, simplemente enfócalo
+                frmMenu.BringToFront();
+            }
+
+            // Cierra el formulario actual
+            this.Close();
         }
         #endregion Extras
 
