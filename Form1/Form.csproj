@@ -116,6 +116,30 @@
     <Compile Include="Negocio\Stock\frmVerificacionProductos.Designer.cs">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\Ventas\frmCobroVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
+      <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmDespachoProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmDespachoProducto.Designer.cs">
+      <DependentUpon>frmDespachoProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmInicioOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmInicioOrden.Designer.cs">
+      <DependentUpon>frmInicioOrden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmTramitarOrdenCarrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmTramitarOrdenCarrito.Designer.cs">
+      <DependentUpon>frmTramitarOrdenCarrito.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\Ventas\frmVentaPedido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +243,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Stock\frmVerificacionProductos.resx">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmCobroVenta.resx">
+      <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmInicioOrden.resx">
+      <DependentUpon>frmInicioOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmTramitarOrdenCarrito.resx">
+      <DependentUpon>frmTramitarOrdenCarrito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmVentaPedido.resx">
       <DependentUpon>frmVentaPedido.cs</DependentUpon>
