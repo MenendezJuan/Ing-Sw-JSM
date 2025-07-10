@@ -50,7 +50,7 @@ namespace Form1
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-
+            labelDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
 

@@ -41,6 +41,7 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
             this.cboxIdiomas = new System.Windows.Forms.ComboBox();
+            this.btnIniciarOrden = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxBuscar = new System.Windows.Forms.GroupBox();
             this.btnReestablecer = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxCompra = new System.Windows.Forms.GroupBox();
             this.dataGridViewCotizaciones = new System.Windows.Forms.DataGridView();
-            this.btnIniciarOrden = new System.Windows.Forms.Button();
             this.txtNombreCliente = new System.Windows.Forms.TextBox();
             this.labelNombreCliente = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
@@ -138,6 +138,25 @@
             this.cboxIdiomas.Size = new System.Drawing.Size(162, 28);
             this.cboxIdiomas.TabIndex = 49;
             this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            // 
+            // btnIniciarOrden
+            // 
+            this.btnIniciarOrden.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnIniciarOrden.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnIniciarOrden.FlatAppearance.BorderSize = 2;
+            this.btnIniciarOrden.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnIniciarOrden.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnIniciarOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIniciarOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIniciarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnIniciarOrden.Location = new System.Drawing.Point(76, 485);
+            this.btnIniciarOrden.Name = "btnIniciarOrden";
+            this.btnIniciarOrden.Size = new System.Drawing.Size(261, 37);
+            this.btnIniciarOrden.TabIndex = 80;
+            this.btnIniciarOrden.Tag = "btnIniciarOrden_frmInicioOrden";
+            this.btnIniciarOrden.Text = "Iniciar Orden de Venta";
+            this.btnIniciarOrden.UseVisualStyleBackColor = true;
+            this.btnIniciarOrden.Visible = false;
             // 
             // tableLayoutPanel2
             // 
@@ -463,25 +482,6 @@
             this.dataGridViewCotizaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCotizaciones.Size = new System.Drawing.Size(391, 253);
             this.dataGridViewCotizaciones.TabIndex = 43;
-            // 
-            // btnIniciarOrden
-            // 
-            this.btnIniciarOrden.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnIniciarOrden.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnIniciarOrden.FlatAppearance.BorderSize = 2;
-            this.btnIniciarOrden.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnIniciarOrden.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnIniciarOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIniciarOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnIniciarOrden.Location = new System.Drawing.Point(76, 485);
-            this.btnIniciarOrden.Name = "btnIniciarOrden";
-            this.btnIniciarOrden.Size = new System.Drawing.Size(261, 37);
-            this.btnIniciarOrden.TabIndex = 80;
-            this.btnIniciarOrden.Tag = "btnIniciarOrden_frmInicioOrden";
-            this.btnIniciarOrden.Text = "Iniciar Orden de Venta";
-            this.btnIniciarOrden.UseVisualStyleBackColor = true;
-            this.btnIniciarOrden.Visible = false;
             // 
             // txtNombreCliente
             // 

@@ -116,17 +116,17 @@
     <Compile Include="Negocio\Stock\frmVerificacionProductos.Designer.cs">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Negocio\Ventas\frmCobroVenta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
-      <DependentUpon>frmCobroVenta.cs</DependentUpon>
-    </Compile>
     <Compile Include="Negocio\Ventas\frmDespachoProducto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Negocio\Ventas\frmDespachoProducto.Designer.cs">
       <DependentUpon>frmDespachoProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmCobroVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
+      <DependentUpon>frmCobroVenta.cs</DependentUpon>
     </Compile>
     <Compile Include="Negocio\Ventas\frmInicioOrden.cs">
       <SubType>Form</SubType>
@@ -139,12 +139,6 @@
     </Compile>
     <Compile Include="Negocio\Ventas\frmTramitarOrdenCarrito.Designer.cs">
       <DependentUpon>frmTramitarOrdenCarrito.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Negocio\Ventas\frmVentaPedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Negocio\Ventas\frmVentaPedido.Designer.cs">
-      <DependentUpon>frmVentaPedido.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen\frmSplashScreen.cs">
       <SubType>Form</SubType>
@@ -244,6 +238,9 @@
     <EmbeddedResource Include="Negocio\Stock\frmVerificacionProductos.resx">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmDespachoProducto.resx">
+      <DependentUpon>frmDespachoProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmCobroVenta.resx">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,9 +249,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmTramitarOrdenCarrito.resx">
       <DependentUpon>frmTramitarOrdenCarrito.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Negocio\Ventas\frmVentaPedido.resx">
-      <DependentUpon>frmVentaPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen\frmSplashScreen.resx">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>

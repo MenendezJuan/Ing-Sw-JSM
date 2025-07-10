@@ -353,12 +353,12 @@
             this.labelDate.Dock = System.Windows.Forms.DockStyle.Right;
             this.labelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDate.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelDate.Location = new System.Drawing.Point(105, 0);
+            this.labelDate.Location = new System.Drawing.Point(158, 0);
             this.labelDate.Name = "labelDate";
             this.labelDate.Padding = new System.Windows.Forms.Padding(5, 15, 0, 0);
-            this.labelDate.Size = new System.Drawing.Size(70, 31);
+            this.labelDate.Size = new System.Drawing.Size(17, 31);
             this.labelDate.TabIndex = 10;
-            this.labelDate.Text = "29/10/24";
+            this.labelDate.Text = "-";
             // 
             // panel8
             // 

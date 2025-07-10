@@ -16,5 +16,10 @@ namespace Form1.Negocio.Ventas
         {
             InitializeComponent();
         }
+
+        private void frmCobroVenta_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
