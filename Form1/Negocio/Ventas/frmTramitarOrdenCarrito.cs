@@ -28,11 +28,11 @@ namespace CheeseLogix.Negocio.Ventas
         // Cliente actual
         private Cliente _clienteActual;
         
-        // Carrito de compras en memoria
-        private List<ItemCarrito> _carrito;
+        // Carrito de compras en memoria (usando DetalleVenta)
+        private List<DetalleVenta> _carrito;
         
-        // Productos originales (antes de filtros)
-        private List<Producto> _productosOriginales;
+        // Lista de productos disponibles
+        private List<Producto> _productos;
         
         // Producto seleccionado actualmente
         private Producto _productoSeleccionado;
@@ -57,6 +57,15 @@ namespace CheeseLogix.Negocio.Ventas
             EstablecerCliente(cliente);
         }
 
+        /// <summary>
+        /// Constructor que recibe el CUIT y busca el cliente automáticamente
+        /// </summary>
+        /// <param name="cuitCliente">CUIT del cliente</param>
+        public frmTramitarOrdenCarrito(string cuitCliente) : this()
+        {
+            BuscarYEstablecerClientePorCUIT(cuitCliente);
+        }
+
         private void InicializarComponentes()
         {
             sesion = SessionManager.GetInstance();
@@ -66,7 +75,7 @@ namespace CheeseLogix.Negocio.Ventas
             _bllVenta = new BLL_VENTA();
             
             // Inicializar carrito
-            _carrito = new List<ItemCarrito>();
+            _carrito = new List<DetalleVenta>();
             
             // Configurar fecha actual
             lblFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
@@ -104,6 +113,36 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
+        /// <summary>
+        /// Busca un cliente por CUIT usando BLL y lo establece como cliente actual
+        /// </summary>
+        /// <param name="cuit">CUIT del cliente a buscar</param>
+        private void BuscarYEstablecerClientePorCUIT(string cuit)
+        {
+            try
+            {
+                var bllCliente = new BLL_CLIENTE();
+                var cliente = bllCliente.BuscarPorCUIT(cuit);
+                
+                if (cliente != null)
+                {
+                    EstablecerCliente(cliente);
+                }
+                else
+                {
+                    lblCliente.Text = $"Cliente con CUIT {cuit} no encontrado";
+                    MessageBox.Show($"No se encontró un cliente con CUIT '{cuit}' en el sistema.", 
+                        "Cliente no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                lblCliente.Text = "Error al buscar cliente";
+                MessageBox.Show($"Error al buscar cliente: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #endregion
 
         #region Configuración de DataGridViews
@@ -116,7 +155,7 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void ConfigurarDataGridProductos()
         {
-            // Configurar DataGridView de Productos (usando dataGridViewProductos)
+            // Configurar DataGridView de Productos (usando dataGridViewDetalleCompra según el designer)
             dataGridViewProductos.SelectionChanged += DataGridViewProductos_SelectionChanged;
             dataGridViewProductos.AutoGenerateColumns = false;
             dataGridViewProductos.Columns.Clear();
@@ -213,9 +252,9 @@ namespace CheeseLogix.Negocio.Ventas
             
             dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn 
             { 
-                DataPropertyName = "PrecioUnitario", 
+                DataPropertyName = "Precio", 
                 HeaderText = "Precio Unit.", 
-                Name = "PrecioUnitario", 
+                Name = "Precio", 
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
@@ -223,9 +262,9 @@ namespace CheeseLogix.Negocio.Ventas
             
             dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn 
             { 
-                DataPropertyName = "Subtotal", 
+                DataPropertyName = "SubTotal", 
                 HeaderText = "Subtotal", 
-                Name = "Subtotal", 
+                Name = "SubTotal", 
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
@@ -270,24 +309,8 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                _productosOriginales = _bllProducto.ObtenerTodos()
-                    .Where(p => p.Estado && p.Stock > 0) // Solo productos activos con stock
-                    .ToList();
-                
-                // Obtener información de stock para cada producto
-                foreach (var producto in _productosOriginales)
-                {
-                    var stockInfo = _bllProducto.ObtenerInfoStock(producto.Id);
-                    if (stockInfo != null)
-                    {
-                        producto.StockDisponible = stockInfo.StockDisponible;
-                    }
-                    else
-                    {
-                        producto.StockDisponible = producto.Stock; // Fallback
-                    }
-                }
-                
+                // Usar BLL para obtener productos disponibles para venta
+                _productos = _bllProducto.ObtenerProductosDisponiblesParaVenta();
                 AplicarFiltroCategoria();
             }
             catch (Exception ex)
@@ -299,8 +322,6 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void AplicarFiltroCategoria()
         {
-            if (_productosOriginales == null) return;
-
             try
             {
                 var categoriaSeleccionada = Convert.ToInt32(cmbCategoriaProducto.SelectedValue);
@@ -309,13 +330,11 @@ namespace CheeseLogix.Negocio.Ventas
                 
                 if (categoriaSeleccionada == -1) // Todas las categorías
                 {
-                    productosFiltrados = _productosOriginales.ToList();
+                    productosFiltrados = _bllProducto.ObtenerProductosDisponiblesParaVenta();
                 }
                 else
                 {
-                    productosFiltrados = _productosOriginales
-                        .Where(p => (int)p.CategoriaEnum == categoriaSeleccionada)
-                        .ToList();
+                    productosFiltrados = _bllProducto.ObtenerProductosPorCategoriaDisponibles((Categoria)categoriaSeleccionada);
                 }
                 
                 dataGridViewProductos.DataSource = productosFiltrados;
@@ -344,7 +363,7 @@ namespace CheeseLogix.Negocio.Ventas
                 numericCantidadProducto.Enabled = productoSeleccionado.StockDisponible > 0;
                 
                 // Habilitar/deshabilitar botón de agregar
-                btnAgregarACarrito_frmTramitarOrden.Enabled = productoSeleccionado.StockDisponible > 0;
+                btnAgregarACarrito.Enabled = productoSeleccionado.StockDisponible > 0;
                 
                 if (productoSeleccionado.StockDisponible <= 0)
                 {
@@ -374,7 +393,7 @@ namespace CheeseLogix.Negocio.Ventas
             _productoSeleccionado = null;
             numericCantidadProducto.Value = 1;
             numericCantidadProducto.Enabled = false;
-            btnAgregarACarrito_frmTramitarOrden.Enabled = false;
+            btnAgregarACarrito.Enabled = false;
         }
 
         #endregion
@@ -418,18 +437,19 @@ namespace CheeseLogix.Negocio.Ventas
                     
                     // Actualizar cantidad existente
                     itemExistente.Cantidad = cantidadTotal;
-                    itemExistente.Subtotal = itemExistente.Cantidad * itemExistente.PrecioUnitario;
+                    itemExistente.SubTotal = itemExistente.Cantidad * itemExistente.Precio;
                 }
                 else
                 {
                     // Agregar nuevo item al carrito
-                    var nuevoItem = new ItemCarrito
+                    var nuevoItem = new DetalleVenta
                     {
                         ProductoId = _productoSeleccionado.Id,
-                        NombreProducto = _productoSeleccionado.Nombre,
+                        oProducto = _productoSeleccionado,
                         Cantidad = cantidadSolicitada,
-                        PrecioUnitario = _productoSeleccionado.PrecioVenta,
-                        Subtotal = cantidadSolicitada * _productoSeleccionado.PrecioVenta
+                        Precio = _productoSeleccionado.PrecioVenta ?? 0,
+                        SubTotal = cantidadSolicitada * (_productoSeleccionado.PrecioVenta ?? 0),
+                        Fecha = DateTime.Now
                     };
                     
                     _carrito.Add(nuevoItem);
@@ -456,7 +476,7 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                if (dataGridViewCarrito.CurrentRow?.DataBoundItem is ItemCarrito itemSeleccionado)
+                if (dataGridViewCarrito.CurrentRow?.DataBoundItem is DetalleVenta itemSeleccionado)
                 {
                     var resultado = MessageBox.Show(
                         $"¿Está seguro de que desea eliminar '{itemSeleccionado.NombreProducto}' del carrito?", 
@@ -529,12 +549,12 @@ namespace CheeseLogix.Negocio.Ventas
             // Habilitar/deshabilitar botones según el estado del carrito
             btnEliminarProducto.Enabled = false; // Se habilitará en SelectionChanged
             btnVaciarCarrito.Enabled = _carrito.Count > 0;
-            btnConfirmarCarrito.Enabled = _carrito.Count > 0;
+            btnConfirmarCompra.Enabled = _carrito.Count > 0;
         }
 
         private void ActualizarTotal()
         {
-            decimal total = _carrito.Sum(item => item.Subtotal);
+            decimal total = _carrito.Sum(item => item.SubTotal);
             lblTotal.Text = total.ToString("C2");
         }
 
@@ -562,7 +582,7 @@ namespace CheeseLogix.Negocio.Ventas
                 }
 
                 // Confirmar con el usuario
-                decimal total = _carrito.Sum(item => item.Subtotal);
+                decimal total = _carrito.Sum(item => item.SubTotal);
                 var resultado = MessageBox.Show(
                     $"¿Confirmar la venta?\n\nCliente: {_clienteActual.NombreCompleto}\nTotal: {total:C2}\nProductos: {_carrito.Count}", 
                     "Confirmar venta", 
@@ -591,29 +611,13 @@ namespace CheeseLogix.Negocio.Ventas
                     ClienteId = _clienteActual.Id,
                     UsuarioVendedorId = sesion.oUsuario.Id,
                     Fecha = DateTime.Now,
-                    MontoTotal = _carrito.Sum(item => item.Subtotal),
+                    MontoTotal = _carrito.Sum(item => item.SubTotal),
                     TipoPagoEnum = TipoPago.Efectivo, // Por defecto, se puede cambiar después
                     EstadoVentaEnum = EstadoVenta.EnProceso,
                     Comentario = $"Venta creada desde carrito - {_carrito.Count} productos",
                     oCliente = _clienteActual,
-                    oDetalleVenta = new List<DetalleVenta>()
+                    oDetalleVenta = _carrito // Ya son DetalleVenta, no necesitamos convertir
                 };
-
-                // Crear detalles de venta
-                foreach (var item in _carrito)
-                {
-                    var detalle = new DetalleVenta
-                    {
-                        ProductoId = item.ProductoId,
-                        Cantidad = item.Cantidad,
-                        Precio = item.PrecioUnitario,
-                        SubTotal = item.Subtotal,
-                        Fecha = DateTime.Now,
-                        oProducto = _productosOriginales.FirstOrDefault(p => p.Id == item.ProductoId)
-                    };
-                    
-                    nuevaVenta.oDetalleVenta.Add(detalle);
-                }
 
                 // Guardar la venta (esto reservará automáticamente el stock)
                 int ventaId = _bllVenta.Insertar(nuevaVenta);
@@ -787,19 +791,5 @@ namespace CheeseLogix.Negocio.Ventas
         #endregion
     }
 
-    #region Clase auxiliar para el carrito
 
-    /// <summary>
-    /// Representa un item en el carrito de compras
-    /// </summary>
-    public class ItemCarrito
-    {
-        public int ProductoId { get; set; }
-        public string NombreProducto { get; set; }
-        public decimal Cantidad { get; set; }
-        public decimal PrecioUnitario { get; set; }
-        public decimal Subtotal { get; set; }
-    }
-
-    #endregion
 }

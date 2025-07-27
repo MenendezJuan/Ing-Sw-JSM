@@ -154,6 +154,54 @@ namespace BLLs.Negocio
             return _productoRepository.ObtenerInfoStock(productoId);
         }
 
+        /// <summary>
+        /// Obtiene productos disponibles para venta (activos con stock)
+        /// </summary>
+        /// <returns>Lista de productos disponibles</returns>
+        public List<Producto> ObtenerProductosDisponiblesParaVenta()
+        {
+            var productos = _productoRepository.ObtenerTodos();
+            var productosDisponibles = new List<Producto>();
+
+            foreach (var producto in productos)
+            {
+                if (producto.Estado && producto.Stock > 0)
+                {
+                    // Obtener información de stock real
+                    var stockInfo = _productoRepository.ObtenerInfoStock(producto.Id);
+                    if (stockInfo != null)
+                    {
+                        producto.StockDisponible = stockInfo.StockDisponible;
+                        producto.StockReservado = stockInfo.StockReservado;
+                    }
+                    else
+                    {
+                        producto.StockDisponible = producto.Stock ?? 0;
+                        producto.StockReservado = 0;
+                    }
+                    
+                    // Solo agregar si tiene stock disponible
+                    if (producto.StockDisponible > 0)
+                    {
+                        productosDisponibles.Add(producto);
+                    }
+                }
+            }
+
+            return productosDisponibles;
+        }
+
+        /// <summary>
+        /// Obtiene productos por categoría que están disponibles para venta
+        /// </summary>
+        /// <param name="categoria">Categoría de productos</param>
+        /// <returns>Lista de productos disponibles de la categoría</returns>
+        public List<Producto> ObtenerProductosPorCategoriaDisponibles(Categoria categoria)
+        {
+            var productosDisponibles = ObtenerProductosDisponiblesParaVenta();
+            return productosDisponibles.Where(p => p.CategoriaEnum == categoria).ToList();
+        }
+
         #region MetodosPrivados
         private decimal CalcularPrecioVenta(decimal precioCompra, Categoria categoria)
         {

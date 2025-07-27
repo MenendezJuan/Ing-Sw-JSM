@@ -315,14 +315,14 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                // Obtener CUIT del textbox (nota: en el designer se llama txtCuitCliente pero lo usamos para CUIT)
-                string cuit = txtCuitCliente.Text.Trim();
+                                 // Obtener CUIT del textbox
+                 string cuit = txtCuitCliente.Text.Trim();
                 
                 if (string.IsNullOrWhiteSpace(cuit))
                 {
-                    MessageBox.Show("Por favor, ingrese el CUIT del cliente.", "CUIT requerido", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtCuitCliente.Focus();
+                                         MessageBox.Show("Por favor, ingrese el CUIT del cliente.", "CUIT requerido", 
+                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                     txtCuitCliente.Focus();
                     return;
                 }
 
@@ -340,16 +340,16 @@ namespace CheeseLogix.Negocio.Ventas
                     
                     if (resultado == DialogResult.Yes)
                     {
-                        // Redirigir a frmTramitarOrdenCarrito pasando el cliente
-                        var frmTramitar = new frmTramitarOrdenCarrito(cliente);
+                        // Redirigir a frmTramitarOrdenCarrito pasando el CUIT para que busque automáticamente
+                        var frmTramitar = new frmTramitarOrdenCarrito(cuit);
                         
                         this.Hide();
                         frmTramitar.ShowDialog();
                         this.Show();
                         
-                        // Limpiar textbox y recargar ventas por si se creó una nueva
-                        txtCuitCliente.Clear();
-                        CargarVentas();
+                                                 // Limpiar textbox y recargar ventas por si se creó una nueva
+                         txtCuitCliente.Clear();
+                         CargarVentas();
                     }
                 }
                 else
@@ -371,8 +371,8 @@ namespace CheeseLogix.Negocio.Ventas
                         frmGestionClientes.ShowDialog();
                         this.Show();
                         
-                        // Limpiar textbox
-                        txtCuitCliente.Clear();
+                                                 // Limpiar textbox
+                         txtCuitCliente.Clear();
                     }
                     else
                     {
@@ -380,9 +380,9 @@ namespace CheeseLogix.Negocio.Ventas
                         MessageBox.Show("Por favor, elija un cliente válido o agregue el cliente al sistema.", 
                             "Cliente requerido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         
-                        // Limpiar textbox y mantener foco
-                        txtCuitCliente.Clear();
-                        txtCuitCliente.Focus();
+                                                 // Limpiar textbox y mantener foco
+                         txtCuitCliente.Clear();
+                         txtCuitCliente.Focus();
                     }
                 }
             }
@@ -391,9 +391,9 @@ namespace CheeseLogix.Negocio.Ventas
                 MessageBox.Show($"Error al buscar el cliente: {ex.Message}", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
-                // En caso de error, limpiar y mantener foco
-                txtCuitCliente.Clear();
-                txtCuitCliente.Focus();
+                                 // En caso de error, limpiar y mantener foco
+                 txtCuitCliente.Clear();
+                 txtCuitCliente.Focus();
             }
         }
 
