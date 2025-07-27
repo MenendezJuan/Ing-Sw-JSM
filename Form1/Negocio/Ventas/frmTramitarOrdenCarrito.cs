@@ -21,5 +21,35 @@ namespace CheeseLogix.Negocio.Ventas
         {
 
         }
+
+        private void frmTramitarOrdenCarrito_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVaciarCarrito_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEliminarProducto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConfirmarCompra_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
