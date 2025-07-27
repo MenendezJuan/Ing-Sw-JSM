@@ -8,7 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmConfigurarIdioma : Form, IObservador
     {

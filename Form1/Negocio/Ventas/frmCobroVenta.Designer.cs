@@ -1,4 +1,4 @@
-﻿namespace Form1.Negocio.Ventas
+﻿namespace CheeseLogix.Negocio.Ventas
 {
     partial class frmCobroVenta
     {

@@ -1,4 +1,4 @@
-﻿namespace Form1.Negocio
+﻿namespace CheeseLogix.Negocio
 {
     partial class frmVerificacionProductos
     {

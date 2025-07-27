@@ -1,4 +1,4 @@
-﻿namespace Form1.SplashScreen
+﻿namespace CheeseLogix.SplashScreen
 {
     partial class frmSplashScreen
     {
@@ -35,7 +35,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Form1.Properties.Resources.amplitude_problem___computer_corner_by_valenberg_d8hpsqn;
+            this.pictureBox1.Image = global::CheeseLogix.Properties.Resources.amplitude_problem___computer_corner_by_valenberg_d8hpsqn;
             this.pictureBox1.Location = new System.Drawing.Point(-1, 64);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(819, 431);

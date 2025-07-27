@@ -3,7 +3,7 @@ using MaterialSkin.Controls;
 using System;
 using System.Windows.Forms;
 
-namespace Form1.SplashScreen
+namespace CheeseLogix.SplashScreen
 {
     public partial class frmSplashScreen : MaterialForm
     {

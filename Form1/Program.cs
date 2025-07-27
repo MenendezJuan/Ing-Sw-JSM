@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     internal static class Program
     {

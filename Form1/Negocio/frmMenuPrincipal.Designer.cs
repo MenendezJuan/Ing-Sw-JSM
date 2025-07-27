@@ -1,4 +1,4 @@
-﻿namespace Form1
+﻿namespace CheeseLogix
 {
     partial class frmMenuPrincipal
     {
@@ -189,7 +189,7 @@
             // 
             // panelCentral
             // 
-            this.panelCentral.BackgroundImage = global::Form1.Properties.Resources._32__30__45;
+            this.panelCentral.BackgroundImage = global::CheeseLogix.Properties.Resources._32__30__45;
             this.panelCentral.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panelCentral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCentral.Location = new System.Drawing.Point(0, 0);
@@ -687,7 +687,7 @@
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxLogo.Image = global::Form1.Properties.Resources.WhatsApp_Image_2024_11_06_at_12_21_14_AM;
+            this.pictureBoxLogo.Image = global::CheeseLogix.Properties.Resources.WhatsApp_Image_2024_11_06_at_12_21_14_AM;
             this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(211, 119);

@@ -2,7 +2,7 @@
 using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
-using Form1.Negocio;
+using CheeseLogix.Negocio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmMenuPrincipal : Form, IObservador
     {

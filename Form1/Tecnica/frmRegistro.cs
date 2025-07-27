@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmRegistro : Form
     {

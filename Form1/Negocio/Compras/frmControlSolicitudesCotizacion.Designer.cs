@@ -1,4 +1,4 @@
-﻿namespace Form1
+﻿namespace CheeseLogix
 {
     partial class frmControlSolicitudesCotizacion
     {
@@ -363,7 +363,7 @@
             // 
             this.labelNotificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelNotificacion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.labelNotificacion.Image = global::Form1.Properties.Resources.Diseño_sin_título__5_;
+            this.labelNotificacion.Image = global::CheeseLogix.Properties.Resources.Diseño_sin_título__5_;
             this.labelNotificacion.Location = new System.Drawing.Point(3, 307);
             this.labelNotificacion.Name = "labelNotificacion";
             this.labelNotificacion.Size = new System.Drawing.Size(534, 148);

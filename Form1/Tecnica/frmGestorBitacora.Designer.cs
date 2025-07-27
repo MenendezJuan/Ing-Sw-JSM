@@ -1,4 +1,4 @@
-﻿namespace Form1
+﻿namespace CheeseLogix
 {
     partial class frmGestorBitacora
     {

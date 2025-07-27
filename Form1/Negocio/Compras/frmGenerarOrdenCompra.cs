@@ -7,14 +7,14 @@ using BEs.Clases.Negocio.Enums;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
-using Form1.Negocio;
+using CheeseLogix.Negocio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmGenerarOrdenCompra : Form, IObservador
     {

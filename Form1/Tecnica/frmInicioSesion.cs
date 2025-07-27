@@ -9,7 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmInicioSesion : Form, IObservador
     {

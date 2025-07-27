@@ -1,4 +1,4 @@
-﻿namespace Form1
+﻿namespace CheeseLogix
 {
     partial class frmRegistro
     {
@@ -253,7 +253,7 @@
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxLogo.Image = global::Form1.Properties.Resources.WhatsApp_Image_2024_11_06_at_12_21_14_AM;
+            this.pictureBoxLogo.Image = global::CheeseLogix.Properties.Resources.WhatsApp_Image_2024_11_06_at_12_21_14_AM;
             this.pictureBoxLogo.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(218, 109);

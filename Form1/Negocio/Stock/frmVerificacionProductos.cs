@@ -13,7 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1.Negocio
+namespace CheeseLogix.Negocio
 {
     public partial class frmVerificacionProductos : Form, IObservador
     {
