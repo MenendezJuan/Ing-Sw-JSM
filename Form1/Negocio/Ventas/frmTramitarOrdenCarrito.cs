@@ -789,6 +789,11 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #endregion
+
+        private void btnConfirmarCompra_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
