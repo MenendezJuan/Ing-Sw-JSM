@@ -128,6 +128,12 @@
     <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\Ventas\frmGestionarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmGestionarClientes.Designer.cs">
+      <DependentUpon>frmGestionarClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\Ventas\frmInicioOrden.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmCobroVenta.resx">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmGestionarClientes.resx">
+      <DependentUpon>frmGestionarClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmInicioOrden.resx">
       <DependentUpon>frmInicioOrden.cs</DependentUpon>
