@@ -6,6 +6,7 @@ using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using CheeseLogix.Negocio.Ventas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -582,18 +583,32 @@ namespace CheeseLogix.Negocio.Ventas
 
                 // Guardar la venta (esto reservará automáticamente el stock)
                 int ventaId = _bllVenta.Insertar(nuevaVenta);
+                nuevaVenta.Id = ventaId; // Asignar el ID generado
                 
-                MessageBox.Show($"Venta creada exitosamente con ID: {ventaId}\n\nEl stock ha sido reservado automáticamente.", 
+                MessageBox.Show($"Venta creada exitosamente con ID: {ventaId}\n\nEl stock ha sido reservado automáticamente.\n\nProcediendo al cobro...", 
                     "Venta creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
-                // Limpiar carrito y cerrar formulario
-                _carrito.Clear();
-                ActualizarVistaCarrito();
-                ActualizarTotal();
+                // Redirigir al formulario de cobro
+                var frmCobro = new frmCobroVenta(nuevaVenta);
+                this.Hide();
+                var resultadoCobro = frmCobro.ShowDialog();
                 
-                // Cerrar formulario y volver al anterior
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                // Si el cobro fue exitoso o cancelado, cerrar este formulario
+                if (resultadoCobro == DialogResult.OK || resultadoCobro == DialogResult.Cancel)
+                {
+                    // Limpiar carrito y cerrar formulario
+                    _carrito.Clear();
+                    ActualizarVistaCarrito();
+                    ActualizarTotal();
+                    
+                    this.DialogResult = resultadoCobro;
+                    this.Close();
+                }
+                else
+                {
+                    // Si hay error en el cobro, mostrar este formulario nuevamente
+                    this.Show();
+                }
             }
             catch (Exception ex)
             {
