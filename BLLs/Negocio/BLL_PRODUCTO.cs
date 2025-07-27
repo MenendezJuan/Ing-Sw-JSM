@@ -144,6 +144,16 @@ namespace BLLs.Negocio
                 throw new ArgumentException($"El producto con Id {productoId} no existe.", nameof(productoId));
         }
 
+        /// <summary>
+        /// Obtiene información completa del stock de un producto
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <returns>Información de stock o null si no existe el producto</returns>
+        public StockInfo ObtenerInfoStock(int productoId)
+        {
+            return _productoRepository.ObtenerInfoStock(productoId);
+        }
+
         #region MetodosPrivados
         private decimal CalcularPrecioVenta(decimal precioCompra, Categoria categoria)
         {

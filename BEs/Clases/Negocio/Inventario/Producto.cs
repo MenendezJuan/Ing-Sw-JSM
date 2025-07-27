@@ -17,6 +17,10 @@ namespace BEs.Clases.Negocio
         public bool Estado { get; set; }
         public DateTime Fecha { get; set; }
 
+        // Propiedades adicionales para sistema de reservas
+        public decimal StockReservado { get; set; } = 0;
+        public decimal StockDisponible { get; set; } = 0;
+
         public List<ProductoProveedor> Proveedores { get; set; } = new List<ProductoProveedor>();
     }
 }

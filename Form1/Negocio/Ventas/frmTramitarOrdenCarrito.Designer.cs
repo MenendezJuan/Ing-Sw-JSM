@@ -160,7 +160,6 @@
             this.cboxIdiomas.Size = new System.Drawing.Size(171, 28);
             this.cboxIdiomas.TabIndex = 49;
             this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
-            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // labelCarrito
             // 
@@ -389,7 +388,6 @@
             this.btnConfirmarCompra.Tag = "btnConfirmarCompra__frmTramitarOrden";
             this.btnConfirmarCompra.Text = "Confirmar Compra";
             this.btnConfirmarCompra.UseVisualStyleBackColor = true;
-            this.btnConfirmarCompra.Click += new System.EventHandler(this.btnConfirmarCompra_Click);
             // 
             // groupBox2
             // 
@@ -704,7 +702,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "frmTramitarOrdenCarrito";
             this.Text = "frmTramitarOrdenCarrito";
-            this.Load += new System.EventHandler(this.frmTramitarOrdenCarrito_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);

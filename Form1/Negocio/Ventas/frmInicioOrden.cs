@@ -341,8 +341,7 @@ namespace CheeseLogix.Negocio.Ventas
                     if (resultado == DialogResult.Yes)
                     {
                         // Redirigir a frmTramitarOrdenCarrito pasando el cliente
-                        var frmTramitar = new frmTramitarOrdenCarrito();
-                        // TODO: Agregar método para pasar el cliente al formulario
+                        var frmTramitar = new frmTramitarOrdenCarrito(cliente);
                         
                         this.Hide();
                         frmTramitar.ShowDialog();
