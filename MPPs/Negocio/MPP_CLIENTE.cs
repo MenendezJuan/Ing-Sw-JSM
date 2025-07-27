@@ -108,6 +108,24 @@ namespace MPPs.Negocio
             oCnx.Guardar("ReactivarCliente", parametros);
         }
 
+        /// <summary>
+        /// Busca un cliente por su CUIT
+        /// </summary>
+        /// <param name="cuit">CUIT del cliente a buscar</param>
+        /// <returns>Cliente encontrado o null si no existe</returns>
+        public Cliente BuscarPorCUIT(string cuit)
+        {
+            var parametros = new Hashtable
+            {
+                { "@CUIT", cuit }
+            };
+
+            DataTable dt = oCnx.Leer("ObtenerClientePorCUIT", parametros);
+            if (dt.Rows.Count == 0) return null;
+
+            return Map(dt.Rows[0]);
+        }
+
         private Cliente Map(DataRow row)
         {
             Cliente cliente = new Cliente

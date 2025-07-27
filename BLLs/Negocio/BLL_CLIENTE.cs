@@ -62,6 +62,25 @@ namespace BLLs.Negocio
             clienteRepository.ReactivarCliente(id);
         }
 
+        /// <summary>
+        /// Busca un cliente por su CUIT
+        /// </summary>
+        /// <param name="cuit">CUIT del cliente a buscar (se limpia automáticamente)</param>
+        /// <returns>Cliente encontrado o null si no existe</returns>
+        public Cliente BuscarPorCUIT(string cuit)
+        {
+            if (string.IsNullOrWhiteSpace(cuit))
+                return null;
+
+            // Limpiar el CUIT (remover guiones y espacios)
+            string cuitLimpio = cuit.Replace("-", "").Replace(" ", "").Trim();
+            
+            if (string.IsNullOrEmpty(cuitLimpio))
+                return null;
+
+            return clienteRepository.BuscarPorCUIT(cuitLimpio);
+        }
+
         // Método de validación para verificar la integridad del cliente antes de insertar o actualizar
         private void ValidarCliente(Cliente cliente)
         {
