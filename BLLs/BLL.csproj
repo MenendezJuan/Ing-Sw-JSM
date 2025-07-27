@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracciones\IBLL.cs" />
+    <Compile Include="Negocio\BLL_CLIENTE.cs" />
     <Compile Include="Negocio\BLL_COMPRA.cs" />
     <Compile Include="Negocio\BLL_COTIZACION.cs" />
     <Compile Include="Negocio\BLL_PRODUCTO.cs" />
     <Compile Include="Negocio\BLL_PROVEEDOR.cs" />
+    <Compile Include="Negocio\BLL_VENTA.cs" />
     <Compile Include="Tecnica\BLL_BITACORA.cs" />
     <Compile Include="Tecnica\BLL_IDIOMA.cs" />
     <Compile Include="Tecnica\BLL_PERMISO.cs" />

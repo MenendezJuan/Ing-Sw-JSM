@@ -16,5 +16,10 @@ namespace CheeseLogix.Negocio.Ventas
         {
             InitializeComponent();
         }
+
+        private void btnAgregarACarrito_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

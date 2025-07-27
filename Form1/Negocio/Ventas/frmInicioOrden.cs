@@ -16,5 +16,30 @@ namespace CheeseLogix.Negocio.Ventas
         {
             InitializeComponent();
         }
+
+        private void btnIniciarOrden_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReestablecer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmInicioOrden_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

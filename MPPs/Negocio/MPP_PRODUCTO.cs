@@ -83,6 +83,136 @@ namespace MPPs.Negocio
             oCnx.Guardar("ActualizarStockProducto", parametros);
         }
 
+        // ==========================================
+        // MÉTODOS PARA GESTIÓN DE RESERVAS DE STOCK
+        // ==========================================
+
+        /// <summary>
+        /// Reserva stock para una venta. Verifica que hay stock disponible antes de reservar.
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <param name="cantidad">Cantidad a reservar</param>
+        /// <returns>True si se pudo reservar, False si no hay stock suficiente</returns>
+        public bool ReservarStock(int productoId, decimal cantidad)
+        {
+            var parametros = new Hashtable
+            {
+                { "@ProductoId", productoId },
+                { "@Cantidad", cantidad }
+            };
+
+            DataTable dt = oCnx.Leer("ReservarStock", parametros);
+            if (dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0]["Exito"]) == 1;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Libera stock previamente reservado (ej: cuando se cancela una venta)
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <param name="cantidad">Cantidad a liberar</param>
+        public bool LiberarStock(int productoId, decimal cantidad)
+        {
+            var parametros = new Hashtable
+            {
+                { "@ProductoId", productoId },
+                { "@Cantidad", cantidad }
+            };
+
+            DataTable dt = oCnx.Leer("LiberarStock", parametros);
+            if (dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0]["Exito"]) == 1;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Confirma una venta: resta el stock definitivamente y libera la reserva
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <param name="cantidad">Cantidad vendida</param>
+        public bool ConfirmarVentaStock(int productoId, decimal cantidad)
+        {
+            var parametros = new Hashtable
+            {
+                { "@ProductoId", productoId },
+                { "@Cantidad", cantidad }
+            };
+
+            DataTable dt = oCnx.Leer("ConfirmarVentaStock", parametros);
+            if (dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0]["Exito"]) == 1;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Obtiene el stock disponible (Stock - StockReservado) de un producto
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <returns>Cantidad de stock disponible para venta</returns>
+        public decimal ObtenerStockDisponible(int productoId)
+        {
+            var parametros = new Hashtable { { "@ProductoId", productoId } };
+            DataTable dt = oCnx.Leer("ObtenerStockDisponible", parametros);
+            
+            if (dt.Rows.Count > 0)
+                return Convert.ToDecimal(dt.Rows[0]["StockDisponible"]);
+            return 0;
+        }
+
+        /// <summary>
+        /// Obtiene información completa de stock de un producto (total, reservado, disponible)
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <returns>Objeto con información de stock</returns>
+        public StockInfo ObtenerInfoStock(int productoId)
+        {
+            var parametros = new Hashtable { { "@ProductoId", productoId } };
+            DataTable dt = oCnx.Leer("ObtenerStockDisponible", parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+                return new StockInfo
+                {
+                    ProductoId = Convert.ToInt32(row["Id"]),
+                    StockTotal = Convert.ToDecimal(row["Stock"]),
+                    StockReservado = Convert.ToDecimal(row["StockReservado"]),
+                    StockDisponible = Convert.ToDecimal(row["StockDisponible"])
+                };
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Libera automáticamente reservas de ventas vencidas
+        /// </summary>
+        /// <param name="minutosVencimiento">Minutos después de los cuales una venta en proceso se considera vencida</param>
+        /// <returns>Información sobre las ventas canceladas</returns>
+        public ReservasLiberadas LiberarReservasVencidas(int minutosVencimiento = 30)
+        {
+            var parametros = new Hashtable { { "@MinutosVencimiento", minutosVencimiento } };
+            DataTable dt = oCnx.Leer("LiberarReservasVencidas", parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+                return new ReservasLiberadas
+                {
+                    VentasCanceladas = Convert.ToInt32(row["VentasCanceladas"]),
+                    ProductosLiberados = Convert.ToInt32(row["ProductosLiberados"]),
+                    CantidadTotalLiberada = Convert.ToDecimal(row["CantidadTotalLiberada"])
+                };
+            }
+            return new ReservasLiberadas();
+        }
+
         // Método para eliminar un producto y su asociación con el proveedor
         public void Eliminar(int productoId)
         {
@@ -303,6 +433,8 @@ namespace MPPs.Negocio
                 PrecioVenta = row["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(row["PrecioVenta"]),
                 Estado = Convert.ToBoolean(row["Estado"]),
                 Fecha = Convert.ToDateTime(row["Fecha"])
+                // Nota: StockReservado no se mapea a la clase Producto porque es información de gestión interna
+                // Para obtener esta información usar ObtenerInfoStock() que retorna StockInfo
             };
         }
     }

@@ -47,7 +47,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnVaciarCarrito = new System.Windows.Forms.Button();
             this.btnEliminarProducto = new System.Windows.Forms.Button();
-            this.dataGridViewDetalleCotizacion = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCarrito = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnConfirmarCarrito = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -68,16 +68,16 @@
             this.lblTxtFech = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTxtProducto = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericCantidadProducto = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAgregarACarrito = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btnAgregarACarrito_frmTramitarOrden = new System.Windows.Forms.Button();
+            this.cmbCategoriaProducto = new System.Windows.Forms.ComboBox();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCompra)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCarrito)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -86,7 +86,7 @@
             this.groupBox6.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCantidadProducto)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -104,7 +104,7 @@
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewDetalleCompra, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelListaProductos, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridViewDetalleCotizacion, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridViewCarrito, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnCerrar, 1, 2);
@@ -295,21 +295,21 @@
             this.btnEliminarProducto.Text = "Eliminar Producto";
             this.btnEliminarProducto.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewDetalleCotizacion
+            // dataGridViewCarrito
             // 
-            this.dataGridViewDetalleCotizacion.AllowUserToAddRows = false;
-            this.dataGridViewDetalleCotizacion.AllowUserToDeleteRows = false;
-            this.dataGridViewDetalleCotizacion.AllowUserToResizeColumns = false;
-            this.dataGridViewDetalleCotizacion.AllowUserToResizeRows = false;
+            this.dataGridViewCarrito.AllowUserToAddRows = false;
+            this.dataGridViewCarrito.AllowUserToDeleteRows = false;
+            this.dataGridViewCarrito.AllowUserToResizeColumns = false;
+            this.dataGridViewCarrito.AllowUserToResizeRows = false;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewDetalleCotizacion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewDetalleCotizacion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridViewCarrito.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewCarrito.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewDetalleCotizacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewDetalleCotizacion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewDetalleCotizacion.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewCarrito.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCarrito.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewCarrito.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.IndianRed;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -317,8 +317,8 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalleCotizacion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewDetalleCotizacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCarrito.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewCarrito.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -326,14 +326,14 @@
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDetalleCotizacion.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewDetalleCotizacion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewDetalleCotizacion.EnableHeadersVisualStyles = false;
-            this.dataGridViewDetalleCotizacion.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewDetalleCotizacion.Location = new System.Drawing.Point(881, 50);
-            this.dataGridViewDetalleCotizacion.MultiSelect = false;
-            this.dataGridViewDetalleCotizacion.Name = "dataGridViewDetalleCotizacion";
-            this.dataGridViewDetalleCotizacion.ReadOnly = true;
+            this.dataGridViewCarrito.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewCarrito.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewCarrito.EnableHeadersVisualStyles = false;
+            this.dataGridViewCarrito.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewCarrito.Location = new System.Drawing.Point(881, 50);
+            this.dataGridViewCarrito.MultiSelect = false;
+            this.dataGridViewCarrito.Name = "dataGridViewCarrito";
+            this.dataGridViewCarrito.ReadOnly = true;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -341,12 +341,12 @@
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDetalleCotizacion.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewDetalleCotizacion.RowHeadersVisible = false;
-            this.dataGridViewDetalleCotizacion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewDetalleCotizacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDetalleCotizacion.Size = new System.Drawing.Size(451, 332);
-            this.dataGridViewDetalleCotizacion.TabIndex = 86;
+            this.dataGridViewCarrito.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewCarrito.RowHeadersVisible = false;
+            this.dataGridViewCarrito.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewCarrito.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCarrito.Size = new System.Drawing.Size(451, 332);
+            this.dataGridViewCarrito.TabIndex = 86;
             // 
             // tableLayoutPanel3
             // 
@@ -420,6 +420,7 @@
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(225, 48);
             this.lblCliente.TabIndex = 87;
+            this.lblCliente.Tag = "lblCliente_frmTramitarOrden";
             this.lblCliente.Text = "-";
             this.lblCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -483,6 +484,7 @@
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(215, 34);
             this.lblTotal.TabIndex = 86;
+            this.lblTotal.Tag = "lblTotal_frmTramitarOrden";
             this.lblTotal.Text = "-";
             this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -556,6 +558,7 @@
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(233, 46);
             this.lblFecha.TabIndex = 84;
+            this.lblFecha.Tag = "lblFecha_frmTramitarOrden";
             this.lblFecha.Text = "-";
             this.lblFecha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -594,10 +597,10 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.lblTxtProducto, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.numericUpDown1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.numericCantidadProducto, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btnAgregarACarrito, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.comboBox1, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.btnAgregarACarrito_frmTramitarOrden, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.cmbCategoriaProducto, 1, 1);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 388);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
@@ -619,12 +622,13 @@
             this.lblTxtProducto.Tag = "lblTxtCategoriaProducto_frmTramitarOrden";
             this.lblTxtProducto.Text = "Categoria";
             // 
-            // numericUpDown1
+            // numericCantidadProducto
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 73);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 1;
+            this.numericCantidadProducto.Location = new System.Drawing.Point(3, 73);
+            this.numericCantidadProducto.Name = "numericCantidadProducto";
+            this.numericCantidadProducto.Size = new System.Drawing.Size(120, 20);
+            this.numericCantidadProducto.TabIndex = 1;
+            this.numericCantidadProducto.Tag = "numericCantidadProducto_frmTramitarOrden";
             // 
             // label1
             // 
@@ -638,31 +642,33 @@
             this.label1.Tag = "lblTxtCantidad_frmGestCoti";
             this.label1.Text = "Cantidad";
             // 
-            // btnAgregarACarrito
+            // btnAgregarACarrito_frmTramitarOrden
             // 
-            this.btnAgregarACarrito.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAgregarACarrito.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAgregarACarrito.FlatAppearance.BorderSize = 2;
-            this.btnAgregarACarrito.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnAgregarACarrito.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAgregarACarrito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarACarrito.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarACarrito.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAgregarACarrito.Location = new System.Drawing.Point(313, 153);
-            this.btnAgregarACarrito.Name = "btnAgregarACarrito";
-            this.btnAgregarACarrito.Size = new System.Drawing.Size(133, 44);
-            this.btnAgregarACarrito.TabIndex = 64;
-            this.btnAgregarACarrito.Tag = "btnAgregarALista__frmTramitarOrden";
-            this.btnAgregarACarrito.Text = "Agregar a lista";
-            this.btnAgregarACarrito.UseVisualStyleBackColor = true;
+            this.btnAgregarACarrito_frmTramitarOrden.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAgregarACarrito_frmTramitarOrden.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnAgregarACarrito_frmTramitarOrden.FlatAppearance.BorderSize = 2;
+            this.btnAgregarACarrito_frmTramitarOrden.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnAgregarACarrito_frmTramitarOrden.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnAgregarACarrito_frmTramitarOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarACarrito_frmTramitarOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarACarrito_frmTramitarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnAgregarACarrito_frmTramitarOrden.Location = new System.Drawing.Point(313, 153);
+            this.btnAgregarACarrito_frmTramitarOrden.Name = "btnAgregarACarrito_frmTramitarOrden";
+            this.btnAgregarACarrito_frmTramitarOrden.Size = new System.Drawing.Size(133, 44);
+            this.btnAgregarACarrito_frmTramitarOrden.TabIndex = 64;
+            this.btnAgregarACarrito_frmTramitarOrden.Tag = "btnAgregarACarrito__frmTramitarOrden";
+            this.btnAgregarACarrito_frmTramitarOrden.Text = "Agregar a carrito";
+            this.btnAgregarACarrito_frmTramitarOrden.UseVisualStyleBackColor = true;
+            this.btnAgregarACarrito_frmTramitarOrden.Click += new System.EventHandler(this.btnAgregarACarrito_Click);
             // 
-            // comboBox1
+            // cmbCategoriaProducto
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(256, 73);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 65;
+            this.cmbCategoriaProducto.FormattingEnabled = true;
+            this.cmbCategoriaProducto.Location = new System.Drawing.Point(256, 73);
+            this.cmbCategoriaProducto.Name = "cmbCategoriaProducto";
+            this.cmbCategoriaProducto.Size = new System.Drawing.Size(121, 21);
+            this.cmbCategoriaProducto.TabIndex = 65;
+            this.cmbCategoriaProducto.Tag = "cmbCategoriaProducto_frmTramitarOrden";
             // 
             // btnCerrar
             // 
@@ -699,7 +705,7 @@
             this.tableLayoutPanel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCompra)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleCotizacion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCarrito)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -709,7 +715,7 @@
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCantidadProducto)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -724,12 +730,12 @@
         internal System.Windows.Forms.DataGridView dataGridViewDetalleCompra;
         private System.Windows.Forms.Label labelListaProductos;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        internal System.Windows.Forms.DataGridView dataGridViewDetalleCotizacion;
+        internal System.Windows.Forms.DataGridView dataGridViewCarrito;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button btnAgregarACarrito;
+        private System.Windows.Forms.NumericUpDown numericCantidadProducto;
+        private System.Windows.Forms.Button btnAgregarACarrito_frmTramitarOrden;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Button btnEliminarProducto;
         private System.Windows.Forms.Button btnVaciarCarrito;
@@ -751,6 +757,6 @@
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.Label labelP1;
         private System.Windows.Forms.Label lblTxtCliente;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbCategoriaProducto;
     }
 }

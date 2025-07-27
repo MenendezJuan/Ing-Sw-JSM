@@ -16,5 +16,30 @@ namespace CheeseLogix.Negocio.Ventas
         {
             InitializeComponent();
         }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConfirmarPago_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImprimirTicket_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmCobroVenta_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

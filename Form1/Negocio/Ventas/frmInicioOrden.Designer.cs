@@ -58,7 +58,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxCompra = new System.Windows.Forms.GroupBox();
-            this.dataGridViewCotizaciones = new System.Windows.Forms.DataGridView();
+            this.dataGridViewOrdenVenta = new System.Windows.Forms.DataGridView();
             this.txtNombreCliente = new System.Windows.Forms.TextBox();
             this.labelNombreCliente = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
@@ -70,7 +70,7 @@
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBoxCompra.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrdenVenta)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -85,7 +85,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnCerrar, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblTitulo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, -2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
@@ -157,6 +157,7 @@
             this.btnIniciarOrden.Text = "Iniciar Orden de Venta";
             this.btnIniciarOrden.UseVisualStyleBackColor = true;
             this.btnIniciarOrden.Visible = false;
+            this.btnIniciarOrden.Click += new System.EventHandler(this.btnIniciarOrden_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -212,6 +213,7 @@
             this.btnReestablecer.Tag = "btnReestablecer_frmGestionCot";
             this.btnReestablecer.Text = "Reestablecer";
             this.btnReestablecer.UseVisualStyleBackColor = true;
+            this.btnReestablecer.Click += new System.EventHandler(this.btnReestablecer_Click);
             // 
             // btnBuscar
             // 
@@ -229,6 +231,7 @@
             this.btnBuscar.Tag = "btnBuscar_frmGestionCot";
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // dateTimePickerHasta
             // 
@@ -385,6 +388,7 @@
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // lblTitulo
             // 
@@ -423,28 +427,28 @@
             this.groupBoxCompra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxCompra.Controls.Add(this.dataGridViewCotizaciones);
+            this.groupBoxCompra.Controls.Add(this.dataGridViewOrdenVenta);
             this.groupBoxCompra.Location = new System.Drawing.Point(3, 3);
             this.groupBoxCompra.Name = "groupBoxCompra";
             this.groupBoxCompra.Size = new System.Drawing.Size(403, 271);
             this.groupBoxCompra.TabIndex = 83;
             this.groupBoxCompra.TabStop = false;
             // 
-            // dataGridViewCotizaciones
+            // dataGridViewOrdenVenta
             // 
-            this.dataGridViewCotizaciones.AllowUserToAddRows = false;
-            this.dataGridViewCotizaciones.AllowUserToDeleteRows = false;
-            this.dataGridViewCotizaciones.AllowUserToResizeColumns = false;
-            this.dataGridViewCotizaciones.AllowUserToResizeRows = false;
+            this.dataGridViewOrdenVenta.AllowUserToAddRows = false;
+            this.dataGridViewOrdenVenta.AllowUserToDeleteRows = false;
+            this.dataGridViewOrdenVenta.AllowUserToResizeColumns = false;
+            this.dataGridViewOrdenVenta.AllowUserToResizeRows = false;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewCotizaciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewCotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridViewOrdenVenta.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewOrdenVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewCotizaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCotizaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewCotizaciones.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewOrdenVenta.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewOrdenVenta.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewOrdenVenta.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.IndianRed;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -452,8 +456,8 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCotizaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewCotizaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOrdenVenta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewOrdenVenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -461,14 +465,14 @@
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewCotizaciones.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewCotizaciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewCotizaciones.EnableHeadersVisualStyles = false;
-            this.dataGridViewCotizaciones.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewCotizaciones.Location = new System.Drawing.Point(6, 11);
-            this.dataGridViewCotizaciones.MultiSelect = false;
-            this.dataGridViewCotizaciones.Name = "dataGridViewCotizaciones";
-            this.dataGridViewCotizaciones.ReadOnly = true;
+            this.dataGridViewOrdenVenta.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewOrdenVenta.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewOrdenVenta.EnableHeadersVisualStyles = false;
+            this.dataGridViewOrdenVenta.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dataGridViewOrdenVenta.Location = new System.Drawing.Point(6, 11);
+            this.dataGridViewOrdenVenta.MultiSelect = false;
+            this.dataGridViewOrdenVenta.Name = "dataGridViewOrdenVenta";
+            this.dataGridViewOrdenVenta.ReadOnly = true;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -476,12 +480,12 @@
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCotizaciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewCotizaciones.RowHeadersVisible = false;
-            this.dataGridViewCotizaciones.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewCotizaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCotizaciones.Size = new System.Drawing.Size(391, 253);
-            this.dataGridViewCotizaciones.TabIndex = 43;
+            this.dataGridViewOrdenVenta.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewOrdenVenta.RowHeadersVisible = false;
+            this.dataGridViewOrdenVenta.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridViewOrdenVenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewOrdenVenta.Size = new System.Drawing.Size(391, 253);
+            this.dataGridViewOrdenVenta.TabIndex = 43;
             // 
             // txtNombreCliente
             // 
@@ -513,6 +517,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmInicioOrden";
             this.Text = "frmInicioOrden";
+            this.Load += new System.EventHandler(this.frmInicioOrden_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -527,7 +532,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.groupBoxCompra.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCotizaciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrdenVenta)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -554,7 +559,7 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.GroupBox groupBoxCompra;
-        internal System.Windows.Forms.DataGridView dataGridViewCotizaciones;
+        internal System.Windows.Forms.DataGridView dataGridViewOrdenVenta;
         private System.Windows.Forms.Button btnIniciarOrden;
         private System.Windows.Forms.TextBox txtNombreCliente;
         private System.Windows.Forms.Label labelNombreCliente;
