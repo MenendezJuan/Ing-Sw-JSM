@@ -155,7 +155,7 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void ConfigurarDataGridProductos()
         {
-            // Configurar DataGridView de Productos (usando dataGridViewDetalleCompra según el designer)
+            // Configurar DataGridView de Productos (usando dataGridViewProductos según el designer)
             dataGridViewProductos.SelectionChanged += DataGridViewProductos_SelectionChanged;
             dataGridViewProductos.AutoGenerateColumns = false;
             dataGridViewProductos.Columns.Clear();
@@ -562,45 +562,6 @@ namespace CheeseLogix.Negocio.Ventas
 
         #region Confirmación de Compra
 
-        private void btnConfirmarCarrito_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Validaciones previas
-                if (_clienteActual == null)
-                {
-                    MessageBox.Show("No hay un cliente seleccionado para esta venta.", "Cliente requerido", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (_carrito.Count == 0)
-                {
-                    MessageBox.Show("No se pueden confirmar compras vacías. Agregue al menos un producto al carrito.", 
-                        "Carrito vacío", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Confirmar con el usuario
-                decimal total = _carrito.Sum(item => item.SubTotal);
-                var resultado = MessageBox.Show(
-                    $"¿Confirmar la venta?\n\nCliente: {_clienteActual.NombreCompleto}\nTotal: {total:C2}\nProductos: {_carrito.Count}", 
-                    "Confirmar venta", 
-                    MessageBoxButtons.YesNo, 
-                    MessageBoxIcon.Question);
-                
-                if (resultado == DialogResult.Yes)
-                {
-                    CrearVenta();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al confirmar la compra: {ex.Message}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void CrearVenta()
         {
             try
@@ -792,7 +753,41 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Validaciones previas
+                if (_clienteActual == null)
+                {
+                    MessageBox.Show("No hay un cliente seleccionado para esta venta.", "Cliente requerido", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                if (_carrito.Count == 0)
+                {
+                    MessageBox.Show("No se pueden confirmar compras vacías. Agregue al menos un producto al carrito.", 
+                        "Carrito vacío", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Confirmar con el usuario
+                decimal total = _carrito.Sum(item => item.SubTotal);
+                var resultado = MessageBox.Show(
+                    $"¿Confirmar la venta?\n\nCliente: {_clienteActual.NombreCompleto}\nTotal: {total:C2}\nProductos: {_carrito.Count}", 
+                    "Confirmar venta", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+                
+                if (resultado == DialogResult.Yes)
+                {
+                    CrearVenta();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al confirmar la compra: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 

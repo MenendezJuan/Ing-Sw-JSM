@@ -182,6 +182,7 @@
             this.cboxIdiomas.Size = new System.Drawing.Size(170, 28);
             this.cboxIdiomas.TabIndex = 49;
             this.cboxIdiomas.Tag = "Combobox_Idioma_FormIni";
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 

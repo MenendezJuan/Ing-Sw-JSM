@@ -41,5 +41,10 @@ namespace CheeseLogix.Negocio.Ventas
         {
 
         }
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

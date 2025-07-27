@@ -32,12 +32,17 @@ namespace CheeseLogix.Negocio.Ventas
 
         }
 
-        private void btnImprimirTicket_Click(object sender, EventArgs e)
+        private void frmCobroVenta_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void frmCobroVenta_Load(object sender, EventArgs e)
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkTicketAutomatico_CheckedChanged(object sender, EventArgs e)
         {
 
         }
