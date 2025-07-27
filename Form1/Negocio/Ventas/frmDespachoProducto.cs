@@ -68,11 +68,6 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnConfirmarEntrega_Click(object sender, EventArgs e)
         {
 
