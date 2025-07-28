@@ -153,7 +153,7 @@ namespace CheeseLogix
             AplicarEstiloBoton(btnComprasProductos);
             AplicarEstiloBoton(btnControl);
             AplicarEstiloBoton(btnCaja);
-            AplicarEstiloBoton(btnFacturar);
+            AplicarEstiloBoton(btnVentas);
             AplicarEstiloBoton(btnReportes);
             AplicarEstiloBoton(btnStockProductos);
         }
@@ -209,11 +209,6 @@ namespace CheeseLogix
         }
 
         private void btnCaja_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnFacturar_Click(object sender, EventArgs e)
         {
 
         }
@@ -515,6 +510,11 @@ namespace CheeseLogix
             {
                 menuStripPrincipal.Visible = true;
             }
+        }
+
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

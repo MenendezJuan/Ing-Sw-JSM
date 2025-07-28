@@ -456,6 +456,9 @@ namespace CheeseLogix.Negocio.Ventas
                     _carrito.Add(nuevoItem);
                 }
 
+                // Guardar información del producto antes de limpiar la selección
+                string nombreProducto = _productoSeleccionado.Nombre;
+                
                 // Actualizar vista del carrito
                 ActualizarVistaCarrito();
                 ActualizarTotal();
@@ -463,7 +466,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Limpiar selección
                 LimpiarSeleccionProducto();
                 
-                MessageBox.Show($"Producto agregado al carrito: {_productoSeleccionado.Nombre} x{cantidadSolicitada}", 
+                MessageBox.Show($"Producto agregado al carrito: {nombreProducto} x{cantidadSolicitada}", 
                     "Producto agregado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

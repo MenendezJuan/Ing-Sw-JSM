@@ -61,7 +61,7 @@
             this.buttonEntidades = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnCaja = new System.Windows.Forms.Button();
-            this.btnFacturar = new System.Windows.Forms.Button();
+            this.btnVentas = new System.Windows.Forms.Button();
             this.panelCotizaciones = new System.Windows.Forms.Panel();
             this.buttonEvaluarSolicitudes = new System.Windows.Forms.Button();
             this.buttonSolicitarCotizacion = new System.Windows.Forms.Button();
@@ -377,7 +377,7 @@
             this.panelSideMenu.Controls.Add(this.buttonEntidades);
             this.panelSideMenu.Controls.Add(this.btnReportes);
             this.panelSideMenu.Controls.Add(this.btnCaja);
-            this.panelSideMenu.Controls.Add(this.btnFacturar);
+            this.panelSideMenu.Controls.Add(this.btnVentas);
             this.panelSideMenu.Controls.Add(this.panelCotizaciones);
             this.panelSideMenu.Controls.Add(this.panelBottomMenu);
             this.panelSideMenu.Controls.Add(this.btnControl);
@@ -506,27 +506,27 @@
             this.btnCaja.UseVisualStyleBackColor = true;
             this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
             // 
-            // btnFacturar
+            // btnVentas
             // 
-            this.btnFacturar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnFacturar.Enabled = false;
-            this.btnFacturar.FlatAppearance.BorderSize = 0;
-            this.btnFacturar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnFacturar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnFacturar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFacturar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFacturar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnFacturar.Image = ((System.Drawing.Image)(resources.GetObject("btnFacturar.Image")));
-            this.btnFacturar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFacturar.Location = new System.Drawing.Point(0, 389);
-            this.btnFacturar.Name = "btnFacturar";
-            this.btnFacturar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFacturar.Size = new System.Drawing.Size(211, 45);
-            this.btnFacturar.TabIndex = 29;
-            this.btnFacturar.Tag = "btnFacturar_formPrincipal";
-            this.btnFacturar.Text = "Facturar";
-            this.btnFacturar.UseVisualStyleBackColor = true;
-            this.btnFacturar.Click += new System.EventHandler(this.btnFacturar_Click);
+            this.btnVentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVentas.Enabled = false;
+            this.btnVentas.FlatAppearance.BorderSize = 0;
+            this.btnVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentas.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
+            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVentas.Location = new System.Drawing.Point(0, 389);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnVentas.Size = new System.Drawing.Size(211, 45);
+            this.btnVentas.TabIndex = 29;
+            this.btnVentas.Tag = "btnVentas_formPrincipal";
+            this.btnVentas.Text = "Ventas";
+            this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
             // panelCotizaciones
             // 
@@ -756,7 +756,7 @@
         private System.Windows.Forms.Panel panelCotizaciones;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnCaja;
-        private System.Windows.Forms.Button btnFacturar;
+        private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button buttonSolicitarCotizacion;
         private System.Windows.Forms.Button btnControl;
         private System.Windows.Forms.Button btnStockProductos;

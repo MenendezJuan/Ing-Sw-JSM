@@ -37,6 +37,9 @@ namespace CheeseLogix.Negocio.Ventas
             dateTimePickerDesde.Value = DateTime.Now.AddDays(-30);
             dateTimePickerHasta.Value = DateTime.Now;
             
+            // Configurar validación de CUIT
+            ConfigurarValidacionCUIT();
+            
             CargarVentas();
             ConfigurarDataGrids();
             
@@ -55,8 +58,121 @@ namespace CheeseLogix.Negocio.Ventas
         {
             // Configuración adicional al cargar el formulario
             labelEstado.Text = "Estado: -";
-            LimpiarSeleccion();
+            SeleccionarPrimeraFila();
         }
+
+        #region Configuración de Validaciones
+
+        private void ConfigurarValidacionCUIT()
+        {
+            // Configurar eventos para validación de CUIT
+            txtCuitCliente.KeyPress += TxtCuitCliente_KeyPress;
+            txtCuitCliente.TextChanged += TxtCuitCliente_TextChanged;
+            txtCuitCliente.Leave += TxtCuitCliente_Leave;
+            
+            // Configurar tooltip de ayuda (más compatible que PlaceholderText)
+            ToolTip tooltipCuit = new ToolTip();
+            tooltipCuit.SetToolTip(txtCuitCliente, "Ingrese el CUIT del cliente (11 dígitos)\nEjemplo: 20123456789 o 20-12345678-9");
+        }
+
+        private void TxtCuitCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir solo números, backspace, delete y guión
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '-')
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Limitar longitud máxima (13 caracteres con guiones: XX-XXXXXXXX-X)
+            if (txtCuitCliente.Text.Length >= 13 && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtCuitCliente_TextChanged(object sender, EventArgs e)
+        {
+            // Limpiar colores de error mientras escribe
+            txtCuitCliente.BackColor = SystemColors.Window;
+        }
+
+        private void TxtCuitCliente_Leave(object sender, EventArgs e)
+        {
+            ValidarFormatoCUIT();
+        }
+
+        private bool ValidarFormatoCUIT()
+        {
+            string cuit = txtCuitCliente.Text.Trim();
+            
+            if (string.IsNullOrWhiteSpace(cuit))
+            {
+                return true; // Válido si está vacío (no es obligatorio hasta que presione el botón)
+            }
+
+            // Limpiar guiones para validación
+            string cuitLimpio = cuit.Replace("-", "").Replace(" ", "");
+
+            // Validar longitud (debe ser 11 dígitos)
+            if (cuitLimpio.Length != 11)
+            {
+                MostrarErrorCUIT("El CUIT debe tener 11 dígitos.");
+                return false;
+            }
+
+            // Validar que sean solo números
+            if (!cuitLimpio.All(char.IsDigit))
+            {
+                MostrarErrorCUIT("El CUIT debe contener solo números.");
+                return false;
+            }
+
+            // Validación básica de dígito verificador de CUIT argentino
+            if (!ValidarDigitoVerificadorCUIT(cuitLimpio))
+            {
+                MostrarErrorCUIT("El CUIT ingresado no es válido.");
+                return false;
+            }
+
+            // Si llegamos aquí, el CUIT es válido
+            txtCuitCliente.BackColor = SystemColors.Window;
+            return true;
+        }
+
+        private bool ValidarDigitoVerificadorCUIT(string cuit)
+        {
+            try
+            {
+                // Algoritmo de validación de CUIT argentino
+                int[] secuencia = { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
+                int suma = 0;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    suma += int.Parse(cuit[i].ToString()) * secuencia[i];
+                }
+
+                int resto = suma % 11;
+                int digitoVerificador = resto < 2 ? resto : 11 - resto;
+
+                return digitoVerificador == int.Parse(cuit[10].ToString());
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void MostrarErrorCUIT(string mensaje)
+        {
+            txtCuitCliente.BackColor = Color.LightPink;
+            // Opcional: mostrar tooltip con el error
+            ToolTip toolTip = new ToolTip();
+            toolTip.Show(mensaje, txtCuitCliente, 0, txtCuitCliente.Height, 3000);
+        }
+
+        #endregion
 
         #region Gestión de DataGridViews
 
@@ -66,6 +182,11 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewOrdenVenta.SelectionChanged += DataGridViewOrdenVenta_SelectionChanged;
             dataGridViewOrdenVenta.AutoGenerateColumns = false;
             dataGridViewOrdenVenta.Columns.Clear();
+            
+            // Configurar selección
+            dataGridViewOrdenVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewOrdenVenta.MultiSelect = false;
+            dataGridViewOrdenVenta.ReadOnly = true;
 
             // Configurar columnas para ventas
             dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn 
@@ -185,13 +306,28 @@ namespace CheeseLogix.Negocio.Ventas
                 .ToList();
 
             dataGridViewOrdenVenta.DataSource = ventasFiltradas;
-            LimpiarSeleccion();
+            
+            // Auto-seleccionar la primera fila si hay datos
+            SeleccionarPrimeraFila();
+        }
+
+        private void SeleccionarPrimeraFila()
+        {
+            if (dataGridViewOrdenVenta.Rows.Count > 0)
+            {
+                dataGridViewOrdenVenta.Rows[0].Selected = true;
+                dataGridViewOrdenVenta.CurrentCell = dataGridViewOrdenVenta.Rows[0].Cells[0];
+                
+                // Llamar manualmente al evento para asegurar que se actualice el estado
+                DataGridViewOrdenVenta_SelectionChanged(dataGridViewOrdenVenta, EventArgs.Empty);
+            }
         }
 
         private void DataGridViewOrdenVenta_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewOrdenVenta.CurrentRow?.DataBoundItem is Venta ventaSeleccionada)
+            if (dataGridViewOrdenVenta.SelectedRows.Count > 0)
             {
+                var ventaSeleccionada = (Venta)dataGridViewOrdenVenta.SelectedRows[0].DataBoundItem;
                 _ventaSeleccionada = ventaSeleccionada;
                 MostrarDetalleVenta(ventaSeleccionada);
                 ActualizarEstadoLabel(ventaSeleccionada.EstadoVentaEnum);
@@ -204,17 +340,14 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void MostrarDetalleVenta(Venta venta)
         {
-            try
+            if (venta == null)
             {
-                var detalles = _bllVenta.ObtenerDetallesPorVentaId(venta.Id);
-                dataGridViewDetalle.DataSource = detalles;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar los detalles: {ex.Message}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dataGridViewDetalle.DataSource = null;
+                return;
             }
+
+            var detalles = _bllVenta.ObtenerDetallesPorVentaId(venta.Id);
+            dataGridViewDetalle.DataSource = detalles;
         }
 
         private void ActualizarEstadoLabel(EstadoVenta estado)
@@ -315,19 +448,31 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                                 // Obtener CUIT del textbox
-                 string cuit = txtCuitCliente.Text.Trim();
+                // Obtener CUIT del textbox
+                string cuit = txtCuitCliente.Text.Trim();
                 
                 if (string.IsNullOrWhiteSpace(cuit))
                 {
-                                         MessageBox.Show("Por favor, ingrese el CUIT del cliente.", "CUIT requerido", 
-                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                     txtCuitCliente.Focus();
+                    MessageBox.Show("Por favor, ingrese el CUIT del cliente.", "CUIT requerido", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCuitCliente.Focus();
                     return;
                 }
 
-                // Buscar cliente por CUIT
-                var cliente = _bllCliente.BuscarPorCUIT(cuit);
+                // Validar formato de CUIT antes de continuar
+                if (!ValidarFormatoCUIT())
+                {
+                    MessageBox.Show("Por favor, ingrese un CUIT válido antes de continuar.", "CUIT inválido", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCuitCliente.Focus();
+                    return;
+                }
+
+                // Limpiar formato del CUIT para la búsqueda
+                string cuitLimpio = cuit.Replace("-", "").Replace(" ", "");
+
+                // Buscar cliente por CUIT (usar CUIT limpio)
+                var cliente = _bllCliente.BuscarPorCUIT(cuitLimpio);
                 
                 if (cliente != null)
                 {
@@ -340,23 +485,23 @@ namespace CheeseLogix.Negocio.Ventas
                     
                     if (resultado == DialogResult.Yes)
                     {
-                        // Redirigir a frmTramitarOrdenCarrito pasando el CUIT para que busque automáticamente
-                        var frmTramitar = new frmTramitarOrdenCarrito(cuit);
+                        // Redirigir a frmTramitarOrdenCarrito pasando el CUIT limpio para que busque automáticamente
+                        var frmTramitar = new frmTramitarOrdenCarrito(cuitLimpio);
                         
                         this.Hide();
                         frmTramitar.ShowDialog();
                         this.Show();
                         
-                                                 // Limpiar textbox y recargar ventas por si se creó una nueva
-                         txtCuitCliente.Clear();
-                         CargarVentas();
+                        // Limpiar textbox y recargar ventas por si se creó una nueva
+                        txtCuitCliente.Clear();
+                        CargarVentas();
                     }
                 }
                 else
                 {
                     // Cliente no encontrado - Preguntar si quiere agregarlo
                     var resultado = MessageBox.Show(
-                        $"No se encontró un cliente con CUIT '{cuit}' en nuestro sistema.\n\n¿Desea agregar este cliente?", 
+                        $"No se encontró un cliente con CUIT '{cuitLimpio}' en nuestro sistema.\n\n¿Desea agregar este cliente?", 
                         "Cliente no encontrado", 
                         MessageBoxButtons.YesNo, 
                         MessageBoxIcon.Question);
@@ -380,9 +525,9 @@ namespace CheeseLogix.Negocio.Ventas
                         MessageBox.Show("Por favor, elija un cliente válido o agregue el cliente al sistema.", 
                             "Cliente requerido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         
-                                                 // Limpiar textbox y mantener foco
-                         txtCuitCliente.Clear();
-                         txtCuitCliente.Focus();
+                        // Limpiar textbox y mantener foco
+                        txtCuitCliente.Clear();
+                        txtCuitCliente.Focus();
                     }
                 }
             }
@@ -391,9 +536,9 @@ namespace CheeseLogix.Negocio.Ventas
                 MessageBox.Show($"Error al buscar el cliente: {ex.Message}", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
-                                 // En caso de error, limpiar y mantener foco
-                 txtCuitCliente.Clear();
-                 txtCuitCliente.Focus();
+                // En caso de error, limpiar y mantener foco
+                txtCuitCliente.Clear();
+                txtCuitCliente.Focus();
             }
         }
 
