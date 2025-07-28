@@ -142,5 +142,50 @@ namespace Servicios
                 oCnx.Close(); // Cerrar la conexión
             }
         }
+
+        // Método para ejecutar comandos SQL directos (para backup/restore)
+        public bool EjecutarComandoSQL(string sqlCommand, int timeoutMinutos = 10)
+        {
+            try
+            {
+                oCnx.Open();
+                oCmd = new SqlCommand(sqlCommand, oCnx);
+                oCmd.CommandType = CommandType.Text; // Comando SQL directo
+                oCmd.CommandTimeout = timeoutMinutos * 60; // Convertir minutos a segundos
+                
+                oCmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("SQL Error: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oCnx.Close();
+            }
+        }
+
+        // Método para obtener información de la base de datos actual
+        public string ObtenerNombreBaseDatos()
+        {
+            try
+            {
+                oCnx.Open();
+                return oCnx.Database;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener nombre de base de datos: " + ex.Message, ex);
+            }
+            finally
+            {
+                oCnx.Close();
+            }
+        }
     }
 }

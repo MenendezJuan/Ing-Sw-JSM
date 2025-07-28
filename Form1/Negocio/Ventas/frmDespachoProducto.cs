@@ -314,7 +314,7 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                string directorioFirmas = Path.Combine(Application.StartupPath, "FirmadoConforme");
+                string directorioFirmas = @"C:\\FirmadoConforme";
                 string nombreArchivo = $"Conforme_Venta_{ventaId:D6}_{DateTime.Now:yyyyMMdd}.txt";
                 string rutaCompleta = Path.Combine(directorioFirmas, nombreArchivo);
 
@@ -370,7 +370,7 @@ namespace CheeseLogix.Negocio.Ventas
                 }
 
                 // Crear directorio si no existe
-                string directorioFirmas = Path.Combine(Application.StartupPath, "FirmadoConforme");
+                string directorioFirmas = @"C:\\FirmadoConforme";
                 if (!Directory.Exists(directorioFirmas))
                 {
                     Directory.CreateDirectory(directorioFirmas);

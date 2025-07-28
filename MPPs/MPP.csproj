@@ -49,6 +49,7 @@
     <Compile Include="Negocio\MPP_DETALLEVENTA.cs" />
     <Compile Include="Negocio\MPP_PRODUCTO.cs" />
     <Compile Include="Negocio\MPP_VENTA.cs" />
+    <Compile Include="Tecnica\MPP_BACKUP.cs" />
     <Compile Include="Tecnica\MPP_BITACORA.cs" />
     <Compile Include="Negocio\MPP_COMPRA.cs" />
     <Compile Include="Tecnica\MPP_IDIOMA.cs" />

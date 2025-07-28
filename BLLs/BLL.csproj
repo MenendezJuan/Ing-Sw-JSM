@@ -48,6 +48,7 @@
     <Compile Include="Negocio\BLL_PRODUCTO.cs" />
     <Compile Include="Negocio\BLL_PROVEEDOR.cs" />
     <Compile Include="Negocio\BLL_VENTA.cs" />
+    <Compile Include="Tecnica\BLL_BACKUP.cs" />
     <Compile Include="Tecnica\BLL_BITACORA.cs" />
     <Compile Include="Tecnica\BLL_IDIOMA.cs" />
     <Compile Include="Tecnica\BLL_PERMISO.cs" />

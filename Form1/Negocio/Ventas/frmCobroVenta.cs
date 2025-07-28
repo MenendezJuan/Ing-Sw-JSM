@@ -325,6 +325,9 @@ namespace CheeseLogix.Negocio.Ventas
                 _bllVenta.CambiarEstadoVenta(_ventaActual.Id, EstadoVenta.Cobrada);
                 _ventaActual.EstadoVentaEnum = EstadoVenta.Cobrada;
 
+                // Generar factura en PDF automáticamente
+                GenerarFactura();
+
                 // Actualizar vista
                 labelEstado.Text = ObtenerDescripcionEstado(EstadoVenta.Cobrada);
                 ActualizarColorEstado(EstadoVenta.Cobrada);
@@ -386,7 +389,7 @@ namespace CheeseLogix.Negocio.Ventas
             try
             {
                 // Crear directorio de facturas si no existe
-                string directorioFacturas = Path.Combine(Application.StartupPath, "Facturas");
+                string directorioFacturas = @"C:\\Facturas";
                 if (!Directory.Exists(directorioFacturas))
                 {
                     Directory.CreateDirectory(directorioFacturas);

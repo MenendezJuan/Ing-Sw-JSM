@@ -231,7 +231,15 @@ namespace CheeseLogix
 
         private void btnBackupRestore_Click(object sender, EventArgs e)
         {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
+            CheeseLogix.Tecnica.frmBackupRestore backupRestore = new CheeseLogix.Tecnica.frmBackupRestore();
 
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(backupRestore);
+                pForm.FormHijo(backupRestore);
+            }
+            backupRestore.Show();
         }
     }
 }
