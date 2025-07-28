@@ -140,6 +140,7 @@ namespace BLLs.Tecnica
                 throw new ArgumentException("El nombre del backup no puede superar los 50 caracteres.");
             }
 
+
             // Verificar caracteres inválidos para nombres de archivo
             char[] caracteresInvalidos = Path.GetInvalidFileNameChars();
             if (nombreBackup.IndexOfAny(caracteresInvalidos) >= 0)
