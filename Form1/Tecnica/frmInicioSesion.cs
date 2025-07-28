@@ -129,8 +129,8 @@ namespace CheeseLogix
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
                     MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
                     //frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
-                    //frmInicioOrden menuPrincipal = new frmInicioOrden();
-                    frmBackupRestore menuPrincipal = new frmBackupRestore();
+                    frmInicioOrden menuPrincipal = new frmInicioOrden();
+                    //frmBackupRestore menuPrincipal = new frmBackupRestore();
                     menuPrincipal.Show();
                     this.Hide();
                 }

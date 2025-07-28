@@ -144,19 +144,22 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                // Algoritmo de validación de CUIT argentino
-                int[] secuencia = { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
-                int suma = 0;
+                // Validar según tipo de persona/entidad
+                string prefijo = cuit.Substring(0, 2);
 
-                for (int i = 0; i < 10; i++)
+                switch (prefijo)
                 {
-                    suma += int.Parse(cuit[i].ToString()) * secuencia[i];
+                    case "20": // Hombre
+                        return cuit.EndsWith("2");
+                    case "27": // Mujer
+                        return cuit.EndsWith("4");
+                    case "30": // Empresa
+                    case "33":
+                    case "34":
+                        return true;
+                    default:
+                        return false;
                 }
-
-                int resto = suma % 11;
-                int digitoVerificador = resto < 2 ? resto : 11 - resto;
-
-                return digitoVerificador == int.Parse(cuit[10].ToString());
             }
             catch
             {

@@ -123,21 +123,40 @@ namespace BLLs.Negocio
             }
         }
 
-        // Método auxiliar para validar el formato del CUIT (básico)
+        // Método auxiliar para validar el formato del CUIT (reglas Argentina)
         private bool EsCUITValido(string cuit)
         {
             if (string.IsNullOrWhiteSpace(cuit))
                 return false;
 
             // Remover guiones si los tiene
-            cuit = cuit.Replace("-", "");
+            cuit = cuit.Replace("-", "").Replace(" ", "");
 
             // Verificar que tenga 11 dígitos
             if (cuit.Length != 11)
                 return false;
 
             // Verificar que todos sean números
-            return cuit.All(char.IsDigit);
+            if (!cuit.All(char.IsDigit))
+                return false;
+
+            // Obtener los primeros dos dígitos para validar el tipo
+            string prefijo = cuit.Substring(0, 2);
+
+            // Validar según tipo de persona/entidad
+            switch (prefijo)
+            {
+                case "20": // Hombre
+                    return cuit.EndsWith("2");
+                case "27": // Mujer
+                    return cuit.EndsWith("4");
+                case "30": // Empresa
+                case "33":
+                case "34":
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 } 

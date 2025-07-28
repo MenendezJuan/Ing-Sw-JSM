@@ -325,12 +325,13 @@ namespace CheeseLogix.Negocio.Ventas
                 _bllVenta.CambiarEstadoVenta(_ventaActual.Id, EstadoVenta.Cobrada);
                 _ventaActual.EstadoVentaEnum = EstadoVenta.Cobrada;
 
-                // Generar factura en PDF automáticamente
-                GenerarFactura();
-
+                // Generar factura en PDF con el estado ya actualizado
                 // Actualizar vista
                 labelEstado.Text = ObtenerDescripcionEstado(EstadoVenta.Cobrada);
                 ActualizarColorEstado(EstadoVenta.Cobrada);
+
+                // Generar factura con el estado correcto
+                GenerarFactura();
 
                 MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.",
                     "Pago confirmado", MessageBoxButtons.OK, MessageBoxIcon.Information);

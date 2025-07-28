@@ -129,7 +129,6 @@ namespace BLLs.Tecnica
                 throw new ArgumentException("El nombre del backup no puede estar vacío.");
             }
 
-
             if (nombreBackup.Length < 3)
             {
                 throw new ArgumentException("El nombre del backup debe tener al menos 3 caracteres.");
@@ -140,8 +139,6 @@ namespace BLLs.Tecnica
                 throw new ArgumentException("El nombre del backup no puede superar los 50 caracteres.");
             }
 
-
-            // Verificar caracteres inválidos para nombres de archivo
             char[] caracteresInvalidos = Path.GetInvalidFileNameChars();
             if (nombreBackup.IndexOfAny(caracteresInvalidos) >= 0)
             {
@@ -158,13 +155,11 @@ namespace BLLs.Tecnica
 
             try
             {
-                // Crear directorio si no existe
                 if (!Directory.Exists(directorioBackup))
                 {
                     Directory.CreateDirectory(directorioBackup);
                 }
 
-                // Verificar permisos de escritura
                 string archivoTest = Path.Combine(directorioBackup, "test_permissions.tmp");
                 File.WriteAllText(archivoTest, "test");
                 File.Delete(archivoTest);
@@ -198,12 +193,11 @@ namespace BLLs.Tecnica
                 throw new InvalidOperationException("El archivo de backup está vacío o corrupto.");
             }
 
-            // Verificar que el archivo no esté en uso
             try
             {
                 using (FileStream fs = File.OpenRead(rutaBackup))
                 {
-                    // Si puede abrir el archivo, no está en uso
+
                 }
             }
             catch (IOException ex)
