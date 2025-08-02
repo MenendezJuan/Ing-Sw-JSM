@@ -233,12 +233,8 @@ namespace CheeseLogix
         {
             frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
             CheeseLogix.Tecnica.frmBackupRestore backupRestore = new CheeseLogix.Tecnica.frmBackupRestore();
-
-            if (pForm != null)
-            {
-                pForm.AddOwnedForm(backupRestore);
-                pForm.FormHijo(backupRestore);
-            }
+            pForm.AddOwnedForm(backupRestore);
+            pForm.FormHijo(backupRestore);
             backupRestore.Show();
         }
     }

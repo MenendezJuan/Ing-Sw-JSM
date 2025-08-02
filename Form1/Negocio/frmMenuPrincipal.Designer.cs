@@ -55,22 +55,27 @@
             this.labelDate = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panelSideMenu = new System.Windows.Forms.Panel();
-            this.btnAdministracion = new FontAwesome.Sharp.IconButton();
-            this.PanelEntidades = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelBottomMenu = new System.Windows.Forms.Panel();
+            this.PanelEntidades = new System.Windows.Forms.Panel();
             this.buttonGestionarProveedores = new System.Windows.Forms.Button();
-            this.buttonEntidades = new System.Windows.Forms.Button();
-            this.btnReportes = new System.Windows.Forms.Button();
-            this.btnCaja = new System.Windows.Forms.Button();
-            this.btnVentas = new System.Windows.Forms.Button();
+            this.buttonGestionarClientes = new System.Windows.Forms.Button();
+            this.panelCaja = new System.Windows.Forms.Panel();
+            this.btnCobrarVenta = new System.Windows.Forms.Button();
+            this.panelInsumos = new System.Windows.Forms.Panel();
+            this.btnDespachoProducto = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnComprasProductos = new System.Windows.Forms.Button();
+            this.btnStockProductos = new System.Windows.Forms.Button();
+            this.btnControl = new System.Windows.Forms.Button();
+            this.btnProductos = new System.Windows.Forms.Button();
+            this.btnGestionProducto = new System.Windows.Forms.Button();
             this.panelCotizaciones = new System.Windows.Forms.Panel();
             this.buttonEvaluarSolicitudes = new System.Windows.Forms.Button();
             this.buttonSolicitarCotizacion = new System.Windows.Forms.Button();
-            this.panelBottomMenu = new System.Windows.Forms.Panel();
-            this.btnControl = new System.Windows.Forms.Button();
-            this.panelInsumos = new System.Windows.Forms.Panel();
-            this.btnComprasProductos = new System.Windows.Forms.Button();
-            this.btnStockProductos = new System.Windows.Forms.Button();
-            this.btnProductos = new System.Windows.Forms.Button();
+            this.btnAdministracion = new FontAwesome.Sharp.IconButton();
+            this.btnCaja = new System.Windows.Forms.Button();
+            this.buttonEntidades = new System.Windows.Forms.Button();
+            this.btnReportes = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelMain.SuspendLayout();
@@ -82,8 +87,9 @@
             this.panelDateHour.SuspendLayout();
             this.panelSideMenu.SuspendLayout();
             this.PanelEntidades.SuspendLayout();
-            this.panelCotizaciones.SuspendLayout();
+            this.panelCaja.SuspendLayout();
             this.panelInsumos.SuspendLayout();
+            this.panelCotizaciones.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
@@ -372,55 +378,43 @@
             // 
             this.panelSideMenu.AutoScroll = true;
             this.panelSideMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelSideMenu.Controls.Add(this.btnAdministracion);
-            this.panelSideMenu.Controls.Add(this.PanelEntidades);
-            this.panelSideMenu.Controls.Add(this.buttonEntidades);
-            this.panelSideMenu.Controls.Add(this.btnReportes);
-            this.panelSideMenu.Controls.Add(this.btnCaja);
-            this.panelSideMenu.Controls.Add(this.btnVentas);
-            this.panelSideMenu.Controls.Add(this.panelCotizaciones);
             this.panelSideMenu.Controls.Add(this.panelBottomMenu);
-            this.panelSideMenu.Controls.Add(this.btnControl);
+            this.panelSideMenu.Controls.Add(this.PanelEntidades);
+            this.panelSideMenu.Controls.Add(this.panelCaja);
             this.panelSideMenu.Controls.Add(this.panelInsumos);
+            this.panelSideMenu.Controls.Add(this.btnControl);
             this.panelSideMenu.Controls.Add(this.btnProductos);
             this.panelSideMenu.Controls.Add(this.panelLogo);
+            this.panelSideMenu.Controls.Add(this.btnGestionProducto);
+            this.panelSideMenu.Controls.Add(this.panelCotizaciones);
+            this.panelSideMenu.Controls.Add(this.btnAdministracion);
+            this.panelSideMenu.Controls.Add(this.btnCaja);
+            this.panelSideMenu.Controls.Add(this.buttonEntidades);
+            this.panelSideMenu.Controls.Add(this.btnReportes);
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSideMenu.Name = "panelSideMenu";
             this.panelSideMenu.Size = new System.Drawing.Size(228, 578);
             this.panelSideMenu.TabIndex = 2;
             // 
-            // btnAdministracion
+            // panelBottomMenu
             // 
-            this.btnAdministracion.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAdministracion.FlatAppearance.BorderSize = 0;
-            this.btnAdministracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdministracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-            this.btnAdministracion.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnAdministracion.IconChar = FontAwesome.Sharp.IconChar.AddressCard;
-            this.btnAdministracion.IconColor = System.Drawing.Color.Firebrick;
-            this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAdministracion.IconSize = 35;
-            this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministracion.Location = new System.Drawing.Point(0, 614);
-            this.btnAdministracion.Name = "btnAdministracion";
-            this.btnAdministracion.Size = new System.Drawing.Size(211, 36);
-            this.btnAdministracion.TabIndex = 34;
-            this.btnAdministracion.Tag = "btnAdministracion_formPrincipal";
-            this.btnAdministracion.Text = "Administracion";
-            this.btnAdministracion.UseVisualStyleBackColor = true;
-            this.btnAdministracion.Visible = false;
-            this.btnAdministracion.Click += new System.EventHandler(this.btnAdministracion_Click);
+            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomMenu.Location = new System.Drawing.Point(0, 837);
+            this.panelBottomMenu.Name = "panelBottomMenu";
+            this.panelBottomMenu.Size = new System.Drawing.Size(229, 89);
+            this.panelBottomMenu.TabIndex = 24;
             // 
             // PanelEntidades
             // 
             this.PanelEntidades.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
             this.PanelEntidades.Controls.Add(this.buttonGestionarProveedores);
-            this.PanelEntidades.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelEntidades.Location = new System.Drawing.Point(0, 569);
+            this.PanelEntidades.Controls.Add(this.buttonGestionarClientes);
+            this.PanelEntidades.Location = new System.Drawing.Point(1, 668);
             this.PanelEntidades.Name = "PanelEntidades";
-            this.PanelEntidades.Size = new System.Drawing.Size(211, 45);
-            this.PanelEntidades.TabIndex = 4;
+            this.PanelEntidades.Size = new System.Drawing.Size(226, 92);
+            this.PanelEntidades.TabIndex = 17;
             // 
             // buttonGestionarProveedores
             // 
@@ -428,10 +422,10 @@
             this.buttonGestionarProveedores.FlatAppearance.BorderSize = 0;
             this.buttonGestionarProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGestionarProveedores.ForeColor = System.Drawing.Color.LightGray;
-            this.buttonGestionarProveedores.Location = new System.Drawing.Point(3, 3);
+            this.buttonGestionarProveedores.Location = new System.Drawing.Point(0, 45);
             this.buttonGestionarProveedores.Name = "buttonGestionarProveedores";
             this.buttonGestionarProveedores.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonGestionarProveedores.Size = new System.Drawing.Size(211, 42);
+            this.buttonGestionarProveedores.Size = new System.Drawing.Size(226, 42);
             this.buttonGestionarProveedores.TabIndex = 7;
             this.buttonGestionarProveedores.Tag = "btnGestionProv_formPrincipal";
             this.buttonGestionarProveedores.Text = "Gestion Proveedores";
@@ -440,182 +434,93 @@
             this.buttonGestionarProveedores.Visible = false;
             this.buttonGestionarProveedores.Click += new System.EventHandler(this.buttonGestionarProveedores_Click);
             // 
-            // buttonEntidades
+            // buttonGestionarClientes
             // 
-            this.buttonEntidades.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonEntidades.FlatAppearance.BorderSize = 0;
-            this.buttonEntidades.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonEntidades.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.buttonEntidades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonEntidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEntidades.ForeColor = System.Drawing.Color.Gainsboro;
-            this.buttonEntidades.Image = ((System.Drawing.Image)(resources.GetObject("buttonEntidades.Image")));
-            this.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonEntidades.Location = new System.Drawing.Point(0, 524);
-            this.buttonEntidades.Name = "buttonEntidades";
-            this.buttonEntidades.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.buttonEntidades.Size = new System.Drawing.Size(211, 45);
-            this.buttonEntidades.TabIndex = 32;
-            this.buttonEntidades.Tag = "btnEntidades_formPrincipal";
-            this.buttonEntidades.Text = "Entidades";
-            this.buttonEntidades.UseVisualStyleBackColor = true;
-            this.buttonEntidades.Visible = false;
-            this.buttonEntidades.Click += new System.EventHandler(this.buttonEntidades_Click);
+            this.buttonGestionarClientes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonGestionarClientes.FlatAppearance.BorderSize = 0;
+            this.buttonGestionarClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGestionarClientes.ForeColor = System.Drawing.Color.LightGray;
+            this.buttonGestionarClientes.Location = new System.Drawing.Point(0, 0);
+            this.buttonGestionarClientes.Name = "buttonGestionarClientes";
+            this.buttonGestionarClientes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonGestionarClientes.Size = new System.Drawing.Size(226, 45);
+            this.buttonGestionarClientes.TabIndex = 4;
+            this.buttonGestionarClientes.Tag = "btnGestionClientes_formPrincipal";
+            this.buttonGestionarClientes.Text = "Gestion Clientes";
+            this.buttonGestionarClientes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonGestionarClientes.UseVisualStyleBackColor = true;
+            this.buttonGestionarClientes.Visible = false;
             // 
-            // btnReportes
+            // panelCaja
             // 
-            this.btnReportes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnReportes.Enabled = false;
-            this.btnReportes.FlatAppearance.BorderSize = 0;
-            this.btnReportes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnReportes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReportes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
-            this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(0, 479);
-            this.btnReportes.Name = "btnReportes";
-            this.btnReportes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnReportes.Size = new System.Drawing.Size(211, 45);
-            this.btnReportes.TabIndex = 31;
-            this.btnReportes.Tag = "btnReportes_formPrincipal";
-            this.btnReportes.Text = "Reportes";
-            this.btnReportes.UseVisualStyleBackColor = true;
-            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            this.panelCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelCaja.Controls.Add(this.btnCobrarVenta);
+            this.panelCaja.Location = new System.Drawing.Point(0, 575);
+            this.panelCaja.Name = "panelCaja";
+            this.panelCaja.Size = new System.Drawing.Size(228, 48);
+            this.panelCaja.TabIndex = 26;
             // 
-            // btnCaja
+            // btnCobrarVenta
             // 
-            this.btnCaja.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCaja.Enabled = false;
-            this.btnCaja.FlatAppearance.BorderSize = 0;
-            this.btnCaja.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCaja.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCaja.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
-            this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCaja.Location = new System.Drawing.Point(0, 434);
-            this.btnCaja.Name = "btnCaja";
-            this.btnCaja.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnCaja.Size = new System.Drawing.Size(211, 45);
-            this.btnCaja.TabIndex = 30;
-            this.btnCaja.Tag = "btnCaja_formPrincipal";
-            this.btnCaja.Text = "Caja";
-            this.btnCaja.UseVisualStyleBackColor = true;
-            this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
-            // 
-            // btnVentas
-            // 
-            this.btnVentas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnVentas.Enabled = false;
-            this.btnVentas.FlatAppearance.BorderSize = 0;
-            this.btnVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVentas.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
-            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(0, 389);
-            this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnVentas.Size = new System.Drawing.Size(211, 45);
-            this.btnVentas.TabIndex = 29;
-            this.btnVentas.Tag = "btnVentas_formPrincipal";
-            this.btnVentas.Text = "Ventas";
-            this.btnVentas.UseVisualStyleBackColor = true;
-            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
-            // 
-            // panelCotizaciones
-            // 
-            this.panelCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelCotizaciones.Controls.Add(this.buttonEvaluarSolicitudes);
-            this.panelCotizaciones.Controls.Add(this.buttonSolicitarCotizacion);
-            this.panelCotizaciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCotizaciones.Location = new System.Drawing.Point(0, 306);
-            this.panelCotizaciones.Name = "panelCotizaciones";
-            this.panelCotizaciones.Size = new System.Drawing.Size(211, 83);
-            this.panelCotizaciones.TabIndex = 25;
-            // 
-            // buttonEvaluarSolicitudes
-            // 
-            this.buttonEvaluarSolicitudes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonEvaluarSolicitudes.FlatAppearance.BorderSize = 0;
-            this.buttonEvaluarSolicitudes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonEvaluarSolicitudes.ForeColor = System.Drawing.Color.LightGray;
-            this.buttonEvaluarSolicitudes.Location = new System.Drawing.Point(0, 45);
-            this.buttonEvaluarSolicitudes.Name = "buttonEvaluarSolicitudes";
-            this.buttonEvaluarSolicitudes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonEvaluarSolicitudes.Size = new System.Drawing.Size(211, 38);
-            this.buttonEvaluarSolicitudes.TabIndex = 7;
-            this.buttonEvaluarSolicitudes.Tag = "btnEvaluarCotizacion_formPrincipal";
-            this.buttonEvaluarSolicitudes.Text = "Evaluar Cotizaciones";
-            this.buttonEvaluarSolicitudes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonEvaluarSolicitudes.UseVisualStyleBackColor = true;
-            this.buttonEvaluarSolicitudes.Visible = false;
-            this.buttonEvaluarSolicitudes.Click += new System.EventHandler(this.buttonEvaluarSolicitudes_Click);
-            // 
-            // buttonSolicitarCotizacion
-            // 
-            this.buttonSolicitarCotizacion.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSolicitarCotizacion.FlatAppearance.BorderSize = 0;
-            this.buttonSolicitarCotizacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSolicitarCotizacion.ForeColor = System.Drawing.Color.LightGray;
-            this.buttonSolicitarCotizacion.Location = new System.Drawing.Point(0, 0);
-            this.buttonSolicitarCotizacion.Name = "buttonSolicitarCotizacion";
-            this.buttonSolicitarCotizacion.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonSolicitarCotizacion.Size = new System.Drawing.Size(211, 45);
-            this.buttonSolicitarCotizacion.TabIndex = 6;
-            this.buttonSolicitarCotizacion.Tag = "btnSolicitarCotizacion_formPrincipal";
-            this.buttonSolicitarCotizacion.Text = "Solicitar Cotizaciones";
-            this.buttonSolicitarCotizacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSolicitarCotizacion.UseVisualStyleBackColor = true;
-            this.buttonSolicitarCotizacion.Visible = false;
-            this.buttonSolicitarCotizacion.Click += new System.EventHandler(this.buttonSolicitarCotizacion_Click);
-            // 
-            // panelBottomMenu
-            // 
-            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomMenu.Location = new System.Drawing.Point(0, 650);
-            this.panelBottomMenu.Name = "panelBottomMenu";
-            this.panelBottomMenu.Size = new System.Drawing.Size(211, 89);
-            this.panelBottomMenu.TabIndex = 24;
-            // 
-            // btnControl
-            // 
-            this.btnControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnControl.FlatAppearance.BorderSize = 0;
-            this.btnControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnControl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnControl.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnControl.Image = ((System.Drawing.Image)(resources.GetObject("btnControl.Image")));
-            this.btnControl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnControl.Location = new System.Drawing.Point(0, 261);
-            this.btnControl.Name = "btnControl";
-            this.btnControl.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnControl.Size = new System.Drawing.Size(211, 45);
-            this.btnControl.TabIndex = 17;
-            this.btnControl.Tag = "btnCotizaciones_formPrincipal";
-            this.btnControl.Text = "Cotizaciones";
-            this.btnControl.UseVisualStyleBackColor = true;
-            this.btnControl.Visible = false;
-            this.btnControl.Click += new System.EventHandler(this.btnControl_Click);
+            this.btnCobrarVenta.FlatAppearance.BorderSize = 0;
+            this.btnCobrarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCobrarVenta.ForeColor = System.Drawing.Color.LightGray;
+            this.btnCobrarVenta.Location = new System.Drawing.Point(-1, 0);
+            this.btnCobrarVenta.Name = "btnCobrarVenta";
+            this.btnCobrarVenta.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnCobrarVenta.Size = new System.Drawing.Size(228, 45);
+            this.btnCobrarVenta.TabIndex = 6;
+            this.btnCobrarVenta.Tag = "btnCobrarVenta_formPrincipal";
+            this.btnCobrarVenta.Text = "Cobrar";
+            this.btnCobrarVenta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCobrarVenta.UseVisualStyleBackColor = true;
+            this.btnCobrarVenta.Visible = false;
             // 
             // panelInsumos
             // 
             this.panelInsumos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelInsumos.Controls.Add(this.btnDespachoProducto);
+            this.panelInsumos.Controls.Add(this.button1);
             this.panelInsumos.Controls.Add(this.btnComprasProductos);
             this.panelInsumos.Controls.Add(this.btnStockProductos);
-            this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInsumos.Location = new System.Drawing.Point(0, 164);
+            this.panelInsumos.Location = new System.Drawing.Point(0, 345);
             this.panelInsumos.Name = "panelInsumos";
-            this.panelInsumos.Size = new System.Drawing.Size(211, 97);
+            this.panelInsumos.Size = new System.Drawing.Size(226, 181);
             this.panelInsumos.TabIndex = 16;
+            // 
+            // btnDespachoProducto
+            // 
+            this.btnDespachoProducto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDespachoProducto.FlatAppearance.BorderSize = 0;
+            this.btnDespachoProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDespachoProducto.ForeColor = System.Drawing.Color.LightGray;
+            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 135);
+            this.btnDespachoProducto.Name = "btnDespachoProducto";
+            this.btnDespachoProducto.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnDespachoProducto.Size = new System.Drawing.Size(226, 45);
+            this.btnDespachoProducto.TabIndex = 8;
+            this.btnDespachoProducto.Tag = "btnDespachoProducto_formPrincipal";
+            this.btnDespachoProducto.Text = "Despachar Productos";
+            this.btnDespachoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDespachoProducto.UseVisualStyleBackColor = true;
+            this.btnDespachoProducto.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.LightGray;
+            this.button1.Location = new System.Drawing.Point(0, 90);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(226, 45);
+            this.button1.TabIndex = 7;
+            this.button1.Tag = "btnCobrarVenta_formPrincipal";
+            this.button1.Text = "Cobrar";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // btnComprasProductos
             // 
@@ -626,7 +531,7 @@
             this.btnComprasProductos.Location = new System.Drawing.Point(0, 45);
             this.btnComprasProductos.Name = "btnComprasProductos";
             this.btnComprasProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnComprasProductos.Size = new System.Drawing.Size(211, 52);
+            this.btnComprasProductos.Size = new System.Drawing.Size(226, 45);
             this.btnComprasProductos.TabIndex = 4;
             this.btnComprasProductos.Tag = "btnCompras_formPrincipal";
             this.btnComprasProductos.Text = "Compras";
@@ -644,7 +549,7 @@
             this.btnStockProductos.Location = new System.Drawing.Point(0, 0);
             this.btnStockProductos.Name = "btnStockProductos";
             this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnStockProductos.Size = new System.Drawing.Size(211, 45);
+            this.btnStockProductos.Size = new System.Drawing.Size(226, 45);
             this.btnStockProductos.TabIndex = 2;
             this.btnStockProductos.Tag = "btnStock_formPrincipal";
             this.btnStockProductos.Text = "Stock";
@@ -652,6 +557,28 @@
             this.btnStockProductos.UseVisualStyleBackColor = true;
             this.btnStockProductos.Visible = false;
             this.btnStockProductos.Click += new System.EventHandler(this.btnStockProductos_Click);
+            // 
+            // btnControl
+            // 
+            this.btnControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnControl.FlatAppearance.BorderSize = 0;
+            this.btnControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnControl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnControl.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnControl.Image = ((System.Drawing.Image)(resources.GetObject("btnControl.Image")));
+            this.btnControl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnControl.Location = new System.Drawing.Point(0, 164);
+            this.btnControl.Name = "btnControl";
+            this.btnControl.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnControl.Size = new System.Drawing.Size(229, 45);
+            this.btnControl.TabIndex = 17;
+            this.btnControl.Tag = "btnCotizaciones_formPrincipal";
+            this.btnControl.Text = "Cotizaciones";
+            this.btnControl.UseVisualStyleBackColor = true;
+            this.btnControl.Visible = false;
+            this.btnControl.Click += new System.EventHandler(this.btnControl_Click);
             // 
             // btnProductos
             // 
@@ -667,7 +594,7 @@
             this.btnProductos.Location = new System.Drawing.Point(0, 119);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnProductos.Size = new System.Drawing.Size(211, 45);
+            this.btnProductos.Size = new System.Drawing.Size(229, 45);
             this.btnProductos.TabIndex = 15;
             this.btnProductos.Tag = "btnProducto_formPrincipal";
             this.btnProductos.Text = "Productos";
@@ -675,13 +602,164 @@
             this.btnProductos.Visible = false;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
+            // btnGestionProducto
+            // 
+            this.btnGestionProducto.Enabled = false;
+            this.btnGestionProducto.FlatAppearance.BorderSize = 0;
+            this.btnGestionProducto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnGestionProducto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnGestionProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGestionProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGestionProducto.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnGestionProducto.Image = ((System.Drawing.Image)(resources.GetObject("btnGestionProducto.Image")));
+            this.btnGestionProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGestionProducto.Location = new System.Drawing.Point(0, 297);
+            this.btnGestionProducto.Name = "btnGestionProducto";
+            this.btnGestionProducto.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnGestionProducto.Size = new System.Drawing.Size(228, 44);
+            this.btnGestionProducto.TabIndex = 29;
+            this.btnGestionProducto.Tag = "btnGestionProductos_formPrincipal";
+            this.btnGestionProducto.Text = "Gestion Productos";
+            this.btnGestionProducto.UseVisualStyleBackColor = true;
+            this.btnGestionProducto.Click += new System.EventHandler(this.btnVentas_Click);
+            // 
+            // panelCotizaciones
+            // 
+            this.panelCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelCotizaciones.Controls.Add(this.buttonEvaluarSolicitudes);
+            this.panelCotizaciones.Controls.Add(this.buttonSolicitarCotizacion);
+            this.panelCotizaciones.Location = new System.Drawing.Point(1, 208);
+            this.panelCotizaciones.Name = "panelCotizaciones";
+            this.panelCotizaciones.Size = new System.Drawing.Size(228, 83);
+            this.panelCotizaciones.TabIndex = 25;
+            // 
+            // buttonEvaluarSolicitudes
+            // 
+            this.buttonEvaluarSolicitudes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonEvaluarSolicitudes.FlatAppearance.BorderSize = 0;
+            this.buttonEvaluarSolicitudes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEvaluarSolicitudes.ForeColor = System.Drawing.Color.LightGray;
+            this.buttonEvaluarSolicitudes.Location = new System.Drawing.Point(0, 45);
+            this.buttonEvaluarSolicitudes.Name = "buttonEvaluarSolicitudes";
+            this.buttonEvaluarSolicitudes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonEvaluarSolicitudes.Size = new System.Drawing.Size(228, 38);
+            this.buttonEvaluarSolicitudes.TabIndex = 7;
+            this.buttonEvaluarSolicitudes.Tag = "btnEvaluarCotizacion_formPrincipal";
+            this.buttonEvaluarSolicitudes.Text = "Evaluar Cotizaciones";
+            this.buttonEvaluarSolicitudes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEvaluarSolicitudes.UseVisualStyleBackColor = true;
+            this.buttonEvaluarSolicitudes.Visible = false;
+            this.buttonEvaluarSolicitudes.Click += new System.EventHandler(this.buttonEvaluarSolicitudes_Click);
+            // 
+            // buttonSolicitarCotizacion
+            // 
+            this.buttonSolicitarCotizacion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSolicitarCotizacion.FlatAppearance.BorderSize = 0;
+            this.buttonSolicitarCotizacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSolicitarCotizacion.ForeColor = System.Drawing.Color.LightGray;
+            this.buttonSolicitarCotizacion.Location = new System.Drawing.Point(0, 0);
+            this.buttonSolicitarCotizacion.Name = "buttonSolicitarCotizacion";
+            this.buttonSolicitarCotizacion.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonSolicitarCotizacion.Size = new System.Drawing.Size(228, 45);
+            this.buttonSolicitarCotizacion.TabIndex = 6;
+            this.buttonSolicitarCotizacion.Tag = "btnSolicitarCotizacion_formPrincipal";
+            this.buttonSolicitarCotizacion.Text = "Solicitar Cotizaciones";
+            this.buttonSolicitarCotizacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonSolicitarCotizacion.UseVisualStyleBackColor = true;
+            this.buttonSolicitarCotizacion.Visible = false;
+            this.buttonSolicitarCotizacion.Click += new System.EventHandler(this.buttonSolicitarCotizacion_Click);
+            // 
+            // btnAdministracion
+            // 
+            this.btnAdministracion.FlatAppearance.BorderSize = 0;
+            this.btnAdministracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdministracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            this.btnAdministracion.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnAdministracion.IconChar = FontAwesome.Sharp.IconChar.AddressCard;
+            this.btnAdministracion.IconColor = System.Drawing.Color.Firebrick;
+            this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAdministracion.IconSize = 35;
+            this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdministracion.Location = new System.Drawing.Point(-1, 799);
+            this.btnAdministracion.Name = "btnAdministracion";
+            this.btnAdministracion.Size = new System.Drawing.Size(228, 38);
+            this.btnAdministracion.TabIndex = 34;
+            this.btnAdministracion.Tag = "btnAdministracion_formPrincipal";
+            this.btnAdministracion.Text = "Administracion";
+            this.btnAdministracion.UseVisualStyleBackColor = true;
+            this.btnAdministracion.Visible = false;
+            this.btnAdministracion.Click += new System.EventHandler(this.btnAdministracion_Click);
+            // 
+            // btnCaja
+            // 
+            this.btnCaja.Enabled = false;
+            this.btnCaja.FlatAppearance.BorderSize = 0;
+            this.btnCaja.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCaja.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCaja.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
+            this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCaja.Location = new System.Drawing.Point(0, 528);
+            this.btnCaja.Name = "btnCaja";
+            this.btnCaja.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnCaja.Size = new System.Drawing.Size(228, 45);
+            this.btnCaja.TabIndex = 30;
+            this.btnCaja.Tag = "btnCaja_formPrincipal";
+            this.btnCaja.Text = "Caja";
+            this.btnCaja.UseVisualStyleBackColor = true;
+            this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
+            // 
+            // buttonEntidades
+            // 
+            this.buttonEntidades.FlatAppearance.BorderSize = 0;
+            this.buttonEntidades.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonEntidades.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.buttonEntidades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEntidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEntidades.ForeColor = System.Drawing.Color.Gainsboro;
+            this.buttonEntidades.Image = ((System.Drawing.Image)(resources.GetObject("buttonEntidades.Image")));
+            this.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEntidades.Location = new System.Drawing.Point(-3, 625);
+            this.buttonEntidades.Name = "buttonEntidades";
+            this.buttonEntidades.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.buttonEntidades.Size = new System.Drawing.Size(228, 42);
+            this.buttonEntidades.TabIndex = 32;
+            this.buttonEntidades.Tag = "btnEntidades_formPrincipal";
+            this.buttonEntidades.Text = "Entidades";
+            this.buttonEntidades.UseVisualStyleBackColor = true;
+            this.buttonEntidades.Visible = false;
+            this.buttonEntidades.Click += new System.EventHandler(this.buttonEntidades_Click);
+            // 
+            // btnReportes
+            // 
+            this.btnReportes.Enabled = false;
+            this.btnReportes.FlatAppearance.BorderSize = 0;
+            this.btnReportes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnReportes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportes.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
+            this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReportes.Location = new System.Drawing.Point(-2, 761);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnReportes.Size = new System.Drawing.Size(228, 32);
+            this.btnReportes.TabIndex = 31;
+            this.btnReportes.Tag = "btnReportes_formPrincipal";
+            this.btnReportes.Text = "Reportes";
+            this.btnReportes.UseVisualStyleBackColor = true;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            // 
             // panelLogo
             // 
             this.panelLogo.Controls.Add(this.pictureBoxLogo);
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(211, 119);
+            this.panelLogo.Size = new System.Drawing.Size(229, 119);
             this.panelLogo.TabIndex = 0;
             // 
             // pictureBoxLogo
@@ -690,7 +768,7 @@
             this.pictureBoxLogo.Image = global::CheeseLogix.Properties.Resources.WhatsApp_Image_2024_11_06_at_12_21_14_AM;
             this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(211, 119);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(229, 119);
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxLogo.TabIndex = 0;
             this.pictureBoxLogo.TabStop = false;
@@ -727,8 +805,9 @@
             this.panelDateHour.PerformLayout();
             this.panelSideMenu.ResumeLayout(false);
             this.PanelEntidades.ResumeLayout(false);
-            this.panelCotizaciones.ResumeLayout(false);
+            this.panelCaja.ResumeLayout(false);
             this.panelInsumos.ResumeLayout(false);
+            this.panelCotizaciones.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
@@ -739,11 +818,8 @@
 
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Panel panelSideMenu;
-        private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.Panel panelInsumos;
         private System.Windows.Forms.Panel panelCentral;
-        private System.Windows.Forms.Panel panelBottomMenu;
-        private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Panel line2;
         private System.Windows.Forms.Panel line;
@@ -756,20 +832,15 @@
         private System.Windows.Forms.Panel panelCotizaciones;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnCaja;
-        private System.Windows.Forms.Button btnVentas;
-        private System.Windows.Forms.Button buttonSolicitarCotizacion;
+        private System.Windows.Forms.Button btnGestionProducto;
         private System.Windows.Forms.Button btnControl;
         private System.Windows.Forms.Button btnStockProductos;
         private System.Windows.Forms.Button btnProductos;
         private System.Windows.Forms.Button buttonEntidades;
-        private System.Windows.Forms.FlowLayoutPanel PanelEntidades;
-        private System.Windows.Forms.Button buttonGestionarProveedores;
-        private System.Windows.Forms.Button buttonEvaluarSolicitudes;
         private System.Windows.Forms.Button btnComprasProductos;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblSeleccionarIdioma;
         private System.Windows.Forms.ComboBox cboxIdiomas;
-        private FontAwesome.Sharp.IconButton btnAdministracion;
         private System.Windows.Forms.Label labelNombreUser;
         private System.Windows.Forms.Label labelUsuario;
         private System.Windows.Forms.MenuStrip menuStripPrincipal;
@@ -781,5 +852,18 @@
         private System.Windows.Forms.ToolStripMenuItem idiomasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAyuda;
+        private FontAwesome.Sharp.IconButton btnAdministracion;
+        private System.Windows.Forms.Button buttonGestionarProveedores;
+        private System.Windows.Forms.Button buttonEvaluarSolicitudes;
+        private System.Windows.Forms.Button buttonSolicitarCotizacion;
+        private System.Windows.Forms.Panel panelBottomMenu;
+        private System.Windows.Forms.Panel panelCaja;
+        private System.Windows.Forms.Button btnCobrarVenta;
+        private System.Windows.Forms.Panel PanelEntidades;
+        private System.Windows.Forms.Button buttonGestionarClientes;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDespachoProducto;
+        private System.Windows.Forms.Panel panelLogo;
+        private System.Windows.Forms.PictureBox pictureBoxLogo;
     }
 }

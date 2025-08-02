@@ -153,7 +153,7 @@ namespace CheeseLogix
             AplicarEstiloBoton(btnComprasProductos);
             AplicarEstiloBoton(btnControl);
             AplicarEstiloBoton(btnCaja);
-            AplicarEstiloBoton(btnVentas);
+            AplicarEstiloBoton(btnGestionProducto);
             AplicarEstiloBoton(btnReportes);
             AplicarEstiloBoton(btnStockProductos);
         }
