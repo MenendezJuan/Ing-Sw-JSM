@@ -381,8 +381,8 @@
             this.panelSideMenu.Controls.Add(this.panelBottomMenu);
             this.panelSideMenu.Controls.Add(this.btnReportes);
             this.panelSideMenu.Controls.Add(this.btnAdministracion);
-            this.panelSideMenu.Controls.Add(this.buttonEntidades);
             this.panelSideMenu.Controls.Add(this.PanelEntidades);
+            this.panelSideMenu.Controls.Add(this.buttonEntidades);
             this.panelSideMenu.Controls.Add(this.panelCaja);
             this.panelSideMenu.Controls.Add(this.btnCaja);
             this.panelSideMenu.Controls.Add(this.panelInsumos);
