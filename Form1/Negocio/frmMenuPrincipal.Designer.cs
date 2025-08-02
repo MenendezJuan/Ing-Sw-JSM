@@ -137,7 +137,7 @@
             this.logOutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("logOutToolStripMenuItem.Image")));
             this.logOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(134, 38);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
             this.logOutToolStripMenuItem.Tag = "logOutToolStripMenuItem_frmPrincipal";
             this.logOutToolStripMenuItem.Text = "LogOut";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
@@ -201,7 +201,7 @@
             this.panelCentral.Location = new System.Drawing.Point(0, 0);
             this.panelCentral.Name = "panelCentral";
             this.panelCentral.Size = new System.Drawing.Size(1015, 510);
-            this.panelCentral.TabIndex = 15;
+            this.panelCentral.TabIndex = 20;
             // 
             // panelBottom
             // 
@@ -404,7 +404,7 @@
             this.panelBottomMenu.Location = new System.Drawing.Point(0, 837);
             this.panelBottomMenu.Name = "panelBottomMenu";
             this.panelBottomMenu.Size = new System.Drawing.Size(229, 89);
-            this.panelBottomMenu.TabIndex = 24;
+            this.panelBottomMenu.TabIndex = 19;
             // 
             // PanelEntidades
             // 
@@ -426,7 +426,7 @@
             this.buttonGestionarProveedores.Name = "buttonGestionarProveedores";
             this.buttonGestionarProveedores.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.buttonGestionarProveedores.Size = new System.Drawing.Size(226, 42);
-            this.buttonGestionarProveedores.TabIndex = 7;
+            this.buttonGestionarProveedores.TabIndex = 16;
             this.buttonGestionarProveedores.Tag = "btnGestionProv_formPrincipal";
             this.buttonGestionarProveedores.Text = "Gestion Proveedores";
             this.buttonGestionarProveedores.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -444,7 +444,7 @@
             this.buttonGestionarClientes.Name = "buttonGestionarClientes";
             this.buttonGestionarClientes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.buttonGestionarClientes.Size = new System.Drawing.Size(226, 45);
-            this.buttonGestionarClientes.TabIndex = 4;
+            this.buttonGestionarClientes.TabIndex = 15;
             this.buttonGestionarClientes.Tag = "btnGestionClientes_formPrincipal";
             this.buttonGestionarClientes.Text = "Gestion Clientes";
             this.buttonGestionarClientes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -469,7 +469,7 @@
             this.btnCobrarVenta.Name = "btnCobrarVenta";
             this.btnCobrarVenta.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnCobrarVenta.Size = new System.Drawing.Size(228, 45);
-            this.btnCobrarVenta.TabIndex = 6;
+            this.btnCobrarVenta.TabIndex = 13;
             this.btnCobrarVenta.Tag = "btnCobrarVenta_formPrincipal";
             this.btnCobrarVenta.Text = "Cobrar";
             this.btnCobrarVenta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -486,7 +486,7 @@
             this.panelInsumos.Location = new System.Drawing.Point(0, 345);
             this.panelInsumos.Name = "panelInsumos";
             this.panelInsumos.Size = new System.Drawing.Size(226, 181);
-            this.panelInsumos.TabIndex = 16;
+            this.panelInsumos.TabIndex = 7;
             // 
             // btnDespachoProducto
             // 
@@ -498,7 +498,7 @@
             this.btnDespachoProducto.Name = "btnDespachoProducto";
             this.btnDespachoProducto.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnDespachoProducto.Size = new System.Drawing.Size(226, 45);
-            this.btnDespachoProducto.TabIndex = 8;
+            this.btnDespachoProducto.TabIndex = 11;
             this.btnDespachoProducto.Tag = "btnDespachoProducto_formPrincipal";
             this.btnDespachoProducto.Text = "Despachar Productos";
             this.btnDespachoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -515,7 +515,7 @@
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(226, 45);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 10;
             this.button1.Tag = "btnCobrarVenta_formPrincipal";
             this.button1.Text = "Cobrar";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -532,7 +532,7 @@
             this.btnComprasProductos.Name = "btnComprasProductos";
             this.btnComprasProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnComprasProductos.Size = new System.Drawing.Size(226, 45);
-            this.btnComprasProductos.TabIndex = 4;
+            this.btnComprasProductos.TabIndex = 9;
             this.btnComprasProductos.Tag = "btnCompras_formPrincipal";
             this.btnComprasProductos.Text = "Compras";
             this.btnComprasProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -550,7 +550,7 @@
             this.btnStockProductos.Name = "btnStockProductos";
             this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnStockProductos.Size = new System.Drawing.Size(226, 45);
-            this.btnStockProductos.TabIndex = 2;
+            this.btnStockProductos.TabIndex = 8;
             this.btnStockProductos.Tag = "btnStock_formPrincipal";
             this.btnStockProductos.Text = "Stock";
             this.btnStockProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -573,7 +573,7 @@
             this.btnControl.Name = "btnControl";
             this.btnControl.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnControl.Size = new System.Drawing.Size(229, 45);
-            this.btnControl.TabIndex = 17;
+            this.btnControl.TabIndex = 2;
             this.btnControl.Tag = "btnCotizaciones_formPrincipal";
             this.btnControl.Text = "Cotizaciones";
             this.btnControl.UseVisualStyleBackColor = true;
@@ -595,7 +595,7 @@
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnProductos.Size = new System.Drawing.Size(229, 45);
-            this.btnProductos.TabIndex = 15;
+            this.btnProductos.TabIndex = 1;
             this.btnProductos.Tag = "btnProducto_formPrincipal";
             this.btnProductos.Text = "Productos";
             this.btnProductos.UseVisualStyleBackColor = true;
@@ -617,7 +617,7 @@
             this.btnGestionProducto.Name = "btnGestionProducto";
             this.btnGestionProducto.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnGestionProducto.Size = new System.Drawing.Size(228, 44);
-            this.btnGestionProducto.TabIndex = 29;
+            this.btnGestionProducto.TabIndex = 6;
             this.btnGestionProducto.Tag = "btnGestionProductos_formPrincipal";
             this.btnGestionProducto.Text = "Gestion Productos";
             this.btnGestionProducto.UseVisualStyleBackColor = true;
@@ -631,7 +631,7 @@
             this.panelCotizaciones.Location = new System.Drawing.Point(1, 208);
             this.panelCotizaciones.Name = "panelCotizaciones";
             this.panelCotizaciones.Size = new System.Drawing.Size(228, 83);
-            this.panelCotizaciones.TabIndex = 25;
+            this.panelCotizaciones.TabIndex = 3;
             // 
             // buttonEvaluarSolicitudes
             // 
@@ -643,7 +643,7 @@
             this.buttonEvaluarSolicitudes.Name = "buttonEvaluarSolicitudes";
             this.buttonEvaluarSolicitudes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.buttonEvaluarSolicitudes.Size = new System.Drawing.Size(228, 38);
-            this.buttonEvaluarSolicitudes.TabIndex = 7;
+            this.buttonEvaluarSolicitudes.TabIndex = 5;
             this.buttonEvaluarSolicitudes.Tag = "btnEvaluarCotizacion_formPrincipal";
             this.buttonEvaluarSolicitudes.Text = "Evaluar Cotizaciones";
             this.buttonEvaluarSolicitudes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -661,7 +661,7 @@
             this.buttonSolicitarCotizacion.Name = "buttonSolicitarCotizacion";
             this.buttonSolicitarCotizacion.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.buttonSolicitarCotizacion.Size = new System.Drawing.Size(228, 45);
-            this.buttonSolicitarCotizacion.TabIndex = 6;
+            this.buttonSolicitarCotizacion.TabIndex = 4;
             this.buttonSolicitarCotizacion.Tag = "btnSolicitarCotizacion_formPrincipal";
             this.buttonSolicitarCotizacion.Text = "Solicitar Cotizaciones";
             this.buttonSolicitarCotizacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -680,10 +680,10 @@
             this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAdministracion.IconSize = 35;
             this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministracion.Location = new System.Drawing.Point(-1, 799);
+            this.btnAdministracion.Location = new System.Drawing.Point(-2, 799);
             this.btnAdministracion.Name = "btnAdministracion";
             this.btnAdministracion.Size = new System.Drawing.Size(228, 38);
-            this.btnAdministracion.TabIndex = 34;
+            this.btnAdministracion.TabIndex = 18;
             this.btnAdministracion.Tag = "btnAdministracion_formPrincipal";
             this.btnAdministracion.Text = "Administracion";
             this.btnAdministracion.UseVisualStyleBackColor = true;
@@ -705,7 +705,7 @@
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCaja.Size = new System.Drawing.Size(228, 45);
-            this.btnCaja.TabIndex = 30;
+            this.btnCaja.TabIndex = 12;
             this.btnCaja.Tag = "btnCaja_formPrincipal";
             this.btnCaja.Text = "Caja";
             this.btnCaja.UseVisualStyleBackColor = true;
@@ -725,7 +725,7 @@
             this.buttonEntidades.Name = "buttonEntidades";
             this.buttonEntidades.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.buttonEntidades.Size = new System.Drawing.Size(228, 42);
-            this.buttonEntidades.TabIndex = 32;
+            this.buttonEntidades.TabIndex = 14;
             this.buttonEntidades.Tag = "btnEntidades_formPrincipal";
             this.buttonEntidades.Text = "Entidades";
             this.buttonEntidades.UseVisualStyleBackColor = true;
@@ -743,11 +743,11 @@
             this.btnReportes.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(-2, 761);
+            this.btnReportes.Location = new System.Drawing.Point(-6, 762);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnReportes.Size = new System.Drawing.Size(228, 32);
-            this.btnReportes.TabIndex = 31;
+            this.btnReportes.TabIndex = 17;
             this.btnReportes.Tag = "btnReportes_formPrincipal";
             this.btnReportes.Text = "Reportes";
             this.btnReportes.UseVisualStyleBackColor = true;
