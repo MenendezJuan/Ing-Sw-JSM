@@ -55,15 +55,17 @@
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSideMenu = new System.Windows.Forms.Panel();
-            this.panelBottomMenu = new System.Windows.Forms.Panel();
             this.btnAdministracion = new FontAwesome.Sharp.IconButton();
             this.btnReportes = new System.Windows.Forms.Button();
             this.PanelEntidades = new System.Windows.Forms.Panel();
             this.buttonGestionarProveedores = new System.Windows.Forms.Button();
             this.buttonGestionarClientes = new System.Windows.Forms.Button();
             this.buttonEntidades = new System.Windows.Forms.Button();
+            this.panelCaja = new System.Windows.Forms.Panel();
+            this.btnCobrarVenta = new System.Windows.Forms.Button();
             this.btnCaja = new System.Windows.Forms.Button();
             this.panelInsumos = new System.Windows.Forms.Panel();
+            this.btnDespachoProducto = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnComprasProductos = new System.Windows.Forms.Button();
             this.btnStockProductos = new System.Windows.Forms.Button();
@@ -75,9 +77,7 @@
             this.btnProductos = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.panelCaja = new System.Windows.Forms.Panel();
-            this.btnCobrarVenta = new System.Windows.Forms.Button();
-            this.btnDespachoProducto = new System.Windows.Forms.Button();
+            this.panelBottomMenu = new System.Windows.Forms.Panel();
             this.panelMain.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelRedes.SuspendLayout();
@@ -87,11 +87,11 @@
             this.menuStripPrincipal.SuspendLayout();
             this.panelSideMenu.SuspendLayout();
             this.PanelEntidades.SuspendLayout();
+            this.panelCaja.SuspendLayout();
             this.panelInsumos.SuspendLayout();
             this.panelCotizaciones.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            this.panelCaja.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -397,15 +397,6 @@
             this.panelSideMenu.Size = new System.Drawing.Size(228, 578);
             this.panelSideMenu.TabIndex = 2;
             // 
-            // panelBottomMenu
-            // 
-            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomMenu.Location = new System.Drawing.Point(0, 814);
-            this.panelBottomMenu.Name = "panelBottomMenu";
-            this.panelBottomMenu.Size = new System.Drawing.Size(211, 89);
-            this.panelBottomMenu.TabIndex = 19;
-            // 
             // btnAdministracion
             // 
             this.btnAdministracion.Dock = System.Windows.Forms.DockStyle.Top;
@@ -519,6 +510,35 @@
             this.buttonEntidades.Visible = false;
             this.buttonEntidades.Click += new System.EventHandler(this.buttonEntidades_Click);
             // 
+            // panelCaja
+            // 
+            this.panelCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelCaja.Controls.Add(this.btnCobrarVenta);
+            this.panelCaja.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCaja.Location = new System.Drawing.Point(0, 562);
+            this.panelCaja.Name = "panelCaja";
+            this.panelCaja.Size = new System.Drawing.Size(211, 48);
+            this.panelCaja.TabIndex = 26;
+            this.panelCaja.Visible = false;
+            // 
+            // btnCobrarVenta
+            // 
+            this.btnCobrarVenta.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCobrarVenta.FlatAppearance.BorderSize = 0;
+            this.btnCobrarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCobrarVenta.ForeColor = System.Drawing.Color.LightGray;
+            this.btnCobrarVenta.Location = new System.Drawing.Point(0, 0);
+            this.btnCobrarVenta.Name = "btnCobrarVenta";
+            this.btnCobrarVenta.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnCobrarVenta.Size = new System.Drawing.Size(211, 45);
+            this.btnCobrarVenta.TabIndex = 13;
+            this.btnCobrarVenta.Tag = "btnCobrarVenta_formPrincipal";
+            this.btnCobrarVenta.Text = "Cobrar";
+            this.btnCobrarVenta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCobrarVenta.UseVisualStyleBackColor = true;
+            this.btnCobrarVenta.Visible = false;
+            this.btnCobrarVenta.Click += new System.EventHandler(this.btnCobrarVenta_Click);
+            // 
             // btnCaja
             // 
             this.btnCaja.Dock = System.Windows.Forms.DockStyle.Top;
@@ -553,6 +573,24 @@
             this.panelInsumos.Name = "panelInsumos";
             this.panelInsumos.Size = new System.Drawing.Size(211, 181);
             this.panelInsumos.TabIndex = 7;
+            // 
+            // btnDespachoProducto
+            // 
+            this.btnDespachoProducto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDespachoProducto.FlatAppearance.BorderSize = 0;
+            this.btnDespachoProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDespachoProducto.ForeColor = System.Drawing.Color.LightGray;
+            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 135);
+            this.btnDespachoProducto.Name = "btnDespachoProducto";
+            this.btnDespachoProducto.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnDespachoProducto.Size = new System.Drawing.Size(211, 45);
+            this.btnDespachoProducto.TabIndex = 11;
+            this.btnDespachoProducto.Tag = "btnDespachoProducto_formPrincipal";
+            this.btnDespachoProducto.Text = "Despachar Productos";
+            this.btnDespachoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDespachoProducto.UseVisualStyleBackColor = true;
+            this.btnDespachoProducto.Visible = false;
+            this.btnDespachoProducto.Click += new System.EventHandler(this.btnDespachoProducto_Click);
             // 
             // btnVentas
             // 
@@ -742,52 +780,14 @@
             this.pictureBoxLogo.TabIndex = 0;
             this.pictureBoxLogo.TabStop = false;
             // 
-            // panelCaja
+            // panelBottomMenu
             // 
-            this.panelCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelCaja.Controls.Add(this.btnCobrarVenta);
-            this.panelCaja.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCaja.Location = new System.Drawing.Point(0, 562);
-            this.panelCaja.Name = "panelCaja";
-            this.panelCaja.Size = new System.Drawing.Size(211, 48);
-            this.panelCaja.TabIndex = 26;
-            this.panelCaja.Visible = false;
-            // 
-            // btnCobrarVenta
-            // 
-            this.btnCobrarVenta.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCobrarVenta.FlatAppearance.BorderSize = 0;
-            this.btnCobrarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCobrarVenta.ForeColor = System.Drawing.Color.LightGray;
-            this.btnCobrarVenta.Location = new System.Drawing.Point(0, 0);
-            this.btnCobrarVenta.Name = "btnCobrarVenta";
-            this.btnCobrarVenta.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnCobrarVenta.Size = new System.Drawing.Size(211, 45);
-            this.btnCobrarVenta.TabIndex = 13;
-            this.btnCobrarVenta.Tag = "btnCobrarVenta_formPrincipal";
-            this.btnCobrarVenta.Text = "Cobrar";
-            this.btnCobrarVenta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCobrarVenta.UseVisualStyleBackColor = true;
-            this.btnCobrarVenta.Visible = false;
-            this.btnCobrarVenta.Click += new System.EventHandler(this.btnCobrarVenta_Click);
-            // 
-            // btnDespachoProducto
-            // 
-            this.btnDespachoProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDespachoProducto.FlatAppearance.BorderSize = 0;
-            this.btnDespachoProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDespachoProducto.ForeColor = System.Drawing.Color.LightGray;
-            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 135);
-            this.btnDespachoProducto.Name = "btnDespachoProducto";
-            this.btnDespachoProducto.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnDespachoProducto.Size = new System.Drawing.Size(211, 45);
-            this.btnDespachoProducto.TabIndex = 11;
-            this.btnDespachoProducto.Tag = "btnDespachoProducto_formPrincipal";
-            this.btnDespachoProducto.Text = "Despachar Productos";
-            this.btnDespachoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDespachoProducto.UseVisualStyleBackColor = true;
-            this.btnDespachoProducto.Visible = false;
-            this.btnDespachoProducto.Click += new System.EventHandler(this.btnDespachoProducto_Click);
+            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomMenu.Location = new System.Drawing.Point(0, 814);
+            this.panelBottomMenu.Name = "panelBottomMenu";
+            this.panelBottomMenu.Size = new System.Drawing.Size(211, 89);
+            this.panelBottomMenu.TabIndex = 19;
             // 
             // frmMenuPrincipal
             // 
@@ -821,11 +821,11 @@
             this.menuStripPrincipal.PerformLayout();
             this.panelSideMenu.ResumeLayout(false);
             this.PanelEntidades.ResumeLayout(false);
+            this.panelCaja.ResumeLayout(false);
             this.panelInsumos.ResumeLayout(false);
             this.panelCotizaciones.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            this.panelCaja.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -872,7 +872,6 @@
         private System.Windows.Forms.Button buttonGestionarProveedores;
         private System.Windows.Forms.Button buttonEvaluarSolicitudes;
         private System.Windows.Forms.Button buttonSolicitarCotizacion;
-        private System.Windows.Forms.Panel panelBottomMenu;
         private System.Windows.Forms.Panel panelCaja;
         private System.Windows.Forms.Button btnCobrarVenta;
         private System.Windows.Forms.Panel PanelEntidades;
@@ -881,5 +880,6 @@
         private System.Windows.Forms.Button btnDespachoProducto;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
+        private System.Windows.Forms.Panel panelBottomMenu;
     }
 }
