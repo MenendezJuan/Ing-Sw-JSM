@@ -3,6 +3,7 @@ using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
 using CheeseLogix.Negocio;
+using CheeseLogix.Negocio.Ventas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -174,6 +175,11 @@ namespace CheeseLogix
             ShowSubMenu(panelInsumos);
         }
 
+        private void btnGestionProducto_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(panelInsumos);
+        }
+
         private void btnStockProductos_Click(object sender, EventArgs e)
         {
             frmGestionStockProductos stockProductos = new frmGestionStockProductos();
@@ -218,6 +224,16 @@ namespace CheeseLogix
             frmGenerarOrdenCompra compraProductos = new frmGenerarOrdenCompra();
             AddOwnedForm(compraProductos);
             FormHijo(compraProductos);
+            HideSubMenu();
+        }
+
+
+
+        private void btnDespachoProducto_Click(object sender, EventArgs e)
+        {
+            frmDespachoProducto despachoProducto = new frmDespachoProducto();
+            AddOwnedForm(despachoProducto);
+            FormHijo(despachoProducto);
             HideSubMenu();
         }
 
@@ -514,7 +530,26 @@ namespace CheeseLogix
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
+            frmInicioOrden inicioOrden = new frmInicioOrden();
+            AddOwnedForm(inicioOrden);
+            FormHijo(inicioOrden);
+            HideSubMenu();
+        }
 
+        private void btnCobrarVenta_Click(object sender, EventArgs e)
+        {
+            frmCobroVenta cobroVenta = new frmCobroVenta();
+            AddOwnedForm(cobroVenta);
+            FormHijo(cobroVenta);
+            HideSubMenu();
+        }
+
+        private void buttonGestionarClientes_Click(object sender, EventArgs e)
+        {
+            frmGestionarClientes gestionarClientes = new frmGestionarClientes();
+            AddOwnedForm(gestionarClientes);
+            FormHijo(gestionarClientes);
+            HideSubMenu();
         }
     }
 }
