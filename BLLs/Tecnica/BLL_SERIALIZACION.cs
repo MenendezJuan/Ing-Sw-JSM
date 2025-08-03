@@ -1,9 +1,10 @@
 ﻿using BEs;
+using BEs.Clases.Negocio.Ventas;
 using BLLs.Negocio;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq; 
+using System.Linq;
 using System.Text.Json;
 using System.Xml.Serialization;
 
