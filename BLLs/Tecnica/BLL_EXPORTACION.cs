@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using Microsoft.Reporting.WinForms;
+using System.Reflection;
 
 namespace BLLs.Tecnica
 {
@@ -274,6 +275,111 @@ namespace BLLs.Tecnica
             catch (Exception ex)
             {
                 throw new Exception($"Error al abrir archivo: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Configura el logo de CheeseLogix en el reporte
+        /// </summary>
+        public static bool ConfigurarLogoReporte(ReportViewer reportViewer)
+        {
+            try
+            {
+                // Intentar cargar el logo desde diferentes ubicaciones (orden de prioridad)
+                string[] posiblesRutas = {
+                    // PRIMERA PRIORIDAD: Ubicación conocida del icono en desarrollo
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "..", "..", "icons8-battle.net.ico"),
+                    // SEGUNDA PRIORIDAD: En el directorio de ejecución (deployment)
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "icons8-battle.net.ico"),
+                    // TERCERA PRIORIDAD: En carpeta Resources
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "Resources", "CheeseLogix_Logo.ico"),
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "..", "..", "Resources", "CheeseLogix_Logo.ico"),
+                    // FALLBACK: Variaciones adicionales
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "..", "..", "Form1", "icons8-battle.net.ico")
+                };
+
+                byte[] logoBytes = null;
+                string rutaEncontrada = null;
+
+                // Buscar el logo en las rutas posibles
+                foreach (string ruta in posiblesRutas)
+                {
+                    if (File.Exists(ruta))
+                    {
+                        try
+                        {
+                            // Convertir ICO a bytes para el reporte
+                            using (var icon = new Icon(ruta))
+                            {
+                                using (var bitmap = icon.ToBitmap())
+                                {
+                                    using (var ms = new MemoryStream())
+                                    {
+                                        bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                        logoBytes = ms.ToArray();
+                                        rutaEncontrada = ruta;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            // Si falla la conversión, continuar con la siguiente ruta
+                            continue;
+                        }
+                    }
+                }
+
+                if (logoBytes != null)
+                {
+                    // Crear un DataTable con el logo para el reporte
+                    var logoTable = new System.Data.DataTable("LogoDataSet");
+                    logoTable.Columns.Add("Logo", typeof(byte[]));
+                    logoTable.Columns.Add("NombreEmpresa", typeof(string));
+                    logoTable.Columns.Add("Titulo", typeof(string));
+                    
+                    var row = logoTable.NewRow();
+                    row["Logo"] = logoBytes;
+                    row["NombreEmpresa"] = "CheeseLogix";
+                    row["Titulo"] = "Sistema de Gestión Empresarial";
+                    logoTable.Rows.Add(row);
+
+                    // Agregar como fuente de datos al reporte
+                    var logoDataSource = new ReportDataSource("LogoDataSet", logoTable);
+                    reportViewer.LocalReport.DataSources.Add(logoDataSource);
+
+                    System.Diagnostics.Debug.WriteLine($"Logo configurado exitosamente desde: {rutaEncontrada}");
+                    return true;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("No se pudo encontrar el logo de CheeseLogix en ninguna ubicación");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al configurar logo del reporte: {ex.Message}");
+                // No lanzar excepción para que el reporte continúe sin logo
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Agrega el logo de CheeseLogix a un parámetro del reporte
+        /// </summary>
+        public static ReportParameter CrearParametroLogo()
+        {
+            try
+            {
+                // Para reportes que usen parámetros en lugar de DataSource
+                return new ReportParameter("LogoEmpresa", "CheeseLogix", false);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al crear parámetro de logo: {ex.Message}");
+                return new ReportParameter("LogoEmpresa", "", false);
             }
         }
 

@@ -142,6 +142,17 @@ namespace CheeseLogix.Negocio.Reportes
                 reportViewer1.LocalReport.DataSources.Add(dataSourceClientes);
                 reportViewer1.LocalReport.DataSources.Add(dataSourceVentasMes);
                 
+                // CONFIGURAR LOGO DE CHEESELOGIX
+                try
+                {
+                    BLL_EXPORTACION.ConfigurarLogoReporte(reportViewer1);
+                }
+                catch (Exception logoEx)
+                {
+                    // Log error pero continuar sin logo
+                    System.Diagnostics.Debug.WriteLine($"Error al configurar logo: {logoEx.Message}");
+                }
+                
                 // CUARTO: Configurar parámetros de fecha (DESPUÉS de cargar el reporte)
                 ReportParameter paramFechaInicio = new ReportParameter("FechaInicio", fechaInicio.ToString("dd/MM/yyyy"));
                 ReportParameter paramFechaFin = new ReportParameter("FechaFin", fechaFin.ToString("dd/MM/yyyy"));
