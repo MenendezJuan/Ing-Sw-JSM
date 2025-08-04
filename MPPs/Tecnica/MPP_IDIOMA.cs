@@ -69,6 +69,35 @@ namespace MPPs
             }
         }
 
+        public Idioma ObtenerPorId(int id)
+        {
+            try
+            {
+                Hashtable Parametros = new Hashtable
+                {
+                    { "@Id", id }
+                };
+
+                DataTable dt = oCnx.Leer("Obtener_Idioma_Por_Id", Parametros);
+                
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    return new Idioma
+                    {
+                        Id = Convert.ToInt32(row["Id"]),
+                        Nombre = Convert.ToString(row["Nombre"])
+                    };
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener idioma por ID {id}: {ex.Message}", ex);
+            }
+        }
+
         #endregion ABML
     }
 }

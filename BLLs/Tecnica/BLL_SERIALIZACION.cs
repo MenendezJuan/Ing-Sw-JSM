@@ -1,11 +1,11 @@
 ﻿using BEs;
-using BEs.Clases.Negocio.Ventas;
 using BLLs.Negocio;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.Json;
+using System.Linq; 
+using System.Web.Script.Serialization;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace BLLs.Tecnica
@@ -23,200 +23,141 @@ namespace BLLs.Tecnica
             _bllUsuario = new BLL_USUARIO();
         }
 
-        #region Serialización JSON
+        #region Métodos
 
         /// <summary>
-        /// Exporta la bitácora completa a formato JSON
+        /// Obtiene datos para mostrar en la UI según el tipo seleccionado
         /// </summary>
-        /// <param name="rutaArchivo">Ruta donde guardar el archivo JSON</param>
-        /// <returns>True si la exportación fue exitosa</returns>
-        public bool ExportarBitacoraJSON(string rutaArchivo)
+        /// <param name="tipoDato">Tipo de dato a obtener</param>
+        /// <returns>JSON formateado de los datos</returns>
+        public string ObtenerDatosParaUI(string tipoDato)
         {
             try
             {
-                var bitacoras = _bllBitacora.Listar();
-                var jsonString = JsonSerializer.Serialize(bitacoras, new JsonSerializerOptions
+                object datos = null;
+                
+                switch (tipoDato.ToLower())
                 {
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-
-                File.WriteAllText(rutaArchivo, jsonString);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al exportar bitácora a JSON: {ex.Message}", ex);
-            }
-        }
-
-        /// <summary>
-        /// Exporta las ventas a formato JSON
-        /// </summary>
-        /// <param name="rutaArchivo">Ruta donde guardar el archivo JSON</param>
-        /// <param name="fechaDesde">Fecha desde para filtrar</param>
-        /// <param name="fechaHasta">Fecha hasta para filtrar</param>
-        /// <returns>True si la exportación fue exitosa</returns>
-        public bool ExportarVentasJSON(string rutaArchivo, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
-        {
-            try
-            {
-                var ventas = _bllVenta.Listar();
-
-                // Filtrar por fechas si se especifican
-                if (fechaDesde.HasValue && fechaHasta.HasValue)
-                {
-                    ventas = ventas.FindAll(v => v.Fecha >= fechaDesde.Value && v.Fecha <= fechaHasta.Value);
+                    case "bitácora":
+                    case "bitacora":
+                        datos = _bllBitacora.FiltrarXTipo(Enum_TiposBitacora.TODO);
+                        break;
+                    case "ventas":
+                        datos = _bllVenta.ObtenerTodos();
+                        break;
+                    case "usuarios":
+                        var usuarios = _bllUsuario.Listar();
+                        datos = usuarios.Select(u => new
+                        {
+                            u.Id,
+                            u.Email,
+                            FechaCreacion = DateTime.Now
+                        });
+                        break;
+                    case "excepción":
+                    case "excepcion":
+                        datos = new
+                        {
+                            Fecha = DateTime.Now,
+                            TipoExcepcion = "InvalidOperationException",
+                            Mensaje = "Ejemplo de excepción para demostración",
+                            StackTrace = "StackTrace de ejemplo",
+                            InnerException = "Inner exception de ejemplo"
+                        };
+                        break;
+                    default:
+                        throw new ArgumentException($"Tipo de dato no válido: {tipoDato}");
                 }
 
-                var jsonString = JsonSerializer.Serialize(ventas, new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+                var serializer = new JavaScriptSerializer();
+                var jsonString = serializer.Serialize(datos);
 
-                File.WriteAllText(rutaArchivo, jsonString);
-                return true;
+                return jsonString;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al exportar ventas a JSON: {ex.Message}", ex);
+                throw new Exception($"Error al obtener datos para UI: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Exporta información de usuarios a formato JSON
+        /// Serializa datos desde la UI
         /// </summary>
-        /// <param name="rutaArchivo">Ruta donde guardar el archivo JSON</param>
-        /// <returns>True si la exportación fue exitosa</returns>
-        public bool ExportarUsuariosJSON(string rutaArchivo)
+        /// <param name="tipoDato">Tipo de dato</param>
+        /// <param name="contenido">Contenido a serializar</param>
+        /// <param name="formato">Formato (json/xml)</param>
+        /// <param name="rutaArchivo">Ruta del archivo</param>
+        /// <returns>True si fue exitoso</returns>
+        public bool SerializarDesdeUI(string tipoDato, string contenido, string formato, string rutaArchivo)
         {
             try
             {
-                var usuarios = _bllUsuario.Listar();
-
-                // Crear objeto anónimo sin contraseñas por seguridad
-                var usuariosSeguros = usuarios.Select(u => new
+                if (string.IsNullOrWhiteSpace(contenido))
                 {
-                    u.Id,
-                    u.Email,
-                    FechaCreacion = DateTime.Now // Simulado
-                });
+                    throw new ArgumentException("El contenido no puede estar vacío");
+                }
 
-                var jsonString = JsonSerializer.Serialize(usuariosSeguros, new JsonSerializerOptions
+                // Validar formato según el tipo
+                if (formato.ToLower() == "json")
                 {
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+                    var serializer = new JavaScriptSerializer();
+                    serializer.Deserialize<object>(contenido); // Valida JSON
+                }
+                else if (formato.ToLower() == "xml")
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(contenido); // Valida XML
+                }
 
-                File.WriteAllText(rutaArchivo, jsonString);
+                // Crear directorio si no existe
+                string directorio = Path.GetDirectoryName(rutaArchivo);
+                if (!string.IsNullOrEmpty(directorio) && !Directory.Exists(directorio))
+                {
+                    Directory.CreateDirectory(directorio);
+                }
+
+                File.WriteAllText(rutaArchivo, contenido);
                 return true;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al exportar usuarios a JSON: {ex.Message}", ex);
+                throw new Exception($"Error al serializar desde UI: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Deserializa datos desde archivo
+        /// </summary>
+        /// <param name="rutaArchivo">Ruta del archivo</param>
+        /// <returns>Contenido deserializado</returns>
+        public string DeserializarDesdeArchivo(string rutaArchivo)
+        {
+            try
+            {
+                if (!File.Exists(rutaArchivo))
+                {
+                    throw new FileNotFoundException($"El archivo no existe: {rutaArchivo}");
+                }
+
+                return File.ReadAllText(rutaArchivo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al deserializar archivo: {ex.Message}", ex);
             }
         }
 
         #endregion
 
-        #region Serialización XML
+        #region Configuración
 
         /// <summary>
-        /// Exporta la bitácora a formato XML
+        /// Obtiene el directorio de exportaciones desde la configuración
         /// </summary>
-        /// <param name="rutaArchivo">Ruta donde guardar el archivo XML</param>
-        /// <returns>True si la exportación fue exitosa</returns>
-        public bool ExportarBitacoraXML(string rutaArchivo)
+        /// <returns>Ruta del directorio de exportaciones</returns>
+        public string ObtenerDirectorioExportaciones()
         {
-            try
-            {
-                var bitacoras = _bllBitacora.Listar();
-                var serializer = new XmlSerializer(typeof(List<Bitacora>));
-
-                using (var writer = new StreamWriter(rutaArchivo))
-                {
-                    serializer.Serialize(writer, bitacoras);
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al exportar bitácora a XML: {ex.Message}", ex);
-            }
-        }
-
-        /// <summary>
-        /// Exporta las ventas a formato XML
-        /// </summary>
-        /// <param name="rutaArchivo">Ruta donde guardar el archivo XML</param>
-        /// <param name="fechaDesde">Fecha desde para filtrar</param>
-        /// <param name="fechaHasta">Fecha hasta para filtrar</param>
-        /// <returns>True si la exportación fue exitosa</returns>
-        public bool ExportarVentasXML(string rutaArchivo, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
-        {
-            try
-            {
-                var ventas = _bllVenta.Listar();
-
-                // Filtrar por fechas si se especifican
-                if (fechaDesde.HasValue && fechaHasta.HasValue)
-                {
-                    ventas = ventas.FindAll(v => v.Fecha >= fechaDesde.Value && v.Fecha <= fechaHasta.Value);
-                }
-
-                var serializer = new XmlSerializer(typeof(List<Venta>));
-
-                using (var writer = new StreamWriter(rutaArchivo))
-                {
-                    serializer.Serialize(writer, ventas);
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al exportar ventas a XML: {ex.Message}", ex);
-            }
-        }
-
-        #endregion
-
-        #region Serialización de Excepciones
-
-        /// <summary>
-        /// Serializa información de excepciones del sistema
-        /// </summary>
-        /// <param name="excepcion">Excepción a serializar</param>
-        /// <param name="rutaArchivo">Ruta donde guardar el archivo</param>
-        /// <returns>True si la serialización fue exitosa</returns>
-        public bool SerializarExcepcion(Exception excepcion, string rutaArchivo)
-        {
-            try
-            {
-                var infoExcepcion = new
-                {
-                    Fecha = DateTime.Now,
-                    TipoExcepcion = excepcion.GetType().Name,
-                    Mensaje = excepcion.Message,
-                    StackTrace = excepcion.StackTrace,
-                    InnerException = excepcion.InnerException?.Message
-                };
-
-                var jsonString = JsonSerializer.Serialize(infoExcepcion, new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-
-                File.WriteAllText(rutaArchivo, jsonString);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al serializar excepción: {ex.Message}", ex);
-            }
+            return BLL_CONFIGURACION.ObtenerDirectorioExportaciones();
         }
 
         #endregion

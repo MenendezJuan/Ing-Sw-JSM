@@ -280,6 +280,22 @@ namespace CheeseLogix
 
         }
 
+        private void toolStripMenuItemAyuda_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmAyuda ayuda = new frmAyuda();
+                AddOwnedForm(ayuda);
+                FormHijo(ayuda);
+                HideSubMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #region Idiomas
         private void CargarIdiomas()
         {

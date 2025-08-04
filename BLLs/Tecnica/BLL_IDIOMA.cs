@@ -106,6 +106,19 @@ namespace BLLs
             }
         }
 
+        public Idioma ObtenerPorId(int id)
+        {
+            try
+            {
+                return Mpp_Idioma.ObtenerPorId(id);
+            }
+            catch (Exception ex)
+            {
+                Mpp_Bitacora.Agregar(SessionManager.GetInstance().oUsuario, Enum_TiposBitacora.ERROR, ex.Message);
+                throw ex;
+            }
+        }
+
         #endregion ABML
     }
 }

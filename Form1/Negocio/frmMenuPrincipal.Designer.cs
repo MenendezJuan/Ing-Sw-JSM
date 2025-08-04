@@ -373,6 +373,7 @@
             this.toolStripMenuItemAyuda.Size = new System.Drawing.Size(53, 28);
             this.toolStripMenuItemAyuda.Tag = "toolStripMenuItemAyuda_frmPrincipal";
             this.toolStripMenuItemAyuda.Text = "Ayuda";
+            this.toolStripMenuItemAyuda.Click += new System.EventHandler(this.toolStripMenuItemAyuda_Click);
             // 
             // panelSideMenu
             // 

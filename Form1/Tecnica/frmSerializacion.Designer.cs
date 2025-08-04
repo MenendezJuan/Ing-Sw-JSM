@@ -28,308 +28,327 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSerializacion));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.groupBoxCompra = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewDeserializados = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanelPrincipal = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBoxSerializacion = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanelSerializacion = new System.Windows.Forms.TableLayoutPanel();
+            this.txtContenidoSerializar = new System.Windows.Forms.TextBox();
+            this.panelControlesSerializacion = new System.Windows.Forms.Panel();
             this.btnSerializar = new System.Windows.Forms.Button();
+            this.cboTipoDato = new System.Windows.Forms.ComboBox();
+            this.lblTipoDato = new System.Windows.Forms.Label();
+            this.groupBoxDeserializacion = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanelDeserializacion = new System.Windows.Forms.TableLayoutPanel();
+            this.txtContenidoDeserializar = new System.Windows.Forms.TextBox();
+            this.panelControlesDeserializacion = new System.Windows.Forms.Panel();
             this.btnDeserializar = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
+            this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnGuardarSerializado = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
+            this.panelIdioma = new System.Windows.Forms.Panel();
             this.cboxIdiomas = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.groupBoxCompra.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeserializados)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.labelIdioma = new System.Windows.Forms.Label();
+            this.tableLayoutPanelPrincipal.SuspendLayout();
+            this.groupBoxSerializacion.SuspendLayout();
+            this.tableLayoutPanelSerializacion.SuspendLayout();
+            this.panelControlesSerializacion.SuspendLayout();
+            this.groupBoxDeserializacion.SuspendLayout();
+            this.tableLayoutPanelDeserializacion.SuspendLayout();
+            this.panelControlesDeserializacion.SuspendLayout();
+            this.panelBotones.SuspendLayout();
+            this.panelIdioma.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelPrincipal
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.97837F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.02163F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblTitulo, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBoxCompra, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnSerializar, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnDeserializar, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnCerrar, 1, 3);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.75F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.97917F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.36806F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1017, 576);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanelPrincipal.ColumnCount = 1;
+            this.tableLayoutPanelPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelPrincipal.Controls.Add(this.groupBoxSerializacion, 0, 0);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.groupBoxDeserializacion, 0, 1);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.panelBotones, 0, 2);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.panelIdioma, 0, 3);
+            this.tableLayoutPanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
+            this.tableLayoutPanelPrincipal.RowCount = 4;
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 600);
+            this.tableLayoutPanelPrincipal.TabIndex = 0;
             // 
-            // lblTitulo
+            // groupBoxSerializacion
             // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.lblTitulo.Location = new System.Drawing.Point(3, 0);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(115, 25);
-            this.lblTitulo.TabIndex = 44;
-            this.lblTitulo.Text = "Serializador";
+            this.groupBoxSerializacion.Controls.Add(this.tableLayoutPanelSerializacion);
+            this.groupBoxSerializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxSerializacion.ForeColor = System.Drawing.Color.White;
+            this.groupBoxSerializacion.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxSerializacion.Name = "groupBoxSerializacion";
+            this.groupBoxSerializacion.Size = new System.Drawing.Size(794, 264);
+            this.groupBoxSerializacion.TabIndex = 0;
+            this.groupBoxSerializacion.TabStop = false;
+            this.groupBoxSerializacion.Text = "Serialización";
             // 
-            // groupBoxCompra
+            // tableLayoutPanelSerializacion
             // 
-            this.groupBoxCompra.Controls.Add(this.dataGridView1);
-            this.groupBoxCompra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxCompra.Location = new System.Drawing.Point(3, 38);
-            this.groupBoxCompra.Name = "groupBoxCompra";
-            this.groupBoxCompra.Size = new System.Drawing.Size(665, 245);
-            this.groupBoxCompra.TabIndex = 78;
-            this.groupBoxCompra.TabStop = false;
+            this.tableLayoutPanelSerializacion.ColumnCount = 1;
+            this.tableLayoutPanelSerializacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSerializacion.Controls.Add(this.txtContenidoSerializar, 0, 1);
+            this.tableLayoutPanelSerializacion.Controls.Add(this.panelControlesSerializacion, 0, 0);
+            this.tableLayoutPanelSerializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSerializacion.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanelSerializacion.Name = "tableLayoutPanelSerializacion";
+            this.tableLayoutPanelSerializacion.RowCount = 2;
+            this.tableLayoutPanelSerializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelSerializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanelSerializacion.Size = new System.Drawing.Size(788, 245);
+            this.tableLayoutPanelSerializacion.TabIndex = 0;
             // 
-            // dataGridView1
+            // panelControlesSerializacion
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(659, 226);
-            this.dataGridView1.TabIndex = 43;
+            this.panelControlesSerializacion.Controls.Add(this.btnSerializar);
+            this.panelControlesSerializacion.Controls.Add(this.cboTipoDato);
+            this.panelControlesSerializacion.Controls.Add(this.lblTipoDato);
+            this.panelControlesSerializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControlesSerializacion.Location = new System.Drawing.Point(3, 3);
+            this.panelControlesSerializacion.Name = "panelControlesSerializacion";
+            this.panelControlesSerializacion.Size = new System.Drawing.Size(782, 43);
+            this.panelControlesSerializacion.TabIndex = 0;
             // 
-            // groupBox1
+            // txtContenidoSerializar
             // 
-            this.groupBox1.Controls.Add(this.dataGridViewDeserializados);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 289);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(665, 206);
-            this.groupBox1.TabIndex = 79;
-            this.groupBox1.TabStop = false;
-            // 
-            // dataGridViewDeserializados
-            // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.dataGridViewDeserializados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewDeserializados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewDeserializados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewDeserializados.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDeserializados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewDeserializados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDeserializados.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewDeserializados.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDeserializados.EnableHeadersVisualStyles = false;
-            this.dataGridViewDeserializados.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dataGridViewDeserializados.Location = new System.Drawing.Point(3, 16);
-            this.dataGridViewDeserializados.Name = "dataGridViewDeserializados";
-            this.dataGridViewDeserializados.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDeserializados.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewDeserializados.RowHeadersVisible = false;
-            this.dataGridViewDeserializados.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridViewDeserializados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDeserializados.Size = new System.Drawing.Size(659, 187);
-            this.dataGridViewDeserializados.TabIndex = 43;
+            this.txtContenidoSerializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.txtContenidoSerializar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtContenidoSerializar.ForeColor = System.Drawing.Color.White;
+            this.txtContenidoSerializar.Location = new System.Drawing.Point(3, 52);
+            this.txtContenidoSerializar.Multiline = true;
+            this.txtContenidoSerializar.Name = "txtContenidoSerializar";
+            this.txtContenidoSerializar.ReadOnly = true;
+            this.txtContenidoSerializar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtContenidoSerializar.Size = new System.Drawing.Size(782, 190);
+            this.txtContenidoSerializar.TabIndex = 3;
             // 
             // btnSerializar
             // 
-            this.btnSerializar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnSerializar.FlatAppearance.BorderSize = 2;
-            this.btnSerializar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnSerializar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnSerializar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSerializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.btnSerializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSerializar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerializar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnSerializar.Location = new System.Drawing.Point(674, 38);
+            this.btnSerializar.ForeColor = System.Drawing.Color.White;
+            this.btnSerializar.Location = new System.Drawing.Point(650, 8);
             this.btnSerializar.Name = "btnSerializar";
-            this.btnSerializar.Size = new System.Drawing.Size(148, 37);
-            this.btnSerializar.TabIndex = 82;
+            this.btnSerializar.Size = new System.Drawing.Size(120, 30);
+            this.btnSerializar.TabIndex = 2;
             this.btnSerializar.Text = "Serializar";
-            this.btnSerializar.UseVisualStyleBackColor = true;
+            this.btnSerializar.UseVisualStyleBackColor = false;
+            this.btnSerializar.Click += new System.EventHandler(this.btnSerializar_Click);
+            // 
+            // cboTipoDato
+            // 
+            this.cboTipoDato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboTipoDato.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.cboTipoDato.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTipoDato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboTipoDato.ForeColor = System.Drawing.Color.White;
+            this.cboTipoDato.FormattingEnabled = true;
+            this.cboTipoDato.Location = new System.Drawing.Point(80, 10);
+            this.cboTipoDato.Name = "cboTipoDato";
+            this.cboTipoDato.Size = new System.Drawing.Size(150, 21);
+            this.cboTipoDato.TabIndex = 1;
+            // 
+            // lblTipoDato
+            // 
+            this.lblTipoDato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTipoDato.AutoSize = true;
+            this.lblTipoDato.ForeColor = System.Drawing.Color.White;
+            this.lblTipoDato.Location = new System.Drawing.Point(20, 13);
+            this.lblTipoDato.Name = "lblTipoDato";
+            this.lblTipoDato.Size = new System.Drawing.Size(54, 13);
+            this.lblTipoDato.TabIndex = 0;
+            this.lblTipoDato.Text = "Tipo dato:";
+            // 
+            // groupBoxDeserializacion
+            // 
+            this.groupBoxDeserializacion.Controls.Add(this.tableLayoutPanelDeserializacion);
+            this.groupBoxDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxDeserializacion.ForeColor = System.Drawing.Color.White;
+            this.groupBoxDeserializacion.Location = new System.Drawing.Point(3, 273);
+            this.groupBoxDeserializacion.Name = "groupBoxDeserializacion";
+            this.groupBoxDeserializacion.Size = new System.Drawing.Size(794, 204);
+            this.groupBoxDeserializacion.TabIndex = 1;
+            this.groupBoxDeserializacion.TabStop = false;
+            this.groupBoxDeserializacion.Text = "Deserialización";
+            // 
+            // tableLayoutPanelDeserializacion
+            // 
+            this.tableLayoutPanelDeserializacion.ColumnCount = 1;
+            this.tableLayoutPanelDeserializacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelDeserializacion.Controls.Add(this.txtContenidoDeserializar, 0, 1);
+            this.tableLayoutPanelDeserializacion.Controls.Add(this.panelControlesDeserializacion, 0, 0);
+            this.tableLayoutPanelDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelDeserializacion.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanelDeserializacion.Name = "tableLayoutPanelDeserializacion";
+            this.tableLayoutPanelDeserializacion.RowCount = 2;
+            this.tableLayoutPanelDeserializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelDeserializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanelDeserializacion.Size = new System.Drawing.Size(788, 185);
+            this.tableLayoutPanelDeserializacion.TabIndex = 0;
+            // 
+            // panelControlesDeserializacion
+            // 
+            this.panelControlesDeserializacion.Controls.Add(this.btnDeserializar);
+            this.panelControlesDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControlesDeserializacion.Location = new System.Drawing.Point(3, 3);
+            this.panelControlesDeserializacion.Name = "panelControlesDeserializacion";
+            this.panelControlesDeserializacion.Size = new System.Drawing.Size(782, 31);
+            this.panelControlesDeserializacion.TabIndex = 0;
+            // 
+            // txtContenidoDeserializar
+            // 
+            this.txtContenidoDeserializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.txtContenidoDeserializar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtContenidoDeserializar.ForeColor = System.Drawing.Color.White;
+            this.txtContenidoDeserializar.Location = new System.Drawing.Point(3, 40);
+            this.txtContenidoDeserializar.Multiline = true;
+            this.txtContenidoDeserializar.Name = "txtContenidoDeserializar";
+            this.txtContenidoDeserializar.ReadOnly = true;
+            this.txtContenidoDeserializar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtContenidoDeserializar.Size = new System.Drawing.Size(782, 142);
+            this.txtContenidoDeserializar.TabIndex = 2;
             // 
             // btnDeserializar
             // 
-            this.btnDeserializar.FlatAppearance.BorderColor = System.Drawing.Color.YellowGreen;
-            this.btnDeserializar.FlatAppearance.BorderSize = 2;
-            this.btnDeserializar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnDeserializar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.YellowGreen;
+            this.btnDeserializar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeserializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnDeserializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeserializar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeserializar.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnDeserializar.Location = new System.Drawing.Point(674, 289);
+            this.btnDeserializar.ForeColor = System.Drawing.Color.White;
+            this.btnDeserializar.Location = new System.Drawing.Point(20, 3);
             this.btnDeserializar.Name = "btnDeserializar";
-            this.btnDeserializar.Size = new System.Drawing.Size(148, 37);
-            this.btnDeserializar.TabIndex = 83;
+            this.btnDeserializar.Size = new System.Drawing.Size(120, 25);
+            this.btnDeserializar.TabIndex = 1;
             this.btnDeserializar.Text = "Deserializar";
-            this.btnDeserializar.UseVisualStyleBackColor = true;
+            this.btnDeserializar.UseVisualStyleBackColor = false;
+            this.btnDeserializar.Click += new System.EventHandler(this.btnDeserializar_Click);
             // 
-            // btnCerrar
+            // panelBotones
             // 
-            this.btnCerrar.FlatAppearance.BorderSize = 0;
-            this.btnCerrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCerrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCerrar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(674, 501);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnCerrar.Size = new System.Drawing.Size(95, 30);
-            this.btnCerrar.TabIndex = 84;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.panelBotones.Controls.Add(this.btnGuardarSerializado);
+            this.panelBotones.Controls.Add(this.btnSalir);
+            this.panelBotones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBotones.Location = new System.Drawing.Point(3, 483);
+            this.panelBotones.Name = "panelBotones";
+            this.panelBotones.Size = new System.Drawing.Size(794, 54);
+            this.panelBotones.TabIndex = 2;
             // 
-            // tableLayoutPanel3
+            // btnGuardarSerializado
             // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.lblSeleccionarIdioma, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.cboxIdiomas, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(674, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(340, 29);
-            this.tableLayoutPanel3.TabIndex = 85;
+            this.btnGuardarSerializado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnGuardarSerializado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnGuardarSerializado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarSerializado.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarSerializado.Location = new System.Drawing.Point(20, 12);
+            this.btnGuardarSerializado.Name = "btnGuardarSerializado";
+            this.btnGuardarSerializado.Size = new System.Drawing.Size(120, 30);
+            this.btnGuardarSerializado.TabIndex = 2;
+            this.btnGuardarSerializado.Text = "Guardar";
+            this.btnGuardarSerializado.UseVisualStyleBackColor = false;
+            this.btnGuardarSerializado.Click += new System.EventHandler(this.btnGuardarSerializado_Click);
             // 
-            // lblSeleccionarIdioma
+            // btnSalir
             // 
-            this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblSeleccionarIdioma.AutoSize = true;
-            this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeleccionarIdioma.ForeColor = System.Drawing.SystemColors.Window;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(9, 4);
-            this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(152, 21);
-            this.lblSeleccionarIdioma.TabIndex = 46;
-            this.lblSeleccionarIdioma.Tag = "Label_Seleccionar_GUs";
-            this.lblSeleccionarIdioma.Text = "Seleccionar idioma:";
+            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.ForeColor = System.Drawing.Color.White;
+            this.btnSalir.Location = new System.Drawing.Point(650, 12);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(120, 30);
+            this.btnSalir.TabIndex = 3;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // panelIdioma
+            // 
+            this.panelIdioma.Controls.Add(this.cboxIdiomas);
+            this.panelIdioma.Controls.Add(this.labelIdioma);
+            this.panelIdioma.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelIdioma.Location = new System.Drawing.Point(3, 543);
+            this.panelIdioma.Name = "panelIdioma";
+            this.panelIdioma.Size = new System.Drawing.Size(794, 54);
+            this.panelIdioma.TabIndex = 3;
             // 
             // cboxIdiomas
             // 
-            this.cboxIdiomas.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cboxIdiomas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboxIdiomas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxIdiomas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxIdiomas.ForeColor = System.Drawing.Color.White;
             this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(172, 4);
-            this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2);
+            this.cboxIdiomas.Location = new System.Drawing.Point(650, 15);
             this.cboxIdiomas.Name = "cboxIdiomas";
-            this.cboxIdiomas.Size = new System.Drawing.Size(157, 21);
-            this.cboxIdiomas.TabIndex = 45;
-            this.cboxIdiomas.Tag = "Combobox_Idiomas_GUs";
+            this.cboxIdiomas.Size = new System.Drawing.Size(120, 21);
+            this.cboxIdiomas.TabIndex = 4;
+            this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
+            // 
+            // labelIdioma
+            // 
+            this.labelIdioma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelIdioma.AutoSize = true;
+            this.labelIdioma.ForeColor = System.Drawing.Color.White;
+            this.labelIdioma.Location = new System.Drawing.Point(600, 18);
+            this.labelIdioma.Name = "labelIdioma";
+            this.labelIdioma.Size = new System.Drawing.Size(41, 13);
+            this.labelIdioma.TabIndex = 5;
+            this.labelIdioma.Text = "Idioma:";
             // 
             // frmSerializacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1017, 576);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.tableLayoutPanelPrincipal);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "frmSerializacion";
-            this.Text = "frmSerializacion";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.groupBoxCompra.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeserializados)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Serialización de Datos - CheeseLogix";
+            this.tableLayoutPanelPrincipal.ResumeLayout(false);
+            this.groupBoxSerializacion.ResumeLayout(false);
+            this.tableLayoutPanelSerializacion.ResumeLayout(false);
+            this.panelControlesSerializacion.ResumeLayout(false);
+            this.panelControlesSerializacion.PerformLayout();
+            this.groupBoxDeserializacion.ResumeLayout(false);
+            this.tableLayoutPanelDeserializacion.ResumeLayout(false);
+            this.panelControlesDeserializacion.ResumeLayout(false);
+            this.panelBotones.ResumeLayout(false);
+            this.panelIdioma.ResumeLayout(false);
+            this.panelIdioma.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.GroupBox groupBoxCompra;
-        internal System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        internal System.Windows.Forms.DataGridView dataGridViewDeserializados;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPrincipal;
+        private System.Windows.Forms.GroupBox groupBoxSerializacion;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSerializacion;
+        private System.Windows.Forms.TextBox txtContenidoSerializar;
+        private System.Windows.Forms.Panel panelControlesSerializacion;
         private System.Windows.Forms.Button btnSerializar;
+        private System.Windows.Forms.ComboBox cboTipoDato;
+        private System.Windows.Forms.Label lblTipoDato;
+        private System.Windows.Forms.GroupBox groupBoxDeserializacion;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDeserializacion;
+        private System.Windows.Forms.TextBox txtContenidoDeserializar;
+        private System.Windows.Forms.Panel panelControlesDeserializacion;
         private System.Windows.Forms.Button btnDeserializar;
-        private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label lblSeleccionarIdioma;
+        private System.Windows.Forms.Panel panelBotones;
+        private System.Windows.Forms.Button btnGuardarSerializado;
+        private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.Panel panelIdioma;
         private System.Windows.Forms.ComboBox cboxIdiomas;
+        private System.Windows.Forms.Label labelIdioma;
     }
 }
