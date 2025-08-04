@@ -85,6 +85,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblTitulo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnCerrar, 1, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -93,7 +94,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(827, 560);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(827, 559);
             this.tableLayoutPanel1.TabIndex = 86;
             // 
             // tableLayoutPanel4
@@ -110,7 +111,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(408, 50);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(408, 49);
             this.tableLayoutPanel4.TabIndex = 88;
             // 
             // lblSeleccionarIdioma
@@ -119,7 +120,7 @@
             this.lblSeleccionarIdioma.AutoSize = true;
             this.lblSeleccionarIdioma.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(31, 15);
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(31, 14);
             this.lblSeleccionarIdioma.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
             this.lblSeleccionarIdioma.Size = new System.Drawing.Size(142, 20);
@@ -133,7 +134,7 @@
             this.cboxIdiomas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxIdiomas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(225, 11);
+            this.cboxIdiomas.Location = new System.Drawing.Point(225, 10);
             this.cboxIdiomas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboxIdiomas.Name = "cboxIdiomas";
             this.cboxIdiomas.Size = new System.Drawing.Size(162, 28);
@@ -151,7 +152,7 @@
             this.btnIniciarOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIniciarOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIniciarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnIniciarOrden.Location = new System.Drawing.Point(76, 485);
+            this.btnIniciarOrden.Location = new System.Drawing.Point(76, 484);
             this.btnIniciarOrden.Name = "btnIniciarOrden";
             this.btnIniciarOrden.Size = new System.Drawing.Size(261, 37);
             this.btnIniciarOrden.TabIndex = 80;
@@ -170,13 +171,13 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.groupBoxBuscar, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.groupBoxDetalleVenta, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(415, 58);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(415, 57);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 62.07792F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.92208F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(410, 388);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(410, 387);
             this.tableLayoutPanel2.TabIndex = 86;
             // 
             // groupBoxBuscar
@@ -193,7 +194,7 @@
             this.groupBoxBuscar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBoxBuscar.Location = new System.Drawing.Point(3, 243);
             this.groupBoxBuscar.Name = "groupBoxBuscar";
-            this.groupBoxBuscar.Size = new System.Drawing.Size(404, 142);
+            this.groupBoxBuscar.Size = new System.Drawing.Size(404, 141);
             this.groupBoxBuscar.TabIndex = 84;
             this.groupBoxBuscar.TabStop = false;
             this.groupBoxBuscar.Text = "Buscar";
@@ -391,14 +392,14 @@
             this.tableLayoutPanel3.Controls.Add(this.groupBoxCompra, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.txtCuitCliente, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.labelCuitCliente, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 58);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 57);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91.11842F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.881579F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 83F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(409, 388);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(409, 387);
             this.tableLayoutPanel3.TabIndex = 87;
             // 
             // groupBoxCompra
@@ -469,7 +470,7 @@
             // txtCuitCliente
             // 
             this.txtCuitCliente.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtCuitCliente.Location = new System.Drawing.Point(98, 336);
+            this.txtCuitCliente.Location = new System.Drawing.Point(98, 335);
             this.txtCuitCliente.Name = "txtCuitCliente";
             this.txtCuitCliente.Size = new System.Drawing.Size(213, 20);
             this.txtCuitCliente.TabIndex = 84;
@@ -498,7 +499,7 @@
             this.btnCerrar.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(729, 527);
+            this.btnCerrar.Location = new System.Drawing.Point(729, 526);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCerrar.Size = new System.Drawing.Size(95, 30);

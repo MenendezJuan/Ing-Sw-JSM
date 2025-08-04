@@ -91,9 +91,6 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.34081F));
@@ -108,13 +105,14 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnCerrar, 1, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.26351F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.7973F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1335, 592);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1336, 596);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
             // tableLayoutPanel7
@@ -224,7 +222,7 @@
             this.dataGridViewProductos.RowHeadersVisible = false;
             this.dataGridViewProductos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProductos.Size = new System.Drawing.Size(506, 332);
+            this.dataGridViewProductos.Size = new System.Drawing.Size(506, 335);
             this.dataGridViewProductos.TabIndex = 85;
             // 
             // labelListaProductos
@@ -251,12 +249,12 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
             this.tableLayoutPanel2.Controls.Add(this.btnVaciarCarrito, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnEliminarProducto, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(881, 388);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(881, 391);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.20398F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.79602F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(451, 201);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(452, 202);
             this.tableLayoutPanel2.TabIndex = 93;
             // 
             // btnVaciarCarrito
@@ -347,7 +345,7 @@
             this.dataGridViewCarrito.RowHeadersVisible = false;
             this.dataGridViewCarrito.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewCarrito.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCarrito.Size = new System.Drawing.Size(451, 332);
+            this.dataGridViewCarrito.Size = new System.Drawing.Size(452, 335);
             this.dataGridViewCarrito.TabIndex = 86;
             // 
             // tableLayoutPanel3
@@ -368,7 +366,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.38503F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(360, 332);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(360, 335);
             this.tableLayoutPanel3.TabIndex = 94;
             // 
             // btnConfirmarCompra
@@ -381,7 +379,7 @@
             this.btnConfirmarCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirmarCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirmarCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnConfirmarCompra.Location = new System.Drawing.Point(118, 249);
+            this.btnConfirmarCompra.Location = new System.Drawing.Point(118, 252);
             this.btnConfirmarCompra.Name = "btnConfirmarCompra";
             this.btnConfirmarCompra.Size = new System.Drawing.Size(123, 44);
             this.btnConfirmarCompra.TabIndex = 67;
@@ -396,7 +394,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.panel5);
-            this.groupBox2.Location = new System.Drawing.Point(2, 138);
+            this.groupBox2.Location = new System.Drawing.Point(2, 141);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -459,11 +457,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.panel3);
-            this.groupBox7.Location = new System.Drawing.Point(2, 78);
+            this.groupBox7.Location = new System.Drawing.Point(2, 79);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Size = new System.Drawing.Size(356, 56);
+            this.groupBox7.Size = new System.Drawing.Size(356, 58);
             this.groupBox7.TabIndex = 114;
             this.groupBox7.TabStop = false;
             // 
@@ -538,7 +536,7 @@
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(356, 72);
+            this.groupBox6.Size = new System.Drawing.Size(356, 73);
             this.groupBox6.TabIndex = 113;
             this.groupBox6.TabStop = false;
             // 
@@ -604,13 +602,13 @@
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnAgregarACarrito, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.cmbCategoriaProducto, 1, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 388);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 391);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.93877F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.06123F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(506, 201);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(506, 202);
             this.tableLayoutPanel4.TabIndex = 95;
             // 
             // lblTxtProducto
@@ -655,7 +653,7 @@
             this.btnAgregarACarrito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarACarrito.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarACarrito.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAgregarACarrito.Location = new System.Drawing.Point(313, 153);
+            this.btnAgregarACarrito.Location = new System.Drawing.Point(313, 154);
             this.btnAgregarACarrito.Name = "btnAgregarACarrito";
             this.btnAgregarACarrito.Size = new System.Drawing.Size(133, 44);
             this.btnAgregarACarrito.TabIndex = 64;
@@ -684,7 +682,7 @@
             this.btnCerrar.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(780, 559);
+            this.btnCerrar.Location = new System.Drawing.Point(780, 563);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCerrar.Size = new System.Drawing.Size(95, 30);
@@ -701,6 +699,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 596);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmTramitarOrdenCarrito";
             this.Text = "frmTramitarOrdenCarrito";
             this.tableLayoutPanel1.ResumeLayout(false);
