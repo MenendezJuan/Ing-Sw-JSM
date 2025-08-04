@@ -163,5 +163,66 @@ namespace MPPs
 
             return venta;
         }
+
+        #region Métodos de Reportes
+
+        /// <summary>
+        /// Obtiene los productos más vendidos en un período
+        /// </summary>
+        public DataTable ObtenerProductosMasVendidos(DateTime? fechaInicio = null, DateTime? fechaFin = null)
+        {
+            var parametros = new Hashtable();
+            
+            if (fechaInicio.HasValue)
+                parametros.Add("@FechaInicio", fechaInicio.Value);
+            if (fechaFin.HasValue)
+                parametros.Add("@FechaFin", fechaFin.Value);
+
+            return oCnx.Leer("SP_ObtenerProductosMasVendidos", parametros);
+        }
+
+        /// <summary>
+        /// Obtiene las ventas por mes de un año específico
+        /// </summary>
+        public DataTable ObtenerVentasPorMes(int año)
+        {
+            var parametros = new Hashtable
+            {
+                { "@Año", año }
+            };
+
+            return oCnx.Leer("SP_ObtenerVentasPorMes", parametros);
+        }
+
+        /// <summary>
+        /// Obtiene los clientes que más compran
+        /// </summary>
+        public DataTable ObtenerClientesMejores(DateTime? fechaInicio = null, DateTime? fechaFin = null)
+        {
+            var parametros = new Hashtable();
+            
+            if (fechaInicio.HasValue)
+                parametros.Add("@FechaInicio", fechaInicio.Value);
+            if (fechaFin.HasValue)
+                parametros.Add("@FechaFin", fechaFin.Value);
+
+            return oCnx.Leer("SP_ObtenerClientesMejores", parametros);
+        }
+
+        /// <summary>
+        /// Obtiene un resumen ejecutivo de ventas
+        /// </summary>
+        public DataTable ObtenerResumenEjecutivo(DateTime fechaInicio, DateTime fechaFin)
+        {
+            var parametros = new Hashtable
+            {
+                { "@FechaInicio", fechaInicio },
+                { "@FechaFin", fechaFin }
+            };
+
+            return oCnx.Leer("SP_ObtenerResumenEjecutivo", parametros);
+        }
+
+        #endregion
     }
 } 

@@ -3,7 +3,9 @@ using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
 using CheeseLogix.Negocio;
+using CheeseLogix.Negocio.Reportes;
 using CheeseLogix.Negocio.Ventas;
+using CheeseLogix.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -211,7 +213,18 @@ namespace CheeseLogix
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                frmReporteInteligente reportes = new frmReporteInteligente();
+                AddOwnedForm(reportes);
+                FormHijo(reportes);
+                HideSubMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir reportes: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCaja_Click(object sender, EventArgs e)

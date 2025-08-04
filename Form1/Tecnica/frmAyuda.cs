@@ -1,15 +1,32 @@
-﻿using System;
+﻿using BEs;
+using BEs.Interfaces;
+using BLLs.Tecnica;
+using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Patagames.Pdf.Net.Controls.WinForms;
+using BLLs;
 
 namespace CheeseLogix.Tecnica
 {
-    public partial class frmAyuda : Form
+    public partial class frmAyuda : Form, IObservador
     {
+        private SessionManager sesion;
+        private BLL_IDIOMA Bll_Idioma;
+        private BLL_TRADUCCION Bll_Traduccion;
+
         public frmAyuda()
         {
             InitializeComponent();
+            sesion = SessionManager.GetInstance();
+            Bll_Idioma = new BLL_IDIOMA();
+            Bll_Traduccion = new BLL_TRADUCCION();
+
+            sesion.RegistrarObservador(this);
+            IIdioma oIdioma = sesion.Idioma;
+            CargarIdiomas();
+            Actualizar(oIdioma);
             CargarPDF();
         }
 
@@ -22,7 +39,7 @@ namespace CheeseLogix.Tecnica
                 
                 if (File.Exists(rutaPDF))
                 {
-                    pdfViewer.LoadDocument(rutaPDF);
+                    pdfViewer1.LoadDocument(rutaPDF);
                 }
                 else
                 {
@@ -68,5 +85,89 @@ namespace CheeseLogix.Tecnica
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #region Idiomas
+
+        private void CargarIdiomas()
+        {
+            try
+            {
+                var idiomas = Bll_Idioma.ListarTodos();
+                cboxIdiomas.DataSource = idiomas;
+                cboxIdiomas.DisplayMember = "Nombre";
+                cboxIdiomas.ValueMember = "Id";
+
+                var idiomaPredeterminado = idiomas.FirstOrDefault(i => i.Nombre == "Español");
+                if (idiomaPredeterminado != null)
+                {
+                    cboxIdiomas.SelectedValue = idiomaPredeterminado.Id;
+                    sesion.CambiarIdioma(idiomaPredeterminado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void Actualizar(IIdioma idioma)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control.Tag != null)
+                {
+                    string traduccion = Bll_Traduccion.BuscarTraduccion(control.Tag.ToString(), idioma.Id);
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        control.Text = traduccion;
+                    }
+                }
+
+                if (control.HasChildren)
+                {
+                    foreach (Control controlChild in control.Controls)
+                    {
+                        if (controlChild.Tag != null)
+                        {
+                            string traduccion = Bll_Traduccion.BuscarTraduccion(controlChild.Tag.ToString(), idioma.Id);
+                            if (!string.IsNullOrEmpty(traduccion))
+                            {
+                                controlChild.Text = traduccion;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (cboxIdiomas.DataSource != null && cboxIdiomas.Items.Count > 0 && cboxIdiomas.ValueMember != string.Empty)
+            {
+                cboxIdiomas.SelectedValue = idioma.Id;
+            }
+        }
+
+        private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboxIdiomas.SelectedValue != null && cboxIdiomas.SelectedValue != DBNull.Value)
+                {
+                    int idIdioma;
+                    if (int.TryParse(cboxIdiomas.SelectedValue.ToString(), out idIdioma))
+                    {
+                        var idiomaSeleccionado = Bll_Idioma.ObtenerPorId(idIdioma);
+                        if (idiomaSeleccionado != null)
+                        {
+                            sesion.CambiarIdioma(idiomaSeleccionado);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cambiar idioma: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
     }
 }

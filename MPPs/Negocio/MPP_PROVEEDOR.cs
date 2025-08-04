@@ -150,5 +150,24 @@ namespace MPPs
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"])
             };
         }
+
+        #region Métodos de Reportes
+
+        /// <summary>
+        /// Obtiene los proveedores más activos (con más órdenes de compra)
+        /// </summary>
+        public DataTable ObtenerProveedoresMasActivos(DateTime? fechaInicio = null, DateTime? fechaFin = null)
+        {
+            var parametros = new Hashtable();
+            
+            if (fechaInicio.HasValue)
+                parametros.Add("@FechaInicio", fechaInicio.Value);
+            if (fechaFin.HasValue)
+                parametros.Add("@FechaFin", fechaFin.Value);
+
+            return oCnx.Leer("SP_ObtenerProveedoresMasActivos", parametros);
+        }
+
+        #endregion
     }
 }
