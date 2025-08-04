@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{168C9603-4C7F-4B0B-9A24-3B8C2DC885A2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CheeseLogix</RootNamespace>
+    <AssemblyName>CheeseLogix</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icons8-battle.net.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=6.6.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.6.6.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=5.2.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.5.2.1\lib\net462\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=5.2.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.5.2.1\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net461\MaterialSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroFramework.Design.1.2.0.3\lib\net40\MetroFramework.Design.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroFramework.Fonts.1.2.0.3\lib\net40\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.135\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Patagames.Pdf, Version=11.87.48.472, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pdfium.Net.SDK.4.100.2704\lib\net472\Patagames.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Patagames.Pdf.WinForms, Version=4.29.19.472, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pdfium.Net.SDK.4.100.2704\lib\net472\Patagames.Pdf.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Patagames.Pdf.Wpf, Version=4.29.21.472, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pdfium.Net.SDK.4.100.2704\lib\net472\Patagames.Pdf.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.9.0.7\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Negocio\Compras\frmGestionarEnvioCotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGestionarEnvioCotizacion.Designer.cs">
+      <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGestionarProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGestionarProveedores.Designer.cs">
+      <DependentUpon>frmGestionarProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmVerificacionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmVerificacionProductos.Designer.cs">
+      <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmDespachoProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmDespachoProducto.Designer.cs">
+      <DependentUpon>frmDespachoProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmCobroVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
+      <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmGestionarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmGestionarClientes.Designer.cs">
+      <DependentUpon>frmGestionarClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmInicioOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmInicioOrden.Designer.cs">
+      <DependentUpon>frmInicioOrden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmTramitarOrdenCarrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmTramitarOrdenCarrito.Designer.cs">
+      <DependentUpon>frmTramitarOrdenCarrito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen\frmSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen\frmSplashScreen.Designer.cs">
+      <DependentUpon>frmSplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Tecnica\frmBackupRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmBackupRestore.Designer.cs">
+      <DependentUpon>frmBackupRestore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmConfigurarIdioma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmConfigurarIdioma.Designer.cs">
+      <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmControlSolicitudesCotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmControlSolicitudesCotizacion.Designer.cs">
+      <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGenerarOrdenCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGenerarOrdenCompra.Designer.cs">
+      <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGestionCotizacionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Compras\frmGestionCotizacionProductos.Designer.cs">
+      <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmGestionStockProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmGestionStockProductos.Designer.cs">
+      <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorBitacora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorBitacora.Designer.cs">
+      <DependentUpon>frmGestorBitacora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorIdiomas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorIdiomas.Designer.cs">
+      <DependentUpon>frmGestorIdiomas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorPermisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorPermisos.Designer.cs">
+      <DependentUpon>frmGestorPermisos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmGestorUsuarios.Designer.cs">
+      <DependentUpon>frmGestorUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmInicioSesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmInicioSesion.Designer.cs">
+      <DependentUpon>frmInicioSesion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmMenuAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmMenuAdmin.Designer.cs">
+      <DependentUpon>frmMenuAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\frmMenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\frmMenuPrincipal.Designer.cs">
+      <DependentUpon>frmMenuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tecnica\frmRegistro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmRegistro.Designer.cs">
+      <DependentUpon>frmRegistro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmSerializacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmSerializacion.Designer.cs">
+      <DependentUpon>frmSerializacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnica\frmAyuda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmAyuda.Designer.cs">
+      <DependentUpon>frmAyuda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Reportes\frmReporteInteligente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Reportes\frmReporteInteligente.Designer.cs">
+      <DependentUpon>frmReporteInteligente.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Negocio\Compras\frmGestionarEnvioCotizacion.resx">
+      <DependentUpon>frmGestionarEnvioCotizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Compras\frmGestionarProveedores.resx">
+      <DependentUpon>frmGestionarProveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Stock\frmGestionStockProductos.resx">
+      <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Stock\frmVerificacionProductos.resx">
+      <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Stock\frmDespachoProducto.resx">
+      <DependentUpon>frmDespachoProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmCobroVenta.resx">
+      <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmGestionarClientes.resx">
+      <DependentUpon>frmGestionarClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmInicioOrden.resx">
+      <DependentUpon>frmInicioOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmTramitarOrdenCarrito.resx">
+      <DependentUpon>frmTramitarOrdenCarrito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pdf.Net.SDK.licx" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="SplashScreen\frmSplashScreen.resx">
+      <DependentUpon>frmSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmBackupRestore.resx">
+      <DependentUpon>frmBackupRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmConfigurarIdioma.resx">
+      <DependentUpon>frmConfigurarIdioma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Compras\frmControlSolicitudesCotizacion.resx">
+      <DependentUpon>frmControlSolicitudesCotizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Compras\frmGenerarOrdenCompra.resx">
+      <DependentUpon>frmGenerarOrdenCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Compras\frmGestionCotizacionProductos.resx">
+      <DependentUpon>frmGestionCotizacionProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmGestorBitacora.resx">
+      <DependentUpon>frmGestorBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmGestorIdiomas.resx">
+      <DependentUpon>frmGestorIdiomas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmGestorPermisos.resx">
+      <DependentUpon>frmGestorPermisos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmGestorUsuarios.resx">
+      <DependentUpon>frmGestorUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmInicioSesion.resx">
+      <DependentUpon>frmInicioSesion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmMenuAdmin.resx">
+      <DependentUpon>frmMenuAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\frmMenuPrincipal.resx">
+      <DependentUpon>frmMenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Tecnica\frmRegistro.resx">
+      <DependentUpon>frmRegistro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmSerializacion.resx">
+      <DependentUpon>frmSerializacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Reportes\frmReporteInteligente.resx">
+      <DependentUpon>frmReporteInteligente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Reportes\ReporteVentas.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmAyuda.resx">
+      <DependentUpon>frmAyuda.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="libpdfium.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BEs\BE.csproj">
+      <Project>{d854f6cc-77b8-414e-b36a-fb2233d6706a}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLLs\BLL.csproj">
+      <Project>{5764fc25-e67b-4030-befa-05ae93b29c28}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cheese_Logix-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-market-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-reports-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-reports-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-admin-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-key-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-help-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-reports-251.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\32%3b 30%3b 45 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\32%3b 30%3b 45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\211%3b 119.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WhatsApp Image 2024-11-06 at 12.21.14 AM.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %284%291.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %284%292.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diseño sin título %285%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\amplitude_problem___computer_corner_by_valenberg_d8hpsqn.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons8-battle.net.ico" />
+    <Content Include="icudt.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MetroFramework.txt" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\pdfium.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\pdfium.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets'))" />
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets'))" />
+  </Target>
+  <Import Project="..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets" Condition="Exists('..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets')" />
+  <Import Project="..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+      echo Copiando archivos RDLC...
+      if not exist "$(TargetDir)Reportes" mkdir "$(TargetDir)Reportes"
+      if exist "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" copy "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" "$(TargetDir)Reportes\ReporteVentas.rdlc" /y
+      if not exist "$(TargetDir)Negocio" mkdir "$(TargetDir)Negocio"
+      if not exist "$(TargetDir)Negocio\Reportes" mkdir "$(TargetDir)Negocio\Reportes"
+      if exist "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" copy "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" "$(TargetDir)Negocio\Reportes\ReporteVentas.rdlc" /y
+      echo Archivos RDLC copiados.
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

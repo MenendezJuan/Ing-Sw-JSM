@@ -63,7 +63,10 @@ namespace BEs
 
         public void DesregistrarObservador(IObservador observador)
         {
-            ObservadoresRegistrados.Remove(observador);
+            if (ObservadoresRegistrados.Contains(observador))
+            {
+                ObservadoresRegistrados.Remove(observador);
+            }
         }
 
         public void NotificarObservadores()

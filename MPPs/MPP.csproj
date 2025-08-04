@@ -42,10 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracciones\IRepositorio.cs" />
+    <Compile Include="Negocio\MPP_CLIENTE.cs" />
     <Compile Include="Negocio\MPP_COTIZACION.cs" />
     <Compile Include="Negocio\MPP_DETALLECOMPRA.cs" />
     <Compile Include="Negocio\MPP_DETALLECOTIZACION.cs" />
+    <Compile Include="Negocio\MPP_DETALLEVENTA.cs" />
     <Compile Include="Negocio\MPP_PRODUCTO.cs" />
+    <Compile Include="Negocio\MPP_VENTA.cs" />
+    <Compile Include="Tecnica\MPP_BACKUP.cs" />
     <Compile Include="Tecnica\MPP_BITACORA.cs" />
     <Compile Include="Negocio\MPP_COMPRA.cs" />
     <Compile Include="Tecnica\MPP_IDIOMA.cs" />

@@ -1,6 +1,9 @@
 ﻿using BEs;
 using BEs.Interfaces;
 using BLLs;
+using CheeseLogix.Negocio.Reportes;
+using CheeseLogix.Negocio.Ventas;
+using CheeseLogix.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +12,7 @@ using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmInicioSesion : Form, IObservador
     {
@@ -127,6 +130,9 @@ namespace Form1
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
                     MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
                     frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
+                    //frmReporteInteligente menuPrincipal = new frmReporteInteligente();
+                    //frmInicioOrden menuPrincipal = new frmInicioOrden();
+                    //frmBackupRestore menuPrincipal = new frmBackupRestore();
                     menuPrincipal.Show();
                     this.Hide();
                 }

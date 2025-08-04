@@ -8,7 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmConfigurarIdioma : Form, IObservador
     {
@@ -87,6 +87,9 @@ namespace Form1
                 var traducciones = Bll_Traducciones.ListarPorIdioma(idiomaSeleccionado.Id);
                 dgvTraducciones.DataSource = null;
                 dgvTraducciones.DataSource = traducciones;
+                dgvTraducciones.Columns["Palabra"].Tag = "Palabra_column";
+                dgvTraducciones.Columns["TraduccionTexto"].HeaderText = "Texto de la Traduccion";
+                dgvTraducciones.Columns["TraduccionTexto"].Tag = "TraduccionTexto_column";
             }
             catch (Exception ex)
             {
@@ -98,7 +101,7 @@ namespace Form1
         {
             List<string> palabras = Bll_Traducciones.ListarPalabrasSinTraduccion(idiomaSeleccionado.Id);
 
-            return palabras; // Asegurarse de que no haya duplicados
+            return palabras;
         }
 
         private void ObtenerPalabrasDeControles(Control.ControlCollection controls, List<string> palabras)

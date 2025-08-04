@@ -1,4 +1,4 @@
-﻿namespace Form1
+﻿namespace CheeseLogix
 {
     partial class frmMenuAdmin
     {
@@ -39,6 +39,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label_MenuAdmin = new System.Windows.Forms.Label();
+            this.btnBackupRestore = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -51,7 +52,7 @@
             this.button_Usuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Usuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Usuarios.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Usuarios.Location = new System.Drawing.Point(19, 48);
+            this.button_Usuarios.Location = new System.Drawing.Point(5, 48);
             this.button_Usuarios.Margin = new System.Windows.Forms.Padding(2);
             this.button_Usuarios.Name = "button_Usuarios";
             this.button_Usuarios.Size = new System.Drawing.Size(94, 83);
@@ -69,7 +70,7 @@
             this.button_Bitacora.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Bitacora.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Bitacora.Location = new System.Drawing.Point(286, 48);
+            this.button_Bitacora.Location = new System.Drawing.Point(218, 48);
             this.button_Bitacora.Margin = new System.Windows.Forms.Padding(2);
             this.button_Bitacora.Name = "button_Bitacora";
             this.button_Bitacora.Size = new System.Drawing.Size(88, 82);
@@ -104,7 +105,7 @@
             this.button_Permisos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Permisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Permisos.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button_Permisos.Location = new System.Drawing.Point(154, 48);
+            this.button_Permisos.Location = new System.Drawing.Point(113, 48);
             this.button_Permisos.Margin = new System.Windows.Forms.Padding(2);
             this.button_Permisos.Name = "button_Permisos";
             this.button_Permisos.Size = new System.Drawing.Size(88, 83);
@@ -150,7 +151,7 @@
             this.btnIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIdioma.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnIdioma.Location = new System.Drawing.Point(415, 48);
+            this.btnIdioma.Location = new System.Drawing.Point(320, 48);
             this.btnIdioma.Margin = new System.Windows.Forms.Padding(2);
             this.btnIdioma.Name = "btnIdioma";
             this.btnIdioma.Size = new System.Drawing.Size(94, 82);
@@ -189,11 +190,13 @@
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnCount = 5;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.btnBackupRestore, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Usuarios, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnIdioma, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.button_Permisos, 1, 0);
@@ -232,7 +235,26 @@
             this.label_MenuAdmin.Name = "label_MenuAdmin";
             this.label_MenuAdmin.Size = new System.Drawing.Size(128, 25);
             this.label_MenuAdmin.TabIndex = 50;
+            this.label_MenuAdmin.Tag = "label_MenuAdmin_frmPrin";
             this.label_MenuAdmin.Text = "Menú Admin";
+            // 
+            // btnBackupRestore
+            // 
+            this.btnBackupRestore.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBackupRestore.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnBackupRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBackupRestore.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackupRestore.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnBackupRestore.Location = new System.Drawing.Point(427, 48);
+            this.btnBackupRestore.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBackupRestore.Name = "btnBackupRestore";
+            this.btnBackupRestore.Size = new System.Drawing.Size(94, 82);
+            this.btnBackupRestore.TabIndex = 48;
+            this.btnBackupRestore.Tag = "Button_GestionBackupRestore_FormIni";
+            this.btnBackupRestore.Text = "Backup - Restore";
+            this.btnBackupRestore.UseVisualStyleBackColor = false;
+            this.btnBackupRestore.Visible = false;
+            this.btnBackupRestore.Click += new System.EventHandler(this.btnBackupRestore_Click);
             // 
             // frmMenuAdmin
             // 
@@ -245,6 +267,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMenuAdmin";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "Form_MenuInicio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuInicio_FormClosing);
             this.Load += new System.EventHandler(this.frmMenuAdmin_Load);
@@ -270,5 +293,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label_MenuAdmin;
+        private System.Windows.Forms.Button btnBackupRestore;
     }
 }

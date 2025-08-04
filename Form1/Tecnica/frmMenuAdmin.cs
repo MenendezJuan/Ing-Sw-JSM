@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CheeseLogix
 {
     public partial class frmMenuAdmin : Form, IObservador
     {
@@ -218,8 +218,6 @@ namespace Form1
         {
             if (i == 0)
             {
-                frmInicioSesion FormIni = new frmInicioSesion();
-                FormIni.Show();
                 i++;
                 this.Close();
             }
@@ -229,6 +227,15 @@ namespace Form1
         private void frmMenuAdmin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBackupRestore_Click(object sender, EventArgs e)
+        {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
+            CheeseLogix.Tecnica.frmBackupRestore backupRestore = new CheeseLogix.Tecnica.frmBackupRestore();
+            pForm.AddOwnedForm(backupRestore);
+            pForm.FormHijo(backupRestore);
+            backupRestore.Show();
         }
     }
 }

@@ -96,6 +96,16 @@ namespace BLLs.Negocio
             return categorias;
         }
 
+        public List<Producto> BuscarProductos(int? categoria, string nombre, bool? estado)
+        {
+            if (categoria.HasValue && !Enum.IsDefined(typeof(Categoria), categoria.Value))
+            {
+                throw new ArgumentException("Categoría inválida.", nameof(categoria));
+            }
+
+            return _productoRepository.BuscarProductos(categoria, nombre, estado);
+        }
+
         private void ValidarProducto(Producto producto)
         {
             if (producto == null)
@@ -118,11 +128,6 @@ namespace BLLs.Negocio
 
             if (producto.PrecioVenta < producto.PrecioCompra)
                 throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
-
-            //if (_productoRepository.ExisteCodigoProducto(producto.Codigo))
-            //{
-            //    throw new ArgumentException($"El código de producto {producto.Codigo} ya existe.", nameof(producto.Codigo));
-            //}
         }
 
         private void ValidarProveedor(int proveedorId)
@@ -137,6 +142,64 @@ namespace BLLs.Negocio
             var producto = _productoRepository.ObtenerPorId(productoId);
             if (producto == null)
                 throw new ArgumentException($"El producto con Id {productoId} no existe.", nameof(productoId));
+        }
+
+        /// <summary>
+        /// Obtiene información completa del stock de un producto
+        /// </summary>
+        /// <param name="productoId">ID del producto</param>
+        /// <returns>Información de stock o null si no existe el producto</returns>
+        public StockInfo ObtenerInfoStock(int productoId)
+        {
+            return _productoRepository.ObtenerInfoStock(productoId);
+        }
+
+        /// <summary>
+        /// Obtiene productos disponibles para venta (activos con stock)
+        /// </summary>
+        /// <returns>Lista de productos disponibles</returns>
+        public List<Producto> ObtenerProductosDisponiblesParaVenta()
+        {
+            var productos = _productoRepository.ObtenerTodos();
+            var productosDisponibles = new List<Producto>();
+
+            foreach (var producto in productos)
+            {
+                if (producto.Estado && producto.Stock > 0)
+                {
+                    // Obtener información de stock real
+                    var stockInfo = _productoRepository.ObtenerInfoStock(producto.Id);
+                    if (stockInfo != null)
+                    {
+                        producto.StockDisponible = stockInfo.StockDisponible;
+                        producto.StockReservado = stockInfo.StockReservado;
+                    }
+                    else
+                    {
+                        producto.StockDisponible = producto.Stock ?? 0;
+                        producto.StockReservado = 0;
+                    }
+                    
+                    // Solo agregar si tiene stock disponible
+                    if (producto.StockDisponible > 0)
+                    {
+                        productosDisponibles.Add(producto);
+                    }
+                }
+            }
+
+            return productosDisponibles;
+        }
+
+        /// <summary>
+        /// Obtiene productos por categoría que están disponibles para venta
+        /// </summary>
+        /// <param name="categoria">Categoría de productos</param>
+        /// <returns>Lista de productos disponibles de la categoría</returns>
+        public List<Producto> ObtenerProductosPorCategoriaDisponibles(Categoria categoria)
+        {
+            var productosDisponibles = ObtenerProductosDisponiblesParaVenta();
+            return productosDisponibles.Where(p => p.CategoriaEnum == categoria).ToList();
         }
 
         #region MetodosPrivados

@@ -1,4 +1,4 @@
-﻿namespace Form1
+﻿namespace CheeseLogix
 {
     partial class frmInicioSesion
     {
@@ -283,7 +283,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Form1.Properties.Resources.Cheese_Logix_removebg_preview;
+            this.pictureBox1.Image = global::CheeseLogix.Properties.Resources.Cheese_Logix_removebg_preview;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(224, 182);
@@ -293,7 +293,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::Form1.Properties.Resources.icons8_market_96;
+            this.pictureBox2.Image = global::CheeseLogix.Properties.Resources.icons8_market_96;
             this.pictureBox2.Location = new System.Drawing.Point(472, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(225, 182);
@@ -312,6 +312,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "frmInicioSesion";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InicioSesion_FormClosing);
             this.Load += new System.EventHandler(this.InicioSesion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
