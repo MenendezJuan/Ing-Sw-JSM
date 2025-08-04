@@ -80,12 +80,12 @@
             this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblSeleccionarIdioma.AutoSize = true;
             this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.White;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(780, 10);
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(741, 10);
             this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(61, 13);
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(100, 13);
             this.lblSeleccionarIdioma.TabIndex = 0;
-            this.lblSeleccionarIdioma.Tag = "lblSeleccionarIdioma_frmAyuda";
-            this.lblSeleccionarIdioma.Text = "Idioma:";
+            this.lblSeleccionarIdioma.Tag = "Label_Seleccionar_CIdi";
+            this.lblSeleccionarIdioma.Text = "Seleccionar Idioma:";
             // 
             // cboxIdiomas
             // 
@@ -188,7 +188,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1000, 760);
             this.Controls.Add(this.tableLayoutPrincipal);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "frmAyuda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

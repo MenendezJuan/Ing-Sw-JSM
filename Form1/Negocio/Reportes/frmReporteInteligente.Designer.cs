@@ -41,12 +41,12 @@ namespace CheeseLogix.Negocio.Reportes
             this.tableLayoutCentral = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxRecomendaciones = new System.Windows.Forms.GroupBox();
             this.txtRecomendaciones = new System.Windows.Forms.TextBox();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tableLayoutBotones = new System.Windows.Forms.TableLayoutPanel();
-            this.btnActualizar = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.Button();
             this.btnExportarPDF = new System.Windows.Forms.Button();
             this.btnExportarExcel = new System.Windows.Forms.Button();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.btnCerrar = new System.Windows.Forms.Button();
             this.tableLayoutPrincipal.SuspendLayout();
             this.tableLayoutSuperior.SuspendLayout();
             this.tableLayoutCentral.SuspendLayout();
@@ -100,11 +100,12 @@ namespace CheeseLogix.Negocio.Reportes
             this.lblSeleccionarIdioma.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblSeleccionarIdioma.AutoSize = true;
             this.lblSeleccionarIdioma.ForeColor = System.Drawing.Color.White;
-            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(76, 20);
+            this.lblSeleccionarIdioma.Location = new System.Drawing.Point(17, 20);
             this.lblSeleccionarIdioma.Name = "lblSeleccionarIdioma";
-            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(41, 13);
+            this.lblSeleccionarIdioma.Size = new System.Drawing.Size(100, 13);
             this.lblSeleccionarIdioma.TabIndex = 0;
-            this.lblSeleccionarIdioma.Text = "Idioma:";
+            this.lblSeleccionarIdioma.Tag = "Label_Idioma_FormIni";
+            this.lblSeleccionarIdioma.Text = "Seleccionar Idioma:";
             // 
             // cboxIdiomas
             // 
@@ -126,6 +127,7 @@ namespace CheeseLogix.Negocio.Reportes
             this.lblFechaInicio.Name = "lblFechaInicio";
             this.lblFechaInicio.Size = new System.Drawing.Size(68, 13);
             this.lblFechaInicio.TabIndex = 2;
+            this.lblFechaInicio.Tag = "lblFechaInicio_frmReporte";
             this.lblFechaInicio.Text = "Fecha Inicio:";
             // 
             // dtpFechaInicio
@@ -146,6 +148,7 @@ namespace CheeseLogix.Negocio.Reportes
             this.lblFechaFin.Name = "lblFechaFin";
             this.lblFechaFin.Size = new System.Drawing.Size(57, 13);
             this.lblFechaFin.TabIndex = 4;
+            this.lblFechaFin.Tag = "lblFechaFin_frmReporte";
             this.lblFechaFin.Text = "Fecha Fin:";
             // 
             // dtpFechaFin
@@ -182,6 +185,7 @@ namespace CheeseLogix.Negocio.Reportes
             this.groupBoxRecomendaciones.Size = new System.Drawing.Size(353, 668);
             this.groupBoxRecomendaciones.TabIndex = 1;
             this.groupBoxRecomendaciones.TabStop = false;
+            this.groupBoxRecomendaciones.Tag = "groupBoxRecomendaciones_frmReporte";
             this.groupBoxRecomendaciones.Text = "Recomendaciones Inteligentes";
             // 
             // txtRecomendaciones
@@ -197,6 +201,15 @@ namespace CheeseLogix.Negocio.Reportes
             this.txtRecomendaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtRecomendaciones.Size = new System.Drawing.Size(347, 649);
             this.txtRecomendaciones.TabIndex = 0;
+            // 
+            // reportViewer1
+            // 
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.Location = new System.Drawing.Point(3, 3);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(829, 668);
+            this.reportViewer1.TabIndex = 2;
             // 
             // tableLayoutBotones
             // 
@@ -219,36 +232,6 @@ namespace CheeseLogix.Negocio.Reportes
             this.tableLayoutBotones.Size = new System.Drawing.Size(1194, 54);
             this.tableLayoutBotones.TabIndex = 2;
             // 
-            // btnActualizar
-            // 
-            this.btnActualizar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnActualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
-            this.btnActualizar.FlatAppearance.BorderSize = 0;
-            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(719, 15);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(110, 23);
-            this.btnActualizar.TabIndex = 2;
-            this.btnActualizar.Text = "Actualizar";
-            this.btnActualizar.UseVisualStyleBackColor = false;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
-            // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
-            this.btnCerrar.FlatAppearance.BorderSize = 0;
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(839, 15);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(110, 23);
-            this.btnCerrar.TabIndex = 3;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.UseVisualStyleBackColor = false;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            // 
             // btnExportarPDF
             // 
             this.btnExportarPDF.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -256,10 +239,11 @@ namespace CheeseLogix.Negocio.Reportes
             this.btnExportarPDF.FlatAppearance.BorderSize = 0;
             this.btnExportarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportarPDF.ForeColor = System.Drawing.Color.White;
-            this.btnExportarPDF.Location = new System.Drawing.Point(479, 15);
+            this.btnExportarPDF.Location = new System.Drawing.Point(719, 15);
             this.btnExportarPDF.Name = "btnExportarPDF";
             this.btnExportarPDF.Size = new System.Drawing.Size(110, 23);
             this.btnExportarPDF.TabIndex = 0;
+            this.btnExportarPDF.Tag = "btnExportarPDF_frmReporte";
             this.btnExportarPDF.Text = "📄 PDF";
             this.btnExportarPDF.UseVisualStyleBackColor = false;
             this.btnExportarPDF.Click += new System.EventHandler(this.btnExportarPDF_Click);
@@ -271,22 +255,46 @@ namespace CheeseLogix.Negocio.Reportes
             this.btnExportarExcel.FlatAppearance.BorderSize = 0;
             this.btnExportarExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportarExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExportarExcel.Location = new System.Drawing.Point(599, 15);
+            this.btnExportarExcel.Location = new System.Drawing.Point(839, 15);
             this.btnExportarExcel.Name = "btnExportarExcel";
             this.btnExportarExcel.Size = new System.Drawing.Size(110, 23);
             this.btnExportarExcel.TabIndex = 1;
+            this.btnExportarExcel.Tag = "btnExportarExcel_frmReporte";
             this.btnExportarExcel.Text = "📊 Excel";
             this.btnExportarExcel.UseVisualStyleBackColor = false;
             this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
             // 
-            // reportViewer1
+            // btnActualizar
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.Location = new System.Drawing.Point(3, 3);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(829, 668);
-            this.reportViewer1.TabIndex = 2;
+            this.btnActualizar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnActualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.btnActualizar.FlatAppearance.BorderSize = 0;
+            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizar.ForeColor = System.Drawing.Color.White;
+            this.btnActualizar.Location = new System.Drawing.Point(959, 15);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(110, 23);
+            this.btnActualizar.TabIndex = 2;
+            this.btnActualizar.Tag = "btnActualizar_frmReporte";
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.btnCerrar.FlatAppearance.BorderSize = 0;
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrar.ForeColor = System.Drawing.Color.White;
+            this.btnCerrar.Location = new System.Drawing.Point(1079, 15);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(110, 23);
+            this.btnCerrar.TabIndex = 3;
+            this.btnCerrar.Tag = "btnCerrar_frmReporte";
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // frmReporteInteligente
             // 
@@ -295,7 +303,6 @@ namespace CheeseLogix.Negocio.Reportes
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.tableLayoutPrincipal);
-            this.Icon = ((System.Drawing.Icon)(CheeseLogix.Properties.Resources.ResourceManager.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "frmReporteInteligente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

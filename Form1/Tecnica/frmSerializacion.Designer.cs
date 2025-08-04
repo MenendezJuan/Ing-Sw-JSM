@@ -46,7 +46,9 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.panelIdioma = new System.Windows.Forms.Panel();
             this.cboxIdiomas = new System.Windows.Forms.ComboBox();
-            this.labelIdioma = new System.Windows.Forms.Label();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelPrincipal.SuspendLayout();
             this.groupBoxSerializacion.SuspendLayout();
             this.tableLayoutPanelSerializacion.SuspendLayout();
@@ -56,6 +58,8 @@
             this.panelControlesDeserializacion.SuspendLayout();
             this.panelBotones.SuspendLayout();
             this.panelIdioma.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelPrincipal
@@ -87,6 +91,7 @@
             this.groupBoxSerializacion.Size = new System.Drawing.Size(794, 264);
             this.groupBoxSerializacion.TabIndex = 0;
             this.groupBoxSerializacion.TabStop = false;
+            this.groupBoxSerializacion.Tag = "groupBoxSerializacion_frmSer";
             this.groupBoxSerializacion.Text = "Serialización";
             // 
             // tableLayoutPanelSerializacion
@@ -104,17 +109,6 @@
             this.tableLayoutPanelSerializacion.Size = new System.Drawing.Size(788, 245);
             this.tableLayoutPanelSerializacion.TabIndex = 0;
             // 
-            // panelControlesSerializacion
-            // 
-            this.panelControlesSerializacion.Controls.Add(this.btnSerializar);
-            this.panelControlesSerializacion.Controls.Add(this.cboTipoDato);
-            this.panelControlesSerializacion.Controls.Add(this.lblTipoDato);
-            this.panelControlesSerializacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControlesSerializacion.Location = new System.Drawing.Point(3, 3);
-            this.panelControlesSerializacion.Name = "panelControlesSerializacion";
-            this.panelControlesSerializacion.Size = new System.Drawing.Size(782, 43);
-            this.panelControlesSerializacion.TabIndex = 0;
-            // 
             // txtContenidoSerializar
             // 
             this.txtContenidoSerializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
@@ -128,6 +122,17 @@
             this.txtContenidoSerializar.Size = new System.Drawing.Size(782, 190);
             this.txtContenidoSerializar.TabIndex = 3;
             // 
+            // panelControlesSerializacion
+            // 
+            this.panelControlesSerializacion.Controls.Add(this.btnSerializar);
+            this.panelControlesSerializacion.Controls.Add(this.cboTipoDato);
+            this.panelControlesSerializacion.Controls.Add(this.lblTipoDato);
+            this.panelControlesSerializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControlesSerializacion.Location = new System.Drawing.Point(3, 3);
+            this.panelControlesSerializacion.Name = "panelControlesSerializacion";
+            this.panelControlesSerializacion.Size = new System.Drawing.Size(782, 43);
+            this.panelControlesSerializacion.TabIndex = 0;
+            // 
             // btnSerializar
             // 
             this.btnSerializar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -138,13 +143,13 @@
             this.btnSerializar.Name = "btnSerializar";
             this.btnSerializar.Size = new System.Drawing.Size(120, 30);
             this.btnSerializar.TabIndex = 2;
+            this.btnSerializar.Tag = "btnSerializar_frmSer";
             this.btnSerializar.Text = "Serializar";
             this.btnSerializar.UseVisualStyleBackColor = false;
             this.btnSerializar.Click += new System.EventHandler(this.btnSerializar_Click);
             // 
             // cboTipoDato
             // 
-            this.cboTipoDato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.cboTipoDato.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.cboTipoDato.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoDato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -157,13 +162,13 @@
             // 
             // lblTipoDato
             // 
-            this.lblTipoDato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTipoDato.AutoSize = true;
             this.lblTipoDato.ForeColor = System.Drawing.Color.White;
             this.lblTipoDato.Location = new System.Drawing.Point(20, 13);
             this.lblTipoDato.Name = "lblTipoDato";
-            this.lblTipoDato.Size = new System.Drawing.Size(54, 13);
+            this.lblTipoDato.Size = new System.Drawing.Size(55, 13);
             this.lblTipoDato.TabIndex = 0;
+            this.lblTipoDato.Tag = "lblTipoDato_frmSer";
             this.lblTipoDato.Text = "Tipo dato:";
             // 
             // groupBoxDeserializacion
@@ -176,6 +181,7 @@
             this.groupBoxDeserializacion.Size = new System.Drawing.Size(794, 204);
             this.groupBoxDeserializacion.TabIndex = 1;
             this.groupBoxDeserializacion.TabStop = false;
+            this.groupBoxDeserializacion.Tag = "groupBoxDeserializacion_frmSer";
             this.groupBoxDeserializacion.Text = "Deserialización";
             // 
             // tableLayoutPanelDeserializacion
@@ -193,15 +199,6 @@
             this.tableLayoutPanelDeserializacion.Size = new System.Drawing.Size(788, 185);
             this.tableLayoutPanelDeserializacion.TabIndex = 0;
             // 
-            // panelControlesDeserializacion
-            // 
-            this.panelControlesDeserializacion.Controls.Add(this.btnDeserializar);
-            this.panelControlesDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControlesDeserializacion.Location = new System.Drawing.Point(3, 3);
-            this.panelControlesDeserializacion.Name = "panelControlesDeserializacion";
-            this.panelControlesDeserializacion.Size = new System.Drawing.Size(782, 31);
-            this.panelControlesDeserializacion.TabIndex = 0;
-            // 
             // txtContenidoDeserializar
             // 
             this.txtContenidoDeserializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
@@ -215,9 +212,17 @@
             this.txtContenidoDeserializar.Size = new System.Drawing.Size(782, 142);
             this.txtContenidoDeserializar.TabIndex = 2;
             // 
+            // panelControlesDeserializacion
+            // 
+            this.panelControlesDeserializacion.Controls.Add(this.btnDeserializar);
+            this.panelControlesDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControlesDeserializacion.Location = new System.Drawing.Point(3, 3);
+            this.panelControlesDeserializacion.Name = "panelControlesDeserializacion";
+            this.panelControlesDeserializacion.Size = new System.Drawing.Size(782, 31);
+            this.panelControlesDeserializacion.TabIndex = 0;
+            // 
             // btnDeserializar
             // 
-            this.btnDeserializar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeserializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnDeserializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeserializar.ForeColor = System.Drawing.Color.White;
@@ -225,6 +230,7 @@
             this.btnDeserializar.Name = "btnDeserializar";
             this.btnDeserializar.Size = new System.Drawing.Size(120, 25);
             this.btnDeserializar.TabIndex = 1;
+            this.btnDeserializar.Tag = "btnDeserializar_frmSer";
             this.btnDeserializar.Text = "Deserializar";
             this.btnDeserializar.UseVisualStyleBackColor = false;
             this.btnDeserializar.Click += new System.EventHandler(this.btnDeserializar_Click);
@@ -241,7 +247,6 @@
             // 
             // btnGuardarSerializado
             // 
-            this.btnGuardarSerializado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.btnGuardarSerializado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.btnGuardarSerializado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarSerializado.ForeColor = System.Drawing.Color.White;
@@ -249,6 +254,7 @@
             this.btnGuardarSerializado.Name = "btnGuardarSerializado";
             this.btnGuardarSerializado.Size = new System.Drawing.Size(120, 30);
             this.btnGuardarSerializado.TabIndex = 2;
+            this.btnGuardarSerializado.Tag = "btnGuardarSerializado_frmSer";
             this.btnGuardarSerializado.Text = "Guardar";
             this.btnGuardarSerializado.UseVisualStyleBackColor = false;
             this.btnGuardarSerializado.Click += new System.EventHandler(this.btnGuardarSerializado_Click);
@@ -263,14 +269,14 @@
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(120, 30);
             this.btnSalir.TabIndex = 3;
+            this.btnSalir.Tag = "btnSalir_frmSer";
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // panelIdioma
             // 
-            this.panelIdioma.Controls.Add(this.cboxIdiomas);
-            this.panelIdioma.Controls.Add(this.labelIdioma);
+            this.panelIdioma.Controls.Add(this.tableLayoutPanel1);
             this.panelIdioma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelIdioma.Location = new System.Drawing.Point(3, 543);
             this.panelIdioma.Name = "panelIdioma";
@@ -285,22 +291,54 @@
             this.cboxIdiomas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIdiomas.ForeColor = System.Drawing.Color.White;
             this.cboxIdiomas.FormattingEnabled = true;
-            this.cboxIdiomas.Location = new System.Drawing.Point(650, 15);
+            this.cboxIdiomas.Location = new System.Drawing.Point(268, 3);
             this.cboxIdiomas.Name = "cboxIdiomas";
             this.cboxIdiomas.Size = new System.Drawing.Size(120, 21);
             this.cboxIdiomas.TabIndex = 4;
             this.cboxIdiomas.SelectedIndexChanged += new System.EventHandler(this.cboxIdiomas_SelectedIndexChanged);
             // 
-            // labelIdioma
+            // tableLayoutPanel6
             // 
-            this.labelIdioma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelIdioma.AutoSize = true;
-            this.labelIdioma.ForeColor = System.Drawing.Color.White;
-            this.labelIdioma.Location = new System.Drawing.Point(600, 18);
-            this.labelIdioma.Name = "labelIdioma";
-            this.labelIdioma.Size = new System.Drawing.Size(41, 13);
-            this.labelIdioma.TabIndex = 5;
-            this.labelIdioma.Text = "Idioma:";
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.cboxIdiomas, 1, 0);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(400, 3);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(391, 48);
+            this.tableLayoutPanel6.TabIndex = 69;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label7.Location = new System.Drawing.Point(2, 0);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(135, 15);
+            this.label7.TabIndex = 46;
+            this.label7.Tag = "Label_SelecIdioma_GPer";
+            this.label7.Text = "Seleccionar idioma:";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(794, 54);
+            this.tableLayoutPanel1.TabIndex = 70;
             // 
             // frmSerializacion
             // 
@@ -309,7 +347,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.tableLayoutPanelPrincipal);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "frmSerializacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -317,14 +354,18 @@
             this.tableLayoutPanelPrincipal.ResumeLayout(false);
             this.groupBoxSerializacion.ResumeLayout(false);
             this.tableLayoutPanelSerializacion.ResumeLayout(false);
+            this.tableLayoutPanelSerializacion.PerformLayout();
             this.panelControlesSerializacion.ResumeLayout(false);
             this.panelControlesSerializacion.PerformLayout();
             this.groupBoxDeserializacion.ResumeLayout(false);
             this.tableLayoutPanelDeserializacion.ResumeLayout(false);
+            this.tableLayoutPanelDeserializacion.PerformLayout();
             this.panelControlesDeserializacion.ResumeLayout(false);
             this.panelBotones.ResumeLayout(false);
             this.panelIdioma.ResumeLayout(false);
-            this.panelIdioma.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -349,6 +390,8 @@
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Panel panelIdioma;
         private System.Windows.Forms.ComboBox cboxIdiomas;
-        private System.Windows.Forms.Label labelIdioma;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label label7;
     }
 }
