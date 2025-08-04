@@ -309,7 +309,7 @@ namespace BLLs.Tecnica
                         try
                         {
                             // Convertir ICO a bytes para el reporte
-                            using (var icon = new Icon(ruta))
+                            using (var icon = new System.Drawing.Icon(ruta))
                             {
                                 using (var bitmap = icon.ToBitmap())
                                 {

@@ -2,6 +2,7 @@
 using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
+using BLLs.Negocio;
 using CheeseLogix.Negocio;
 using CheeseLogix.Negocio.Reportes;
 using CheeseLogix.Negocio.Ventas;
@@ -21,6 +22,7 @@ namespace CheeseLogix
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
+        private BLL_VENTA _bllVenta;
         public frmMenuPrincipal()
         {
             InitializeComponent();
@@ -28,6 +30,7 @@ namespace CheeseLogix
             sesion = SessionManager.GetInstance();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllVenta = new BLL_VENTA();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -223,7 +226,7 @@ namespace CheeseLogix
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-
+            ShowSubMenu(panelCaja);
         }
 
         private void btnComprasProductos_Click(object sender, EventArgs e)
@@ -561,10 +564,41 @@ namespace CheeseLogix
 
         private void btnCobrarVenta_Click(object sender, EventArgs e)
         {
-            frmCobroVenta cobroVenta = new frmCobroVenta();
-            AddOwnedForm(cobroVenta);
-            FormHijo(cobroVenta);
-            HideSubMenu();
+            try
+            {
+                var ventasPendientes = _bllVenta.ObtenerVentasPorEstado(BEs.Clases.Negocio.Enums.EstadoVenta.EnProceso);
+                
+                if (ventasPendientes == null || !ventasPendientes.Any())
+                {
+                    MessageBox.Show("No hay ventas pendientes de cobro.", "Sin ventas pendientes", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (ventasPendientes.Count() == 1)
+                {
+                    var venta = ventasPendientes.First();
+                    frmCobroVenta cobroVenta = new frmCobroVenta(venta);
+                    AddOwnedForm(cobroVenta);
+                    FormHijo(cobroVenta);
+                    HideSubMenu();
+                }
+                else
+                {
+                    // Si hay múltiples ventas, tomar la primera por ahora
+                    // TODO: Implementar selector de ventas cuando sea necesario
+                    var venta = ventasPendientes.First();
+                    frmCobroVenta cobroVenta = new frmCobroVenta(venta);
+                    AddOwnedForm(cobroVenta);
+                    FormHijo(cobroVenta);
+                    HideSubMenu();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir cobro de ventas: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonGestionarClientes_Click(object sender, EventArgs e)

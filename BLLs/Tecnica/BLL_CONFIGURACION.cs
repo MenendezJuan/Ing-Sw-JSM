@@ -221,5 +221,180 @@ namespace BLLs.Tecnica
         }
 
         #endregion
+
+        #region Configuraciones específicas de Facturas
+
+        /// <summary>
+        /// Obtiene el directorio de facturas configurado y lo crea si no existe
+        /// </summary>
+        public static string ObtenerDirectorioFacturas()
+        {
+            try
+            {
+                string directorio = ObtenerConfiguracion("DirectorioFacturas", Path.Combine("C:", "CheeseLogix", "Facturas"));
+                ValidarYCrearDirectorio(directorio);
+                return directorio;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener directorio de facturas: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el directorio base de CheeseLogix y lo crea si no existe
+        /// </summary>
+        public static string ObtenerDirectorioBase()
+        {
+            try
+            {
+                string directorio = ObtenerConfiguracion("DirectorioBase", Path.Combine("C:", "CheeseLogix"));
+                ValidarYCrearDirectorio(directorio);
+                return directorio;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener directorio base: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el prefijo para nombres de factura
+        /// </summary>
+        public static string ObtenerPrefijoFactura()
+        {
+            return ObtenerConfiguracion("PrefijoFactura", "Factura_CheeseLogix");
+        }
+
+        /// <summary>
+        /// Obtiene el formato para números de factura
+        /// </summary>
+        public static string ObtenerFormatoNumeroFactura()
+        {
+            return ObtenerConfiguracion("FormatoNumeroFactura", "D6");
+        }
+
+        #endregion
+
+        #region Configuraciones específicas de Backups
+
+        /// <summary>
+        /// Obtiene el directorio de backups configurado y lo crea si no existe
+        /// </summary>
+        public static string ObtenerDirectorioBackups()
+        {
+            try
+            {
+                string directorio = ObtenerConfiguracion("DirectorioBackups", Path.Combine("C:", "CheeseLogix", "Backups"));
+                ValidarYCrearDirectorio(directorio);
+                return directorio;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener directorio de backups: {ex.Message}", ex);
+            }
+        }
+
+        #endregion
+
+        #region Configuraciones específicas de Firmas
+
+        /// <summary>
+        /// Obtiene el directorio de firmas configurado y lo crea si no existe
+        /// </summary>
+        public static string ObtenerDirectorioFirmas()
+        {
+            try
+            {
+                string directorio = ObtenerConfiguracion("DirectorioFirmas", Path.Combine("C:", "CheeseLogix", "FirmadoConforme"));
+                ValidarYCrearDirectorio(directorio);
+                return directorio;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener directorio de firmas: {ex.Message}", ex);
+            }
+        }
+
+        #endregion
+
+        #region Configuraciones específicas de Documentación
+
+        /// <summary>
+        /// Obtiene el directorio de documentación configurado y lo crea si no existe
+        /// </summary>
+        public static string ObtenerDirectorioDocumentacion()
+        {
+            try
+            {
+                string directorio = ObtenerConfiguracion("DirectorioDocumentacion", Path.Combine("C:", "CheeseLogix", "Documentacion"));
+                ValidarYCrearDirectorio(directorio);
+                return directorio;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener directorio de documentación: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene la ruta completa del manual de usuario PDF
+        /// </summary>
+        public static string ObtenerRutaManualUsuario()
+        {
+            try
+            {
+                string directorio = ObtenerDirectorioDocumentacion();
+                string nombreArchivo = ObtenerConfiguracion("ManualUsuarioPDF", "Manual_Usuario_CheeseLogix.pdf");
+                return Path.Combine(directorio, nombreArchivo);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener ruta del manual de usuario: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Busca el manual de usuario en múltiples ubicaciones posibles
+        /// </summary>
+        public static string BuscarManualUsuario()
+        {
+            try
+            {
+                string nombreArchivo = ObtenerConfiguracion("ManualUsuarioPDF", "Manual_Usuario_CheeseLogix.pdf");
+                
+                // Ubicaciones posibles para el manual
+                string[] posiblesRutas = {
+                    // 1. Directorio de documentación configurado
+                    ObtenerRutaManualUsuario(),
+                    // 2. En el directorio de la aplicación
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "Documentacion", nombreArchivo),
+                    // 3. En el directorio actual
+                    Path.Combine(Environment.CurrentDirectory, "Documentacion", nombreArchivo),
+                    // 4. En el directorio base del proyecto (modo desarrollo)
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "..", "..", "Documentacion", nombreArchivo),
+                    // 5. En Form1/Documentacion
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "..", "..", "Form1", "Documentacion", nombreArchivo)
+                };
+
+                // Buscar en las rutas posibles
+                foreach (string ruta in posiblesRutas)
+                {
+                    if (!string.IsNullOrEmpty(ruta) && File.Exists(ruta))
+                    {
+                        return ruta;
+                    }
+                }
+
+                // Si no se encuentra, devolver la ruta configurada
+                return ObtenerRutaManualUsuario();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al buscar manual de usuario: {ex.Message}", ex);
+            }
+        }
+
+        #endregion
     }
 }

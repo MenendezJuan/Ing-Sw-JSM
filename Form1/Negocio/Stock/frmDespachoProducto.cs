@@ -6,6 +6,7 @@ using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -314,7 +315,7 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                string directorioFirmas = @"C:\\FirmadoConforme";
+                string directorioFirmas = BLL_CONFIGURACION.ObtenerDirectorioFirmas();
                 string nombreArchivo = $"Conforme_Venta_{ventaId:D6}_{DateTime.Now:yyyyMMdd}.txt";
                 string rutaCompleta = Path.Combine(directorioFirmas, nombreArchivo);
 
@@ -369,12 +370,8 @@ namespace CheeseLogix.Negocio.Ventas
                     return;
                 }
 
-                // Crear directorio si no existe
-                string directorioFirmas = @"C:\\FirmadoConforme";
-                if (!Directory.Exists(directorioFirmas))
-                {
-                    Directory.CreateDirectory(directorioFirmas);
-                }
+                // Obtener directorio de firmas desde configuración (se crea automáticamente)
+                string directorioFirmas = BLL_CONFIGURACION.ObtenerDirectorioFirmas();
 
                 // Nombre del archivo
                 string nombreArchivo = $"Conforme_Venta_{_ventaSeleccionada.Id:D6}_{DateTime.Now:yyyyMMdd}.txt";

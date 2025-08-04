@@ -111,6 +111,12 @@ namespace BLLs.Negocio
             return ventaRepository.ObtenerVentasPorClienteId(clienteId);
         }
 
+        // Método para obtener ventas por estado
+        public List<Venta> ObtenerVentasPorEstado(EstadoVenta estado)
+        {
+            return ObtenerTodos().Where(v => v.EstadoVentaEnum == estado).ToList();
+        }
+
         // Método para obtener los detalles de una venta específica
         public List<DetalleVenta> ObtenerDetallesPorVentaId(int ventaId)
         {

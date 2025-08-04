@@ -28,9 +28,19 @@ namespace CheeseLogix.Tecnica
             Bll_Traduccion = new BLL_TRADUCCION();
             Bll_Backup = new BLL_BACKUP();
 
-            // Configurar directorio de backup en C:\Backups para evitar permisos de instancia SQL
-            backupDirectory = @"C:\\Backups";
-            CrearDirectorioBackupSiNoExiste();
+            // Configurar directorio de backup desde configuración
+            try
+            {
+                backupDirectory = BLL_CONFIGURACION.ObtenerDirectorioBackups();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener directorio de backups: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Fallback al directorio por defecto
+                backupDirectory = Path.Combine("C:", "CheeseLogix", "Backups");
+                Directory.CreateDirectory(backupDirectory);
+            }
 
             // Cargar backups disponibles
             CargarBackupsDisponibles();

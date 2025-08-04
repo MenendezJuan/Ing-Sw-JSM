@@ -549,7 +549,6 @@
             // btnCaja
             // 
             this.btnCaja.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCaja.Enabled = false;
             this.btnCaja.FlatAppearance.BorderSize = 0;
             this.btnCaja.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnCaja.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
@@ -566,6 +565,7 @@
             this.btnCaja.Tag = "btnCaja_formPrincipal";
             this.btnCaja.Text = "Caja";
             this.btnCaja.UseVisualStyleBackColor = true;
+            this.btnCaja.Visible = false;
             this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
             // 
             // panelInsumos
@@ -656,7 +656,6 @@
             // btnGestionProducto
             // 
             this.btnGestionProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnGestionProducto.Enabled = false;
             this.btnGestionProducto.FlatAppearance.BorderSize = 0;
             this.btnGestionProducto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnGestionProducto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
@@ -674,6 +673,7 @@
             this.btnGestionProducto.Text = "Gestionar Productos";
             this.btnGestionProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGestionProducto.UseVisualStyleBackColor = true;
+            this.btnGestionProducto.Visible = false;
             this.btnGestionProducto.Click += new System.EventHandler(this.btnGestionProducto_Click);
             // 
             // panelCotizaciones

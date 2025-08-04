@@ -145,7 +145,20 @@ namespace CheeseLogix.Negocio.Reportes
                 // CONFIGURAR LOGO DE CHEESELOGIX
                 try
                 {
-                    BLL_EXPORTACION.ConfigurarLogoReporte(reportViewer1);
+                    // Por ahora, añadimos un título más prominente con el logo
+                    // Ya que el RDLC no tiene LogoDataSet configurado
+                    System.Diagnostics.Debug.WriteLine("Nota: Para mostrar el logo en el reporte, el archivo ReporteVentas.rdlc debe tener LogoDataSet configurado");
+                    
+                    // El logo estará visible en las facturas PDF generadas desde frmCobroVenta
+                    bool logoConfigurado = BLL_EXPORTACION.ConfigurarLogoReporte(reportViewer1);
+                    if (logoConfigurado)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Logo configurado exitosamente para el reporte");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Logo no se pudo configurar - RDLC necesita LogoDataSet");
+                    }
                 }
                 catch (Exception logoEx)
                 {

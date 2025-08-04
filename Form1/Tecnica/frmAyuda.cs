@@ -34,8 +34,8 @@ namespace CheeseLogix.Tecnica
         {
             try
             {
-                // Cargar el PDF de ayuda desde recursos
-                string rutaPDF = Path.Combine(Application.StartupPath, "Documentacion", "Manual_Usuario_CheeseLogix.pdf");
+                // Buscar el PDF de ayuda en múltiples ubicaciones configurables
+                string rutaPDF = BLL_CONFIGURACION.BuscarManualUsuario();
                 
                 if (File.Exists(rutaPDF))
                 {
@@ -43,9 +43,16 @@ namespace CheeseLogix.Tecnica
                 }
                 else
                 {
-                    // Si no existe el archivo, mostrar mensaje
-                    MessageBox.Show("El archivo de ayuda no se encuentra.\n" +
-                                  "Asegúrese de que el archivo 'Manual_Usuario_CheeseLogix.pdf' esté en la carpeta 'Documentacion'.", 
+                    // Si no existe el archivo, mostrar mensaje con información de ubicaciones
+                    string nombreArchivo = BLL_CONFIGURACION.ObtenerConfiguracion("ManualUsuarioPDF", "Manual_Usuario_CheeseLogix.pdf");
+                    string directorioConfiguracion = BLL_CONFIGURACION.ObtenerDirectorioDocumentacion();
+                    
+                    MessageBox.Show($"El archivo de ayuda '{nombreArchivo}' no se encuentra.\n\n" +
+                                  $"Ubicaciones verificadas:\n" +
+                                  $"• {directorioConfiguracion}\n" +
+                                  $"• {Path.Combine(Application.StartupPath, "Documentacion")}\n" +
+                                  $"• Directorio del proyecto\n\n" +
+                                  $"Asegúrese de que el archivo esté en alguna de estas ubicaciones.", 
                                   "Archivo no encontrado", 
                                   MessageBoxButtons.OK, 
                                   MessageBoxIcon.Information);
@@ -67,17 +74,11 @@ namespace CheeseLogix.Tecnica
         {
             try
             {
-                string rutaDocumentacion = Path.Combine(Application.StartupPath, "Documentacion");
+                // Usar el directorio de documentación configurado
+                string rutaDocumentacion = BLL_CONFIGURACION.ObtenerDirectorioDocumentacion();
                 
-                if (Directory.Exists(rutaDocumentacion))
-                {
-                    System.Diagnostics.Process.Start("explorer.exe", rutaDocumentacion);
-                }
-                else
-                {
-                    Directory.CreateDirectory(rutaDocumentacion);
-                    System.Diagnostics.Process.Start("explorer.exe", rutaDocumentacion);
-                }
+                // El método ObtenerDirectorioDocumentacion() ya crea el directorio si no existe
+                System.Diagnostics.Process.Start("explorer.exe", rutaDocumentacion);
             }
             catch (Exception ex)
             {

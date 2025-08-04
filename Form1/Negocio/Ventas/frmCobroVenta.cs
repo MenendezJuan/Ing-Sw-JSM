@@ -24,6 +24,7 @@ namespace CheeseLogix.Negocio.Ventas
         #region Propiedades y Variables
 
         private BLL_VENTA _bllVenta;
+        private BLL_FACTURACION _bllFacturacion;
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
@@ -56,6 +57,7 @@ namespace CheeseLogix.Negocio.Ventas
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllVenta = new BLL_VENTA();
+            _bllFacturacion = new BLL_FACTURACION();
 
             // Configurar datos de la venta
             ConfigurarDataGridDetalle();
@@ -331,9 +333,9 @@ namespace CheeseLogix.Negocio.Ventas
                 ActualizarColorEstado(EstadoVenta.Cobrada);
 
                 // Generar factura con el estado correcto
-                GenerarFactura();
+                string rutaFactura = GenerarFactura();
 
-                MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.",
+                MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.\n\nFactura generada en: {rutaFactura}",
                     "Pago confirmado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Redirigir al formulario de despacho
@@ -385,133 +387,23 @@ namespace CheeseLogix.Negocio.Ventas
 
         #region Generación de Factura
 
-        private void GenerarFactura()
+        /// <summary>
+        /// Genera una factura PDF usando la BLL de facturación
+        /// </summary>
+        /// <returns>Ruta del archivo PDF generado</returns>
+        private string GenerarFactura()
         {
             try
             {
-                // Crear directorio de facturas si no existe
-                string directorioFacturas = @"C:\\Facturas";
-                if (!Directory.Exists(directorioFacturas))
-                {
-                    Directory.CreateDirectory(directorioFacturas);
-                }
-
-                // Nombre del archivo
-                string nombreArchivo = $"Factura_{_ventaActual.Id:D6}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-                string rutaCompleta = Path.Combine(directorioFacturas, nombreArchivo);
-
-                // Crear documento PDF
-                using (var documento = new Document(PageSize.A4))
-                {
-                    using (var writer = PdfWriter.GetInstance(documento, new FileStream(rutaCompleta, FileMode.Create)))
-                    {
-                        documento.Open();
-
-                        // Configurar fuentes
-                        var fuenteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-                        var fuenteSubtitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
-                        var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-                        var fuentePequeña = FontFactory.GetFont(FontFactory.HELVETICA, 8);
-
-                        // Encabezado de la empresa
-                        var tablaHeader = new PdfPTable(2) { WidthPercentage = 100 };
-                        tablaHeader.SetWidths(new float[] { 70f, 30f });
-
-                        var celdaEmpresa = new PdfPCell();
-                        celdaEmpresa.Border = Rectangle.NO_BORDER;
-                        celdaEmpresa.AddElement(new Paragraph("CHEESE LOGIX S.A.", fuenteTitulo));
-                        celdaEmpresa.AddElement(new Paragraph("CUIT: 30-12345678-9", fuenteNormal));
-                        celdaEmpresa.AddElement(new Paragraph("Av. Corrientes 1234, CABA", fuenteNormal));
-                        celdaEmpresa.AddElement(new Paragraph("Tel: (011) 1234-5678", fuenteNormal));
-                        celdaEmpresa.AddElement(new Paragraph("www.cheeselogix.com", fuenteNormal));
-
-                        var celdaFactura = new PdfPCell();
-                        celdaFactura.Border = Rectangle.BOX;
-                        celdaFactura.HorizontalAlignment = Element.ALIGN_CENTER;
-                        celdaFactura.AddElement(new Paragraph("FACTURA", fuenteTitulo));
-                        celdaFactura.AddElement(new Paragraph($"Nº {_ventaActual.Id:D6}", fuenteSubtitulo));
-                        celdaFactura.AddElement(new Paragraph($"Fecha: {_ventaActual.Fecha:dd/MM/yyyy}", fuenteNormal));
-
-                        tablaHeader.AddCell(celdaEmpresa);
-                        tablaHeader.AddCell(celdaFactura);
-                        documento.Add(tablaHeader);
-
-                        documento.Add(new Paragraph(" ")); // Espacio
-
-                        // Datos del cliente
-                        var tablaCliente = new PdfPTable(1) { WidthPercentage = 100 };
-                        var celdaCliente = new PdfPCell();
-                        celdaCliente.AddElement(new Paragraph("DATOS DEL CLIENTE:", fuenteSubtitulo));
-                        celdaCliente.AddElement(new Paragraph($"Nombre: {_ventaActual.oCliente?.NombreCompleto ?? "N/A"}", fuenteNormal));
-                        celdaCliente.AddElement(new Paragraph($"CUIT: {_ventaActual.oCliente?.CUIT ?? "N/A"}", fuenteNormal));
-                        celdaCliente.AddElement(new Paragraph($"Dirección: {_ventaActual.oCliente?.Direccion ?? "N/A"}", fuenteNormal));
-                        tablaCliente.AddCell(celdaCliente);
-                        documento.Add(tablaCliente);
-
-                        documento.Add(new Paragraph(" ")); // Espacio
-
-                        // Detalles de la venta
-                        var tablaDetalle = new PdfPTable(4) { WidthPercentage = 100 };
-                        tablaDetalle.SetWidths(new float[] { 50f, 15f, 20f, 15f });
-
-                        // Encabezados
-                        tablaDetalle.AddCell(new PdfPCell(new Phrase("Producto", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                        tablaDetalle.AddCell(new PdfPCell(new Phrase("Cant.", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                        tablaDetalle.AddCell(new PdfPCell(new Phrase("Precio Unit.", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                        tablaDetalle.AddCell(new PdfPCell(new Phrase("Subtotal", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
-
-                        // Detalles
-                        var detalles = _bllVenta.ObtenerDetallesPorVentaId(_ventaActual.Id);
-                        foreach (var detalle in detalles)
-                        {
-                            tablaDetalle.AddCell(new PdfPCell(new Phrase(detalle.NombreProducto, fuenteNormal)));
-                            tablaDetalle.AddCell(new PdfPCell(new Phrase(detalle.Cantidad.ToString("N2"), fuenteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                            tablaDetalle.AddCell(new PdfPCell(new Phrase(detalle.Precio.ToString("C2"), fuenteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
-                            tablaDetalle.AddCell(new PdfPCell(new Phrase(detalle.SubTotal.ToString("C2"), fuenteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
-                        }
-
-                        documento.Add(tablaDetalle);
-
-                        documento.Add(new Paragraph(" ")); // Espacio
-
-                        // Totales
-                        var tablaTotal = new PdfPTable(2) { WidthPercentage = 100 };
-                        tablaTotal.SetWidths(new float[] { 70f, 30f });
-
-                        var celdaMetodo = new PdfPCell();
-                        celdaMetodo.Border = Rectangle.NO_BORDER;
-                        celdaMetodo.AddElement(new Paragraph($"Método de pago: {comboBoxMetodoPago.Text}", fuenteNormal));
-                        celdaMetodo.AddElement(new Paragraph($"Estado: {labelEstado.Text}", fuenteNormal));
-
-                        var celdaTotal = new PdfPCell();
-                        celdaTotal.Border = Rectangle.BOX;
-                        celdaTotal.HorizontalAlignment = Element.ALIGN_RIGHT;
-                        celdaTotal.AddElement(new Paragraph($"TOTAL: {_ventaActual.MontoTotal:C2}", fuenteTitulo));
-
-                        tablaTotal.AddCell(celdaMetodo);
-                        tablaTotal.AddCell(celdaTotal);
-                        documento.Add(tablaTotal);
-
-                        // Pie de página
-                        documento.Add(new Paragraph(" ")); // Espacio
-                        documento.Add(new Paragraph("Gracias por su compra", fuentePequeña) { Alignment = Element.ALIGN_CENTER });
-                        documento.Add(new Paragraph($"Factura generada el {DateTime.Now:dd/MM/yyyy HH:mm}", fuentePequeña) { Alignment = Element.ALIGN_CENTER });
-
-                        documento.Close();
-                    }
-                }
-
-                MessageBox.Show($"Factura generada exitosamente:\n{rutaCompleta}", "Factura generada",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return _bllFacturacion.GenerarFacturaPDF(_ventaActual);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar la factura: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return string.Empty;
             }
         }
-
-
 
         #endregion
 
