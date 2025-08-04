@@ -1,4 +1,6 @@
-﻿namespace CheeseLogix.Negocio.Reportes
+﻿using System.ComponentModel;
+
+namespace CheeseLogix.Negocio.Reportes
 {
     partial class frmReporteInteligente
     {
@@ -42,6 +44,9 @@
             this.tableLayoutBotones = new System.Windows.Forms.TableLayoutPanel();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.btnExportarPDF = new System.Windows.Forms.Button();
+            this.btnExportarExcel = new System.Windows.Forms.Button();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tableLayoutPrincipal.SuspendLayout();
             this.tableLayoutSuperior.SuspendLayout();
             this.tableLayoutCentral.SuspendLayout();
@@ -158,6 +163,7 @@
             this.tableLayoutCentral.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutCentral.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutCentral.Controls.Add(this.groupBoxRecomendaciones, 1, 0);
+            this.tableLayoutCentral.Controls.Add(this.reportViewer1, 0, 0);
             this.tableLayoutCentral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutCentral.Location = new System.Drawing.Point(3, 63);
             this.tableLayoutCentral.Name = "tableLayoutCentral";
@@ -195,12 +201,16 @@
             // tableLayoutBotones
             // 
             this.tableLayoutBotones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.tableLayoutBotones.ColumnCount = 3;
+            this.tableLayoutBotones.ColumnCount = 5;
             this.tableLayoutBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutBotones.Controls.Add(this.btnActualizar, 1, 0);
-            this.tableLayoutBotones.Controls.Add(this.btnCerrar, 2, 0);
+            this.tableLayoutBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutBotones.Controls.Add(this.btnExportarPDF, 1, 0);
+            this.tableLayoutBotones.Controls.Add(this.btnExportarExcel, 2, 0);
+            this.tableLayoutBotones.Controls.Add(this.btnActualizar, 3, 0);
+            this.tableLayoutBotones.Controls.Add(this.btnCerrar, 4, 0);
             this.tableLayoutBotones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutBotones.Location = new System.Drawing.Point(3, 743);
             this.tableLayoutBotones.Name = "tableLayoutBotones";
@@ -216,10 +226,10 @@
             this.btnActualizar.FlatAppearance.BorderSize = 0;
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(959, 15);
+            this.btnActualizar.Location = new System.Drawing.Point(719, 15);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(110, 23);
-            this.btnActualizar.TabIndex = 0;
+            this.btnActualizar.TabIndex = 2;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
@@ -231,13 +241,52 @@
             this.btnCerrar.FlatAppearance.BorderSize = 0;
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(1079, 15);
+            this.btnCerrar.Location = new System.Drawing.Point(839, 15);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(110, 23);
-            this.btnCerrar.TabIndex = 1;
+            this.btnCerrar.TabIndex = 3;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // btnExportarPDF
+            // 
+            this.btnExportarPDF.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnExportarPDF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
+            this.btnExportarPDF.FlatAppearance.BorderSize = 0;
+            this.btnExportarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportarPDF.ForeColor = System.Drawing.Color.White;
+            this.btnExportarPDF.Location = new System.Drawing.Point(479, 15);
+            this.btnExportarPDF.Name = "btnExportarPDF";
+            this.btnExportarPDF.Size = new System.Drawing.Size(110, 23);
+            this.btnExportarPDF.TabIndex = 0;
+            this.btnExportarPDF.Text = "📄 PDF";
+            this.btnExportarPDF.UseVisualStyleBackColor = false;
+            this.btnExportarPDF.Click += new System.EventHandler(this.btnExportarPDF_Click);
+            // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnExportarExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(126)))), ((int)(((byte)(90)))));
+            this.btnExportarExcel.FlatAppearance.BorderSize = 0;
+            this.btnExportarExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportarExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportarExcel.Location = new System.Drawing.Point(599, 15);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Size = new System.Drawing.Size(110, 23);
+            this.btnExportarExcel.TabIndex = 1;
+            this.btnExportarExcel.Text = "📊 Excel";
+            this.btnExportarExcel.UseVisualStyleBackColor = false;
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
+            // 
+            // reportViewer1
+            // 
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.Location = new System.Drawing.Point(3, 3);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(829, 668);
+            this.reportViewer1.TabIndex = 2;
             // 
             // frmReporteInteligente
             // 
@@ -246,10 +295,12 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.tableLayoutPrincipal);
+            this.Icon = ((System.Drawing.Icon)(CheeseLogix.Properties.Resources.ResourceManager.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "frmReporteInteligente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reportes Inteligentes - CheeseLogix";
+            this.Load += new System.EventHandler(this.frmReporteInteligente_Load_1);
             this.tableLayoutPrincipal.ResumeLayout(false);
             this.tableLayoutSuperior.ResumeLayout(false);
             this.tableLayoutSuperior.PerformLayout();
@@ -277,5 +328,8 @@
         private System.Windows.Forms.GroupBox groupBoxRecomendaciones;
         private System.Windows.Forms.TextBox txtRecomendaciones;
         private System.Windows.Forms.Button btnCerrar;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private System.Windows.Forms.Button btnExportarPDF;
+        private System.Windows.Forms.Button btnExportarExcel;
     }
 }

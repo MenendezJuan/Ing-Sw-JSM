@@ -21,25 +21,55 @@ namespace BLLs.Negocio
             _mppProveedor = new MPP_PROVEEDOR();
         }
 
-        #region Reportes de Ventas
+        #region Reportes Optimizados
 
         /// <summary>
-        /// Obtiene los productos más vendidos en un período
+        /// Obtiene los productos más vendidos optimizado para reporte
         /// </summary>
-        public DataTable ObtenerProductosMasVendidos(DateTime? fechaInicio = null, DateTime? fechaFin = null)
+        public DataTable ObtenerProductosTopReporte(DateTime? fechaInicio = null, DateTime? fechaFin = null, int top = 10)
         {
             try
             {
-                return _mppVenta.ObtenerProductosMasVendidos(fechaInicio, fechaFin);
+                return _mppVenta.ObtenerProductosTopReporte(fechaInicio, fechaFin, top);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al obtener productos más vendidos: {ex.Message}", ex);
+                throw new Exception($"Error al obtener productos top para reporte: {ex.Message}", ex);
             }
         }
 
         /// <summary>
-        /// Obtiene las ventas por mes del año actual
+        /// Obtiene los clientes top para gráfico
+        /// </summary>
+        public DataTable ObtenerClientesTopGrafico(DateTime? fechaInicio = null, DateTime? fechaFin = null, int top = 5)
+        {
+            try
+            {
+                return _mppVenta.ObtenerClientesTopGrafico(fechaInicio, fechaFin, top);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener clientes top para gráfico: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene resumen ejecutivo mejorado
+        /// </summary>
+        public DataTable ObtenerResumenEjecutivoMejorado(DateTime fechaInicio, DateTime fechaFin)
+        {
+            try
+            {
+                return _mppVenta.ObtenerResumenEjecutivoMejorado(fechaInicio, fechaFin);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener resumen ejecutivo mejorado: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene las ventas por mes del año actual - Método mantenido para compatibilidad
         /// </summary>
         public DataTable ObtenerVentasPorMes(int? año = null)
         {
@@ -51,59 +81,6 @@ namespace BLLs.Negocio
             catch (Exception ex)
             {
                 throw new Exception($"Error al obtener ventas por mes: {ex.Message}", ex);
-            }
-        }
-
-        /// <summary>
-        /// Obtiene los clientes que más compran
-        /// </summary>
-        public DataTable ObtenerClientesMejores(DateTime? fechaInicio = null, DateTime? fechaFin = null)
-        {
-            try
-            {
-                return _mppVenta.ObtenerClientesMejores(fechaInicio, fechaFin);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al obtener mejores clientes: {ex.Message}", ex);
-            }
-        }
-
-        #endregion
-
-        #region Reportes de Compras
-
-        /// <summary>
-        /// Obtiene los proveedores con más órdenes
-        /// </summary>
-        public DataTable ObtenerProveedoresMasActivos(DateTime? fechaInicio = null, DateTime? fechaFin = null)
-        {
-            try
-            {
-                return _mppProveedor.ObtenerProveedoresMasActivos(fechaInicio, fechaFin);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al obtener proveedores más activos: {ex.Message}", ex);
-            }
-        }
-
-        #endregion
-
-        #region Reportes Combinados
-
-        /// <summary>
-        /// Obtiene un resumen ejecutivo de ventas
-        /// </summary>
-        public DataTable ObtenerResumenEjecutivo(DateTime fechaInicio, DateTime fechaFin)
-        {
-            try
-            {
-                return _mppVenta.ObtenerResumenEjecutivo(fechaInicio, fechaFin);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al obtener resumen ejecutivo: {ex.Message}", ex);
             }
         }
 
@@ -120,9 +97,9 @@ namespace BLLs.Negocio
 
             try
             {
-                // Obtener productos más vendidos del último mes
+                // Obtener productos más vendidos del último mes usando método optimizado
                 var fechaInicio = DateTime.Now.AddMonths(-1);
-                var productosMasVendidos = ObtenerProductosMasVendidos(fechaInicio, DateTime.Now);
+                var productosMasVendidos = ObtenerProductosTopReporte(fechaInicio, DateTime.Now, 5);
 
                 if (productosMasVendidos.Rows.Count > 0)
                 {
@@ -130,8 +107,8 @@ namespace BLLs.Negocio
                     recomendaciones.Add($"Aumentar stock de {productoTop} - es el producto más vendido");
                 }
 
-                // Obtener clientes mejores
-                var mejoresClientes = ObtenerClientesMejores(fechaInicio, DateTime.Now);
+                // Obtener clientes mejores usando método optimizado
+                var mejoresClientes = ObtenerClientesTopGrafico(fechaInicio, DateTime.Now, 5);
                 if (mejoresClientes.Rows.Count > 0)
                 {
                     var clienteTop = mejoresClientes.Rows[0]["NombreCliente"].ToString();

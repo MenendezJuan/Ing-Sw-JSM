@@ -55,6 +55,7 @@
             this.bitacoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSideMenu = new System.Windows.Forms.Panel();
+            this.panelBottomMenu = new System.Windows.Forms.Panel();
             this.btnAdministracion = new FontAwesome.Sharp.IconButton();
             this.btnReportes = new System.Windows.Forms.Button();
             this.PanelEntidades = new System.Windows.Forms.Panel();
@@ -74,10 +75,8 @@
             this.buttonEvaluarSolicitudes = new System.Windows.Forms.Button();
             this.buttonSolicitarCotizacion = new System.Windows.Forms.Button();
             this.btnControl = new System.Windows.Forms.Button();
-            this.btnProductos = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.panelBottomMenu = new System.Windows.Forms.Panel();
             this.panelMain.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelRedes.SuspendLayout();
@@ -390,13 +389,21 @@
             this.panelSideMenu.Controls.Add(this.btnGestionProducto);
             this.panelSideMenu.Controls.Add(this.panelCotizaciones);
             this.panelSideMenu.Controls.Add(this.btnControl);
-            this.panelSideMenu.Controls.Add(this.btnProductos);
             this.panelSideMenu.Controls.Add(this.panelLogo);
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSideMenu.Name = "panelSideMenu";
             this.panelSideMenu.Size = new System.Drawing.Size(228, 578);
             this.panelSideMenu.TabIndex = 2;
+            // 
+            // panelBottomMenu
+            // 
+            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomMenu.Location = new System.Drawing.Point(0, 769);
+            this.panelBottomMenu.Name = "panelBottomMenu";
+            this.panelBottomMenu.Size = new System.Drawing.Size(211, 89);
+            this.panelBottomMenu.TabIndex = 19;
             // 
             // btnAdministracion
             // 
@@ -410,7 +417,7 @@
             this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAdministracion.IconSize = 35;
             this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministracion.Location = new System.Drawing.Point(0, 776);
+            this.btnAdministracion.Location = new System.Drawing.Point(0, 731);
             this.btnAdministracion.Name = "btnAdministracion";
             this.btnAdministracion.Size = new System.Drawing.Size(211, 38);
             this.btnAdministracion.TabIndex = 18;
@@ -423,7 +430,6 @@
             // btnReportes
             // 
             this.btnReportes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnReportes.Enabled = false;
             this.btnReportes.FlatAppearance.BorderSize = 0;
             this.btnReportes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnReportes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
@@ -432,7 +438,7 @@
             this.btnReportes.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(0, 744);
+            this.btnReportes.Location = new System.Drawing.Point(0, 699);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnReportes.Size = new System.Drawing.Size(211, 32);
@@ -448,7 +454,7 @@
             this.PanelEntidades.Controls.Add(this.buttonGestionarProveedores);
             this.PanelEntidades.Controls.Add(this.buttonGestionarClientes);
             this.PanelEntidades.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelEntidades.Location = new System.Drawing.Point(0, 652);
+            this.PanelEntidades.Location = new System.Drawing.Point(0, 607);
             this.PanelEntidades.Name = "PanelEntidades";
             this.PanelEntidades.Size = new System.Drawing.Size(211, 92);
             this.PanelEntidades.TabIndex = 17;
@@ -500,7 +506,7 @@
             this.buttonEntidades.ForeColor = System.Drawing.Color.Gainsboro;
             this.buttonEntidades.Image = ((System.Drawing.Image)(resources.GetObject("buttonEntidades.Image")));
             this.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonEntidades.Location = new System.Drawing.Point(0, 610);
+            this.buttonEntidades.Location = new System.Drawing.Point(0, 565);
             this.buttonEntidades.Name = "buttonEntidades";
             this.buttonEntidades.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.buttonEntidades.Size = new System.Drawing.Size(211, 42);
@@ -516,7 +522,7 @@
             this.panelCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
             this.panelCaja.Controls.Add(this.btnCobrarVenta);
             this.panelCaja.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCaja.Location = new System.Drawing.Point(0, 562);
+            this.panelCaja.Location = new System.Drawing.Point(0, 517);
             this.panelCaja.Name = "panelCaja";
             this.panelCaja.Size = new System.Drawing.Size(211, 48);
             this.panelCaja.TabIndex = 26;
@@ -552,7 +558,7 @@
             this.btnCaja.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
             this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCaja.Location = new System.Drawing.Point(0, 517);
+            this.btnCaja.Location = new System.Drawing.Point(0, 472);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCaja.Size = new System.Drawing.Size(211, 45);
@@ -570,7 +576,7 @@
             this.panelInsumos.Controls.Add(this.btnComprasProductos);
             this.panelInsumos.Controls.Add(this.btnStockProductos);
             this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInsumos.Location = new System.Drawing.Point(0, 336);
+            this.panelInsumos.Location = new System.Drawing.Point(0, 291);
             this.panelInsumos.Name = "panelInsumos";
             this.panelInsumos.Size = new System.Drawing.Size(211, 181);
             this.panelInsumos.TabIndex = 7;
@@ -659,7 +665,7 @@
             this.btnGestionProducto.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnGestionProducto.Image = ((System.Drawing.Image)(resources.GetObject("btnGestionProducto.Image")));
             this.btnGestionProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGestionProducto.Location = new System.Drawing.Point(0, 292);
+            this.btnGestionProducto.Location = new System.Drawing.Point(0, 247);
             this.btnGestionProducto.Name = "btnGestionProducto";
             this.btnGestionProducto.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnGestionProducto.Size = new System.Drawing.Size(211, 44);
@@ -676,7 +682,7 @@
             this.panelCotizaciones.Controls.Add(this.buttonEvaluarSolicitudes);
             this.panelCotizaciones.Controls.Add(this.buttonSolicitarCotizacion);
             this.panelCotizaciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCotizaciones.Location = new System.Drawing.Point(0, 209);
+            this.panelCotizaciones.Location = new System.Drawing.Point(0, 164);
             this.panelCotizaciones.Name = "panelCotizaciones";
             this.panelCotizaciones.Size = new System.Drawing.Size(211, 83);
             this.panelCotizaciones.TabIndex = 3;
@@ -728,7 +734,7 @@
             this.btnControl.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnControl.Image = ((System.Drawing.Image)(resources.GetObject("btnControl.Image")));
             this.btnControl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnControl.Location = new System.Drawing.Point(0, 164);
+            this.btnControl.Location = new System.Drawing.Point(0, 119);
             this.btnControl.Name = "btnControl";
             this.btnControl.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnControl.Size = new System.Drawing.Size(211, 45);
@@ -738,28 +744,6 @@
             this.btnControl.UseVisualStyleBackColor = true;
             this.btnControl.Visible = false;
             this.btnControl.Click += new System.EventHandler(this.btnControl_Click);
-            // 
-            // btnProductos
-            // 
-            this.btnProductos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnProductos.FlatAppearance.BorderSize = 0;
-            this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(11)))), ((int)(((byte)(28)))));
-            this.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProductos.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
-            this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(0, 119);
-            this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnProductos.Size = new System.Drawing.Size(211, 45);
-            this.btnProductos.TabIndex = 1;
-            this.btnProductos.Tag = "btnProducto_formPrincipal";
-            this.btnProductos.Text = "Productos";
-            this.btnProductos.UseVisualStyleBackColor = true;
-            this.btnProductos.Visible = false;
-            this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
             // panelLogo
             // 
@@ -780,15 +764,6 @@
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxLogo.TabIndex = 0;
             this.pictureBoxLogo.TabStop = false;
-            // 
-            // panelBottomMenu
-            // 
-            this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomMenu.Location = new System.Drawing.Point(0, 814);
-            this.panelBottomMenu.Name = "panelBottomMenu";
-            this.panelBottomMenu.Size = new System.Drawing.Size(211, 89);
-            this.panelBottomMenu.TabIndex = 19;
             // 
             // frmMenuPrincipal
             // 
@@ -852,7 +827,6 @@
         private System.Windows.Forms.Button btnGestionProducto;
         private System.Windows.Forms.Button btnControl;
         private System.Windows.Forms.Button btnStockProductos;
-        private System.Windows.Forms.Button btnProductos;
         private System.Windows.Forms.Button buttonEntidades;
         private System.Windows.Forms.Button btnComprasProductos;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

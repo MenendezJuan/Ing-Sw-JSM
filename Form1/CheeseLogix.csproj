@@ -111,6 +111,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.9.0.7\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
     </Reference>
@@ -378,11 +381,14 @@
     <EmbeddedResource Include="Tecnica\frmSerializacion.resx">
       <DependentUpon>frmSerializacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tecnica\frmAyuda.resx">
-      <DependentUpon>frmAyuda.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Reportes\frmReporteInteligente.resx">
       <DependentUpon>frmReporteInteligente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Reportes\ReporteVentas.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tecnica\frmAyuda.resx">
+      <DependentUpon>frmAyuda.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="libpdfium.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -502,4 +508,15 @@
   </Target>
   <Import Project="..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets" Condition="Exists('..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets')" />
   <Import Project="..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+      echo Copiando archivos RDLC...
+      if not exist "$(TargetDir)Reportes" mkdir "$(TargetDir)Reportes"
+      if exist "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" copy "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" "$(TargetDir)Reportes\ReporteVentas.rdlc" /y
+      if not exist "$(TargetDir)Negocio" mkdir "$(TargetDir)Negocio"
+      if not exist "$(TargetDir)Negocio\Reportes" mkdir "$(TargetDir)Negocio\Reportes"
+      if exist "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" copy "$(ProjectDir)Negocio\Reportes\ReporteVentas.rdlc" "$(TargetDir)Negocio\Reportes\ReporteVentas.rdlc" /y
+      echo Archivos RDLC copiados.
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

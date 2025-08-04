@@ -5,9 +5,11 @@ using BEs.Clases.Negocio.Inventario;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace CheeseLogix
     {
         private BLL_PRODUCTO _bllProducto;
         private BLL_PROVEEDOR _bllProveedor;
+        private BLL_EXPORTACION _bllExportacion;
         private Producto _productoSeleccionado;
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
@@ -30,6 +33,7 @@ namespace CheeseLogix
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllProducto = new BLL_PRODUCTO();
             _bllProveedor = new BLL_PROVEEDOR();
+            _bllExportacion = new BLL_EXPORTACION();
             CargarDatos();
             CargarComboBuscar();
             sesion.RegistrarObservador(this);
@@ -227,48 +231,49 @@ namespace CheeseLogix
 
         private void btnExportar_Click(object sender, System.EventArgs e)
         {
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-
-            app.Visible = true;
-            worksheet = workbook.ActiveSheet;
-            worksheet.Name = "Exportado desde DataGridView";
-
-            for (int i = 1; i <= dataGridViewProductos.Columns.Count; i++)
+            try
             {
-                worksheet.Cells[1, i] = dataGridViewProductos.Columns[i - 1].HeaderText;
-            }
-
-            for (int i = 0; i < dataGridViewProductos.Rows.Count; i++)
-            {
-                for (int j = 0; j < dataGridViewProductos.Columns.Count; j++)
+                if (dataGridViewProductos.DataSource == null)
                 {
-                    worksheet.Cells[i + 2, j + 1] = dataGridViewProductos.Rows[i].Cells[j].Value?.ToString();
+                    MessageBox.Show("No hay datos para exportar.", "Información", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Convertir DataGridView a DataTable
+                DataTable dtProductos = ConvertirDataGridViewADataTable(dataGridViewProductos);
+                
+                // Usar BLL_EXPORTACION para exportar
+                string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionProductos");
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
+                    (dtProductos, "Productos", "Información de Productos - CheeseLogix"));
+
+                if (exportado)
+                {
+                    string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
+                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
+                        "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    // Preguntar si quiere abrir el archivo
+                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo exportado?", 
+                        "Abrir Archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    
+                    if (result == DialogResult.Yes)
+                    {
+                        _bllExportacion.AbrirArchivo(rutaCompleta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al exportar el archivo.", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            catch (Exception ex)
             {
-                saveFileDialog.Filter = "Archivos Excel (*.xlsx)|*.xlsx";
-                saveFileDialog.Title = "Guardar archivo Excel";
-                saveFileDialog.FileName = "InformacionProducto_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string filePath = saveFileDialog.FileName;
-                    workbook.SaveAs(filePath);
-                    MessageBox.Show("Archivo exportado correctamente a: " + filePath);
-                }
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            workbook.Close();
-            app.Quit();
-
-            ReleaseObject(worksheet);
-            ReleaseObject(workbook);
-            ReleaseObject(app);
         }
 
         private void btnRefresh_Click(object sender, System.EventArgs e)
@@ -322,22 +327,45 @@ namespace CheeseLogix
             comboBuscar.SelectedIndex = -1;
             txtBuscar.Clear();
         }
-        private void ReleaseObject(object obj)
+
+        /// <summary>
+        /// Convierte un DataGridView a DataTable para exportación
+        /// </summary>
+        private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
         {
-            try
+            DataTable dt = new DataTable();
+            
+            // Agregar columnas visibles
+            foreach (DataGridViewColumn column in dgv.Columns)
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
+                if (column.Visible)
+                {
+                    dt.Columns.Add(column.HeaderText, typeof(string));
+                }
             }
-            catch (Exception ex)
+            
+            // Agregar filas
+            foreach (DataGridViewRow row in dgv.Rows)
             {
-                obj = null;
-                MessageBox.Show("Excepción al liberar objeto " + ex.ToString());
+                if (!row.IsNewRow)
+                {
+                    DataRow dataRow = dt.NewRow();
+                    int columnIndex = 0;
+                    
+                    foreach (DataGridViewColumn column in dgv.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            dataRow[columnIndex] = row.Cells[column.Index].Value?.ToString() ?? "";
+                            columnIndex++;
+                        }
+                    }
+                    
+                    dt.Rows.Add(dataRow);
+                }
             }
-            finally
-            {
-                GC.Collect();
-            }
+            
+            return dt;
         }
 
         private void CargarCategorias()

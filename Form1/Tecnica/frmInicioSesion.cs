@@ -1,6 +1,7 @@
 ﻿using BEs;
 using BEs.Interfaces;
 using BLLs;
+using CheeseLogix.Negocio.Reportes;
 using CheeseLogix.Negocio.Ventas;
 using CheeseLogix.Tecnica;
 using System;
@@ -128,8 +129,8 @@ namespace CheeseLogix
                 {
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
                     MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
-                    //frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
-                    frmSerializacion menuPrincipal = new frmSerializacion();
+                    frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
+                    //frmReporteInteligente menuPrincipal = new frmReporteInteligente();
                     //frmInicioOrden menuPrincipal = new frmInicioOrden();
                     //frmBackupRestore menuPrincipal = new frmBackupRestore();
                     menuPrincipal.Show();

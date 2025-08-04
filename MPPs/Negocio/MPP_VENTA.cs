@@ -224,5 +224,72 @@ namespace MPPs
         }
 
         #endregion
+
+        #region Métodos para Reportes Optimizados
+
+        /// <summary>
+        /// Obtiene productos más vendidos optimizado para reporte
+        /// </summary>
+        public DataTable ObtenerProductosTopReporte(DateTime? fechaInicio, DateTime? fechaFin, int top)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                if (fechaInicio.HasValue)
+                    parametros.Add("@FechaInicio", fechaInicio.Value);
+                if (fechaFin.HasValue)
+                    parametros.Add("@FechaFin", fechaFin.Value);
+                parametros.Add("@TopProductos", top);
+
+                return oCnx.Leer("SP_ObtenerProductosTopReporte", parametros);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error en MPP_VENTA.ObtenerProductosTopReporte: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene clientes top para gráfico
+        /// </summary>
+        public DataTable ObtenerClientesTopGrafico(DateTime? fechaInicio, DateTime? fechaFin, int top)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                if (fechaInicio.HasValue)
+                    parametros.Add("@FechaInicio", fechaInicio.Value);
+                if (fechaFin.HasValue)
+                    parametros.Add("@FechaFin", fechaFin.Value);
+                parametros.Add("@TopClientes", top);
+
+                return oCnx.Leer("SP_ObtenerClientesTopGrafico", parametros);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error en MPP_VENTA.ObtenerClientesTopGrafico: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene resumen ejecutivo mejorado
+        /// </summary>
+        public DataTable ObtenerResumenEjecutivoMejorado(DateTime fechaInicio, DateTime fechaFin)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                parametros.Add("@FechaInicio", fechaInicio);
+                parametros.Add("@FechaFin", fechaFin);
+
+                return oCnx.Leer("SP_ObtenerResumenEjecutivoMejorado", parametros);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error en MPP_VENTA.ObtenerResumenEjecutivoMejorado: {ex.Message}", ex);
+            }
+        }
+
+        #endregion
     }
 } 

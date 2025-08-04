@@ -5,9 +5,11 @@ using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -17,6 +19,7 @@ namespace CheeseLogix.Negocio.Ventas
     public partial class frmGestionarClientes : Form, IObservador
     {
         private BLL_CLIENTE _bllCliente;
+        private BLL_EXPORTACION _bllExportacion;
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
@@ -29,6 +32,7 @@ namespace CheeseLogix.Negocio.Ventas
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllCliente = new BLL_CLIENTE();
+            _bllExportacion = new BLL_EXPORTACION();
             CargarClientes();
             panelDatosCliente.Visible = false;
             sesion.RegistrarObservador(this);
@@ -71,37 +75,49 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-
-            app.Visible = true;
-            worksheet = workbook.ActiveSheet;
-            worksheet.Name = "Exportado desde DataGridView";
-
-            for (int i = 1; i <= dataGridViewCliente.Columns.Count; i++)
+            try
             {
-                worksheet.Cells[1, i] = dataGridViewCliente.Columns[i - 1].HeaderText;
-            }
-
-            for (int i = 0; i < dataGridViewCliente.Rows.Count; i++)
-            {
-                for (int j = 0; j < dataGridViewCliente.Columns.Count; j++)
+                if (dataGridViewCliente.DataSource == null)
                 {
-                    worksheet.Cells[i + 2, j + 1] = dataGridViewCliente.Rows[i].Cells[j].Value?.ToString();
+                    MessageBox.Show("No hay datos para exportar.", "Información", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Convertir DataGridView a DataTable
+                DataTable dtClientes = ConvertirDataGridViewADataTable(dataGridViewCliente);
+                
+                // Usar BLL_EXPORTACION para exportar
+                string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionClientes");
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
+                    (dtClientes, "Clientes", "Información de Clientes - CheeseLogix"));
+
+                if (exportado)
+                {
+                    string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
+                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
+                        "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    // Preguntar si quiere abrir el archivo
+                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo exportado?", 
+                        "Abrir Archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    
+                    if (result == DialogResult.Yes)
+                    {
+                        _bllExportacion.AbrirArchivo(rutaCompleta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al exportar el archivo.", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            string filePath = "C:\\InformacionCliente" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xlsx";
-            workbook.SaveAs(filePath);
-            workbook.Close();
-            app.Quit();
-
-            ReleaseObject(worksheet);
-            ReleaseObject(workbook);
-            ReleaseObject(app);
-
-            MessageBox.Show("Archivo exportado correctamente a: " + filePath);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -231,22 +247,44 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewCliente.Columns["FechaRegistro"].Tag = "FechaRegistro_Column";
         }
 
-        private void ReleaseObject(object obj)
+        /// <summary>
+        /// Convierte un DataGridView a DataTable para exportación
+        /// </summary>
+        private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
         {
-            try
+            DataTable dt = new DataTable();
+            
+            // Agregar columnas visibles
+            foreach (DataGridViewColumn column in dgv.Columns)
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
+                if (column.Visible)
+                {
+                    dt.Columns.Add(column.HeaderText, typeof(string));
+                }
             }
-            catch (Exception ex)
+            
+            // Agregar filas
+            foreach (DataGridViewRow row in dgv.Rows)
             {
-                obj = null;
-                MessageBox.Show("Excepción al liberar objeto " + ex.ToString());
+                if (!row.IsNewRow)
+                {
+                    DataRow dataRow = dt.NewRow();
+                    int columnIndex = 0;
+                    
+                    foreach (DataGridViewColumn column in dgv.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            dataRow[columnIndex] = row.Cells[column.Index].Value?.ToString() ?? "";
+                            columnIndex++;
+                        }
+                    }
+                    
+                    dt.Rows.Add(dataRow);
+                }
             }
-            finally
-            {
-                GC.Collect();
-            }
+            
+            return dt;
         }
         #endregion
 
@@ -619,3 +657,4 @@ namespace CheeseLogix.Negocio.Ventas
         }
     }
 }
+

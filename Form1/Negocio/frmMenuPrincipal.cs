@@ -152,7 +152,6 @@ namespace CheeseLogix
 
         private void InicializarEstilos()
         {
-            AplicarEstiloBoton(btnProductos);
             AplicarEstiloBoton(btnComprasProductos);
             AplicarEstiloBoton(btnControl);
             AplicarEstiloBoton(btnCaja);
@@ -171,11 +170,6 @@ namespace CheeseLogix
         }
         #endregion Estilos
         #endregion
-
-        private void btnProductos_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(panelInsumos);
-        }
 
         private void btnGestionProducto_Click(object sender, EventArgs e)
         {
