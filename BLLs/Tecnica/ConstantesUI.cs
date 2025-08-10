@@ -75,7 +75,6 @@ namespace BLLs.Tecnica
 
         public static class Exportacion
         {
-            // Nombres de hojas en Excel
             public const string HojaProductos = "Productos";
             public const string HojaClientes = "Clientes";
             public const string HojaProveedores = "Proveedores";
@@ -83,7 +82,6 @@ namespace BLLs.Tecnica
             public const string HojaMejoresClientes = "Mejores Clientes";
             public const string HojaVentasPorMes = "Ventas por Mes";
 
-            // Títulos de secciones/encabezados en Excel
             public const string TituloProductos = "Información de Productos - CheeseLogix";
             public const string TituloClientes = "Información de Clientes - CheeseLogix";
             public const string TituloProveedores = "Información de Proveedores - CheeseLogix";

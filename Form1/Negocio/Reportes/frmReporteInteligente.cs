@@ -389,9 +389,9 @@ namespace CheeseLogix.Negocio.Reportes
 
                 var datosParaExportar = new[]
                 {
-                    (productosMasVendidos, "Productos Más Vendidos", "📊 PRODUCTOS MÁS VENDIDOS"),
-                    (clientesMejores, "Mejores Clientes", "👥 MEJORES CLIENTES"),
-                    (ventasPorMes, "Ventas por Mes", "📈 VENTAS POR MES")
+                    (productosMasVendidos, ConstantesUI.Exportacion.HojaProductosMasVendidos, ConstantesUI.Exportacion.TituloProductosMasVendidos),
+                    (clientesMejores, ConstantesUI.Exportacion.HojaMejoresClientes, ConstantesUI.Exportacion.TituloMejoresClientes),
+                    (ventasPorMes, ConstantesUI.Exportacion.HojaVentasPorMes, ConstantesUI.Exportacion.TituloVentasPorMes)
                 };
 
                 if (Bll_Exportacion.ExportarMultiplesDataTablesAExcel(nombreArchivo, datosParaExportar))

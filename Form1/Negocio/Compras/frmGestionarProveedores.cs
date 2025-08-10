@@ -90,7 +90,7 @@ namespace CheeseLogix.Negocio
                 // Usar BLL_EXPORTACION para exportar
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionProveedores");
                 bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
-                    (dtProveedores, "Proveedores", "Información de Proveedores - CheeseLogix"));
+                    (dtProveedores, ConstantesUI.Exportacion.HojaProveedores, ConstantesUI.Exportacion.TituloProveedores));
 
                 if (exportado)
                 {
@@ -135,7 +135,7 @@ namespace CheeseLogix.Negocio
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);   
             }
         }
 
