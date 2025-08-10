@@ -127,6 +127,7 @@
     <Compile Include="Tecnica\BLL_TRADUCCION.cs" />
     <Compile Include="Tecnica\BLL_USUARIO.cs" />
     <Compile Include="Tecnica\BLL_VALIDACION.cs" />
+    <Compile Include="Tecnica\ConstantesUI.cs" />
     <Compile Include="Tecnica\ReportViewerFixer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -133,13 +133,13 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     lblCliente.Text = $"Cliente con CUIT {cuit} no encontrado";
                     MessageBox.Show($"No se encontró un cliente con CUIT '{cuit}' en el sistema.", 
-                        "Cliente no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
                 lblCliente.Text = "Error al buscar cliente";
-                MessageBox.Show($"Error al buscar cliente: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al buscar cliente: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -301,7 +301,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar categorías: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar categorías: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -316,7 +316,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar productos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar productos: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -343,7 +343,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al filtrar productos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al filtrar productos: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -369,7 +369,7 @@ namespace CheeseLogix.Negocio.Ventas
                 if (productoSeleccionado.StockDisponible <= 0)
                 {
                     MessageBox.Show($"El producto '{productoSeleccionado.Nombre}' no tiene stock disponible.", 
-                        "Sin stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -407,7 +407,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_productoSeleccionado == null)
                 {
-                    MessageBox.Show("Por favor, seleccione un producto.", "Producto requerido", 
+                    MessageBox.Show("Por favor, seleccione un producto.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -418,7 +418,7 @@ namespace CheeseLogix.Negocio.Ventas
                 if (cantidadSolicitada > _productoSeleccionado.StockDisponible)
                 {
                     MessageBox.Show($"No hay suficiente stock disponible. Stock disponible: {_productoSeleccionado.StockDisponible}", 
-                        "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -432,7 +432,7 @@ namespace CheeseLogix.Negocio.Ventas
                     if (cantidadTotal > _productoSeleccionado.StockDisponible)
                     {
                         MessageBox.Show($"La cantidad total ({cantidadTotal}) excedería el stock disponible ({_productoSeleccionado.StockDisponible}).", 
-                            "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     
@@ -467,11 +467,11 @@ namespace CheeseLogix.Negocio.Ventas
                 LimpiarSeleccionProducto();
                 
                 MessageBox.Show($"Producto agregado al carrito: {nombreProducto} x{cantidadSolicitada}", 
-                    "Producto agregado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al agregar producto al carrito: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al agregar producto al carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -484,7 +484,7 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     var resultado = MessageBox.Show(
                         $"¿Está seguro de que desea eliminar '{itemSeleccionado.NombreProducto}' del carrito?", 
-                        "Confirmar eliminación", 
+                        BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
                         MessageBoxButtons.YesNo, 
                         MessageBoxIcon.Question);
                     
@@ -494,19 +494,19 @@ namespace CheeseLogix.Negocio.Ventas
                         ActualizarVistaCarrito();
                         ActualizarTotal();
                         
-                        MessageBox.Show("Producto eliminado del carrito.", "Producto eliminado", 
+                        MessageBox.Show("Producto eliminado del carrito.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
                     MessageBox.Show("Por favor, seleccione un producto del carrito para eliminar.", 
-                        "Selección requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar producto del carrito: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al eliminar producto del carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -517,14 +517,14 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_carrito.Count == 0)
                 {
-                    MessageBox.Show("El carrito ya está vacío.", "Carrito vacío", 
+                    MessageBox.Show("El carrito ya está vacío.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 var resultado = MessageBox.Show(
                     "¿Está seguro de que desea vaciar todo el carrito?", 
-                    "Confirmar vaciado", 
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
                     MessageBoxButtons.YesNo, 
                     MessageBoxIcon.Question);
                 
@@ -534,13 +534,13 @@ namespace CheeseLogix.Negocio.Ventas
                     ActualizarVistaCarrito();
                     ActualizarTotal();
                     
-                    MessageBox.Show("Carrito vaciado exitosamente.", "Carrito vaciado", 
+                    MessageBox.Show("Carrito vaciado exitosamente.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al vaciar carrito: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al vaciar carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -589,7 +589,7 @@ namespace CheeseLogix.Negocio.Ventas
                 nuevaVenta.Id = ventaId; // Asignar el ID generado
                 
                 MessageBox.Show($"Venta creada exitosamente con ID: {ventaId}\n\nEl stock ha sido reservado automáticamente.\n\nProcediendo al cobro...", 
-                    "Venta creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 // Redirigir al formulario de cobro
                 var frmCobro = new frmCobroVenta(nuevaVenta);
@@ -615,7 +615,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear la venta: {ex.Message}", "Error al crear venta", 
+                MessageBox.Show($"Error al crear la venta: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -792,7 +792,7 @@ namespace CheeseLogix.Negocio.Ventas
                 decimal total = _carrito.Sum(item => item.SubTotal);
                 var resultado = MessageBox.Show(
                     $"¿Confirmar la venta?\n\nCliente: {_clienteActual.NombreCompleto}\nTotal: {total:C2}\nProductos: {_carrito.Count}", 
-                    "Confirmar venta", 
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
                     MessageBoxButtons.YesNo, 
                     MessageBoxIcon.Question);
                 
@@ -803,7 +803,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al confirmar la compra: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al confirmar la compra: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

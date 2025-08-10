@@ -5,6 +5,7 @@ using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using CheeseLogix.Negocio.Ventas;
 using System;
 using System.Collections;
@@ -291,7 +292,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -409,7 +410,7 @@ namespace CheeseLogix.Negocio.Ventas
                 if (dateTimePickerDesde.Value > dateTimePickerHasta.Value)
                 {
                     MessageBox.Show("La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.", 
-                        "Error en fechas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -417,11 +418,11 @@ namespace CheeseLogix.Negocio.Ventas
                 
                 var cantidadResultados = dataGridViewOrdenVenta.Rows.Count;
                 MessageBox.Show($"Se encontraron {cantidadResultados} ventas en el rango de fechas seleccionado.", 
-                    "Búsqueda completada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al realizar la búsqueda: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al realizar la búsqueda: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -437,12 +438,12 @@ namespace CheeseLogix.Negocio.Ventas
                 // Recargar todas las ventas
                 CargarVentas();
                 
-                MessageBox.Show("Los filtros han sido restablecidos.", "Filtros restablecidos", 
+                MessageBox.Show("Los filtros han sido restablecidos.", ConstantesUI.Titulos.Informacion, 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al restablecer filtros: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al restablecer filtros: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -456,7 +457,7 @@ namespace CheeseLogix.Negocio.Ventas
                 
                 if (string.IsNullOrWhiteSpace(cuit))
                 {
-                    MessageBox.Show("Por favor, ingrese el CUIT del cliente.", "CUIT requerido", 
+                    MessageBox.Show("Por favor, ingrese el CUIT del cliente.", ConstantesUI.Titulos.Validacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCuitCliente.Focus();
                     return;
@@ -465,7 +466,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Validar formato de CUIT antes de continuar
                 if (!ValidarFormatoCUIT())
                 {
-                    MessageBox.Show("Por favor, ingrese un CUIT válido antes de continuar.", "CUIT inválido", 
+                    MessageBox.Show("Por favor, ingrese un CUIT válido antes de continuar.", ConstantesUI.Titulos.Validacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCuitCliente.Focus();
                     return;
@@ -482,7 +483,7 @@ namespace CheeseLogix.Negocio.Ventas
                     // Cliente encontrado - Mostrar mensaje y redirigir
                     var resultado = MessageBox.Show(
                         $"Cliente encontrado: {cliente.NombreCompleto}\n\n¿Desea iniciar una nueva orden de venta para este cliente?", 
-                        "Cliente encontrado", 
+                        ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.YesNo, 
                         MessageBoxIcon.Information);
                     
@@ -505,7 +506,7 @@ namespace CheeseLogix.Negocio.Ventas
                     // Cliente no encontrado - Preguntar si quiere agregarlo
                     var resultado = MessageBox.Show(
                         $"No se encontró un cliente con CUIT '{cuitLimpio}' en nuestro sistema.\n\n¿Desea agregar este cliente?", 
-                        "Cliente no encontrado", 
+                        ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.YesNo, 
                         MessageBoxIcon.Question);
                     
@@ -526,7 +527,7 @@ namespace CheeseLogix.Negocio.Ventas
                     {
                         // Usuario eligió no agregar cliente
                         MessageBox.Show("Por favor, elija un cliente válido o agregue el cliente al sistema.", 
-                            "Cliente requerido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         
                         // Limpiar textbox y mantener foco
                         txtCuitCliente.Clear();
@@ -536,7 +537,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar el cliente: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al buscar el cliente: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
                 // En caso de error, limpiar y mantener foco
@@ -631,7 +632,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -653,7 +654,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

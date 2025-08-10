@@ -6,6 +6,7 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
+using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -164,7 +165,7 @@ namespace CheeseLogix
                     MessageBox.Show("Por favor, seleccione un criterio de búsqueda y escriba un término de búsqueda.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                // Obtener el criterio de búsqueda seleccionado
+
                 string criterioBusqueda = comboBuscar.SelectedItem.ToString();
                 string textoBusqueda = txtBuscar.Text.Trim();
                 int? categoria = null;
@@ -188,17 +189,17 @@ namespace CheeseLogix
                             break;
 
                         case "Estado":
-                            if (textoBusqueda.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                            if (textoBusqueda.Equals(ConstantesUI.Estados.Activo, StringComparison.OrdinalIgnoreCase))
                             {
                                 estado = true;
                             }
-                            else if (textoBusqueda.Equals("Inactivo", StringComparison.OrdinalIgnoreCase))
+                            else if (textoBusqueda.Equals(ConstantesUI.Estados.Inactivo, StringComparison.OrdinalIgnoreCase))
                             {
                                 estado = false;
                             }
                             else
                             {
-                                MessageBox.Show("Estado no válido. Use 'Activo' o 'Inactivo'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(ConstantesUI.Validaciones.EstadoInvalido, ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
                             break;
@@ -469,37 +470,37 @@ namespace CheeseLogix
         {
             if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
-                MessageBox.Show("Por favor, ingrese un código para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un código para el producto"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Por favor, ingrese un nombre para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un nombre para el producto"));
                 return false;
             }
 
             if (comboCategoria.SelectedIndex == -1)
             {
-                MessageBox.Show("Por favor, seleccione una categoría para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("una categoría para el producto"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
-                MessageBox.Show("Por favor, ingrese una descripción para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("una descripción para el producto"));
                 return false;
             }
 
             if (comboProveedor.SelectedIndex == -1)
             {
-                MessageBox.Show("Por favor, seleccione un proveedor para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un proveedor para el producto"));
                 return false;
             }
 
             if (numericUpDownPrecioCompra.Value <= 0)
             {
-                MessageBox.Show("Por favor, ingrese un precio de compra válido.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un precio de compra válido"));
                 return false;
             }
 
@@ -593,7 +594,7 @@ namespace CheeseLogix
             if (dataGridViewProductos.Columns[e.ColumnIndex].Name == "Estado" && e.Value != null)
             {
                 bool estado = (bool)e.Value;
-                e.Value = estado ? "Activo" : "Inactivo";
+                e.Value = estado ? ConstantesUI.Estados.Activo : ConstantesUI.Estados.Inactivo;
                 e.FormattingApplied = true;
             }
         }

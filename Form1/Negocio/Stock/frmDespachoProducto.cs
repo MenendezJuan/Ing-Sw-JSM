@@ -226,7 +226,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las ventas cobradas: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar las ventas cobradas: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -253,7 +253,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al seleccionar la venta específica: {ex.Message}", "Error",
+                MessageBox.Show($"Error al seleccionar la venta específica: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -267,7 +267,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el detalle de la venta: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar el detalle de la venta: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -354,7 +354,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 _ventaFirmada = false;
                 _archivoFirmaActual = string.Empty;
-                MessageBox.Show($"Error al verificar firma existente: {ex.Message}", "Error",
+                MessageBox.Show($"Error al verificar firma existente: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -365,7 +365,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_ventaSeleccionada == null)
                 {
-                    MessageBox.Show("No hay una venta seleccionada.", "Error",
+                    MessageBox.Show("No hay una venta seleccionada.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -380,7 +380,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Verificar si ya existe
                 if (File.Exists(rutaCompleta))
                 {
-                    MessageBox.Show("Esta venta ya tiene un conforme firmado para el día de hoy.", "Conforme existente",
+                    MessageBox.Show("Esta venta ya tiene un conforme firmado para el día de hoy.", ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -425,12 +425,12 @@ namespace CheeseLogix.Negocio.Ventas
                 _archivoFirmaActual = rutaCompleta;
                 ActualizarEstadoBotones();
 
-                MessageBox.Show($"Conforme generado exitosamente:\n{rutaCompleta}", "Conforme generado",
+                MessageBox.Show($"Conforme generado exitosamente:\n{rutaCompleta}", ConstantesUI.Titulos.Informacion,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al generar el conforme: {ex.Message}", "Error",
+                MessageBox.Show($"Error al generar el conforme: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -470,14 +470,14 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_ventaSeleccionada == null)
                 {
-                    MessageBox.Show("Por favor, seleccione una venta para firmar el conforme.", "Selección requerida",
+                    MessageBox.Show("Por favor, seleccione una venta para firmar el conforme.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (_ventaFirmada)
                 {
-                    MessageBox.Show("Esta venta ya tiene un conforme firmado.", "Conforme existente",
+                    MessageBox.Show("Esta venta ya tiene un conforme firmado.", ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -485,7 +485,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Confirmar acción
                 var resultado = MessageBox.Show(
                     $"¿Confirmar la firma del conforme para la venta #{_ventaSeleccionada.Id}?\n\nCliente: {_ventaSeleccionada.oCliente?.NombreCompleto}",
-                    "Confirmar firma de conforme",
+                    ConstantesUI.Titulos.Confirmacion,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
@@ -496,7 +496,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al firmar conforme: {ex.Message}", "Error",
+                MessageBox.Show($"Error al firmar conforme: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -507,14 +507,14 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_ventaSeleccionada == null)
                 {
-                    MessageBox.Show("No hay una venta seleccionada.", "Selección requerida",
+                    MessageBox.Show("No hay una venta seleccionada.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (!_ventaFirmada)
                 {
-                    MessageBox.Show("Debe firmar el conforme antes de confirmar la entrega.", "Conforme requerido",
+                    MessageBox.Show("Debe firmar el conforme antes de confirmar la entrega.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -522,7 +522,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Confirmar acción
                 var resultado = MessageBox.Show(
                     $"¿Confirmar la entrega de la venta #{_ventaSeleccionada.Id}?\n\nEsta acción cambiará el estado a 'Entregada' y confirmará definitivamente la venta del stock.",
-                    "Confirmar entrega",
+                    ConstantesUI.Titulos.Confirmacion,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
@@ -533,7 +533,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al confirmar entrega: {ex.Message}", "Error",
+                MessageBox.Show($"Error al confirmar entrega: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -546,14 +546,14 @@ namespace CheeseLogix.Negocio.Ventas
                 _bllVenta.CambiarEstadoVenta(_ventaSeleccionada.Id, EstadoVenta.Entregada);
 
                 MessageBox.Show($"Entrega confirmada exitosamente.\n\nVenta #{_ventaSeleccionada.Id} marcada como 'Entregada'.",
-                    "Entrega confirmada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Recargar ventas cobradas (la entregada ya no aparecerá)
                 CargarVentasCobradas();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al confirmar la entrega: {ex.Message}", "Error al confirmar entrega",
+                MessageBox.Show($"Error al confirmar la entrega: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -648,7 +648,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -670,7 +670,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

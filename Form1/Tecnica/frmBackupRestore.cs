@@ -35,7 +35,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener directorio de backups: {ex.Message}", "Error",
+                MessageBox.Show($"Error al obtener directorio de backups: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 // Fallback al directorio por defecto
                 backupDirectory = Path.Combine("C:", "CheeseLogix", "Backups");
@@ -69,7 +69,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el directorio de backup: {ex.Message}", "Error",
+                MessageBox.Show($"Error al crear el directorio de backup: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -103,7 +103,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los backups disponibles: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar los backups disponibles: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -117,7 +117,7 @@ namespace CheeseLogix.Tecnica
 
                 if (string.IsNullOrWhiteSpace(nombreBackup))
                 {
-                    MessageBox.Show("Por favor, ingrese un nombre para el backup.", "Nombre requerido",
+                    MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un nombre para el backup"), ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -125,7 +125,7 @@ namespace CheeseLogix.Tecnica
                 // Crear backup a través de la BLL
                 string rutaCompleta = Bll_Backup.CrearBackup(nombreBackup, backupDirectory);
 
-                MessageBox.Show($"Backup creado exitosamente:\n{Path.GetFileName(rutaCompleta)}", "Backup completado",
+                MessageBox.Show($"Backup creado exitosamente:\n{Path.GetFileName(rutaCompleta)}", ConstantesUI.Titulos.Informacion,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Recargar lista de backups disponibles
@@ -140,7 +140,7 @@ namespace CheeseLogix.Tecnica
                 if (ex.Message.Contains("Ya existe un backup"))
                 {
                     var resultado = MessageBox.Show($"{ex.Message}\n\n¿Desea sobrescribirlo?",
-                        "Backup existente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        ConstantesUI.Titulos.Confirmacion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (resultado == DialogResult.Yes)
                     {
@@ -150,13 +150,13 @@ namespace CheeseLogix.Tecnica
                 }
                 else
                 {
-                    MessageBox.Show(ex.Message, "Error de validación",
+                    MessageBox.Show(ex.Message, ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear el backup: {ex.Message}", "Error",
+                MessageBox.Show($"Error al crear el backup: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -201,7 +201,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al sobrescribir el backup: {ex.Message}", "Error",
+                MessageBox.Show($"Error al sobrescribir el backup: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -212,7 +212,7 @@ namespace CheeseLogix.Tecnica
             {
                 if (cmbBackupDisponibles.SelectedItem == null)
                 {
-                    MessageBox.Show("Por favor, seleccione un backup para restaurar.", "Backup no seleccionado",
+                    MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un backup para restaurar"), ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -223,7 +223,7 @@ namespace CheeseLogix.Tecnica
                     $"¿Está seguro que desea restaurar el backup '{selectedBackup.FileName}'?\n\n" +
                     "ADVERTENCIA: Esta operación reemplazará completamente la base de datos actual. " +
                     "Todos los datos no guardados se perderán.",
-                    "Confirmar restauración",
+                    ConstantesUI.Titulos.Confirmacion,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
 
@@ -234,19 +234,19 @@ namespace CheeseLogix.Tecnica
 
                     if (exitoso)
                     {
-                        MessageBox.Show("Base de datos restaurada exitosamente.", "Restauración completada",
+                        MessageBox.Show("Base de datos restaurada exitosamente.", ConstantesUI.Titulos.Informacion,
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("La restauración no se completó correctamente.", "Error en restauración",
+                        MessageBox.Show("La restauración no se completó correctamente.", ConstantesUI.Titulos.Error,
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al restaurar el backup: {ex.Message}", "Error",
+                MessageBox.Show($"Error al restaurar el backup: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

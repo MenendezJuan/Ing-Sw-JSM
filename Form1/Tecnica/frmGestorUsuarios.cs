@@ -42,7 +42,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error);
             }
         }
 
@@ -66,18 +66,18 @@ namespace CheeseLogix
                 Usuario oUsuario = (Usuario)dataGridView1.CurrentRow.DataBoundItem;
                 if (oUsuario.Email == SessionManager.GetInstance().oUsuario.Email)
                 {
-                    MessageBox.Show("No se puede eliminar el usuario si esta logeado");
+                    MessageBox.Show("No se puede eliminar el usuario si está logueado", BLLs.Tecnica.ConstantesUI.Titulos.Validacion);
                 }
                 if (Bll_Usuario.Borrar(oUsuario))
                 {
-                    MessageBox.Show("Se elimino el usuario exitosamente", "Eliminacion exitosa", MessageBoxButtons.OK);
+                    MessageBox.Show("Se eliminó el usuario exitosamente", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK);
 
                     ActualizarGrid();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error en la eliminacion", MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK);
             }
         }
 
@@ -91,7 +91,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error);
             }
         }
 
@@ -135,7 +135,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -145,17 +145,17 @@ namespace CheeseLogix
             {
                 if (dataGridView2.CurrentRow.Index == -1)
                 {
-                    MessageBox.Show("Seleccione un historial");
+                    MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un historial"));
                 }
                 HistorialUsuario oHistorial = (HistorialUsuario)dataGridView2.CurrentRow.DataBoundItem;
                 if (Bll_Usuario.Restaurar(oHistorial))
                 {
-                    MessageBox.Show("Se restauro el usuario");
+                    MessageBox.Show("Se restauró el usuario", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     ActualizarGrid();
                 }
 
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -221,7 +221,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

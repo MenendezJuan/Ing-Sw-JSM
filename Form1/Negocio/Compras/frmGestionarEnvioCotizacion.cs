@@ -60,13 +60,13 @@ namespace CheeseLogix
         {
             if (comboBoxProv.SelectedValue == null)
             {
-                MessageBox.Show("Por favor, selecciona un proveedor.");
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un proveedor"));
                 return;
             }
 
             if (dataGridViewLista.Rows.Count == 0)
             {
-                MessageBox.Show("No hay detalles para enviar en la cotización.");
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.NoHayInactivosParaMostrar("detalles para enviar"), BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace CheeseLogix
             };
 
             _bllCotizacion.Insertar(cotizacion);
-            MessageBox.Show($"Cotización enviada al proveedor {comboBoxProv.Text}, exitosamente.");
+            MessageBox.Show($"Cotización enviada al proveedor {comboBoxProv.Text}, exitosamente.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
             llenarDataGridCotizaciones();
             LimpiarFormulario();
         }
@@ -106,13 +106,13 @@ namespace CheeseLogix
         {
             if (comboBoxProducto.SelectedItem == null)
             {
-                MessageBox.Show("Por favor, selecciona un producto.");
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un producto"));
                 return;
             }
 
             if (!decimal.TryParse(textBoxCantidad.Text, out decimal cantidad) || cantidad <= 0)
             {
-                MessageBox.Show("Por favor, ingresa una cantidad válida.");
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Ingrese("una cantidad válida"));
                 return;
             }
 
@@ -140,7 +140,7 @@ namespace CheeseLogix
         {
             if (dataGridViewLista.Rows.Count <= 0)
             {
-                MessageBox.Show("Debes cargar items primero.");
+                MessageBox.Show("Debes cargar items primero.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                 return;
             }
 
@@ -156,7 +156,7 @@ namespace CheeseLogix
             }
             else
             {
-                MessageBox.Show("Debes seleccionar un elemento para eliminar.");
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un elemento para eliminar"));
             }
         }
 
@@ -344,7 +344,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ActualizarTextosControles(Idioma idioma)
@@ -364,7 +364,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

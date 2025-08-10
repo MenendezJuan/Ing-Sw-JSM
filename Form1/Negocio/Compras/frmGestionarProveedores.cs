@@ -32,6 +32,7 @@ namespace CheeseLogix.Negocio
             _bllProveedor = new BLL_PROVEEDOR();
             _bllExportacion = new BLL_EXPORTACION();
             CargarProveedores();
+            CargarComboBuscar();
             panelDatosProv.Visible = false;
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
@@ -78,7 +79,7 @@ namespace CheeseLogix.Negocio
             {
                 if (dataGridViewProveedor.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para exportar.", "Información", 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -95,11 +96,11 @@ namespace CheeseLogix.Negocio
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
                     MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
-                        "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
                     // Preguntar si quiere abrir el archivo
-                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo exportado?", 
-                        "Abrir Archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+                        ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     
                     if (result == DialogResult.Yes)
                     {
@@ -108,30 +109,64 @@ namespace CheeseLogix.Negocio
                 }
                 else
                 {
-                    MessageBox.Show("Error al exportar el archivo.", "Error", 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", "Error", 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-
+            CargarProveedores();
         }
 
         private void btnBorrarBusqueda_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                txtBuscar.Clear();
+                if (comboBuscar.Items.Count > 0) comboBuscar.SelectedIndex = -1;
+                CargarProveedores();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string criterio = comboBuscar?.SelectedItem?.ToString() ?? string.Empty;
+                string textoBusqueda = txtBuscar?.Text?.Trim() ?? string.Empty;
 
+                if (string.IsNullOrWhiteSpace(criterio) || string.IsNullOrWhiteSpace(textoBusqueda))
+                {
+                    CargarProveedores();
+                    return;
+                }
+
+                string mensajeError;
+                if (!ValidarEntradaBusquedaProveedores(criterio, textoBusqueda, out mensajeError))
+                {
+                    MessageBox.Show(mensajeError, ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var proveedores = _bllProveedor.BuscarProveedores(criterio, textoBusqueda, incluirInactivos: true);
+                dataGridViewProveedor.DataSource = proveedores;
+                Actualizar(sesion.Idioma);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar proveedores: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBorrarIngresoDatos_Click(object sender, EventArgs e)
@@ -148,6 +183,58 @@ namespace CheeseLogix.Negocio
             txtTelefono.Clear();
             textBoxEmail.Clear();
             lblSeleccionadoEspecifico.Text = string.Empty;
+        }
+
+        private void CargarComboBuscar()
+        {
+            comboBuscar.Items.Clear();
+            comboBuscar.Items.Add("CUIT");
+            comboBuscar.Items.Add("Descripcion");
+            comboBuscar.Items.Add("Direccion");
+            comboBuscar.Items.Add("Email");
+            comboBuscar.Items.Add("Telefono");
+            comboBuscar.Items.Add("Estado");
+
+            if (comboBuscar.Items.Count > 0)
+                comboBuscar.SelectedIndex = 0;
+        }
+
+        private bool ValidarEntradaBusquedaProveedores(string criterio, string texto, out string mensajeError)
+        {
+            mensajeError = string.Empty;
+            if (string.IsNullOrWhiteSpace(criterio)) { mensajeError = ConstantesUI.Validaciones.SeleccioneCriterioBusqueda; return false; }
+            if (string.IsNullOrWhiteSpace(texto)) { mensajeError = ConstantesUI.Validaciones.IngreseTextoBusqueda; return false; }
+
+            string crit = criterio.Trim().ToLowerInvariant();
+            string val = texto.Trim();
+            string valNorm = val.ToLowerInvariant();
+
+            switch (crit)
+            {
+                case "cuit":
+                    string limpio = val.Replace("-", string.Empty).Replace(" ", string.Empty);
+                    if (!limpio.All(char.IsDigit)) { mensajeError = ConstantesUI.Validaciones.CUITSoloNumeros; return false; }
+                    if (limpio.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Cuit; return false; }
+                    return true;
+                case "email":
+                    if (val.Length < 3) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos3Email; return false; }
+                    if (val.Contains("@") && !BLL_VALIDACION.ValidarEmail(val)) { mensajeError = ConstantesUI.Validaciones.EmailNoValido; return false; }
+                    return true;
+                case "telefono":
+                case "teléfono":
+                    if (val.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Telefono; return false; }
+                    return true;
+                case "estado":
+                    var aceptados = new[] { "activo", "inactivo", "true", "false", "1", "0" };
+                    if (!aceptados.Contains(valNorm)) { mensajeError = ConstantesUI.Validaciones.EstadoInvalido; return false; }
+                    return true;
+                case "descripcion":
+                case "direccion":
+                    if (val.Length < 2) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos2; return false; }
+                    return true;
+                default:
+                    return true;
+            }
         }
 
         private void MapearProveedorAControles(Proveedor proveedor)
@@ -173,31 +260,31 @@ namespace CheeseLogix.Negocio
         {
             if (string.IsNullOrWhiteSpace(txtCuit.Text))
             {
-                MessageBox.Show("Por favor, ingrese un CUIT para el proveedor.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un CUIT para el proveedor"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
-                MessageBox.Show("Por favor, ingrese una descripcion para el proveedor.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("una descripcion para el proveedor"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtDireccion.Text))
             {
-                MessageBox.Show("Por favor, ingrese una direccion para el proveedor.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("una direccion para el proveedor"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
             {
-                MessageBox.Show("Por favor, ingrese un telefono para el proveedor.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un telefono para el proveedor"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
             {
-                MessageBox.Show("Por favor, ingrese un mail para el proveedor.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un mail para el proveedor"));
                 return false;
             }
 
@@ -287,13 +374,13 @@ namespace CheeseLogix.Negocio
         {
             if (_proveedorSeleccionado == null)
             {
-                MessageBox.Show("Por favor, seleccione un proveedor para actualizar.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un proveedor para actualizar"));
                 return;
             }
 
             if (!_proveedorSeleccionado.Estado)
             {
-                MessageBox.Show("No se puede actualizar un proveedor inactivo.");
+                MessageBox.Show(ConstantesUI.Plantillas.NoPuedeActualizarInactivo("proveedor"));
                 return;
             }
 
@@ -316,12 +403,12 @@ namespace CheeseLogix.Negocio
                 {
                     if (!_proveedorSeleccionado.Estado)
                     {
-                        MessageBox.Show("No se puede actualizar un proveedor inactivo.");
+                        MessageBox.Show(ConstantesUI.Plantillas.NoPuedeActualizarInactivo("proveedor"));
                         return;
                     }
                     DialogResult resultado = MessageBox.Show(
-                        "¿Estás seguro de que deseas eliminar este proveedor?",
-                        "Confirmar eliminación",
+                        ConstantesUI.Plantillas.ConfirmarEliminacion("proveedor"),
+                        ConstantesUI.Titulos.Confirmacion,
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning
                     );
@@ -330,13 +417,13 @@ namespace CheeseLogix.Negocio
                     {
                         _bllProveedor.Eliminar(_proveedorSeleccionado.Id);
                         CargarProveedores();
-                        MessageBox.Show("Proveedor eliminado correctamente.");
+                        MessageBox.Show(ConstantesUI.Plantillas.EliminadoCorrectamente("Proveedor"));
                         _proveedorSeleccionado = null;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Selecciona un proveedor para eliminar.");
+                    MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un proveedor para eliminar"));
                 }
             }
             catch (InvalidOperationException ex)

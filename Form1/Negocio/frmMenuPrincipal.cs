@@ -123,7 +123,7 @@ namespace CheeseLogix
 
         private void ConfirmarSalida()
         {
-            DialogResult result = MessageBox.Show("¿Estás seguro de que deseas salir del programa?", "Confirmar salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("¿Estás seguro de que deseas salir del programa?", BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 Application.Exit();
@@ -219,7 +219,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir reportes: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al abrir reportes: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -301,7 +301,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -325,7 +325,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ActualizarTextosControles(Idioma idioma)
@@ -345,7 +345,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -570,7 +570,7 @@ namespace CheeseLogix
                 
                 if (ventasPendientes == null || !ventasPendientes.Any())
                 {
-                    MessageBox.Show("No hay ventas pendientes de cobro.", "Sin ventas pendientes", 
+                    MessageBox.Show("No hay ventas pendientes de cobro.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -596,7 +596,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir cobro de ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al abrir cobro de ventas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

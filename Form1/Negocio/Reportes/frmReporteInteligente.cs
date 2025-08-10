@@ -53,7 +53,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al configurar reporte: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al configurar reporte: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -97,7 +97,7 @@ namespace CheeseLogix.Negocio.Reportes
                                            $"Directorio base: {AppDomain.CurrentDomain.BaseDirectory}\n\n" +
                                            $"Por favor, verifica que el archivo ReporteVentas.rdlc esté en la ubicación correcta.";
                             
-                            MessageBox.Show(mensaje, "Error de carga de reporte", 
+                            MessageBox.Show(mensaje, ConstantesUI.Titulos.Error, 
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return; // Salir si no se puede cargar el reporte
                         }
@@ -106,7 +106,7 @@ namespace CheeseLogix.Negocio.Reportes
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error al cargar el reporte: {ex.Message}", 
-                        "Error de carga de reporte", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Salir si hay error
                 }
 
@@ -114,7 +114,7 @@ namespace CheeseLogix.Negocio.Reportes
                 if (!reporteCargado)
                 {
                     MessageBox.Show("No se pudo cargar el reporte. Verifique la configuración.", 
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -182,7 +182,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al generar reporte: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al generar reporte: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -217,7 +217,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -275,7 +275,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cambiar idioma: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cambiar idioma: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -363,7 +363,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al exportar PDF: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al exportar PDF: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
                 // Forzar liberación de recursos
@@ -405,7 +405,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al exportar Excel: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al exportar Excel: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

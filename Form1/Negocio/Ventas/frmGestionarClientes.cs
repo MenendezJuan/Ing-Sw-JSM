@@ -34,6 +34,7 @@ namespace CheeseLogix.Negocio.Ventas
             _bllCliente = new BLL_CLIENTE();
             _bllExportacion = new BLL_EXPORTACION();
             CargarClientes();
+            CargarComboBuscar();
             panelDatosCliente.Visible = false;
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
@@ -79,7 +80,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (dataGridViewCliente.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para exportar.", "Información", 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -96,11 +97,11 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
                     MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
-                        "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
                     // Preguntar si quiere abrir el archivo
-                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo exportado?", 
-                        "Abrir Archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+                        ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     
                     if (result == DialogResult.Yes)
                     {
@@ -109,13 +110,13 @@ namespace CheeseLogix.Negocio.Ventas
                 }
                 else
                 {
-                    MessageBox.Show("Error al exportar el archivo.", "Error", 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", "Error", 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -127,15 +128,48 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void btnBorrarBusqueda_Click(object sender, EventArgs e)
         {
-            // Limpiar filtros de búsqueda y recargar todos los clientes
-            CargarClientes();
+            try
+            {
+                txtBuscar.Clear();
+                if (comboBuscar.Items.Count > 0) comboBuscar.SelectedIndex = -1;
+                CargarClientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            // Implementar lógica de búsqueda si hay controles de filtro
-            // Por ahora recarga todos los clientes
-            CargarClientes();
+            try
+            {
+                string criterio = comboBuscar?.SelectedItem?.ToString() ?? string.Empty;
+                string textoBusqueda = txtBuscar?.Text?.Trim() ?? string.Empty;
+
+                // Si no hay criterio o texto, recargar todo
+                if (string.IsNullOrWhiteSpace(criterio) || string.IsNullOrWhiteSpace(textoBusqueda))
+                {
+                    CargarClientes();
+                    return;
+                }
+
+                string mensajeError;
+                if (!ValidarEntradaBusquedaClientes(criterio, textoBusqueda, out mensajeError))
+                {
+                MessageBox.Show(mensajeError, ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var clientes = _bllCliente.BuscarClientes(criterio, textoBusqueda, incluirInactivos: true);
+                dataGridViewCliente.DataSource = clientes;
+                // Reaplicar traducciones y encabezados
+                Actualizar(sesion.Idioma);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar clientes: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBorrarIngresoDatos_Click(object sender, EventArgs e)
@@ -144,6 +178,59 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region MetodosPrivados
+        private bool ValidarEntradaBusquedaClientes(string criterio, string texto, out string mensajeError)
+        {
+            mensajeError = string.Empty;
+            if (string.IsNullOrWhiteSpace(criterio)) { mensajeError = ConstantesUI.Validaciones.SeleccioneCriterioBusqueda; return false; }
+            if (string.IsNullOrWhiteSpace(texto)) { mensajeError = ConstantesUI.Validaciones.IngreseTextoBusqueda; return false; }
+
+            string crit = criterio.Trim().ToLowerInvariant();
+            string val = texto.Trim();
+            string valNorm = val.ToLowerInvariant();
+
+            switch (crit)
+            {
+                case "cuit":
+                    string limpio = val.Replace("-", string.Empty).Replace(" ", string.Empty);
+                    if (!limpio.All(char.IsDigit)) { mensajeError = ConstantesUI.Validaciones.CUITSoloNumeros; return false; }
+                    if (limpio.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Cuit; return false; }
+                    if (limpio.Length == 11 && !BLL_VALIDACION.ValidarCUIT(val)) { mensajeError = ConstantesUI.Validaciones.CUITNoValido; return false; }
+                    return true;
+                case "email":
+                    if (val.Length < 3) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos3Email; return false; }
+                    if (val.Contains("@") && !BLL_VALIDACION.ValidarEmail(val)) { mensajeError = ConstantesUI.Validaciones.EmailNoValido; return false; }
+                    return true;
+                case "telefono":
+                case "teléfono":
+                    if (val.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Telefono; return false; }
+                    return true;
+                case "estado":
+                    var aceptados = new[] { "activo", "inactivo", "true", "false", "1", "0" };
+                    if (!aceptados.Contains(valNorm)) { mensajeError = ConstantesUI.Validaciones.EstadoInvalido; return false; }
+                    return true;
+                case "nombre":
+                case "apellido":
+                case "direccion":
+                    if (val.Length < 2) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos2; return false; }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+        private void CargarComboBuscar()
+        {
+            comboBuscar.Items.Clear();
+            comboBuscar.Items.Add("CUIT");
+            comboBuscar.Items.Add("Nombre");
+            comboBuscar.Items.Add("Apellido");
+            comboBuscar.Items.Add("Direccion");
+            comboBuscar.Items.Add("Email");
+            comboBuscar.Items.Add("Telefono");
+            comboBuscar.Items.Add("Estado");
+
+            if (comboBuscar.Items.Count > 0)
+                comboBuscar.SelectedIndex = 0;
+        }
         private void LimpiarControles()
         {
             txtCuit.Clear();
@@ -180,37 +267,37 @@ namespace CheeseLogix.Negocio.Ventas
         {
             if (string.IsNullOrWhiteSpace(txtCuit.Text))
             {
-                MessageBox.Show("Por favor, ingrese un CUIT para el cliente.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un CUIT para el cliente"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Por favor, ingrese un nombre para el cliente.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un nombre para el cliente"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtApellido.Text))
             {
-                MessageBox.Show("Por favor, ingrese un apellido para el cliente.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un apellido para el cliente"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtDireccion.Text))
             {
-                MessageBox.Show("Por favor, ingrese una dirección para el cliente.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("una dirección para el cliente"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtTelefono.Text))
             {
-                MessageBox.Show("Por favor, ingrese un teléfono para el cliente.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un teléfono para el cliente"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
             {
-                MessageBox.Show("Por favor, ingrese un email para el cliente.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un email para el cliente"));
                 return false;
             }
 
