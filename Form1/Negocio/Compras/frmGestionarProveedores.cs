@@ -60,13 +60,13 @@ namespace CheeseLogix.Negocio
             {
                 proveedor.Estado = true;
                 _bllProveedor.Insertar(proveedor);
-                MessageBox.Show("Proveedor agregado correctamente.");
+                MessageBox.Show("Proveedor agregado correctamente.", ConstantesUI.Titulos.Exito, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (btnAceptar.Tag.ToString() == "Actualizar")
             {
                 proveedor.Estado = true;
                 _bllProveedor.Actualizar(proveedor);
-                MessageBox.Show("Proveedor actualizado correctamente.");
+                MessageBox.Show("Proveedor actualizado correctamente.", ConstantesUI.Titulos.Exito, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             CargarProveedores();
@@ -301,7 +301,7 @@ namespace CheeseLogix.Negocio
             dataGridViewProveedor.Columns["CUIT"].HeaderText = "C.U.I.T";
             dataGridViewProveedor.Columns["CUIT"].Tag = "CUIT_column";
 
-            dataGridViewProveedor.Columns["Descripcion"].HeaderText = "Descripcion";
+            dataGridViewProveedor.Columns["Descripcion"].HeaderText = "Descripción";
             dataGridViewProveedor.Columns["Descripcion"].Tag = "Descripcion_Column";
 
             dataGridViewProveedor.Columns["Direccion"].HeaderText = "Direccion";
@@ -613,7 +613,7 @@ namespace CheeseLogix.Negocio
             }
             else
             {
-                MessageBox.Show("No hay productos inactivos para mostrar.");
+                MessageBox.Show(ConstantesUI.Plantillas.NoHayInactivosParaMostrar("proveedores"));
                 MostrarControlesNormales();
             }
         }
@@ -629,7 +629,7 @@ namespace CheeseLogix.Negocio
                     proveedorSeleccionado.Estado = true;
                     _bllProveedor.Reactivar(proveedorSeleccionado.Id);
 
-                    MessageBox.Show($"El proveedor '{proveedorSeleccionado.Descripcion}' ha sido reactivado.");
+                    MessageBox.Show($"El proveedor '{proveedorSeleccionado.Descripcion}' ha sido reactivado.", ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Volver a cargar la vista normal
                     CargarProveedores();

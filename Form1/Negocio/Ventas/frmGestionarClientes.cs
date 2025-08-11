@@ -61,13 +61,13 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 cliente.Estado = true;
                 _bllCliente.Insertar(cliente);
-                MessageBox.Show("Cliente agregado correctamente.");
+                MessageBox.Show("Cliente agregado correctamente.", ConstantesUI.Titulos.Exito, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (btnAceptar.Tag.ToString() == "Actualizar")
             {
                 cliente.Estado = true;
                 _bllCliente.Actualizar(cliente);
-                MessageBox.Show("Cliente actualizado correctamente.");
+                MessageBox.Show("Cliente actualizado correctamente.", ConstantesUI.Titulos.Exito, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             CargarClientes();
@@ -85,13 +85,11 @@ namespace CheeseLogix.Negocio.Ventas
                     return;
                 }
 
-                // Convertir DataGridView a DataTable
                 DataTable dtClientes = ConvertirDataGridViewADataTable(dataGridViewCliente);
                 
-                // Usar BLL_EXPORTACION para exportar
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionClientes");
                 bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
-                    (dtClientes, "Clientes", "Información de Clientes - CheeseLogix"));
+                    (dtClientes, ConstantesUI.Exportacion.HojaClientes, ConstantesUI.Exportacion.TituloClientes));
 
                 if (exportado)
                 {
@@ -99,7 +97,6 @@ namespace CheeseLogix.Negocio.Ventas
                     MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
                         ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
-                    // Preguntar si quiere abrir el archivo
                     DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
                         ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     
@@ -136,7 +133,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -390,13 +387,13 @@ namespace CheeseLogix.Negocio.Ventas
         {
             if (_clienteSeleccionado == null)
             {
-                MessageBox.Show("Por favor, seleccione un cliente para actualizar.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un cliente para actualizar"));
                 return;
             }
 
             if (!_clienteSeleccionado.Estado)
             {
-                MessageBox.Show("No se puede actualizar un cliente inactivo.");
+                MessageBox.Show(ConstantesUI.Plantillas.NoPuedeActualizarInactivo("cliente"));
                 return;
             }
 
@@ -418,12 +415,12 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     if (!_clienteSeleccionado.Estado)
                     {
-                        MessageBox.Show("No se puede eliminar un cliente inactivo.");
+                        MessageBox.Show(ConstantesUI.Plantillas.NoPuedeActualizarInactivo("cliente"));
                         return;
                     }
                     DialogResult resultado = MessageBox.Show(
-                        "¿Estás seguro de que deseas eliminar este cliente?",
-                        "Confirmar eliminación",
+                        ConstantesUI.Plantillas.ConfirmarEliminacion("cliente"),
+                        ConstantesUI.Titulos.Confirmacion,
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning
                     );
@@ -432,13 +429,13 @@ namespace CheeseLogix.Negocio.Ventas
                     {
                         _bllCliente.Eliminar(_clienteSeleccionado.Id);
                         CargarClientes();
-                        MessageBox.Show("Cliente eliminado correctamente.");
+                        MessageBox.Show("Cliente eliminado correctamente.", ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         _clienteSeleccionado = null;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Selecciona un cliente para eliminar.");
+                    MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un cliente para eliminar"));
                 }
             }
             catch (InvalidOperationException ex)
@@ -626,7 +623,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             else
             {
-                MessageBox.Show("No hay clientes inactivos para mostrar.");
+                MessageBox.Show(ConstantesUI.Plantillas.NoHayInactivosParaMostrar("clientes"));
                 MostrarControlesNormales();
             }
         }
@@ -642,7 +639,7 @@ namespace CheeseLogix.Negocio.Ventas
                     clienteSeleccionado.Estado = true;
                     _bllCliente.ReactivarCliente(clienteSeleccionado.Id);
 
-                    MessageBox.Show($"El cliente '{clienteSeleccionado.NombreCompleto}' ha sido reactivado.");
+                    MessageBox.Show($"El cliente '{clienteSeleccionado.NombreCompleto}' ha sido reactivado.", ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Volver a cargar la vista normal
                     CargarClientes();
@@ -655,7 +652,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione un cliente inactivo para reactivar.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un cliente inactivo para reactivar"));
             }
         }
 

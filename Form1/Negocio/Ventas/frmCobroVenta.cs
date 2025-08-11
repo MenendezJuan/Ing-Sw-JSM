@@ -337,7 +337,7 @@ namespace CheeseLogix.Negocio.Ventas
                 string rutaFactura = GenerarFactura();
 
                 MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.\n\nFactura generada en: {rutaFactura}",
-                    "Pago confirmado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Redirigir al formulario de despacho
                 var frmDespacho = new frmDespachoProducto(_ventaActual);
@@ -349,7 +349,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al procesar el pago: {ex.Message}", "Error al procesar pago",
+                MessageBox.Show($"Error al procesar el pago: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -367,7 +367,7 @@ namespace CheeseLogix.Negocio.Ventas
                 ActualizarColorEstado(EstadoVenta.Cancelada);
 
                 MessageBox.Show("Venta cancelada exitosamente.\n\nEl stock reservado ha sido liberado automáticamente.",
-                    "Venta cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Redirigir al formulario de inicio de órdenes
                 this.DialogResult = DialogResult.Cancel;
@@ -379,7 +379,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cancelar la venta: {ex.Message}", "Error al cancelar",
+                MessageBox.Show($"Error al cancelar la venta: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

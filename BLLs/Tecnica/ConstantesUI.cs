@@ -17,6 +17,7 @@ namespace BLLs.Tecnica
             public const string Validacion = "Validación";
             public const string AbrirArchivo = "Abrir Archivo";
             public const string Confirmacion = "Confirmación";
+            public const string Exito = "Éxito";
         }
 
         public static class Mensajes
@@ -38,6 +39,8 @@ namespace BLLs.Tecnica
             public const string EmailNoValido = "Formato de email no válido.";
             public const string IngreseAlMenos4Telefono = "Ingrese al menos 4 caracteres para teléfono.";
             public const string IngreseAlMenos2 = "Ingrese al menos 2 caracteres para buscar.";
+            public const string CategoriaNoValida = "Categoría no válida.";
+            public const string CriterioBusquedaNoValido = "Criterio de búsqueda no válido.";
         }
 
         public static class Plantillas
@@ -88,6 +91,12 @@ namespace BLLs.Tecnica
             public const string TituloProductosMasVendidos = "📊 PRODUCTOS MÁS VENDIDOS";
             public const string TituloMejoresClientes = "👥 MEJORES CLIENTES";
             public const string TituloVentasPorMes = "📈 VENTAS POR MES";
+        }
+
+        public static class Marca
+        {
+            public const string NombreEmpresa = "CheeseLogix";
+            public const string TituloSistema = "Sistema de Gestión Empresarial";
         }
     }
 }

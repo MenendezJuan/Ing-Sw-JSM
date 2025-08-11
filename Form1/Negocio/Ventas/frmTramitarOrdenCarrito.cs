@@ -118,12 +118,14 @@ namespace CheeseLogix.Negocio.Ventas
         /// Busca un cliente por CUIT usando BLL y lo establece como cliente actual
         /// </summary>
         /// <param name="cuit">CUIT del cliente a buscar</param>
+        private BLL_CLIENTE _bllCliente;
+
         private void BuscarYEstablecerClientePorCUIT(string cuit)
         {
             try
             {
-                var bllCliente = new BLL_CLIENTE();
-                var cliente = bllCliente.BuscarPorCUIT(cuit);
+                if (_bllCliente == null) _bllCliente = new BLL_CLIENTE();
+                var cliente = _bllCliente.BuscarPorCUIT(cuit);
                 
                 if (cliente != null)
                 {
