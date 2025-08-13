@@ -2,6 +2,7 @@
 using BEs.Interfaces;
 using BLLs.Tecnica;
 using System;
+using BLLs.Tecnica;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -53,14 +54,14 @@ namespace CheeseLogix.Tecnica
                                   $"• {Path.Combine(Application.StartupPath, "Documentacion")}\n" +
                                   $"• Directorio del proyecto\n\n" +
                                   $"Asegúrese de que el archivo esté en alguna de estas ubicaciones.", 
-                                  "Archivo no encontrado", 
+                                  ConstantesUI.Titulos.Informacion, 
                                   MessageBoxButtons.OK, 
                                   MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el PDF: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar el PDF: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -82,7 +83,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir la carpeta: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al abrir la carpeta: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -107,7 +108,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -165,7 +166,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cambiar idioma: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cambiar idioma: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

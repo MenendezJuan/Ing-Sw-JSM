@@ -341,8 +341,8 @@ namespace BLLs.Tecnica
                     
                     var row = logoTable.NewRow();
                     row["Logo"] = logoBytes;
-                    row["NombreEmpresa"] = "CheeseLogix";
-                    row["Titulo"] = "Sistema de Gestión Empresarial";
+                    row["NombreEmpresa"] = ConstantesUI.Marca.NombreEmpresa;
+                    row["Titulo"] = ConstantesUI.Marca.TituloSistema;
                     logoTable.Rows.Add(row);
 
                     // Agregar como fuente de datos al reporte
@@ -374,7 +374,7 @@ namespace BLLs.Tecnica
             try
             {
                 // Para reportes que usen parámetros en lugar de DataSource
-                return new ReportParameter("LogoEmpresa", "CheeseLogix", false);
+                return new ReportParameter("LogoEmpresa", ConstantesUI.Marca.NombreEmpresa, false);
             }
             catch (Exception ex)
             {

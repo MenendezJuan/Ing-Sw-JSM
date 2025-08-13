@@ -57,32 +57,32 @@ namespace CheeseLogix
             var currentRowItem = dataGridViewCotizaciones.CurrentRow?.DataBoundItem;
             if (currentRowItem == null || !(currentRowItem is Cotizacion cotizacionSeleccionada))
             {
-                MessageBox.Show("Por favor, seleccione una cotización aprobada antes de generar la orden de compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("una cotización aprobada antes de generar la orden de compra"), BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (cotizacionSeleccionada.EstadoCotizacionEnum != EstadoCotizacion.Aprobada)
             {
-                MessageBox.Show("La cotización seleccionada no está aprobada. No se puede generar la orden de compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La cotización seleccionada no está aprobada. No se puede generar la orden de compra.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (CompraExistente(cotizacionSeleccionada.Id))
             {
-                MessageBox.Show("Ya existe una orden de compra generada para esta cotización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ya existe una orden de compra generada para esta cotización.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // Validar que el campo de comentario no esté vacío
             if (string.IsNullOrWhiteSpace(textBoxComentario.Text))
             {
-                MessageBox.Show("Por favor, ingrese un comentario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Ingrese("un comentario"), BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // Validar que se haya seleccionado un tipo de pago
             if (cbPago.SelectedItem == null)
             {
-                MessageBox.Show("Por favor, seleccione un tipo de pago.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un tipo de pago"), BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -127,7 +127,7 @@ namespace CheeseLogix
 
             nuevaCompra.Id = compraId;
 
-            MessageBox.Show("La orden de compra ha sido generada exitosamente y está en estado Pendiente.", "Orden de Compra Generada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("La orden de compra ha sido generada exitosamente y está en estado Pendiente.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             LimpiarFormulario();
             CargarOrdenesCompra();
@@ -152,24 +152,24 @@ namespace CheeseLogix
                             _bllCotizacion.Eliminar(compra.CotizacionId.Value);
                         }
 
-                        MessageBox.Show("La compra ha sido marcada como pagada y la cotización asociada ha sido eliminada.");
+                        MessageBox.Show("La compra ha sido marcada como pagada y la cotización asociada ha sido eliminada.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
 
                         CargarOrdenesCompra();
                         CargarCotizacionesAprobadas();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error al procesar la compra: {ex.Message}");
+                        MessageBox.Show($"Error al procesar la compra: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("La compra ya está pagada.");
+                    MessageBox.Show("La compra ya está pagada.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                 }
             }
             else
             {
-                MessageBox.Show("Seleccione una compra válida.");
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("una compra válida"));
             }
         }
 
@@ -400,13 +400,13 @@ namespace CheeseLogix
 
         private void dataGridViewCompra_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.ThrowException = false;
         }
 
         private void dataGridViewDetalles_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show($"Error en la columna {e.ColumnIndex}: {e.Exception.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.ThrowException = false;
         }
 
@@ -424,12 +424,12 @@ namespace CheeseLogix
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró la cotización relacionada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se encontró la cotización relacionada.", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Seleccione una compra válida antes de proceder.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("una compra válida antes de proceder"), BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -453,7 +453,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ActualizarTextosControles(Idioma idioma)
@@ -473,7 +473,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

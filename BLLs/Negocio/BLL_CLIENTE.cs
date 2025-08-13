@@ -15,6 +15,65 @@ namespace BLLs.Negocio
             clienteRepository = new MPP_CLIENTE();
         }
 
+        /// <summary>
+        /// Busca clientes por un criterio y texto de búsqueda. Filtra en memoria para evitar lógica en la UI.
+        /// Criterios soportados: CUIT, Nombre, Apellido, Direccion, Email, Telefono, Estado
+        /// </summary>
+        public List<Cliente> BuscarClientes(string criterio, string texto, bool incluirInactivos = true)
+        {
+            var todos = ObtenerTodos();
+
+            if (!incluirInactivos)
+            {
+                todos = todos.Where(c => c.Estado).ToList();
+            }
+
+            if (string.IsNullOrWhiteSpace(criterio) || string.IsNullOrWhiteSpace(texto))
+            {
+                return todos;
+            }
+
+            string criterioNorm = criterio.Trim().ToLowerInvariant();
+            string valor = texto.Trim();
+            string valorNorm = valor.ToLowerInvariant();
+
+            switch (criterioNorm)
+            {
+                case "cuit":
+                    string cuitLimpio = valor.Replace("-", string.Empty).Replace(" ", string.Empty);
+                    return todos.Where(c => !string.IsNullOrEmpty(c.CUIT) &&
+                                             c.CUIT.Replace("-", string.Empty).Replace(" ", string.Empty)
+                                                 .Contains(cuitLimpio)).ToList();
+                case "nombre":
+                    return todos.Where(c => (c.Nombre ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+                case "apellido":
+                    return todos.Where(c => (c.Apellido ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+                case "direccion":
+                    return todos.Where(c => (c.Direccion ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+                case "email":
+                case "mail":
+                    return todos.Where(c => (c.Mail ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+                case "telefono":
+                case "teléfono":
+                    return todos.Where(c => (c.Telefono ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+                case "estado":
+                    bool? estado = null;
+                    if (valorNorm == "activo") estado = true;
+                    if (valorNorm == "inactivo") estado = false;
+                    return estado.HasValue ? todos.Where(c => c.Estado == estado.Value).ToList() : todos;
+                default:
+                    // Si el criterio no coincide, buscar de forma amplia en varios campos
+                    return todos.Where(c =>
+                        (c.CUIT ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (c.Nombre ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (c.Apellido ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (c.Mail ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (c.Telefono ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (c.Direccion ?? string.Empty).ToLowerInvariant().Contains(valorNorm)
+                    ).ToList();
+            }
+        }
+
         // Método para insertar un nuevo cliente
         public void Insertar(Cliente cliente)
         {

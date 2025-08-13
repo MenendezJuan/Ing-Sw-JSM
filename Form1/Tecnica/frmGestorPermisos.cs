@@ -69,7 +69,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -132,7 +132,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -146,14 +146,14 @@ namespace CheeseLogix
         {
             try
             {
-                if (textBox_Nombre.Text == string.Empty) { MessageBox.Show("Complete el campo nombre"); return; }
+                if (textBox_Nombre.Text == string.Empty) { MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Ingrese("el nombre del grupo")); return; }
                 GrupoPermisos oGrupo = new GrupoPermisos(0, textBox_Nombre.Text);
                 Bll_Permiso.AgregarGrupo(oGrupo);
                 ActualizarCombos();
                 ActualizarPermisos();
                 textBox_Nombre.Clear();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private List<TreeNode> Nodos = new List<TreeNode>();
@@ -196,7 +196,7 @@ namespace CheeseLogix
                 Componente oComponente = (Componente)comboBox_Permisos.SelectedItem;
                 if (treeView1.Nodes.Count <= 0)// No hay Nodo Raiz
                 {
-                    if (oComponente is Permiso) { MessageBox.Show("Seleccione un grupo de permisos"); return; }
+                    if (oComponente is Permiso) { MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un grupo de permisos")); return; }
 
                     TreeNode nodo = new TreeNode();
                     nodo.Text = oComponente.Nombre;
@@ -208,12 +208,12 @@ namespace CheeseLogix
                 {
                     if (treeView1.SelectedNode == null)
                     {
-                        MessageBox.Show("Selecciones un nodo");
+                        MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un nodo"));
                         return;
                     }
                     if (ValidarNodo(oComponente))
                     {
-                        MessageBox.Show("Este permiso ya esta asignado a este grupo");
+                        MessageBox.Show("Este permiso ya está asignado a este grupo", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                         return;
                     }
 
@@ -221,7 +221,7 @@ namespace CheeseLogix
                 }
                 if (oComponente is Permiso)// Nodo Raiz no es grupo
                 {
-                    MessageBox.Show("No se pueden agregar permisos a una hoja", "Error");
+                    MessageBox.Show("No se pueden agregar permisos a una hoja", BLLs.Tecnica.ConstantesUI.Titulos.Error);
                     return;
                 }
 
@@ -230,17 +230,17 @@ namespace CheeseLogix
 
                 if (Bll_Permiso.ValidarBucle(Grupo, oPermiso))
                 {
-                    MessageBox.Show("Ya esta asignado a este permiso");
+                    MessageBox.Show("Ya está asignado este permiso", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     return;
                 }
                 Grupo.AgregarHijo(oPermiso);
                 if (Bll_Permiso.Agregar(Grupo, oPermiso))
                 {
-                    MessageBox.Show("Se agrego el permiso " + oPermiso.Nombre + " al grupo " + Grupo.Nombre);
+                    MessageBox.Show("Se agregó el permiso " + oPermiso.Nombre + " al grupo " + Grupo.Nombre, BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                 }
                 ActualizarCombos();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private void button_BorrarGrupo_Click(object sender, EventArgs e)
@@ -249,18 +249,18 @@ namespace CheeseLogix
             {
                 if (comboBox_Grupos.Items.Count == 0)
                 {
-                    MessageBox.Show("No hay grupos para borrar");
+                    MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.NoHayInactivosParaMostrar("grupos"), BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     return;
                 }
                 GrupoPermisos oGrupo = (GrupoPermisos)comboBox_Grupos.SelectedItem;
                 if (Bll_Permiso.BorrarGrupo(oGrupo))
                 {
-                    MessageBox.Show("Se elimino el grupo: " + oGrupo.Nombre);
+                    MessageBox.Show("Se eliminó el grupo: " + oGrupo.Nombre, BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                 }
                 ActualizarCombos();
                 ActualizarPermisos();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private void comboBox_Grupos_SelectedIndexChanged(object sender, EventArgs e)
@@ -323,11 +323,11 @@ namespace CheeseLogix
 
                 if (Bll_Permiso.Borrar(oComponente, Padre))
                 {
-                    MessageBox.Show("Se elimino el permiso seleccionado");
+                    MessageBox.Show("Se eliminó el permiso seleccionado", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                 }
                 ActualizarCombos();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private void button_AsignarGrupo_Click(object sender, EventArgs e)
@@ -336,7 +336,7 @@ namespace CheeseLogix
             {
                 if (comboBox_Grupos.Items.Count == 0)
                 {
-                    MessageBox.Show("No hay grupos para asignar");
+                    MessageBox.Show("No hay grupos para asignar", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     return;
                 }
                 GrupoPermisos oGrupo = (GrupoPermisos)comboBox_Grupos.SelectedItem;
@@ -344,11 +344,11 @@ namespace CheeseLogix
 
                 if (Bll_Permiso.AsignarGrupo(oGrupo, oUsuario))
                 {
-                    MessageBox.Show("Se agrego el permiso al usuario");
+                    MessageBox.Show("Se agregó el permiso al usuario", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     ActualizarPermisosAsignados();
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private void button_DesasignarGrupo_Click(object sender, EventArgs e)
@@ -360,11 +360,11 @@ namespace CheeseLogix
                 Usuario oUsuario = (Usuario)comboBox_Usuarios.SelectedItem;
                 if (Bll_Permiso.DesAsignar(oGrupo, oUsuario))
                 {
-                    MessageBox.Show("Se le desasigno el permiso al usuario");
+                    MessageBox.Show("Se le desasignó el permiso al usuario", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     ActualizarPermisosAsignados();
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
 
         private void comboBox_Usuarios_SelectedIndexChanged(object sender, EventArgs e)

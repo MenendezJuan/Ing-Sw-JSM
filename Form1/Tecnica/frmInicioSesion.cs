@@ -72,7 +72,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ActualizarTextosControles(Idioma idioma)
@@ -92,7 +92,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -128,7 +128,7 @@ namespace CheeseLogix
                 if (usuarioValidado)
                 {
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
-                    MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
+                    MessageBox.Show("Inicio de sesión exitoso.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
                     //frmReporteInteligente menuPrincipal = new frmReporteInteligente();
                     //frmInicioOrden menuPrincipal = new frmInicioOrden();
@@ -138,7 +138,7 @@ namespace CheeseLogix
                 }
                 else
                 {
-                    MessageBox.Show("Email o contraseña incorrectos.", "Error");
+                    MessageBox.Show("Email o contraseña incorrectos.", BLLs.Tecnica.ConstantesUI.Titulos.Error);
                 }
             }
         }
@@ -146,7 +146,7 @@ namespace CheeseLogix
         private void label_Registrarse_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Por favor, comuníquese con el administrador para registrarse.",
-                            "Registro Requerido",
+                            BLLs.Tecnica.ConstantesUI.Titulos.Informacion,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
         }

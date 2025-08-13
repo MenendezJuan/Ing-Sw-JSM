@@ -6,6 +6,7 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
+using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,13 +64,13 @@ namespace CheeseLogix
         {
             if (_productoSeleccionado == null)
             {
-                MessageBox.Show("Por favor, seleccione un producto para actualizar.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un producto para actualizar"));
                 return;
             }
 
             if (!_productoSeleccionado.Estado)
             {
-                MessageBox.Show("No se puede actualizar un producto inactivo.");
+                MessageBox.Show(ConstantesUI.Plantillas.NoPuedeActualizarInactivo("producto"));
                 return;
             }
 
@@ -96,8 +97,8 @@ namespace CheeseLogix
                     }
 
                     DialogResult resultado = MessageBox.Show(
-                        "¿Estás seguro de que deseas eliminar este producto?",
-                        "Confirmar eliminación",
+                        ConstantesUI.Plantillas.ConfirmarEliminacion("producto"),
+                        ConstantesUI.Titulos.Confirmacion,
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning
                     );
@@ -106,13 +107,13 @@ namespace CheeseLogix
                     {
                         _bllProducto.Eliminar(_productoSeleccionado.Id);
                         CargarProductos();
-                        MessageBox.Show("Producto eliminado correctamente.");
+                        MessageBox.Show(ConstantesUI.Plantillas.EliminadoCorrectamente("Producto"));
                         _productoSeleccionado = null;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Selecciona un producto para eliminar.");
+                    MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un producto para eliminar"));
                 }
             }
             catch (InvalidOperationException ex)
@@ -161,10 +162,10 @@ namespace CheeseLogix
             {
                 if (comboBuscar.SelectedItem == null || string.IsNullOrWhiteSpace(txtBuscar.Text.Trim()))
                 {
-                    MessageBox.Show("Por favor, seleccione un criterio de búsqueda y escriba un término de búsqueda.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(ConstantesUI.Validaciones.SeleccioneCriterioBusqueda + " " + ConstantesUI.Validaciones.IngreseTextoBusqueda, ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                // Obtener el criterio de búsqueda seleccionado
+
                 string criterioBusqueda = comboBuscar.SelectedItem.ToString();
                 string textoBusqueda = txtBuscar.Text.Trim();
                 int? categoria = null;
@@ -182,23 +183,23 @@ namespace CheeseLogix
                             }
                             else
                             {
-                                MessageBox.Show("Categoría no válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(ConstantesUI.Validaciones.CategoriaNoValida, ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
                             break;
 
                         case "Estado":
-                            if (textoBusqueda.Equals("Activo", StringComparison.OrdinalIgnoreCase))
+                            if (textoBusqueda.Equals(ConstantesUI.Estados.Activo, StringComparison.OrdinalIgnoreCase))
                             {
                                 estado = true;
                             }
-                            else if (textoBusqueda.Equals("Inactivo", StringComparison.OrdinalIgnoreCase))
+                            else if (textoBusqueda.Equals(ConstantesUI.Estados.Inactivo, StringComparison.OrdinalIgnoreCase))
                             {
                                 estado = false;
                             }
                             else
                             {
-                                MessageBox.Show("Estado no válido. Use 'Activo' o 'Inactivo'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(ConstantesUI.Validaciones.EstadoInvalido, ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
                             break;
@@ -208,7 +209,7 @@ namespace CheeseLogix
                             break;
 
                         default:
-                            MessageBox.Show("Criterio de búsqueda no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(ConstantesUI.Validaciones.CriterioBusquedaNoValido, ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                     }
                 }
@@ -220,7 +221,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar productos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al buscar productos: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -235,7 +236,7 @@ namespace CheeseLogix
             {
                 if (dataGridViewProductos.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para exportar.", "Información", 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -246,17 +247,17 @@ namespace CheeseLogix
                 // Usar BLL_EXPORTACION para exportar
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionProductos");
                 bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
-                    (dtProductos, "Productos", "Información de Productos - CheeseLogix"));
+                    (dtProductos, ConstantesUI.Exportacion.HojaProductos, ConstantesUI.Exportacion.TituloProductos));
 
                 if (exportado)
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
                     MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
-                        "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
                     // Preguntar si quiere abrir el archivo
-                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo exportado?", 
-                        "Abrir Archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+                        ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     
                     if (result == DialogResult.Yes)
                     {
@@ -265,13 +266,13 @@ namespace CheeseLogix
                 }
                 else
                 {
-                    MessageBox.Show("Error al exportar el archivo.", "Error", 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", "Error", 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -469,37 +470,37 @@ namespace CheeseLogix
         {
             if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
-                MessageBox.Show("Por favor, ingrese un código para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un código para el producto"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Por favor, ingrese un nombre para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un nombre para el producto"));
                 return false;
             }
 
             if (comboCategoria.SelectedIndex == -1)
             {
-                MessageBox.Show("Por favor, seleccione una categoría para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("una categoría para el producto"));
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
-                MessageBox.Show("Por favor, ingrese una descripción para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("una descripción para el producto"));
                 return false;
             }
 
             if (comboProveedor.SelectedIndex == -1)
             {
-                MessageBox.Show("Por favor, seleccione un proveedor para el producto.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un proveedor para el producto"));
                 return false;
             }
 
             if (numericUpDownPrecioCompra.Value <= 0)
             {
-                MessageBox.Show("Por favor, ingrese un precio de compra válido.");
+                MessageBox.Show(ConstantesUI.Plantillas.Ingrese("un precio de compra válido"));
                 return false;
             }
 
@@ -540,7 +541,7 @@ namespace CheeseLogix
             }
             else
             {
-                MessageBox.Show("No hay productos inactivos para mostrar.");
+                MessageBox.Show(ConstantesUI.Plantillas.NoHayInactivosParaMostrar("productos"));
                 MostrarControlesNormales();
             }
         }
@@ -553,7 +554,7 @@ namespace CheeseLogix
 
                 if (comboProveedor.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Por favor, seleccione un proveedor para reactivar el producto.");
+                    MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un proveedor para reactivar el producto"));
                     return;
                 }
 
@@ -564,7 +565,7 @@ namespace CheeseLogix
                     productoSeleccionado.Estado = true;
                     _bllProducto.Actualizar(productoSeleccionado, proveedorId);
 
-                    MessageBox.Show($"El producto '{productoSeleccionado.Nombre}' ha sido reactivado y asociado al proveedor seleccionado.");
+                    MessageBox.Show($"El producto '{productoSeleccionado.Nombre}' ha sido reactivado y asociado al proveedor seleccionado.", ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Volver a cargar la vista normal
                     CargarProductos();
@@ -578,7 +579,7 @@ namespace CheeseLogix
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione un producto inactivo para reactivar.");
+                MessageBox.Show(ConstantesUI.Plantillas.Seleccione("un producto inactivo para reactivar"));
             }
         }
 
@@ -593,7 +594,7 @@ namespace CheeseLogix
             if (dataGridViewProductos.Columns[e.ColumnIndex].Name == "Estado" && e.Value != null)
             {
                 bool estado = (bool)e.Value;
-                e.Value = estado ? "Activo" : "Inactivo";
+                e.Value = estado ? ConstantesUI.Estados.Activo : ConstantesUI.Estados.Inactivo;
                 e.FormattingApplied = true;
             }
         }

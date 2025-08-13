@@ -59,6 +59,61 @@ namespace BLLs.Negocio
             return _proveedorRepository.ObtenerProveedoresPorCategoriaProducto(categoria);
         }
 
+        /// <summary>
+        /// Busca proveedores por criterio y texto. Criterios: CUIT, Descripcion, Direccion, Email, Telefono, Estado
+        /// </summary>
+        public List<Proveedor> BuscarProveedores(string criterio, string texto, bool incluirInactivos = true)
+        {
+            var todos = ObtenerTodos();
+
+            if (!incluirInactivos)
+            {
+                todos = todos.FindAll(p => p.Estado);
+            }
+
+            if (string.IsNullOrWhiteSpace(criterio) || string.IsNullOrWhiteSpace(texto))
+            {
+                return todos;
+            }
+
+            string criterioNorm = criterio.Trim().ToLowerInvariant();
+            string valor = texto.Trim();
+            string valorNorm = valor.ToLowerInvariant();
+
+            switch (criterioNorm)
+            {
+                case "cuit":
+                    string cuitLimpio = valor.Replace("-", string.Empty).Replace(" ", string.Empty);
+                    return todos.FindAll(p => !string.IsNullOrEmpty(p.CUIT) &&
+                                              p.CUIT.Replace("-", string.Empty).Replace(" ", string.Empty)
+                                                  .Contains(cuitLimpio));
+                case "descripcion":
+                    return todos.FindAll(p => (p.Descripcion ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+                case "direccion":
+                    return todos.FindAll(p => (p.Direccion ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+                case "email":
+                case "mail":
+                    return todos.FindAll(p => (p.Mail ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+                case "telefono":
+                case "teléfono":
+                    return todos.FindAll(p => (p.Telefono ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+                case "estado":
+                    bool? estado = null;
+                    if (valorNorm == "activo") estado = true;
+                    if (valorNorm == "inactivo") estado = false;
+                    return estado.HasValue ? todos.FindAll(p => p.Estado == estado.Value) : todos;
+                default:
+                    // Búsqueda amplia
+                    return todos.FindAll(p =>
+                        (p.CUIT ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (p.Descripcion ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (p.Direccion ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (p.Mail ?? string.Empty).ToLowerInvariant().Contains(valorNorm) ||
+                        (p.Telefono ?? string.Empty).ToLowerInvariant().Contains(valorNorm)
+                    );
+            }
+        }
+
         private void ValidarProveedor(Proveedor proveedor)
         {
             if (proveedor == null)

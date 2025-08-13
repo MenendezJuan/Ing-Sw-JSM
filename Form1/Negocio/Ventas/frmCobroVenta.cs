@@ -6,6 +6,7 @@ using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -81,7 +82,7 @@ namespace CheeseLogix.Negocio.Ventas
             // Configuración adicional al cargar el formulario
             if (_ventaActual == null)
             {
-                MessageBox.Show("Error: No se proporcionó una venta válida.", "Error", 
+                MessageBox.Show("Error: No se proporcionó una venta válida.", ConstantesUI.Titulos.Error, 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
@@ -162,7 +163,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar datos de la venta: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar datos de la venta: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -185,7 +186,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar métodos de pago: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar métodos de pago: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -235,14 +236,14 @@ namespace CheeseLogix.Negocio.Ventas
                 // Validaciones
                 if (_ventaActual == null)
                 {
-                    MessageBox.Show("Error: No hay una venta válida.", "Error",
+                    MessageBox.Show("Error: No hay una venta válida.", ConstantesUI.Titulos.Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (_ventaActual.EstadoVentaEnum != EstadoVenta.EnProceso)
                 {
-                    MessageBox.Show("Solo se pueden cobrar ventas en estado 'En Proceso'.", "Estado inválido",
+                    MessageBox.Show("Solo se pueden cobrar ventas en estado 'En Proceso'.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -251,7 +252,7 @@ namespace CheeseLogix.Negocio.Ventas
                 var metodoPago = comboBoxMetodoPago.Text;
                 var resultado = MessageBox.Show(
                     $"¿Confirmar el pago de la venta?\n\nCliente: {_ventaActual.oCliente?.NombreCompleto}\nTotal: {_ventaActual.MontoTotal:C2}\nMétodo: {metodoPago}",
-                    "Confirmar pago",
+                    ConstantesUI.Titulos.Confirmacion,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
@@ -262,7 +263,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al confirmar el pago: {ex.Message}", "Error",
+                MessageBox.Show($"Error al confirmar el pago: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -274,14 +275,14 @@ namespace CheeseLogix.Negocio.Ventas
                 // Validaciones
                 if (_ventaActual == null)
                 {
-                    MessageBox.Show("Error: No hay una venta válida.", "Error",
+                    MessageBox.Show("Error: No hay una venta válida.", ConstantesUI.Titulos.Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (_ventaActual.EstadoVentaEnum == EstadoVenta.Cancelada)
                 {
-                    MessageBox.Show("La venta ya está cancelada.", "Estado inválido",
+                    MessageBox.Show("La venta ya está cancelada.", ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -289,7 +290,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Confirmar cancelación
                 var resultado = MessageBox.Show(
                     $"¿Está seguro de que desea cancelar la venta?\n\nEsta acción liberará el stock reservado y no se podrá deshacer.",
-                    "Confirmar cancelación",
+                    ConstantesUI.Titulos.Confirmacion,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
 
@@ -300,7 +301,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cancelar la venta: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cancelar la venta: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -336,7 +337,7 @@ namespace CheeseLogix.Negocio.Ventas
                 string rutaFactura = GenerarFactura();
 
                 MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.\n\nFactura generada en: {rutaFactura}",
-                    "Pago confirmado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Redirigir al formulario de despacho
                 var frmDespacho = new frmDespachoProducto(_ventaActual);
@@ -348,7 +349,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al procesar el pago: {ex.Message}", "Error al procesar pago",
+                MessageBox.Show($"Error al procesar el pago: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -366,7 +367,7 @@ namespace CheeseLogix.Negocio.Ventas
                 ActualizarColorEstado(EstadoVenta.Cancelada);
 
                 MessageBox.Show("Venta cancelada exitosamente.\n\nEl stock reservado ha sido liberado automáticamente.",
-                    "Venta cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Redirigir al formulario de inicio de órdenes
                 this.DialogResult = DialogResult.Cancel;
@@ -378,7 +379,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cancelar la venta: {ex.Message}", "Error al cancelar",
+                MessageBox.Show($"Error al cancelar la venta: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -399,7 +400,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al generar la factura: {ex.Message}", "Error",
+                MessageBox.Show($"Error al generar la factura: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
             }
@@ -489,7 +490,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", "Error",
+                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -511,7 +512,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al actualizar los textos de los controles: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
