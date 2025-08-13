@@ -112,6 +112,8 @@
     <Compile Include="Negocio\BLL_COMPRA.cs" />
     <Compile Include="Negocio\BLL_COTIZACION.cs" />
     <Compile Include="Negocio\BLL_PRODUCTO.cs" />
+    <Compile Include="Negocio\BLL_AJUSTESTOCK.cs" />
+    <Compile Include="Negocio\BLL_DEVOLUCION.cs" />
     <Compile Include="Negocio\BLL_PROVEEDOR.cs" />
     <Compile Include="Negocio\BLL_REPORTES.cs" />
     <Compile Include="Negocio\BLL_FACTURACION.cs" />

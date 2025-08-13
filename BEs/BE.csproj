@@ -49,6 +49,9 @@
     <Compile Include="Clases\HistorialUsuario.cs" />
     <Compile Include="Clases\Idioma.cs" />
     <Compile Include="Clases\Negocio\Enums\EstadoVenta.cs" />
+    <Compile Include="Clases\Negocio\Enums\EstadoAjuste.cs" />
+    <Compile Include="Clases\Negocio\Enums\TipoAjuste.cs" />
+    <Compile Include="Clases\Negocio\Enums\OrigenDevolucion.cs" />
     <Compile Include="Clases\Negocio\StockInfo.cs" />
     <Compile Include="Clases\Negocio\VentasP\Cliente.cs" />
     <Compile Include="Clases\Negocio\Compras\Compra.cs" />
@@ -60,6 +63,8 @@
     <Compile Include="Clases\Negocio\Compras\DetalleCompra.cs" />
     <Compile Include="Clases\Negocio\Enums\EstadoCotizacion.cs" />
     <Compile Include="Clases\Negocio\Inventario\Producto.cs" />
+    <Compile Include="Clases\Negocio\Inventario\AjusteStock.cs" />
+    <Compile Include="Clases\Negocio\Inventario\Devolucion.cs" />
     <Compile Include="Clases\Negocio\Compras\Proveedor.cs" />
     <Compile Include="Clases\Negocio\Enums\TipoPago.cs" />
     <Compile Include="Clases\Negocio\Inventario\ProductoProveedor.cs" />

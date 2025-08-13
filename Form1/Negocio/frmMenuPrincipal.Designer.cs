@@ -66,6 +66,7 @@
             this.btnCobrarVenta = new System.Windows.Forms.Button();
             this.btnCaja = new System.Windows.Forms.Button();
             this.panelInsumos = new System.Windows.Forms.Panel();
+            this.btnAjustesStock = new System.Windows.Forms.Button();
             this.btnDespachoProducto = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnComprasProductos = new System.Windows.Forms.Button();
@@ -400,7 +401,7 @@
             // 
             this.panelBottomMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.panelBottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomMenu.Location = new System.Drawing.Point(0, 769);
+            this.panelBottomMenu.Location = new System.Drawing.Point(0, 814);
             this.panelBottomMenu.Name = "panelBottomMenu";
             this.panelBottomMenu.Size = new System.Drawing.Size(211, 89);
             this.panelBottomMenu.TabIndex = 19;
@@ -417,7 +418,7 @@
             this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAdministracion.IconSize = 35;
             this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministracion.Location = new System.Drawing.Point(0, 731);
+            this.btnAdministracion.Location = new System.Drawing.Point(0, 776);
             this.btnAdministracion.Name = "btnAdministracion";
             this.btnAdministracion.Size = new System.Drawing.Size(211, 38);
             this.btnAdministracion.TabIndex = 18;
@@ -438,7 +439,7 @@
             this.btnReportes.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(0, 699);
+            this.btnReportes.Location = new System.Drawing.Point(0, 744);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnReportes.Size = new System.Drawing.Size(211, 32);
@@ -454,7 +455,7 @@
             this.PanelEntidades.Controls.Add(this.buttonGestionarProveedores);
             this.PanelEntidades.Controls.Add(this.buttonGestionarClientes);
             this.PanelEntidades.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelEntidades.Location = new System.Drawing.Point(0, 607);
+            this.PanelEntidades.Location = new System.Drawing.Point(0, 652);
             this.PanelEntidades.Name = "PanelEntidades";
             this.PanelEntidades.Size = new System.Drawing.Size(211, 92);
             this.PanelEntidades.TabIndex = 17;
@@ -506,7 +507,7 @@
             this.buttonEntidades.ForeColor = System.Drawing.Color.Gainsboro;
             this.buttonEntidades.Image = ((System.Drawing.Image)(resources.GetObject("buttonEntidades.Image")));
             this.buttonEntidades.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonEntidades.Location = new System.Drawing.Point(0, 565);
+            this.buttonEntidades.Location = new System.Drawing.Point(0, 610);
             this.buttonEntidades.Name = "buttonEntidades";
             this.buttonEntidades.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.buttonEntidades.Size = new System.Drawing.Size(211, 42);
@@ -522,7 +523,7 @@
             this.panelCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
             this.panelCaja.Controls.Add(this.btnCobrarVenta);
             this.panelCaja.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCaja.Location = new System.Drawing.Point(0, 517);
+            this.panelCaja.Location = new System.Drawing.Point(0, 562);
             this.panelCaja.Name = "panelCaja";
             this.panelCaja.Size = new System.Drawing.Size(211, 48);
             this.panelCaja.TabIndex = 26;
@@ -557,7 +558,7 @@
             this.btnCaja.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
             this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCaja.Location = new System.Drawing.Point(0, 472);
+            this.btnCaja.Location = new System.Drawing.Point(0, 517);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnCaja.Size = new System.Drawing.Size(211, 45);
@@ -571,6 +572,7 @@
             // panelInsumos
             // 
             this.panelInsumos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelInsumos.Controls.Add(this.btnAjustesStock);
             this.panelInsumos.Controls.Add(this.btnDespachoProducto);
             this.panelInsumos.Controls.Add(this.btnVentas);
             this.panelInsumos.Controls.Add(this.btnComprasProductos);
@@ -578,8 +580,26 @@
             this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelInsumos.Location = new System.Drawing.Point(0, 291);
             this.panelInsumos.Name = "panelInsumos";
-            this.panelInsumos.Size = new System.Drawing.Size(211, 181);
+            this.panelInsumos.Size = new System.Drawing.Size(211, 226);
             this.panelInsumos.TabIndex = 7;
+            // 
+            // btnAjustesStock
+            // 
+            this.btnAjustesStock.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAjustesStock.FlatAppearance.BorderSize = 0;
+            this.btnAjustesStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAjustesStock.ForeColor = System.Drawing.Color.LightGray;
+            this.btnAjustesStock.Location = new System.Drawing.Point(0, 180);
+            this.btnAjustesStock.Name = "btnAjustesStock";
+            this.btnAjustesStock.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnAjustesStock.Size = new System.Drawing.Size(211, 45);
+            this.btnAjustesStock.TabIndex = 12;
+            this.btnAjustesStock.Tag = "btnAjustesStock_formPrincipal";
+            this.btnAjustesStock.Text = "Ajustes de Stock";
+            this.btnAjustesStock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAjustesStock.UseVisualStyleBackColor = true;
+            this.btnAjustesStock.Visible = false;
+            this.btnAjustesStock.Click += new System.EventHandler(this.btnAjustesStock_Click);
             // 
             // btnDespachoProducto
             // 
@@ -722,6 +742,28 @@
             this.buttonSolicitarCotizacion.UseVisualStyleBackColor = true;
             this.buttonSolicitarCotizacion.Visible = false;
             this.buttonSolicitarCotizacion.Click += new System.EventHandler(this.buttonSolicitarCotizacion_Click);
+
+            // Agregar botón Historial de Ventas debajo de btnVentas
+            this.btnHistorialVentas = new System.Windows.Forms.Button();
+            this.btnHistorialVentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHistorialVentas.FlatAppearance.BorderSize = 0;
+            this.btnHistorialVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorialVentas.ForeColor = System.Drawing.Color.LightGray;
+            this.btnHistorialVentas.Location = new System.Drawing.Point(0, 135);
+            this.btnHistorialVentas.Name = "btnHistorialVentas";
+            this.btnHistorialVentas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnHistorialVentas.Size = new System.Drawing.Size(211, 45);
+            this.btnHistorialVentas.TabIndex = 13;
+            this.btnHistorialVentas.Tag = "btnHistorialVentas_formPrincipal";
+            this.btnHistorialVentas.Text = "Historial de Ventas";
+            this.btnHistorialVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHistorialVentas.UseVisualStyleBackColor = true;
+            this.btnHistorialVentas.Visible = true;
+            this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
+            // Insertar en panelInsumos justo después de btnVentas
+            this.panelInsumos.Controls.Remove(this.btnAjustesStock);
+            this.panelInsumos.Controls.Add(this.btnHistorialVentas);
+            this.panelInsumos.Controls.Add(this.btnAjustesStock);
             // 
             // btnControl
             // 
@@ -853,6 +895,8 @@
         private System.Windows.Forms.Button buttonGestionarClientes;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button btnDespachoProducto;
+        private System.Windows.Forms.Button btnAjustesStock;
+        private System.Windows.Forms.Button btnHistorialVentas;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Panel panelBottomMenu;

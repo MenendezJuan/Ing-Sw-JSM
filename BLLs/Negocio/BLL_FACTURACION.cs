@@ -70,6 +70,110 @@ namespace BLLs.Negocio
             }
         }
 
+        /// <summary>
+        /// Genera una Nota de Crédito en PDF para una venta, descontando los ítems devueltos.
+        /// </summary>
+        /// <param name="venta">Venta base</param>
+        /// <param name="itemsNota">Lista de pares (Producto, Cantidad, PrecioUnit) a acreditar</param>
+        /// <param name="motivo">Motivo de la nota de crédito</param>
+        /// <returns>Ruta completa del archivo PDF generado</returns>
+        public string GenerarNotaCreditoPDF(Venta venta, System.Collections.Generic.List<(string Producto, decimal Cantidad, decimal PrecioUnit)> itemsNota, string motivo)
+        {
+            if (venta == null)
+                throw new ArgumentNullException(nameof(venta), "La venta no puede ser nula");
+            if (itemsNota == null || itemsNota.Count == 0)
+                throw new ArgumentException("La nota de crédito debe tener al menos un ítem.", nameof(itemsNota));
+
+            try
+            {
+                string directorioFacturas = BLL_CONFIGURACION.ObtenerDirectorioFacturas();
+                string nombreArchivo = $"NotaCredito_{venta.Id.ToString(BLL_CONFIGURACION.ObtenerFormatoNumeroFactura())}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                string rutaCompleta = System.IO.Path.Combine(directorioFacturas, nombreArchivo);
+
+                using (var documento = new Document(PageSize.A4))
+                using (var writer = PdfWriter.GetInstance(documento, new FileStream(rutaCompleta, FileMode.Create)))
+                {
+                    documento.Open();
+
+                    var fuenteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+                    var fuenteSubtitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+                    var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                    var fuentePequeña = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+
+                    // Encabezado similar a factura, pero con leyenda Nota de Crédito
+                    var tablaHeader = new PdfPTable(3) { WidthPercentage = 100 };
+                    tablaHeader.SetWidths(new float[] { 20f, 50f, 30f });
+
+                    var celdaLogo = new PdfPCell { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_CENTER, VerticalAlignment = Element.ALIGN_MIDDLE };
+                    AgregarLogoEmpresa(celdaLogo, fuenteTitulo);
+
+                    var celdaEmpresa = new PdfPCell { Border = Rectangle.NO_BORDER };
+                    celdaEmpresa.AddElement(new Paragraph("CHEESE LOGIX S.A.", fuenteTitulo));
+                    celdaEmpresa.AddElement(new Paragraph("CUIT: 30-12345678-9", fuenteNormal));
+                    celdaEmpresa.AddElement(new Paragraph("Av. Corrientes 1234, CABA", fuenteNormal));
+                    celdaEmpresa.AddElement(new Paragraph("Tel: (011) 1234-5678", fuenteNormal));
+                    celdaEmpresa.AddElement(new Paragraph("www.cheeselogix.com", fuenteNormal));
+
+                    var celdaNC = new PdfPCell { Border = Rectangle.BOX, HorizontalAlignment = Element.ALIGN_CENTER };
+                    celdaNC.AddElement(new Paragraph("NOTA DE CRÉDITO", fuenteTitulo));
+                    celdaNC.AddElement(new Paragraph($"Venta Nº {venta.Id.ToString(BLL_CONFIGURACION.ObtenerFormatoNumeroFactura())}", fuenteSubtitulo));
+                    celdaNC.AddElement(new Paragraph($"Fecha: {DateTime.Now:dd/MM/yyyy}", fuenteNormal));
+
+                    tablaHeader.AddCell(celdaLogo);
+                    tablaHeader.AddCell(celdaEmpresa);
+                    tablaHeader.AddCell(celdaNC);
+                    documento.Add(tablaHeader);
+                    documento.Add(new Paragraph(" "));
+
+                    // Datos Cliente
+                    AgregarDatosCliente(documento, venta, fuenteSubtitulo, fuenteNormal);
+
+                    // Detalle de Nota de Crédito
+                    var tablaDetalle = new PdfPTable(4) { WidthPercentage = 100 };
+                    tablaDetalle.SetWidths(new float[] { 50f, 15f, 20f, 15f });
+                    tablaDetalle.AddCell(new PdfPCell(new Phrase("Producto", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    tablaDetalle.AddCell(new PdfPCell(new Phrase("Cant.", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    tablaDetalle.AddCell(new PdfPCell(new Phrase("Precio Unit.", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    tablaDetalle.AddCell(new PdfPCell(new Phrase("Subtotal", fuenteSubtitulo)) { HorizontalAlignment = Element.ALIGN_CENTER });
+
+                    decimal totalNC = 0m;
+                    foreach (var item in itemsNota)
+                    {
+                        decimal sub = item.Cantidad * item.PrecioUnit;
+                        totalNC += sub;
+                        tablaDetalle.AddCell(new PdfPCell(new Phrase(item.Producto, fuenteNormal)));
+                        tablaDetalle.AddCell(new PdfPCell(new Phrase(item.Cantidad.ToString("N2"), fuenteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                        tablaDetalle.AddCell(new PdfPCell(new Phrase(item.PrecioUnit.ToString("C2"), fuenteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                        tablaDetalle.AddCell(new PdfPCell(new Phrase(sub.ToString("C2"), fuenteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                    }
+                    documento.Add(tablaDetalle);
+                    documento.Add(new Paragraph(" "));
+
+                    // Motivo y Total acreditado
+                    var tablaTotal = new PdfPTable(2) { WidthPercentage = 100 };
+                    tablaTotal.SetWidths(new float[] { 70f, 30f });
+                    var celdaMotivo = new PdfPCell { Border = Rectangle.NO_BORDER };
+                    celdaMotivo.AddElement(new Paragraph($"Motivo: {motivo}", fuenteNormal));
+                    var celdaTotal = new PdfPCell { Border = Rectangle.BOX, HorizontalAlignment = Element.ALIGN_RIGHT };
+                    celdaTotal.AddElement(new Paragraph($"TOTAL ACRÉDITO: {totalNC:C2}", fuenteSubtitulo));
+                    tablaTotal.AddCell(celdaMotivo);
+                    tablaTotal.AddCell(celdaTotal);
+                    documento.Add(tablaTotal);
+
+                    // Pie
+                    AgregarPiePagina(documento, fuentePequeña);
+
+                    documento.Close();
+                }
+
+                return rutaCompleta;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al generar la Nota de Crédito: {ex.Message}", ex);
+            }
+        }
+
         private void AgregarEncabezado(Document documento, Venta venta, 
             iTextSharp.text.Font fuenteTitulo, iTextSharp.text.Font fuenteSubtitulo, iTextSharp.text.Font fuenteNormal)
         {

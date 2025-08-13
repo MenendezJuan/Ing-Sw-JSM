@@ -168,6 +168,18 @@
     <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\Ventas\frmHistorialVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmHistorialVentas.Designer.cs">
+      <DependentUpon>frmHistorialVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmRegistrarDevolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmRegistrarDevolucion.Designer.cs">
+      <DependentUpon>frmRegistrarDevolucion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\Ventas\frmGestionarClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,6 +240,12 @@
     </Compile>
     <Compile Include="Negocio\Stock\frmGestionStockProductos.Designer.cs">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmAjustesStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmAjustesStock.Designer.cs">
+      <DependentUpon>frmAjustesStock.cs</DependentUpon>
     </Compile>
     <Compile Include="Tecnica\frmGestorBitacora.cs">
       <SubType>Form</SubType>
@@ -306,6 +324,9 @@
     <EmbeddedResource Include="Negocio\Stock\frmGestionStockProductos.resx">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Stock\frmAjustesStock.resx">
+      <DependentUpon>frmAjustesStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Stock\frmVerificacionProductos.resx">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +335,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmCobroVenta.resx">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmHistorialVentas.resx">
+      <DependentUpon>frmHistorialVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmRegistrarDevolucion.resx">
+      <DependentUpon>frmRegistrarDevolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmGestionarClientes.resx">
       <DependentUpon>frmGestionarClientes.cs</DependentUpon>
