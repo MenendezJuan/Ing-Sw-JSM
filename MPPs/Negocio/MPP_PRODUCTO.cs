@@ -36,7 +36,8 @@ namespace MPPs.Negocio
                 { "@PrecioCompra", producto.PrecioCompra},
                 { "@PrecioVenta", producto.PrecioVenta ?? 0 },
                 { "@Estado", producto.Estado },
-                { "@Fecha", producto.Fecha = DateTime.Now }
+                { "@Fecha", producto.Fecha = DateTime.Now },
+                { "@StockMinimo", producto.StockMinimo }
             };
 
             int productoId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProducto", parametros));
@@ -58,7 +59,8 @@ namespace MPPs.Negocio
                 { "@PrecioCompra", producto.PrecioCompra },
                 { "@PrecioVenta", producto.PrecioVenta },
                 { "@Estado", producto.Estado },
-                { "@Fecha", producto.Fecha }
+                { "@Fecha", producto.Fecha },
+                { "@StockMinimo", producto.StockMinimo }
             };
 
             oCnx.Guardar("ActualizarProducto", parametros); // Actualizar producto
@@ -163,6 +165,16 @@ namespace MPPs.Negocio
             
             if (dt.Rows.Count > 0)
                 return Convert.ToDecimal(dt.Rows[0]["StockDisponible"]);
+            return 0;
+        }
+
+        public int ContarProductosBajoStock()
+        {
+            DataTable dt = oCnx.Leer("ContarProductosBajoStock", null);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0][0]);
+            }
             return 0;
         }
 
@@ -432,7 +444,9 @@ namespace MPPs.Negocio
                 PrecioCompra = Convert.ToDecimal(row["PrecioCompra"]),
                 PrecioVenta = row["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(row["PrecioVenta"]),
                 Estado = Convert.ToBoolean(row["Estado"]),
-                Fecha = Convert.ToDateTime(row["Fecha"])
+                Fecha = Convert.ToDateTime(row["Fecha"]),
+                StockMinimo = row.Table.Columns.Contains("StockMinimo") && row["StockMinimo"] != DBNull.Value
+                    ? Convert.ToDecimal(row["StockMinimo"]) : 0m
                 // Nota: StockReservado no se mapea a la clase Producto porque es información de gestión interna
                 // Para obtener esta información usar ObtenerInfoStock() que retorna StockInfo
             };

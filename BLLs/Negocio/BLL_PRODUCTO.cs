@@ -128,6 +128,28 @@ namespace BLLs.Negocio
 
             if (producto.PrecioVenta < producto.PrecioCompra)
                 throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
+
+            if (producto.StockMinimo < 0)
+                throw new ArgumentException("El stock mínimo no puede ser negativo.", nameof(producto.StockMinimo));
+        }
+
+        public List<Producto> ObtenerProductosBajoStock()
+        {
+            var productos = _productoRepository.ObtenerTodos().Where(p => p.Estado).ToList();
+            var bajos = new List<Producto>();
+
+            foreach (var p in productos)
+            {
+                var info = _productoRepository.ObtenerInfoStock(p.Id);
+                var disponible = info?.StockDisponible ?? (p.Stock ?? 0);
+                if (disponible <= p.StockMinimo)
+                {
+                    p.StockDisponible = disponible;
+                    p.StockReservado = info?.StockReservado ?? 0;
+                    bajos.Add(p);
+                }
+            }
+            return bajos;
         }
 
         private void ValidarProveedor(int proveedorId)
@@ -189,6 +211,11 @@ namespace BLLs.Negocio
             }
 
             return productosDisponibles;
+        }
+
+        public int ContarProductosBajoStock()
+        {
+            return _productoRepository.ContarProductosBajoStock();
         }
 
         /// <summary>

@@ -58,6 +58,11 @@ namespace BLLs.Negocio
 		{
 			return _repo.ListarPendientes();
 		}
+
+		public int ContarPendientes()
+		{
+			return _repo.ContarPendientes();
+		}
 	}
 }
 

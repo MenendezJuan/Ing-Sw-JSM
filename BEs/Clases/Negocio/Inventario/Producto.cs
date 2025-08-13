@@ -21,6 +21,8 @@ namespace BEs.Clases.Negocio
         public decimal StockReservado { get; set; } = 0;
         public decimal StockDisponible { get; set; } = 0;
 
+		public decimal StockMinimo { get; set; } = 0;
+
         public List<ProductoProveedor> Proveedores { get; set; } = new List<ProductoProveedor>();
     }
 }

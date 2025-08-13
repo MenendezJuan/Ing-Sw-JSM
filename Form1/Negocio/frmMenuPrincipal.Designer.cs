@@ -43,6 +43,7 @@
             this.labelUsuario = new System.Windows.Forms.Label();
             this.labelUser = new System.Windows.Forms.Label();
             this.panelDateHour = new System.Windows.Forms.Panel();
+            this.labelAlertas = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
@@ -71,6 +72,7 @@
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnComprasProductos = new System.Windows.Forms.Button();
             this.btnStockProductos = new System.Windows.Forms.Button();
+            this.btnHistorialVentas = new System.Windows.Forms.Button();
             this.btnGestionProducto = new System.Windows.Forms.Button();
             this.panelCotizaciones = new System.Windows.Forms.Panel();
             this.buttonEvaluarSolicitudes = new System.Windows.Forms.Button();
@@ -258,6 +260,7 @@
             // panelDateHour
             // 
             this.panelDateHour.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelDateHour.Controls.Add(this.labelAlertas);
             this.panelDateHour.Controls.Add(this.labelDate);
             this.panelDateHour.Controls.Add(this.panel8);
             this.panelDateHour.Dock = System.Windows.Forms.DockStyle.Right;
@@ -265,6 +268,21 @@
             this.panelDateHour.Name = "panelDateHour";
             this.panelDateHour.Size = new System.Drawing.Size(175, 68);
             this.panelDateHour.TabIndex = 13;
+            // 
+            // labelAlertas
+            // 
+            this.labelAlertas.AutoSize = true;
+            this.labelAlertas.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelAlertas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAlertas.ForeColor = System.Drawing.Color.OrangeRed;
+            this.labelAlertas.Location = new System.Drawing.Point(130, 0);
+            this.labelAlertas.Name = "labelAlertas";
+            this.labelAlertas.Padding = new System.Windows.Forms.Padding(0, 15, 5, 0);
+            this.labelAlertas.Size = new System.Drawing.Size(28, 31);
+            this.labelAlertas.TabIndex = 11;
+            this.labelAlertas.Tag = "labelAlertas_frmPrincipal";
+            this.labelAlertas.Text = "! 0";
+            this.labelAlertas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelDate
             // 
@@ -577,6 +595,8 @@
             this.panelInsumos.Controls.Add(this.btnVentas);
             this.panelInsumos.Controls.Add(this.btnComprasProductos);
             this.panelInsumos.Controls.Add(this.btnStockProductos);
+            this.panelInsumos.Controls.Add(this.btnHistorialVentas);
+            this.panelInsumos.Controls.Add(this.btnAjustesStock);
             this.panelInsumos.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelInsumos.Location = new System.Drawing.Point(0, 291);
             this.panelInsumos.Name = "panelInsumos";
@@ -589,7 +609,7 @@
             this.btnAjustesStock.FlatAppearance.BorderSize = 0;
             this.btnAjustesStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAjustesStock.ForeColor = System.Drawing.Color.LightGray;
-            this.btnAjustesStock.Location = new System.Drawing.Point(0, 180);
+            this.btnAjustesStock.Location = new System.Drawing.Point(0, 270);
             this.btnAjustesStock.Name = "btnAjustesStock";
             this.btnAjustesStock.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnAjustesStock.Size = new System.Drawing.Size(211, 45);
@@ -607,7 +627,7 @@
             this.btnDespachoProducto.FlatAppearance.BorderSize = 0;
             this.btnDespachoProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDespachoProducto.ForeColor = System.Drawing.Color.LightGray;
-            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 135);
+            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 225);
             this.btnDespachoProducto.Name = "btnDespachoProducto";
             this.btnDespachoProducto.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnDespachoProducto.Size = new System.Drawing.Size(211, 45);
@@ -625,7 +645,7 @@
             this.btnVentas.FlatAppearance.BorderSize = 0;
             this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVentas.ForeColor = System.Drawing.Color.LightGray;
-            this.btnVentas.Location = new System.Drawing.Point(0, 90);
+            this.btnVentas.Location = new System.Drawing.Point(0, 180);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnVentas.Size = new System.Drawing.Size(211, 45);
@@ -643,7 +663,7 @@
             this.btnComprasProductos.FlatAppearance.BorderSize = 0;
             this.btnComprasProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnComprasProductos.ForeColor = System.Drawing.Color.LightGray;
-            this.btnComprasProductos.Location = new System.Drawing.Point(0, 45);
+            this.btnComprasProductos.Location = new System.Drawing.Point(0, 135);
             this.btnComprasProductos.Name = "btnComprasProductos";
             this.btnComprasProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnComprasProductos.Size = new System.Drawing.Size(211, 45);
@@ -661,7 +681,7 @@
             this.btnStockProductos.FlatAppearance.BorderSize = 0;
             this.btnStockProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStockProductos.ForeColor = System.Drawing.Color.LightGray;
-            this.btnStockProductos.Location = new System.Drawing.Point(0, 0);
+            this.btnStockProductos.Location = new System.Drawing.Point(0, 90);
             this.btnStockProductos.Name = "btnStockProductos";
             this.btnStockProductos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnStockProductos.Size = new System.Drawing.Size(211, 45);
@@ -672,6 +692,23 @@
             this.btnStockProductos.UseVisualStyleBackColor = true;
             this.btnStockProductos.Visible = false;
             this.btnStockProductos.Click += new System.EventHandler(this.btnStockProductos_Click);
+            // 
+            // btnHistorialVentas
+            // 
+            this.btnHistorialVentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHistorialVentas.FlatAppearance.BorderSize = 0;
+            this.btnHistorialVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorialVentas.ForeColor = System.Drawing.Color.LightGray;
+            this.btnHistorialVentas.Location = new System.Drawing.Point(0, 45);
+            this.btnHistorialVentas.Name = "btnHistorialVentas";
+            this.btnHistorialVentas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnHistorialVentas.Size = new System.Drawing.Size(211, 45);
+            this.btnHistorialVentas.TabIndex = 13;
+            this.btnHistorialVentas.Tag = "btnHistorialVentas_formPrincipal";
+            this.btnHistorialVentas.Text = "Historial de Ventas";
+            this.btnHistorialVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHistorialVentas.UseVisualStyleBackColor = true;
+            this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
             // 
             // btnGestionProducto
             // 
@@ -742,28 +779,6 @@
             this.buttonSolicitarCotizacion.UseVisualStyleBackColor = true;
             this.buttonSolicitarCotizacion.Visible = false;
             this.buttonSolicitarCotizacion.Click += new System.EventHandler(this.buttonSolicitarCotizacion_Click);
-
-            // Agregar botón Historial de Ventas debajo de btnVentas
-            this.btnHistorialVentas = new System.Windows.Forms.Button();
-            this.btnHistorialVentas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHistorialVentas.FlatAppearance.BorderSize = 0;
-            this.btnHistorialVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHistorialVentas.ForeColor = System.Drawing.Color.LightGray;
-            this.btnHistorialVentas.Location = new System.Drawing.Point(0, 135);
-            this.btnHistorialVentas.Name = "btnHistorialVentas";
-            this.btnHistorialVentas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnHistorialVentas.Size = new System.Drawing.Size(211, 45);
-            this.btnHistorialVentas.TabIndex = 13;
-            this.btnHistorialVentas.Tag = "btnHistorialVentas_formPrincipal";
-            this.btnHistorialVentas.Text = "Historial de Ventas";
-            this.btnHistorialVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHistorialVentas.UseVisualStyleBackColor = true;
-            this.btnHistorialVentas.Visible = true;
-            this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
-            // Insertar en panelInsumos justo después de btnVentas
-            this.panelInsumos.Controls.Remove(this.btnAjustesStock);
-            this.panelInsumos.Controls.Add(this.btnHistorialVentas);
-            this.panelInsumos.Controls.Add(this.btnAjustesStock);
             // 
             // btnControl
             // 
@@ -862,6 +877,7 @@
         private System.Windows.Forms.Label labelUser;
         private System.Windows.Forms.Panel panelDateHour;
         private System.Windows.Forms.Label labelDate;
+        private System.Windows.Forms.Label labelAlertas;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panelCotizaciones;
         private System.Windows.Forms.Button btnReportes;

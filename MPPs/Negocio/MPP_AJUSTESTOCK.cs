@@ -65,6 +65,16 @@ namespace MPPs.Negocio
 			return lista;
 		}
 
+		public int ContarPendientes()
+		{
+			DataTable dt = oCnx.Leer("ContarAjustesPendientes", null);
+			if (dt != null && dt.Rows.Count > 0)
+			{
+				return Convert.ToInt32(dt.Rows[0][0]);
+			}
+			return 0;
+		}
+
 		private static AjusteStock Map(DataRow row)
 		{
 			return new AjusteStock

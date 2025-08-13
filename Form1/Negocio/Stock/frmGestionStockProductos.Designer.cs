@@ -40,7 +40,9 @@
             this.buttonEliminarProducto = new System.Windows.Forms.Button();
             this.panelDatosProducto = new System.Windows.Forms.Panel();
             this.numericUpDownPrecioCompra = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownStockMinimo = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.labelStockMinimo = new System.Windows.Forms.Label();
             this.comboCategoria = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblSeleccionadoEspecifico = new System.Windows.Forms.Label();
@@ -84,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProductos)).BeginInit();
             this.panelDatosProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrecioCompra)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStockMinimo)).BeginInit();
             this.panelFiltrar.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -233,6 +236,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDatosProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
             this.panelDatosProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelDatosProducto.Controls.Add(this.numericUpDownStockMinimo);
+            this.panelDatosProducto.Controls.Add(this.labelStockMinimo);
             this.panelDatosProducto.Controls.Add(this.numericUpDownPrecioCompra);
             this.panelDatosProducto.Controls.Add(this.label6);
             this.panelDatosProducto.Controls.Add(this.comboCategoria);
@@ -267,6 +272,18 @@
             this.numericUpDownPrecioCompra.Size = new System.Drawing.Size(180, 21);
             this.numericUpDownPrecioCompra.TabIndex = 76;
             // 
+            // numericUpDownStockMinimo
+            // 
+            this.numericUpDownStockMinimo.Location = new System.Drawing.Point(15, 175);
+            this.numericUpDownStockMinimo.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numericUpDownStockMinimo.Name = "numericUpDownStockMinimo";
+            this.numericUpDownStockMinimo.Size = new System.Drawing.Size(180, 21);
+            this.numericUpDownStockMinimo.TabIndex = 77;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -277,6 +294,17 @@
             this.label6.TabIndex = 74;
             this.label6.Tag = "PrecioCompra_frmProd";
             this.label6.Text = "Precio Compra";
+            // 
+            // labelStockMinimo
+            // 
+            this.labelStockMinimo.AutoSize = true;
+            this.labelStockMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStockMinimo.Location = new System.Drawing.Point(12, 157);
+            this.labelStockMinimo.Name = "labelStockMinimo";
+            this.labelStockMinimo.Size = new System.Drawing.Size(85, 15);
+            this.labelStockMinimo.TabIndex = 75;
+            this.labelStockMinimo.Tag = "StockMinimo_frmProd";
+            this.labelStockMinimo.Text = "Stock Mínimo";
             // 
             // comboCategoria
             // 
@@ -454,11 +482,24 @@
             this.panelFiltrar.Controls.Add(this.comboBuscar);
             this.panelFiltrar.Controls.Add(this.label2);
             this.panelFiltrar.Controls.Add(this.label8);
+            this.panelFiltrar.Controls.Add(this.chkSoloBajoStock);
             this.panelFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelFiltrar.Location = new System.Drawing.Point(3, 55);
             this.panelFiltrar.Name = "panelFiltrar";
             this.panelFiltrar.Size = new System.Drawing.Size(275, 263);
             this.panelFiltrar.TabIndex = 111;
+            // 
+            // chkSoloBajoStock
+            // 
+            this.chkSoloBajoStock.AutoSize = true;
+            this.chkSoloBajoStock.Location = new System.Drawing.Point(11, 230);
+            this.chkSoloBajoStock.Name = "chkSoloBajoStock";
+            this.chkSoloBajoStock.Size = new System.Drawing.Size(129, 19);
+            this.chkSoloBajoStock.TabIndex = 68;
+            this.chkSoloBajoStock.Tag = "chkSoloBajoStock_frmProd";
+            this.chkSoloBajoStock.Text = "Solo bajo stock";
+            this.chkSoloBajoStock.UseVisualStyleBackColor = true;
+            this.chkSoloBajoStock.CheckedChanged += new System.EventHandler(this.chkSoloBajoStock_CheckedChanged);
             // 
             // btnBorrarBusqueda
             // 
@@ -915,6 +956,7 @@
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStockMinimo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -951,6 +993,8 @@
         private FontAwesome.Sharp.IconButton btnExportar;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDownStockMinimo;
+        private System.Windows.Forms.Label labelStockMinimo;
         private System.Windows.Forms.NumericUpDown numericUpDownPrecioCompra;
         private System.Windows.Forms.ComboBox comboProveedor;
         private System.Windows.Forms.Button buttonReactivacionProducto;
@@ -969,5 +1013,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.CheckBox chkSoloBajoStock;
     }
 }

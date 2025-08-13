@@ -23,6 +23,9 @@ namespace CheeseLogix
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
         private BLL_VENTA _bllVenta;
+        private BLL_PRODUCTO _bllProducto;
+        private BLL_AJUSTESTOCK _bllAjuste;
+        private Timer alertRefreshTimer;
         public frmMenuPrincipal()
         {
             InitializeComponent();
@@ -31,6 +34,8 @@ namespace CheeseLogix
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllVenta = new BLL_VENTA();
+            _bllProducto = new BLL_PRODUCTO();
+            _bllAjuste = new BLL_AJUSTESTOCK();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -57,6 +62,11 @@ namespace CheeseLogix
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
             labelDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            ActualizarIndicadorAlertas();
+            alertRefreshTimer = new Timer();
+            alertRefreshTimer.Interval = 60000; // 60s
+            alertRefreshTimer.Tick += AlertRefreshTimer_Tick;
+            alertRefreshTimer.Start();
         }
 
 
@@ -161,6 +171,41 @@ namespace CheeseLogix
             AplicarEstiloBoton(btnGestionProducto);
             AplicarEstiloBoton(btnReportes);
             AplicarEstiloBoton(btnStockProductos);
+            ActualizarIndicadorAlertas();
+        }
+
+        private void ActualizarIndicadorAlertas()
+        {
+            try
+            {
+                int bajos = _bllProducto.ContarProductosBajoStock();
+                int ajustesPend = _bllAjuste.ContarPendientes();
+                int total = bajos + ajustesPend;
+                labelAlertas.Text = total > 0 ? $"! {total}" : "! 0";
+                labelAlertas.ForeColor = total > 0 ? Color.OrangeRed : Color.Gainsboro;
+                labelAlertas.Visible = true;
+                labelAlertas.Cursor = Cursors.Hand;
+                labelAlertas.Click -= labelAlertas_Click;
+                labelAlertas.Click += labelAlertas_Click;
+            }
+            catch
+            {
+                labelAlertas.Text = "! -";
+            }
+        }
+
+        private void AlertRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            ActualizarIndicadorAlertas();
+        }
+
+        private void labelAlertas_Click(object sender, EventArgs e)
+        {
+            // Abrir pantalla de stock para revisar bajos y ajustes pendientes
+            frmGestionStockProductos stockProductos = new frmGestionStockProductos();
+            AddOwnedForm(stockProductos);
+            FormHijo(stockProductos);
+            HideSubMenu();
         }
 
         private void OnMouseDown(object sender, MouseEventArgs e)
@@ -483,6 +528,12 @@ namespace CheeseLogix
         private bool isClosing = false;
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (alertRefreshTimer != null)
+            {
+                alertRefreshTimer.Stop();
+                alertRefreshTimer.Dispose();
+                alertRefreshTimer = null;
+            }
             if (isClosing)
             {
                 e.Cancel = false;

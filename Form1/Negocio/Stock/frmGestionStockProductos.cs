@@ -380,6 +380,7 @@ namespace CheeseLogix
             comboCategoria.SelectedItem = producto.CategoriaEnum;
             txtDescripcion.Text = producto.Descripcion;
             numericUpDownPrecioCompra.Value = producto.PrecioCompra;
+            numericUpDownStockMinimo.Value = producto.StockMinimo >= 0 ? producto.StockMinimo : 0;
             lblSeleccionadoEspecifico.Text = producto.Nombre;
         }
 
@@ -390,6 +391,7 @@ namespace CheeseLogix
             producto.CategoriaEnum = (Categoria)comboCategoria.SelectedItem;
             producto.Descripcion = txtDescripcion.Text;
             producto.PrecioCompra = numericUpDownPrecioCompra.Value;
+            producto.StockMinimo = numericUpDownStockMinimo.Value;
 
             int proveedorId = (int)comboProveedor.SelectedValue;
             if (!producto.Proveedores.Any(pp => pp.ProveedorId == proveedorId))
@@ -414,6 +416,41 @@ namespace CheeseLogix
             var productos = _bllProducto.ObtenerTodos();
             dataGridViewProductos.DataSource = productos;
             ConfigurarEncabezadosColumnas();
+
+            try
+            {
+                var bajos = _bllProducto.ObtenerProductosBajoStock();
+                if (bajos != null && bajos.Count > 0)
+                {
+                    // Resaltar filas con bajo stock
+                    foreach (DataGridViewRow row in dataGridViewProductos.Rows)
+                    {
+                        var p = row.DataBoundItem as Producto;
+                        if (p != null && bajos.Any(b => b.Id == p.Id))
+                        {
+                            row.DefaultCellStyle.BackColor = System.Drawing.Color.MistyRose;
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void chkSoloBajoStock_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkSoloBajoStock.Checked)
+                {
+                    var bajos = _bllProducto.ObtenerProductosBajoStock();
+                    dataGridViewProductos.DataSource = bajos;
+                }
+                else
+                {
+                    CargarProductos();
+                }
+            }
+            catch { }
         }
 
         private void ConfigurarEncabezadosColumnas()
@@ -441,6 +478,12 @@ namespace CheeseLogix
 
             dataGridViewProductos.Columns["Fecha"].HeaderText = "Fecha de Registro";
             dataGridViewProductos.Columns["Fecha"].Tag = "FechaRegistro_Column";
+
+            if (dataGridViewProductos.Columns.Contains("StockMinimo"))
+            {
+                dataGridViewProductos.Columns["StockMinimo"].HeaderText = "Stock Mínimo";
+                dataGridViewProductos.Columns["StockMinimo"].Tag = "StockMinimo_Column";
+            }
 
             dataGridViewProductos.Columns["Estado"].Visible = false;
         }
