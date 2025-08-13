@@ -628,18 +628,17 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            // Verificar si hay productos en el carrito
             if (_carrito.Count > 0)
             {
                 var resultado = MessageBox.Show(
                     "Hay productos en el carrito. ¿Está seguro de que desea salir sin confirmar la venta?", 
-                    "Confirmar salida", 
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
                     MessageBoxButtons.YesNo, 
                     MessageBoxIcon.Question);
                 
                 if (resultado == DialogResult.No)
                 {
-                    return; // No cerrar
+                    return;
                 }
             }
             
@@ -778,7 +777,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Validaciones previas
                 if (_clienteActual == null)
                 {
-                    MessageBox.Show("No hay un cliente seleccionado para esta venta.", "Cliente requerido", 
+                    MessageBox.Show("No hay un cliente seleccionado para esta venta.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -786,7 +785,7 @@ namespace CheeseLogix.Negocio.Ventas
                 if (_carrito.Count == 0)
                 {
                     MessageBox.Show("No se pueden confirmar compras vacías. Agregue al menos un producto al carrito.", 
-                        "Carrito vacío", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
