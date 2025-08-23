@@ -75,7 +75,7 @@ namespace CheeseLogix.Negocio.Ventas
 			decimal cantidad = numericCantidad.Value;
 			string motivo = txtMotivo.Text?.Trim();
 			bool apto = chkApto.Checked;
-			int? usuarioId = sesion.oUsuario != null ? (int?)sesion.oUsuario.Id : null;
+			int? usuarioId = sesion.Usuario != null ? (int?)sesion.Usuario.Id : null;
 			try
 			{
 				_bllDevolucion.RegistrarCliente(ventaId, productoId, cantidad, motivo, apto, usuarioId);
