@@ -2,7 +2,6 @@
 using BEs.Interfaces;
 using BLLs.Tecnica;
 using System;
-using BLLs.Tecnica;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;

@@ -6,7 +6,6 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
-using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
