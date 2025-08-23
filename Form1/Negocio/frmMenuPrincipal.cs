@@ -84,15 +84,15 @@ namespace CheeseLogix
 
         private void CustomizeDesing()
         {
-            panelInsumos.Visible = false;
+            panelGestion.Visible = false;
             panelCotizaciones.Visible = false;
             PanelEntidades.Visible = false;
         }
 
         private void HideSubMenu()
         {
-            if (panelInsumos.Visible)
-                panelInsumos.Visible = false;
+            if (panelGestion.Visible)
+                panelGestion.Visible = false;
             if (panelCotizaciones.Visible)
                 panelCotizaciones.Visible = false;
             if (PanelEntidades.Visible)
@@ -221,7 +221,7 @@ namespace CheeseLogix
 
         private void btnGestionProducto_Click(object sender, EventArgs e)
         {
-            ShowSubMenu(panelInsumos);
+            ShowSubMenu(panelGestion);
         }
 
         private void btnStockProductos_Click(object sender, EventArgs e)
@@ -272,6 +272,14 @@ namespace CheeseLogix
         private void btnCaja_Click(object sender, EventArgs e)
         {
             ShowSubMenu(panelCaja);
+        }
+
+        private void toolStripMenuItemSerializador_Click(object sender, EventArgs e)
+        {
+            var frm = new CheeseLogix.Tecnica.frmSerializacion();
+            AddOwnedForm(frm);
+            FormHijo(frm);
+            HideSubMenu();
         }
 
         private void btnComprasProductos_Click(object sender, EventArgs e)
@@ -589,6 +597,14 @@ namespace CheeseLogix
             frmMenuAdmin frmAdmin = new frmMenuAdmin();
             AddOwnedForm(frmAdmin);
             FormHijo(frmAdmin);
+            HideSubMenu();
+        }
+
+        private void btnSerializacion_Click(object sender, EventArgs e)
+        {
+            var frm = new CheeseLogix.Tecnica.frmSerializacion();
+            AddOwnedForm(frm);
+            FormHijo(frm);
             HideSubMenu();
         }
 
