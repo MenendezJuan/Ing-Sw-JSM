@@ -79,6 +79,32 @@ namespace MPPs
             catch (Exception ex) { throw ex; }
         }
 
+        public Usuario ObtenerPorId(int id)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                parametros.Add("@Id", id);
+                DataTable dt = oCnx.Leer("Obtener_Usuario_Por_Id", parametros);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    return new Usuario(
+                        (int)row["Id"],
+                        row["Email"].ToString(),
+                        row["Contraseña"].ToString(),
+                        row["DigitoVerificador"].ToString()
+                    );
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion ABML
 
         #region Login/LogOut

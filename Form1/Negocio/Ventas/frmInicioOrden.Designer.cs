@@ -517,8 +517,11 @@
             this.ClientSize = new System.Drawing.Size(827, 559);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmInicioOrden";
-            this.Text = "frmInicioOrden";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Inicio de Orden";
             this.Load += new System.EventHandler(this.frmInicioOrden_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

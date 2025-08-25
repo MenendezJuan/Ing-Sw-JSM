@@ -44,23 +44,30 @@ namespace BLLs.Negocio
                     return todos.Where(c => !string.IsNullOrEmpty(c.CUIT) &&
                                              c.CUIT.Replace("-", string.Empty).Replace(" ", string.Empty)
                                                  .Contains(cuitLimpio)).ToList();
+
                 case "nombre":
                     return todos.Where(c => (c.Nombre ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+
                 case "apellido":
                     return todos.Where(c => (c.Apellido ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+
                 case "direccion":
                     return todos.Where(c => (c.Direccion ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+
                 case "email":
                 case "mail":
                     return todos.Where(c => (c.Mail ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+
                 case "telefono":
                 case "teléfono":
                     return todos.Where(c => (c.Telefono ?? string.Empty).ToLowerInvariant().Contains(valorNorm)).ToList();
+
                 case "estado":
                     bool? estado = null;
                     if (valorNorm == "activo") estado = true;
                     if (valorNorm == "inactivo") estado = false;
                     return estado.HasValue ? todos.Where(c => c.Estado == estado.Value).ToList() : todos;
+
                 default:
                     // Si el criterio no coincide, buscar de forma amplia en varios campos
                     return todos.Where(c =>
@@ -133,7 +140,7 @@ namespace BLLs.Negocio
 
             // Limpiar el CUIT (remover guiones y espacios)
             string cuitLimpio = cuit.Replace("-", "").Replace(" ", "").Trim();
-            
+
             if (string.IsNullOrEmpty(cuitLimpio))
                 return null;
 
@@ -207,15 +214,18 @@ namespace BLLs.Negocio
             {
                 case "20": // Hombre
                     return cuit.EndsWith("2");
+
                 case "27": // Mujer
                     return cuit.EndsWith("4");
+
                 case "30": // Empresa
                 case "33":
                 case "34":
                     return true;
+
                 default:
                     return false;
             }
         }
     }
-} 
+}

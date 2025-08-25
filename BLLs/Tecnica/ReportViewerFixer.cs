@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace BLLs.Tecnica
@@ -20,13 +19,13 @@ namespace BLLs.Tecnica
             {
                 // Configurar el modo de compatibilidad para PInvoke
                 SetCompatibilityMode();
-                
+
                 // Ejecutar la acción en un contexto protegido
                 action();
-                
+
                 // Liberar recursos explícitamente
                 CleanupResources();
-                
+
                 return true;
             }
             catch (Exception)
@@ -55,11 +54,11 @@ namespace BLLs.Tecnica
             // Forzar la recolección de basura para liberar recursos no administrados
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            
+
             // Segunda pasada para asegurar que todo se libere
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            
+
             // Pequeña pausa para permitir que los recursos se liberen completamente
             Thread.Sleep(100);
         }

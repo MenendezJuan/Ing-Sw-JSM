@@ -700,8 +700,11 @@
             this.ClientSize = new System.Drawing.Size(1336, 596);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmTramitarOrdenCarrito";
-            this.Text = "frmTramitarOrdenCarrito";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Tramitar Orden - Carrito";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);

@@ -7,7 +7,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace MPPs
 {
@@ -17,6 +16,7 @@ namespace MPPs
         {
             oCnx = Conexion.Instance;
         }
+
         private Conexion oCnx;
 
         private readonly MPP_PRODUCTO productoRepositorio = new MPP_PRODUCTO();
@@ -149,17 +149,23 @@ namespace MPPs
                 oDetalleVenta = detalleVentaRepositorio.ObtenerPorVentaId(Convert.ToInt32(row["Id"]))
             };
 
-            // Cargar cliente si existe
             if (venta.ClienteId.HasValue)
             {
                 venta.oCliente = clienteRepositorio.ObtenerPorId(venta.ClienteId.Value);
             }
 
-            // Cargar vendedor si existe (asumiendo que tienes MPP_USUARIO)
-            // if (venta.UsuarioVendedorId.HasValue)
-            // {
-            //     venta.oVendedor = usuarioRepositorio.ObtenerPorId(venta.UsuarioVendedorId.Value);
-            // }
+            if (venta.UsuarioVendedorId.HasValue)
+            {
+                try
+                {
+                    var usuarioRepositorio = new MPPs.MPP_USUARIO();
+                    venta.oVendedor = usuarioRepositorio.ObtenerPorId(venta.UsuarioVendedorId.Value);
+                }
+                catch (Exception)
+                {
+                    venta.oVendedor = null;
+                }
+            }
 
             return venta;
         }
@@ -172,7 +178,7 @@ namespace MPPs
         public DataTable ObtenerProductosMasVendidos(DateTime? fechaInicio = null, DateTime? fechaFin = null)
         {
             var parametros = new Hashtable();
-            
+
             if (fechaInicio.HasValue)
                 parametros.Add("@FechaInicio", fechaInicio.Value);
             if (fechaFin.HasValue)
@@ -200,7 +206,7 @@ namespace MPPs
         public DataTable ObtenerClientesMejores(DateTime? fechaInicio = null, DateTime? fechaFin = null)
         {
             var parametros = new Hashtable();
-            
+
             if (fechaInicio.HasValue)
                 parametros.Add("@FechaInicio", fechaInicio.Value);
             if (fechaFin.HasValue)
@@ -223,7 +229,7 @@ namespace MPPs
             return oCnx.Leer("SP_ObtenerResumenEjecutivo", parametros);
         }
 
-        #endregion
+        #endregion Métodos de Reportes
 
         #region Métodos para Reportes Optimizados
 
@@ -290,6 +296,6 @@ namespace MPPs
             }
         }
 
-        #endregion
+        #endregion Métodos para Reportes Optimizados
     }
-} 
+}

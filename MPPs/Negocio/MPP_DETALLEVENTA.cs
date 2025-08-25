@@ -1,4 +1,3 @@
-using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Ventas;
 using Servicios;
 using System;
@@ -120,4 +119,4 @@ namespace MPPs.Negocio
             return detalleVenta;
         }
     }
-} 
+}

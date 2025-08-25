@@ -1,4 +1,3 @@
-using BEs.Clases.Negocio.Ventas;
 using System;
 
 namespace BEs.Clases.Negocio.Ventas
@@ -17,4 +16,4 @@ namespace BEs.Clases.Negocio.Ventas
 
         public string NombreProducto => oProducto?.Nombre ?? "Producto no disponible";
     }
-} 
+}

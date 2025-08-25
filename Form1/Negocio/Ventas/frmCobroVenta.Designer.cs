@@ -451,8 +451,11 @@
             this.ClientSize = new System.Drawing.Size(1355, 685);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmCobroVenta";
-            this.Text = "frmCobroVenta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Cobro de Venta";
             this.Load += new System.EventHandler(this.frmCobroVenta_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

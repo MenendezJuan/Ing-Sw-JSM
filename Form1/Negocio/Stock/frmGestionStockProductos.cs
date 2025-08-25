@@ -6,7 +6,6 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
-using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -236,29 +235,29 @@ namespace CheeseLogix
             {
                 if (dataGridViewProductos.DataSource == null)
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 // Convertir DataGridView a DataTable
                 DataTable dtProductos = ConvertirDataGridViewADataTable(dataGridViewProductos);
-                
+
                 // Usar BLL_EXPORTACION para exportar
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionProductos");
-                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName,
                     (dtProductos, ConstantesUI.Exportacion.HojaProductos, ConstantesUI.Exportacion.TituloProductos));
 
                 if (exportado)
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
-                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
+                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}",
                         ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Preguntar si quiere abrir el archivo
-                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado,
                         ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
+
                     if (result == DialogResult.Yes)
                     {
                         _bllExportacion.AbrirArchivo(rutaCompleta);
@@ -266,13 +265,13 @@ namespace CheeseLogix
                 }
                 else
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -335,7 +334,7 @@ namespace CheeseLogix
         private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
         {
             DataTable dt = new DataTable();
-            
+
             // Agregar columnas visibles
             foreach (DataGridViewColumn column in dgv.Columns)
             {
@@ -344,7 +343,7 @@ namespace CheeseLogix
                     dt.Columns.Add(column.HeaderText, typeof(string));
                 }
             }
-            
+
             // Agregar filas
             foreach (DataGridViewRow row in dgv.Rows)
             {
@@ -352,7 +351,7 @@ namespace CheeseLogix
                 {
                     DataRow dataRow = dt.NewRow();
                     int columnIndex = 0;
-                    
+
                     foreach (DataGridViewColumn column in dgv.Columns)
                     {
                         if (column.Visible)
@@ -361,11 +360,11 @@ namespace CheeseLogix
                             columnIndex++;
                         }
                     }
-                    
+
                     dt.Rows.Add(dataRow);
                 }
             }
-            
+
             return dt;
         }
 

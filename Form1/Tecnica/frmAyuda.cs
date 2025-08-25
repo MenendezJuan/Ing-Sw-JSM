@@ -1,13 +1,11 @@
 ﻿using BEs;
 using BEs.Interfaces;
+using BLLs;
 using BLLs.Tecnica;
 using System;
-using BLLs.Tecnica;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Patagames.Pdf.Net.Controls.WinForms;
-using BLLs;
 
 namespace CheeseLogix.Tecnica
 {
@@ -37,32 +35,91 @@ namespace CheeseLogix.Tecnica
             {
                 // Buscar el PDF de ayuda en múltiples ubicaciones configurables
                 string rutaPDF = BLL_CONFIGURACION.BuscarManualUsuario();
-                
+
                 if (File.Exists(rutaPDF))
                 {
-                    pdfViewer1.LoadDocument(rutaPDF);
+                    try
+                    {
+                        pdfViewer1.LoadDocument(rutaPDF);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"No se pudo cargar el visor PDF integrado: {ex.Message}\n\n" +
+                                      "Se abrirá el PDF con el visor predeterminado del sistema.", 
+                                      "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        AbrirPDFExterno(rutaPDF);
+                        
+                        MostrarMensajeAlternativo();
+                    }
                 }
                 else
                 {
-                    // Si no existe el archivo, mostrar mensaje con información de ubicaciones
                     string nombreArchivo = BLL_CONFIGURACION.ObtenerConfiguracion("ManualUsuarioPDF", "Manual_Usuario_CheeseLogix.pdf");
                     string directorioConfiguracion = BLL_CONFIGURACION.ObtenerDirectorioDocumentacion();
-                    
+
                     MessageBox.Show($"El archivo de ayuda '{nombreArchivo}' no se encuentra.\n\n" +
                                   $"Ubicaciones verificadas:\n" +
                                   $"• {directorioConfiguracion}\n" +
                                   $"• {Path.Combine(Application.StartupPath, "Documentacion")}\n" +
                                   $"• Directorio del proyecto\n\n" +
-                                  $"Asegúrese de que el archivo esté en alguna de estas ubicaciones.", 
-                                  ConstantesUI.Titulos.Informacion, 
-                                  MessageBoxButtons.OK, 
+                                  $"Asegúrese de que el archivo esté en alguna de estas ubicaciones.",
+                                  ConstantesUI.Titulos.Informacion,
+                                  MessageBoxButtons.OK,
                                   MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el PDF: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al cargar el PDF: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AbrirPDFExterno(string rutaPDF)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = rutaPDF,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo abrir el PDF: {ex.Message}", 
+                    ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MostrarMensajeAlternativo()
+        {
+            try
+            {
+                pdfViewer1.Visible = false;
+                
+                var lblMensaje = new Label
+                {
+                    Text = "El PDF de ayuda se ha abierto en el visor predeterminado de su sistema.\n\n" +
+                           "Si desea integrar el visor PDF, verifique la instalación de la librería Patagames.Pdf.",
+                    AutoSize = false,
+                    Dock = DockStyle.Fill,
+                    TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+                    ForeColor = System.Drawing.Color.White,
+                    BackColor = System.Drawing.Color.FromArgb(45, 45, 45),
+                    Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular)
+                };
+                
+                if (pdfViewer1.Parent != null)
+                {
+                    pdfViewer1.Parent.Controls.Add(lblMensaje);
+                    lblMensaje.BringToFront();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en MostrarMensajeAlternativo: {ex.Message}");
             }
         }
 
@@ -75,15 +132,13 @@ namespace CheeseLogix.Tecnica
         {
             try
             {
-                // Usar el directorio de documentación configurado
                 string rutaDocumentacion = BLL_CONFIGURACION.ObtenerDirectorioDocumentacion();
-                
-                // El método ObtenerDirectorioDocumentacion() ya crea el directorio si no existe
+
                 System.Diagnostics.Process.Start("explorer.exe", rutaDocumentacion);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir la carpeta: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al abrir la carpeta: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

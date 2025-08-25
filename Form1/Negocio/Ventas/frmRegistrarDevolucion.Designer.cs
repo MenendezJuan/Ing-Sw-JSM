@@ -260,33 +260,34 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.Controls.Add(this.btnRegistrar, 0, 0);
+            this.tableLayoutPanelAcciones.Controls.Add(this.btnCerrar, 1, 0);
             this.tableLayoutPanelAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelAcciones.Location = new System.Drawing.Point(3, 313);
             this.tableLayoutPanelAcciones.Name = "tableLayoutPanelAcciones";
             this.tableLayoutPanelAcciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelAcciones.Size = new System.Drawing.Size(594, 44);
             this.tableLayoutPanelAcciones.TabIndex = 2;
+
             // 
-            // btnAbrirNotaCredito
+            // btnCerrar
             // 
-            this.btnAbrirNotaCredito = new System.Windows.Forms.Button();
-            this.tableLayoutPanelAcciones.Controls.Add(this.btnAbrirNotaCredito, 1, 0);
-            this.btnAbrirNotaCredito.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnAbrirNotaCredito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btnAbrirNotaCredito.Enabled = false;
-            this.btnAbrirNotaCredito.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAbrirNotaCredito.FlatAppearance.BorderSize = 2;
-            this.btnAbrirNotaCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAbrirNotaCredito.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnAbrirNotaCredito.Location = new System.Drawing.Point(300, 4);
-            this.btnAbrirNotaCredito.Name = "btnAbrirNotaCredito";
-            this.btnAbrirNotaCredito.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
-            this.btnAbrirNotaCredito.Size = new System.Drawing.Size(180, 35);
-            this.btnAbrirNotaCredito.TabIndex = 1;
-            this.btnAbrirNotaCredito.Tag = "AbrirNotaCredito";
-            this.btnAbrirNotaCredito.Text = "Abrir Nota de Crédito";
-            this.btnAbrirNotaCredito.UseVisualStyleBackColor = false;
-            this.btnAbrirNotaCredito.Click += new System.EventHandler(this.btnAbrirNotaCredito_Click);
+            this.btnCerrar = new System.Windows.Forms.Button();
+            this.tableLayoutPanelAcciones.Controls.Add(this.btnCerrar, 1, 0);
+            this.btnCerrar.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnCerrar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.btnCerrar.FlatAppearance.BorderSize = 2;
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrar.ForeColor = System.Drawing.Color.White;
+            this.btnCerrar.Location = new System.Drawing.Point(398, 4);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
+            this.btnCerrar.Size = new System.Drawing.Size(120, 35);
+            this.btnCerrar.TabIndex = 2;
+            this.btnCerrar.Tag = "Cerrar";
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // frmRegistrarDevolucion
             // 
@@ -295,7 +296,11 @@ namespace CheeseLogix.Negocio.Ventas
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(600, 360);
             this.Controls.Add(this.tableLayoutPanelMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmRegistrarDevolucion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registrar Devolución";
             ((System.ComponentModel.ISupportInitialize)(this.numericCantidad)).EndInit();
             this.tableLayoutPanelMain.ResumeLayout(false);
@@ -316,6 +321,7 @@ namespace CheeseLogix.Negocio.Ventas
 		private System.Windows.Forms.TextBox txtMotivo;
 		private System.Windows.Forms.CheckBox chkApto;
 		private System.Windows.Forms.Button btnRegistrar;
+		private System.Windows.Forms.Button btnCerrar;
 		private System.Windows.Forms.ComboBox cboxIdiomas;
 		private System.Windows.Forms.Label lblVenta;
 		private System.Windows.Forms.Label lblProducto;
@@ -328,6 +334,5 @@ namespace CheeseLogix.Negocio.Ventas
 		private System.Windows.Forms.Label lblSeleccionarIdioma;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanelCampos;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAcciones;
-		private System.Windows.Forms.Button btnAbrirNotaCredito;
 	}
 }

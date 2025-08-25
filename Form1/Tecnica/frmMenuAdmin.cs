@@ -2,6 +2,7 @@
 using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
+using CheeseLogix.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -142,14 +143,14 @@ namespace CheeseLogix
         private void button_Usuarios_Click(object sender, EventArgs e)
         {
             frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
-            frmGestorUsuarios gestorUsuarios = new frmGestorUsuarios();
+            frmControlCambios controlCambios = new frmControlCambios();
 
             if (pForm != null)
             {
-                pForm.AddOwnedForm(gestorUsuarios);
-                pForm.FormHijo(gestorUsuarios);
+                pForm.AddOwnedForm(controlCambios);
+                pForm.FormHijo(controlCambios);
             }
-            gestorUsuarios.Show();
+            controlCambios.Show();
         }
 
         private void button_Bitacora_Click(object sender, EventArgs e)

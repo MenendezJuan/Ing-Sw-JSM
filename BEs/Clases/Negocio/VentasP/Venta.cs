@@ -1,5 +1,4 @@
 using BEs.Clases.Negocio.Enums;
-using BEs.Clases.Negocio.Ventas;
 using System;
 using System.Collections.Generic;
 
@@ -22,4 +21,4 @@ namespace BEs.Clases.Negocio.Ventas
         public string NombreCliente => oCliente?.NombreCompleto ?? "Cliente no disponible";
         public string NombreVendedor => oVendedor?.Email ?? "Vendedor no disponible";
     }
-} 
+}

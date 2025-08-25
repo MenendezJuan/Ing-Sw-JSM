@@ -79,7 +79,7 @@ namespace MPPs
                 };
 
                 DataTable dt = oCnx.Leer("Obtener_Idioma_Por_Id", Parametros);
-                
+
                 if (dt.Rows.Count > 0)
                 {
                     DataRow row = dt.Rows[0];

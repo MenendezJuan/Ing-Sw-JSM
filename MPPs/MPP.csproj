@@ -59,6 +59,7 @@
     <Compile Include="Negocio\MPP_PROVEEDOR.cs" />
     <Compile Include="Tecnica\MPP_TRADUCCION.cs" />
     <Compile Include="Tecnica\MPP_USUARIO.cs" />
+    <Compile Include="Tecnica\MPP_CONTROLCAMBIOS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +70,10 @@
     <ProjectReference Include="..\Externos\Externos.csproj">
       <Project>{e70349a2-e9ad-471b-9d5f-6af9c28496ce}</Project>
       <Name>Externos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Seguridad\Internos.csproj">
+      <Project>{4c0dd407-2751-4f33-928e-1a51b87d47cf}</Project>
+      <Name>Internos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

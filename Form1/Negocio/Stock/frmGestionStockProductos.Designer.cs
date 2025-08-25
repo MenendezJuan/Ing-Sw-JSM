@@ -64,6 +64,7 @@
             this.comboBuscar = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.chkSoloBajoStock = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.comboProveedor = new System.Windows.Forms.ComboBox();
             this.buttonReactivacionProducto = new System.Windows.Forms.Button();
@@ -492,7 +493,7 @@
             // chkSoloBajoStock
             // 
             this.chkSoloBajoStock.AutoSize = true;
-            this.chkSoloBajoStock.Location = new System.Drawing.Point(11, 230);
+            this.chkSoloBajoStock.Location = new System.Drawing.Point(300, 32);
             this.chkSoloBajoStock.Name = "chkSoloBajoStock";
             this.chkSoloBajoStock.Size = new System.Drawing.Size(129, 19);
             this.chkSoloBajoStock.TabIndex = 68;

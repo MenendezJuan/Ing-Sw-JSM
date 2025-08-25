@@ -15,6 +15,7 @@ namespace BEs.Clases.Negocio
         public bool Estado { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
         public List<ProductoProveedor> Productos { get; set; } = new List<ProductoProveedor>();
+
         public override string ToString()
         {
             return Descripcion;

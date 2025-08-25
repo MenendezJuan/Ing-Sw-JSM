@@ -1,5 +1,3 @@
-using System;
-
 namespace BLLs.Tecnica
 {
     public static class ConstantesUI
@@ -100,5 +98,3 @@ namespace BLLs.Tecnica
         }
     }
 }
-
-

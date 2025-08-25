@@ -4,7 +4,6 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace BLLs.Negocio
 {
@@ -174,7 +173,7 @@ namespace BLLs.Negocio
             }
         }
 
-        private void AgregarEncabezado(Document documento, Venta venta, 
+        private void AgregarEncabezado(Document documento, Venta venta,
             iTextSharp.text.Font fuenteTitulo, iTextSharp.text.Font fuenteSubtitulo, iTextSharp.text.Font fuenteNormal)
         {
             // Encabezado con logo, empresa y factura
@@ -203,7 +202,7 @@ namespace BLLs.Negocio
             celdaFactura.Border = Rectangle.BOX;
             celdaFactura.HorizontalAlignment = Element.ALIGN_CENTER;
             celdaFactura.AddElement(new Paragraph("FACTURA", fuenteTitulo));
-            
+
             string formatoNumero = BLL_CONFIGURACION.ObtenerFormatoNumeroFactura();
             celdaFactura.AddElement(new Paragraph($"Nº {venta.Id.ToString(formatoNumero)}", fuenteSubtitulo));
             celdaFactura.AddElement(new Paragraph($"Fecha: {venta.Fecha:dd/MM/yyyy}", fuenteNormal));
@@ -260,7 +259,7 @@ namespace BLLs.Negocio
             }
         }
 
-        private void AgregarDatosCliente(Document documento, Venta venta, 
+        private void AgregarDatosCliente(Document documento, Venta venta,
             iTextSharp.text.Font fuenteSubtitulo, iTextSharp.text.Font fuenteNormal)
         {
             var tablaCliente = new PdfPTable(1) { WidthPercentage = 100 };
@@ -274,7 +273,7 @@ namespace BLLs.Negocio
             documento.Add(new Paragraph(" ")); // Espacio
         }
 
-        private void AgregarDetalleVenta(Document documento, Venta venta, 
+        private void AgregarDetalleVenta(Document documento, Venta venta,
             iTextSharp.text.Font fuenteSubtitulo, iTextSharp.text.Font fuenteNormal)
         {
             var tablaDetalle = new PdfPTable(4) { WidthPercentage = 100 };
@@ -300,7 +299,7 @@ namespace BLLs.Negocio
             documento.Add(new Paragraph(" ")); // Espacio
         }
 
-        private void AgregarTotales(Document documento, Venta venta, 
+        private void AgregarTotales(Document documento, Venta venta,
             iTextSharp.text.Font fuenteTitulo, iTextSharp.text.Font fuenteNormal)
         {
             var tablaTotal = new PdfPTable(2) { WidthPercentage = 100 };

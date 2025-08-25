@@ -12,17 +12,16 @@ namespace MPPs.Negocio
 {
     public class MPP_COTIZACION : IRepositorio<Cotizacion>
     {
-
         private Conexion oCnx;
         private readonly MPP_DETALLECOTIZACION detalleCotizacionRepositorio;
         private readonly MPP_PROVEEDOR proveedorRepository;
+
         public MPP_COTIZACION()
         {
             oCnx = Conexion.Instance;
             detalleCotizacionRepositorio = new MPP_DETALLECOTIZACION();
             proveedorRepository = new MPP_PROVEEDOR();
         }
-
 
         public void Insertar(Cotizacion cotizacion)
         {
@@ -166,7 +165,6 @@ namespace MPPs.Negocio
             return cotizaciones;
         }
 
-
         private Cotizacion Map(DataRow row)
         {
             return new Cotizacion
@@ -179,5 +177,4 @@ namespace MPPs.Negocio
             };
         }
     }
-
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -54,7 +53,7 @@ namespace BLLs.Tecnica
         public static string FormatearCUIT(string cuit)
         {
             string cuitLimpio = LimpiarCUIT(cuit);
-            
+
             if (cuitLimpio.Length != 11)
                 return cuit; // Devolver original si no tiene 11 dígitos
 
@@ -72,7 +71,7 @@ namespace BLLs.Tecnica
             {
                 // Factores de multiplicación para el cálculo del dígito verificador
                 int[] factores = { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
-                
+
                 int suma = 0;
                 for (int i = 0; i < 10; i++)
                 {
@@ -81,7 +80,7 @@ namespace BLLs.Tecnica
 
                 int resto = suma % 11;
                 int digitoVerificador = resto < 2 ? resto : 11 - resto;
-                
+
                 return digitoVerificador == int.Parse(cuitLimpio[10].ToString());
             }
             catch
@@ -90,7 +89,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Validaciones de CUIT
 
         #region Validaciones de Email
 
@@ -116,7 +115,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Validaciones de Email
 
         #region Validaciones de Campos Requeridos
 
@@ -160,7 +159,7 @@ namespace BLLs.Tecnica
             return true;
         }
 
-        #endregion
+        #endregion Validaciones de Campos Requeridos
 
         #region Validaciones de Teléfono
 
@@ -196,7 +195,7 @@ namespace BLLs.Tecnica
                 return telefono;
 
             string telefonoLimpio = telefono.Replace("-", "").Replace(" ", "").Replace("(", "").Replace(")", "");
-            
+
             // Formato básico para teléfonos argentinos
             if (telefonoLimpio.Length >= 10)
             {
@@ -212,7 +211,7 @@ namespace BLLs.Tecnica
             return telefono; // Devolver original si no coincide con formatos esperados
         }
 
-        #endregion
+        #endregion Validaciones de Teléfono
 
         #region Validaciones de Resultados
 
@@ -231,9 +230,10 @@ namespace BLLs.Tecnica
             }
 
             public static ResultadoValidacion Exitoso => new ResultadoValidacion(true);
+
             public static ResultadoValidacion Error(string mensaje) => new ResultadoValidacion(false, mensaje);
         }
 
-        #endregion
+        #endregion Validaciones de Resultados
     }
 }

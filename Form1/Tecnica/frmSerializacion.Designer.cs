@@ -39,7 +39,9 @@
             this.groupBoxDeserializacion = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelDeserializacion = new System.Windows.Forms.TableLayoutPanel();
             this.txtContenidoDeserializar = new System.Windows.Forms.TextBox();
+            this.treeViewDeserializado = new System.Windows.Forms.TreeView();
             this.panelControlesDeserializacion = new System.Windows.Forms.Panel();
+            this.btnCambiarVista = new System.Windows.Forms.Button();
             this.btnDeserializar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.btnGuardarSerializado = new System.Windows.Forms.Button();
@@ -55,7 +57,6 @@
             this.panelControlesSerializacion.SuspendLayout();
             this.groupBoxDeserializacion.SuspendLayout();
             this.tableLayoutPanelDeserializacion.SuspendLayout();
-            this.panelControlesDeserializacion.SuspendLayout();
             this.panelBotones.SuspendLayout();
             this.panelIdioma.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -74,11 +75,11 @@
             this.tableLayoutPanelPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
             this.tableLayoutPanelPrincipal.RowCount = 4;
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
-            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 600);
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(1000, 700);
             this.tableLayoutPanelPrincipal.TabIndex = 0;
             // 
             // groupBoxSerializacion
@@ -88,7 +89,7 @@
             this.groupBoxSerializacion.ForeColor = System.Drawing.Color.White;
             this.groupBoxSerializacion.Location = new System.Drawing.Point(3, 3);
             this.groupBoxSerializacion.Name = "groupBoxSerializacion";
-            this.groupBoxSerializacion.Size = new System.Drawing.Size(794, 264);
+            this.groupBoxSerializacion.Size = new System.Drawing.Size(994, 274);
             this.groupBoxSerializacion.TabIndex = 0;
             this.groupBoxSerializacion.TabStop = false;
             this.groupBoxSerializacion.Tag = "groupBoxSerializacion_frmSer";
@@ -106,7 +107,7 @@
             this.tableLayoutPanelSerializacion.RowCount = 2;
             this.tableLayoutPanelSerializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanelSerializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanelSerializacion.Size = new System.Drawing.Size(788, 245);
+            this.tableLayoutPanelSerializacion.Size = new System.Drawing.Size(988, 255);
             this.tableLayoutPanelSerializacion.TabIndex = 0;
             // 
             // txtContenidoSerializar
@@ -119,7 +120,7 @@
             this.txtContenidoSerializar.Name = "txtContenidoSerializar";
             this.txtContenidoSerializar.ReadOnly = true;
             this.txtContenidoSerializar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtContenidoSerializar.Size = new System.Drawing.Size(782, 190);
+            this.txtContenidoSerializar.Size = new System.Drawing.Size(982, 200);
             this.txtContenidoSerializar.TabIndex = 3;
             // 
             // panelControlesSerializacion
@@ -130,7 +131,7 @@
             this.panelControlesSerializacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControlesSerializacion.Location = new System.Drawing.Point(3, 3);
             this.panelControlesSerializacion.Name = "panelControlesSerializacion";
-            this.panelControlesSerializacion.Size = new System.Drawing.Size(782, 43);
+            this.panelControlesSerializacion.Size = new System.Drawing.Size(982, 45);
             this.panelControlesSerializacion.TabIndex = 0;
             // 
             // btnSerializar
@@ -139,7 +140,7 @@
             this.btnSerializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.btnSerializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSerializar.ForeColor = System.Drawing.Color.White;
-            this.btnSerializar.Location = new System.Drawing.Point(650, 8);
+            this.btnSerializar.Location = new System.Drawing.Point(850, 10);
             this.btnSerializar.Name = "btnSerializar";
             this.btnSerializar.Size = new System.Drawing.Size(120, 30);
             this.btnSerializar.TabIndex = 2;
@@ -178,7 +179,7 @@
             this.groupBoxDeserializacion.ForeColor = System.Drawing.Color.White;
             this.groupBoxDeserializacion.Location = new System.Drawing.Point(3, 273);
             this.groupBoxDeserializacion.Name = "groupBoxDeserializacion";
-            this.groupBoxDeserializacion.Size = new System.Drawing.Size(794, 204);
+            this.groupBoxDeserializacion.Size = new System.Drawing.Size(994, 310);
             this.groupBoxDeserializacion.TabIndex = 1;
             this.groupBoxDeserializacion.TabStop = false;
             this.groupBoxDeserializacion.Tag = "groupBoxDeserializacion_frmSer";
@@ -186,17 +187,19 @@
             // 
             // tableLayoutPanelDeserializacion
             // 
-            this.tableLayoutPanelDeserializacion.ColumnCount = 1;
-            this.tableLayoutPanelDeserializacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelDeserializacion.Controls.Add(this.txtContenidoDeserializar, 0, 1);
-            this.tableLayoutPanelDeserializacion.Controls.Add(this.panelControlesDeserializacion, 0, 0);
+            this.tableLayoutPanelDeserializacion.ColumnCount = 2;
+            this.tableLayoutPanelDeserializacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelDeserializacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelDeserializacion.Controls.Add(this.txtContenidoDeserializar, 0, 0);
+            this.tableLayoutPanelDeserializacion.Controls.Add(this.treeViewDeserializado, 1, 0);
+            this.tableLayoutPanelDeserializacion.Controls.Add(this.panelControlesDeserializacion, 0, 1);
             this.tableLayoutPanelDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDeserializacion.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanelDeserializacion.Name = "tableLayoutPanelDeserializacion";
             this.tableLayoutPanelDeserializacion.RowCount = 2;
-            this.tableLayoutPanelDeserializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanelDeserializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanelDeserializacion.Size = new System.Drawing.Size(788, 185);
+            this.tableLayoutPanelDeserializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
+            this.tableLayoutPanelDeserializacion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanelDeserializacion.Size = new System.Drawing.Size(988, 291);
             this.tableLayoutPanelDeserializacion.TabIndex = 0;
             // 
             // txtContenidoDeserializar
@@ -204,29 +207,54 @@
             this.txtContenidoDeserializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.txtContenidoDeserializar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtContenidoDeserializar.ForeColor = System.Drawing.Color.White;
-            this.txtContenidoDeserializar.Location = new System.Drawing.Point(3, 40);
+            this.txtContenidoDeserializar.Location = new System.Drawing.Point(3, 3);
             this.txtContenidoDeserializar.Multiline = true;
             this.txtContenidoDeserializar.Name = "txtContenidoDeserializar";
             this.txtContenidoDeserializar.ReadOnly = true;
             this.txtContenidoDeserializar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtContenidoDeserializar.Size = new System.Drawing.Size(782, 142);
+            this.txtContenidoDeserializar.Size = new System.Drawing.Size(488, 241);
             this.txtContenidoDeserializar.TabIndex = 2;
+            // 
+            // treeViewDeserializado
+            // 
+            this.treeViewDeserializado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.treeViewDeserializado.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewDeserializado.ForeColor = System.Drawing.Color.White;
+            this.treeViewDeserializado.Location = new System.Drawing.Point(497, 3);
+            this.treeViewDeserializado.Name = "treeViewDeserializado";
+            this.treeViewDeserializado.Size = new System.Drawing.Size(488, 241);
+            this.treeViewDeserializado.TabIndex = 3;
+            this.treeViewDeserializado.Visible = false;
             // 
             // panelControlesDeserializacion
             // 
-            this.panelControlesDeserializacion.Controls.Add(this.btnDeserializar);
+            this.tableLayoutPanelDeserializacion.SetColumnSpan(this.panelControlesDeserializacion, 2);
             this.panelControlesDeserializacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControlesDeserializacion.Location = new System.Drawing.Point(3, 3);
+            this.panelControlesDeserializacion.Location = new System.Drawing.Point(3, 250);
             this.panelControlesDeserializacion.Name = "panelControlesDeserializacion";
-            this.panelControlesDeserializacion.Size = new System.Drawing.Size(782, 31);
+            this.panelControlesDeserializacion.Size = new System.Drawing.Size(982, 38);
             this.panelControlesDeserializacion.TabIndex = 0;
+            // 
+            // btnCambiarVista
+            // 
+            this.btnCambiarVista.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.btnCambiarVista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarVista.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarVista.Location = new System.Drawing.Point(450, 6);
+            this.btnCambiarVista.Name = "btnCambiarVista";
+            this.btnCambiarVista.Size = new System.Drawing.Size(120, 25);
+            this.btnCambiarVista.TabIndex = 2;
+            this.btnCambiarVista.Tag = "btnCambiarVista_frmSer";
+            this.btnCambiarVista.Text = "Vista Estructurada";
+            this.btnCambiarVista.UseVisualStyleBackColor = false;
+            this.btnCambiarVista.Click += new System.EventHandler(this.btnCambiarVista_Click);
             // 
             // btnDeserializar
             // 
             this.btnDeserializar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnDeserializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeserializar.ForeColor = System.Drawing.Color.White;
-            this.btnDeserializar.Location = new System.Drawing.Point(20, 3);
+            this.btnDeserializar.Location = new System.Drawing.Point(320, 6);
             this.btnDeserializar.Name = "btnDeserializar";
             this.btnDeserializar.Size = new System.Drawing.Size(120, 25);
             this.btnDeserializar.TabIndex = 1;
@@ -237,12 +265,14 @@
             // 
             // panelBotones
             // 
+            this.panelBotones.Controls.Add(this.btnCambiarVista);
             this.panelBotones.Controls.Add(this.btnGuardarSerializado);
+            this.panelBotones.Controls.Add(this.btnDeserializar);
             this.panelBotones.Controls.Add(this.btnSalir);
             this.panelBotones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBotones.Location = new System.Drawing.Point(3, 483);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(794, 54);
+            this.panelBotones.Size = new System.Drawing.Size(994, 52);
             this.panelBotones.TabIndex = 2;
             // 
             // btnGuardarSerializado
@@ -265,7 +295,7 @@
             this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.ForeColor = System.Drawing.Color.White;
-            this.btnSalir.Location = new System.Drawing.Point(650, 12);
+            this.btnSalir.Location = new System.Drawing.Point(850, 12);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(120, 30);
             this.btnSalir.TabIndex = 3;
@@ -280,7 +310,7 @@
             this.panelIdioma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelIdioma.Location = new System.Drawing.Point(3, 543);
             this.panelIdioma.Name = "panelIdioma";
-            this.panelIdioma.Size = new System.Drawing.Size(794, 54);
+            this.panelIdioma.Size = new System.Drawing.Size(994, 45);
             this.panelIdioma.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -294,7 +324,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(794, 54);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(994, 45);
             this.tableLayoutPanel1.TabIndex = 70;
             // 
             // tableLayoutPanel6
@@ -305,12 +335,12 @@
             this.tableLayoutPanel6.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.cboxIdiomas, 1, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(400, 3);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(500, 3);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(391, 48);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(491, 39);
             this.tableLayoutPanel6.TabIndex = 69;
             // 
             // label7
@@ -345,10 +375,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(1000, 700);
             this.Controls.Add(this.tableLayoutPanelPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MinimumSize = new System.Drawing.Size(600, 500);
+            this.MinimumSize = new System.Drawing.Size(900, 650);
             this.Name = "frmSerializacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Serialización de Datos - CheeseLogix";
@@ -361,7 +391,6 @@
             this.groupBoxDeserializacion.ResumeLayout(false);
             this.tableLayoutPanelDeserializacion.ResumeLayout(false);
             this.tableLayoutPanelDeserializacion.PerformLayout();
-            this.panelControlesDeserializacion.ResumeLayout(false);
             this.panelBotones.ResumeLayout(false);
             this.panelIdioma.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -386,6 +415,8 @@
         private System.Windows.Forms.TextBox txtContenidoDeserializar;
         private System.Windows.Forms.Panel panelControlesDeserializacion;
         private System.Windows.Forms.Button btnDeserializar;
+        private System.Windows.Forms.Button btnCambiarVista;
+        private System.Windows.Forms.TreeView treeViewDeserializado;
         private System.Windows.Forms.Panel panelBotones;
         private System.Windows.Forms.Button btnGuardarSerializado;
         private System.Windows.Forms.Button btnSalir;

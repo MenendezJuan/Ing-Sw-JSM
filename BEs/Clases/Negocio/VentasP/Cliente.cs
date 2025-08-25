@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace BEs.Clases.Negocio.Ventas
 {
@@ -22,4 +21,4 @@ namespace BEs.Clases.Negocio.Ventas
             return NombreCompleto;
         }
     }
-} 
+}

@@ -593,26 +593,28 @@ namespace CheeseLogix.Negocio.Ventas
                 MessageBox.Show($"Venta creada exitosamente con ID: {ventaId}\n\nEl stock ha sido reservado automáticamente.\n\nProcediendo al cobro...", 
                     BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
-                // Redirigir al formulario de cobro
-                var frmCobro = new frmCobroVenta(nuevaVenta);
-                this.Hide();
-                var resultadoCobro = frmCobro.ShowDialog();
-                
-                // Si el cobro fue exitoso o cancelado, cerrar este formulario
-                if (resultadoCobro == DialogResult.OK || resultadoCobro == DialogResult.Cancel)
+                // Preguntar si desea realizar otra venta para el mismo cliente
+                var otraVenta = MessageBox.Show(
+                    $"Venta registrada exitosamente.\n\n¿Desea realizar otra venta para el cliente '{_clienteActual.NombreCompleto}'?",
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (otraVenta == DialogResult.Yes)
                 {
-                    // Limpiar carrito y cerrar formulario
+                    // Reiniciar el formulario para nueva venta
                     _carrito.Clear();
                     ActualizarVistaCarrito();
                     ActualizarTotal();
-                    
-                    this.DialogResult = resultadoCobro;
-                    this.Close();
+                    CargarProductos(); // Recargar productos con stock actualizado
+                    MessageBox.Show($"Formulario reiniciado para nueva venta del cliente: {_clienteActual.NombreCompleto}",
+                        BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // Si hay error en el cobro, mostrar este formulario nuevamente
-                    this.Show();
+                    // Cerrar y volver al inicio de órdenes
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
             }
             catch (Exception ex)

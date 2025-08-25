@@ -1,9 +1,8 @@
 using Microsoft.Office.Interop.Excel;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Drawing;
 using System.IO;
-using Microsoft.Reporting.WinForms;
-using System.Reflection;
 
 namespace BLLs.Tecnica
 {
@@ -150,7 +149,7 @@ namespace BLLs.Tecnica
             hoja.Columns.AutoFit();
         }
 
-        #endregion
+        #endregion Exportación Excel
 
         #region Exportación PDF
 
@@ -163,7 +162,7 @@ namespace BLLs.Tecnica
             {
                 // Generar la ruta completa del archivo
                 string rutaCompleta = GenerarRutaArchivo(nombreArchivo, "pdf");
-                
+
                 // Asegurar que el directorio exista
                 string directorio = Path.GetDirectoryName(rutaCompleta);
                 if (!Directory.Exists(directorio))
@@ -172,7 +171,8 @@ namespace BLLs.Tecnica
                 }
 
                 // Usar ReportViewerFixer para proteger contra PInvokeStackImbalance
-                bool resultado = ReportViewerFixer.ExecuteWithProtection(() => {
+                bool resultado = ReportViewerFixer.ExecuteWithProtection(() =>
+                {
                     // Configuración del dispositivo de renderizado
                     string deviceInfo = @"<DeviceInfo>
                                          <OutputFormat>PDF</OutputFormat>
@@ -195,12 +195,12 @@ namespace BLLs.Tecnica
                     {
                         // Renderizar con parámetros explícitos
                         byte[] bytes = reportViewer.LocalReport.Render(
-                            "PDF", 
-                            deviceInfo, 
+                            "PDF",
+                            deviceInfo,
                             out mimeType,
-                            out encoding, 
+                            out encoding,
                             out extension,
-                            out streamIds, 
+                            out streamIds,
                             out warnings);
 
                         // Escribir el archivo usando un FileStream para mejor control
@@ -225,7 +225,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Exportación PDF
 
         #region Métodos Auxiliares
 
@@ -338,7 +338,7 @@ namespace BLLs.Tecnica
                     logoTable.Columns.Add("Logo", typeof(byte[]));
                     logoTable.Columns.Add("NombreEmpresa", typeof(string));
                     logoTable.Columns.Add("Titulo", typeof(string));
-                    
+
                     var row = logoTable.NewRow();
                     row["Logo"] = logoBytes;
                     row["NombreEmpresa"] = ConstantesUI.Marca.NombreEmpresa;
@@ -383,6 +383,6 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Métodos Auxiliares
     }
 }

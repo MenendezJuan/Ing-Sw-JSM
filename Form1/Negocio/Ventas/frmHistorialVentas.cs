@@ -31,7 +31,35 @@ namespace CheeseLogix.Negocio.Ventas
 			Bll_Traduccion = new BLL_TRADUCCION();
 			CargarIdiomas();
 			Actualizar(sesion.Idioma);
+			ConfigurarEstilosDataGrids();
 			CargarVentas();
+		}
+		
+		private void ConfigurarEstilosDataGrids()
+		{
+			// Configurar estilos para gridVentas
+			gridVentas.BackgroundColor = Color.FromArgb(45, 45, 45);
+			gridVentas.DefaultCellStyle.BackColor = Color.FromArgb(60, 60, 60);
+			gridVentas.DefaultCellStyle.ForeColor = Color.White;
+			gridVentas.DefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 130, 180);
+			gridVentas.DefaultCellStyle.SelectionForeColor = Color.White;
+			gridVentas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
+			gridVentas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+			gridVentas.EnableHeadersVisualStyles = false;
+			gridVentas.BorderStyle = BorderStyle.None;
+			gridVentas.GridColor = Color.FromArgb(80, 80, 80);
+			
+			// Configurar estilos para gridDetalles
+			gridDetalles.BackgroundColor = Color.FromArgb(45, 45, 45);
+			gridDetalles.DefaultCellStyle.BackColor = Color.FromArgb(60, 60, 60);
+			gridDetalles.DefaultCellStyle.ForeColor = Color.White;
+			gridDetalles.DefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 130, 180);
+			gridDetalles.DefaultCellStyle.SelectionForeColor = Color.White;
+			gridDetalles.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
+			gridDetalles.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+			gridDetalles.EnableHeadersVisualStyles = false;
+			gridDetalles.BorderStyle = BorderStyle.None;
+			gridDetalles.GridColor = Color.FromArgb(80, 80, 80);
 		}
 
 		private void CargarVentas()
@@ -69,26 +97,72 @@ namespace CheeseLogix.Negocio.Ventas
 		private void FormatearGrillaVentas()
 		{
 			if (gridVentas.Columns.Count == 0) return;
-			// Ocultar columnas poco útiles y renombrar encabezados básicos
-			if (gridVentas.Columns.Contains("Id")) gridVentas.Columns["Id"].HeaderText = "Id";
+			
+			// Configurar columnas visibles con nombres correctos
+			if (gridVentas.Columns.Contains("Id")) gridVentas.Columns["Id"].HeaderText = "Nro. Venta";
 			if (gridVentas.Columns.Contains("MontoTotal")) gridVentas.Columns["MontoTotal"].HeaderText = "Monto";
-			if (gridVentas.Columns.Contains("Fecha")) gridVentas.Columns["Fecha"].HeaderText = "Fecha";
 			if (gridVentas.Columns.Contains("TipoPagoEnum")) gridVentas.Columns["TipoPagoEnum"].HeaderText = "Pago";
+			if (gridVentas.Columns.Contains("Fecha")) gridVentas.Columns["Fecha"].HeaderText = "Fecha";
+			
+			// Corregir nombre de estado
+			if (gridVentas.Columns.Contains("EstadoVentaEnum")) gridVentas.Columns["EstadoVentaEnum"].HeaderText = "Estado";
+			
+			// Renombrar columnas existentes para cliente y vendedor
+			if (gridVentas.Columns.Contains("ClienteId")) 
+				gridVentas.Columns["ClienteId"].HeaderText = "Nro. Cliente";
+			
+			if (gridVentas.Columns.Contains("UsuarioVendedorId")) 
+				gridVentas.Columns["UsuarioVendedorId"].HeaderText = "Cód. Vendedor";
+			
+			// Agregar columnas calculadas para nombres
+			if (!gridVentas.Columns.Contains("Cliente"))
+			{
+				DataGridViewTextBoxColumn clienteCol = new DataGridViewTextBoxColumn
+				{
+					Name = "Cliente",
+					HeaderText = "Cliente",
+					DataPropertyName = "NombreCliente",
+					ReadOnly = true
+				};
+				gridVentas.Columns.Add(clienteCol);
+			}
+			
+			if (!gridVentas.Columns.Contains("Vendedor"))
+			{
+				DataGridViewTextBoxColumn vendedorCol = new DataGridViewTextBoxColumn
+				{
+					Name = "Vendedor",
+					HeaderText = "Vendedor",
+					DataPropertyName = "NombreVendedor",
+					ReadOnly = true
+				};
+				gridVentas.Columns.Add(vendedorCol);
+			}
+			
+			// Ocultar columnas no deseadas
 			if (gridVentas.Columns.Contains("Comentario")) gridVentas.Columns["Comentario"].Visible = false;
 			if (gridVentas.Columns.Contains("oDetalleVenta")) gridVentas.Columns["oDetalleVenta"].Visible = false;
 			if (gridVentas.Columns.Contains("oCliente")) gridVentas.Columns["oCliente"].Visible = false;
+			if (gridVentas.Columns.Contains("oVendedor")) gridVentas.Columns["oVendedor"].Visible = false;
+			if (gridVentas.Columns.Contains("NombreCliente")) gridVentas.Columns["NombreCliente"].Visible = false;
+			if (gridVentas.Columns.Contains("NombreVendedor")) gridVentas.Columns["NombreVendedor"].Visible = false;
 		}
 
 		private void FormatearGrillaDetalles()
 		{
 			if (gridDetalles.Columns.Count == 0) return;
+			
+			// Ocultar columnas no deseadas
 			if (gridDetalles.Columns.Contains("Id")) gridDetalles.Columns["Id"].Visible = false;
 			if (gridDetalles.Columns.Contains("VentaId")) gridDetalles.Columns["VentaId"].Visible = false;
-			if (gridDetalles.Columns.Contains("ProductoId")) gridDetalles.Columns["ProductoId"].HeaderText = "ProductoId";
+			if (gridDetalles.Columns.Contains("oProducto")) gridDetalles.Columns["oProducto"].Visible = false;
+			if (gridDetalles.Columns.Contains("oVenta")) gridDetalles.Columns["oVenta"].Visible = false;
+			
+			// Renombrar columnas correctamente
+			if (gridDetalles.Columns.Contains("ProductoId")) gridDetalles.Columns["ProductoId"].HeaderText = "Cód. Producto";
 			if (gridDetalles.Columns.Contains("Precio")) gridDetalles.Columns["Precio"].HeaderText = "Precio";
 			if (gridDetalles.Columns.Contains("Cantidad")) gridDetalles.Columns["Cantidad"].HeaderText = "Cantidad";
 			if (gridDetalles.Columns.Contains("SubTotal")) gridDetalles.Columns["SubTotal"].HeaderText = "Subtotal";
-			if (gridDetalles.Columns.Contains("oProducto")) gridDetalles.Columns["oProducto"].Visible = false;
 		}
 
 		private void gridVentas_SelectionChanged(object sender, EventArgs e)
@@ -112,10 +186,19 @@ namespace CheeseLogix.Negocio.Ventas
 			var detalle = gridDetalles.CurrentRow.DataBoundItem as BEs.Clases.Negocio.Ventas.DetalleVenta;
 			if (detalle == null) return;
 
-			var frm = new frmRegistrarDevolucion(_ventaSeleccionada.Id, detalle.oProducto.Id);
-			var dialogResult = frm.ShowDialog(this);
-			CargarDetalles(_ventaSeleccionada.Id);
-			CargarVentas();
+			// Abrir como modal cuando se llama desde historial de ventas
+			using (var frm = new frmRegistrarDevolucion(_ventaSeleccionada.Id, detalle.oProducto.Id))
+			{
+				frm.StartPosition = FormStartPosition.CenterParent;
+				var dialogResult = frm.ShowDialog(this);
+				
+				// Refrescar datos después de cerrar el formulario
+				if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel)
+				{
+					CargarDetalles(_ventaSeleccionada.Id);
+					CargarVentas();
+				}
+			}
 		}
 
 		#region Idiomas

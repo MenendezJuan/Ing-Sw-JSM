@@ -1,12 +1,10 @@
 ﻿using BEs;
 using BLLs.Negocio;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq; 
+using System.Linq;
 using System.Web.Script.Serialization;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace BLLs.Tecnica
 {
@@ -35,16 +33,18 @@ namespace BLLs.Tecnica
             try
             {
                 object datos = null;
-                
+
                 switch (tipoDato.ToLower())
                 {
                     case "bitácora":
                     case "bitacora":
                         datos = _bllBitacora.FiltrarXTipo(Enum_TiposBitacora.TODO);
                         break;
+
                     case "ventas":
                         datos = _bllVenta.ObtenerTodos();
                         break;
+
                     case "usuarios":
                         var usuarios = _bllUsuario.Listar();
                         datos = usuarios.Select(u => new
@@ -54,6 +54,7 @@ namespace BLLs.Tecnica
                             FechaCreacion = DateTime.Now
                         });
                         break;
+
                     case "excepción":
                     case "excepcion":
                         datos = new
@@ -65,6 +66,7 @@ namespace BLLs.Tecnica
                             InnerException = "Inner exception de ejemplo"
                         };
                         break;
+
                     default:
                         throw new ArgumentException($"Tipo de dato no válido: {tipoDato}");
                 }
@@ -147,7 +149,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Métodos
 
         #region Configuración
 
@@ -160,7 +162,7 @@ namespace BLLs.Tecnica
             return BLL_CONFIGURACION.ObtenerDirectorioExportaciones();
         }
 
-        #endregion
+        #endregion Configuración
 
         #region Validaciones
 
@@ -190,6 +192,6 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Validaciones
     }
 }
