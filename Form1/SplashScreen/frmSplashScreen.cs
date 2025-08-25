@@ -29,7 +29,6 @@ namespace CheeseLogix.SplashScreen
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-
         private void frmSplashScreen_Load(object sender, EventArgs e)
         {
             timer = new Timer();

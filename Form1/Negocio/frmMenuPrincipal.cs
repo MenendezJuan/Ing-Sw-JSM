@@ -26,6 +26,7 @@ namespace CheeseLogix
         private BLL_PRODUCTO _bllProducto;
         private BLL_AJUSTESTOCK _bllAjuste;
         private Timer alertRefreshTimer;
+
         public frmMenuPrincipal()
         {
             InitializeComponent();
@@ -51,13 +52,17 @@ namespace CheeseLogix
         }
 
         #region PropiedadesFrm
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HTCAPTION = 0x2;
+
         [DllImport("User32.dll")]
         public static extern bool ReleaseCapture();
+
         [DllImport("User32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        #endregion
+
+        #endregion PropiedadesFrm
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
@@ -69,7 +74,6 @@ namespace CheeseLogix
             alertRefreshTimer.Start();
         }
 
-
         #region MetodosPrivados
 
         private string CargarUsuarioLabel()
@@ -77,6 +81,7 @@ namespace CheeseLogix
             var nombreUsuario = sesion.oUsuario.Email;
             return nombreUsuario;
         }
+
         public void OcultarPanel()
         {
             panelCentral.Visible = false;
@@ -98,6 +103,7 @@ namespace CheeseLogix
             if (PanelEntidades.Visible)
                 PanelEntidades.Visible = false;
         }
+
         private void ShowSubMenu(Panel subMenu)
         {
             if (subMenu.Visible == false)
@@ -141,6 +147,7 @@ namespace CheeseLogix
         }
 
         #region Estilos
+
         private void AplicarEstiloBoton(Button boton)
         {
             boton.MouseEnter += (s, e) => Boton_MouseEnter(boton);
@@ -216,8 +223,10 @@ namespace CheeseLogix
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
         }
+
         #endregion Estilos
-        #endregion
+
+        #endregion MetodosPrivados
 
         private void btnGestionProducto_Click(object sender, EventArgs e)
         {
@@ -264,7 +273,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir reportes: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al abrir reportes: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -289,8 +298,6 @@ namespace CheeseLogix
             FormHijo(compraProductos);
             HideSubMenu();
         }
-
-
 
         private void btnDespachoProducto_Click(object sender, EventArgs e)
         {
@@ -322,12 +329,10 @@ namespace CheeseLogix
 
         private void AusuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void perfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void idiomasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -340,7 +345,6 @@ namespace CheeseLogix
 
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItemAyuda_Click(object sender, EventArgs e)
@@ -354,12 +358,13 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -381,6 +386,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -452,9 +458,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -468,6 +476,7 @@ namespace CheeseLogix
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -495,10 +504,13 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Permisos
 
         #region Extras
-        int i = 0;
+
+        private int i = 0;
+
         public void CerrarFrmPrin()
         {
             if (i == 0)
@@ -529,11 +541,13 @@ namespace CheeseLogix
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private Timer fadeOutTimer;
         private int fadeOutValue = 100;
         private bool isClosing = false;
+
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (alertRefreshTimer != null)
@@ -610,7 +624,6 @@ namespace CheeseLogix
 
         private void toolStripMenuItemUsuario_Click(object sender, EventArgs e)
         {
-
         }
 
         private void frmMenuPrincipal_MdiChildActivate(object sender, EventArgs e)
@@ -634,10 +647,10 @@ namespace CheeseLogix
             try
             {
                 var ventasPendientes = _bllVenta.ObtenerVentasPorEstado(BEs.Clases.Negocio.Enums.EstadoVenta.EnProceso);
-                
+
                 if (ventasPendientes == null || !ventasPendientes.Any())
                 {
-                    MessageBox.Show("No hay ventas pendientes de cobro.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show("No hay ventas pendientes de cobro.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }

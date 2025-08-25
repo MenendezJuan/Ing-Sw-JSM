@@ -2,12 +2,11 @@
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Tecnica;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
-using System.Windows.Forms;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq; 
+using System.Windows.Forms;
 
 namespace CheeseLogix.Tecnica
 {
@@ -31,7 +30,7 @@ namespace CheeseLogix.Tecnica
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
             Actualizar(oIdioma);
-            
+
             ConfigurarControlesIniciales();
         }
 
@@ -48,7 +47,7 @@ namespace CheeseLogix.Tecnica
                 cboTipoDato.Items.Add("Usuarios");
                 cboTipoDato.Items.Add("Excepción");
                 cboTipoDato.SelectedIndex = 0;
-                
+
                 cboTipoDato.SelectedIndexChanged += CboTipoDato_SelectedIndexChanged;
             }
 
@@ -93,7 +92,7 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Métodos de Configuración
 
         #region Eventos de Botones
 
@@ -102,11 +101,11 @@ namespace CheeseLogix.Tecnica
             try
             {
                 string tipoDato = cboTipoDato?.SelectedItem?.ToString() ?? "Bitácora";
-                
+
                 string datosJSON = Bll_Serializacion.ObtenerDatosParaUI(tipoDato);
-                
+
                 txtContenidoSerializar.Text = datosJSON;
-                
+
                 MessageBox.Show($"Datos de {tipoDato} cargados exitosamente", "Éxito",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -125,7 +124,7 @@ namespace CheeseLogix.Tecnica
                 {
                     openFileDialog.Filter = "Archivos JSON (*.json)|*.json|Archivos XML (*.xml)|*.xml|Todos los archivos (*.*)|*.*";
                     openFileDialog.Title = "Seleccionar archivo para deserializar";
-                    
+
                     // Usar directorio de exportaciones desde configuración
                     string directorioExportaciones = Bll_Serializacion.ObtenerDirectorioExportaciones();
                     openFileDialog.InitialDirectory = directorioExportaciones;
@@ -134,13 +133,13 @@ namespace CheeseLogix.Tecnica
                     {
                         string contenido = Bll_Serializacion.DeserializarDesdeArchivo(openFileDialog.FileName);
                         txtContenidoDeserializar.Text = contenido;
-                        
+
                         // Mostrar vista estructurada si está habilitada
                         if (_vistaEstructurada)
                         {
                             MostrarVistaEstructurada(contenido, openFileDialog.FileName);
                         }
-                        
+
                         MessageBox.Show($"Archivo deserializado exitosamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -156,16 +155,16 @@ namespace CheeseLogix.Tecnica
         private void btnCambiarVista_Click(object sender, EventArgs e)
         {
             _vistaEstructurada = !_vistaEstructurada;
-            
+
             if (_vistaEstructurada)
             {
                 btnCambiarVista.Text = "Vista Raw";
                 btnCambiarVista.BackColor = System.Drawing.Color.FromArgb(76, 175, 80);
-                
+
                 // Mostrar TreeView y ocultar TextBox
                 treeViewDeserializado.Visible = true;
                 txtContenidoDeserializar.Visible = false;
-                
+
                 // Si hay contenido, mostrarlo estructurado
                 if (!string.IsNullOrEmpty(txtContenidoDeserializar.Text))
                 {
@@ -182,7 +181,7 @@ namespace CheeseLogix.Tecnica
             {
                 btnCambiarVista.Text = "Vista Estructurada";
                 btnCambiarVista.BackColor = System.Drawing.Color.FromArgb(255, 152, 0);
-                
+
                 // Ocultar TreeView y mostrar TextBox
                 treeViewDeserializado.Visible = false;
                 txtContenidoDeserializar.Visible = true;
@@ -194,7 +193,7 @@ namespace CheeseLogix.Tecnica
             try
             {
                 treeViewDeserializado.Nodes.Clear();
-                
+
                 if (string.IsNullOrEmpty(contenido))
                 {
                     treeViewDeserializado.Nodes.Add("Sin contenido para mostrar");
@@ -202,7 +201,7 @@ namespace CheeseLogix.Tecnica
                 }
 
                 string extension = Path.GetExtension(nombreArchivo).ToLower();
-                
+
                 if (extension == ".json")
                 {
                     MostrarJSONEstructurado(contenido);
@@ -241,7 +240,7 @@ namespace CheeseLogix.Tecnica
             {
                 // Parsear JSON y crear nodos del TreeView
                 var token = JToken.Parse(json);
-                
+
                 if (token is JArray jArray)
                 {
                     var rootNode = new TreeNode($"Array ({jArray.Count} elementos)");
@@ -258,7 +257,7 @@ namespace CheeseLogix.Tecnica
                 {
                     treeViewDeserializado.Nodes.Add($"Valor: {token}");
                 }
-                
+
                 // Expandir el primer nivel
                 foreach (TreeNode node in treeViewDeserializado.Nodes)
                 {
@@ -277,11 +276,11 @@ namespace CheeseLogix.Tecnica
             {
                 var xmlDoc = new System.Xml.XmlDocument();
                 xmlDoc.LoadXml(xml);
-                
+
                 var rootNode = xmlDoc.DocumentElement;
                 var treeNode = new TreeNode(rootNode.Name);
                 treeViewDeserializado.Nodes.Add(treeNode);
-                
+
                 CrearNodosXML(rootNode, treeNode);
             }
             catch (Exception ex)
@@ -296,7 +295,7 @@ namespace CheeseLogix.Tecnica
             {
                 string nodeName = property.Name;
                 string nodeValue = "";
-                
+
                 if (property.Value is JArray jArray)
                 {
                     nodeName += $" (Array [{jArray.Count}])";
@@ -314,7 +313,7 @@ namespace CheeseLogix.Tecnica
                 else
                 {
                     nodeValue = property.Value?.ToString() ?? "null";
-                    
+
                     // Formatear valores especiales
                     if (property.Value?.Type == JTokenType.Date)
                     {
@@ -328,7 +327,7 @@ namespace CheeseLogix.Tecnica
                     {
                         nodeValue = "(null)";
                     }
-                    
+
                     var node = new TreeNode($"{nodeName}: {nodeValue}");
                     nodes.Add(node);
                 }
@@ -340,7 +339,7 @@ namespace CheeseLogix.Tecnica
             for (int i = 0; i < jArray.Count; i++)
             {
                 var item = jArray[i];
-                
+
                 if (item is JObject jObject)
                 {
                     var node = new TreeNode($"[{i}] Objeto");
@@ -356,7 +355,7 @@ namespace CheeseLogix.Tecnica
                 else
                 {
                     string itemValue = item?.ToString() ?? "null";
-                    
+
                     // Formatear valores especiales en arrays
                     if (item?.Type == JTokenType.Date)
                     {
@@ -370,7 +369,7 @@ namespace CheeseLogix.Tecnica
                     {
                         itemValue = "(null)";
                     }
-                    
+
                     var node = new TreeNode($"[{i}]: {itemValue}");
                     parentNode.Nodes.Add(node);
                 }
@@ -385,7 +384,7 @@ namespace CheeseLogix.Tecnica
                 {
                     var node = new TreeNode(childNode.Name);
                     treeNode.Nodes.Add(node);
-                    
+
                     if (childNode.HasChildNodes)
                     {
                         CrearNodosXML(childNode, node);
@@ -414,7 +413,7 @@ namespace CheeseLogix.Tecnica
                     saveFileDialog.Filter = "Archivos JSON (*.json)|*.json|Archivos XML (*.xml)|*.xml";
                     saveFileDialog.Title = "Guardar archivo serializado";
                     saveFileDialog.FileName = $"Datos_{DateTime.Now:yyyyMMdd_HHmmss}";
-                    
+
                     // Usar directorio de exportaciones desde configuración
                     string directorioExportaciones = Bll_Serializacion.ObtenerDirectorioExportaciones();
                     saveFileDialog.InitialDirectory = directorioExportaciones;
@@ -423,7 +422,7 @@ namespace CheeseLogix.Tecnica
                     {
                         string formato = Path.GetExtension(saveFileDialog.FileName).ToLower();
                         bool exitoso = Bll_Serializacion.SerializarDesdeUI("datos", txtContenidoSerializar.Text, formato, saveFileDialog.FileName);
-                        
+
                         if (exitoso)
                         {
                             MessageBox.Show($"Archivo guardado exitosamente en:\n{saveFileDialog.FileName}", "Éxito",
@@ -444,7 +443,7 @@ namespace CheeseLogix.Tecnica
             this.Close();
         }
 
-        #endregion
+        #endregion Eventos de Botones
 
         #region Idiomas
 
@@ -528,6 +527,6 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Idiomas
     }
 }

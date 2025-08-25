@@ -26,12 +26,14 @@ namespace CheeseLogix
             BuscarControles(this.Controls);
             Actualizar(oIdioma);
         }
+
         private BLL_USUARIO Bll_Usuario;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
         private SessionManager sesion;
 
         #region Controles de Usuario
+
         private void button_Agregar_Click(object sender, EventArgs e)
         {
             try
@@ -46,7 +48,8 @@ namespace CheeseLogix
             }
         }
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -153,7 +156,6 @@ namespace CheeseLogix
                     MessageBox.Show("Se restauró el usuario", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     ActualizarGrid();
                 }
-
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
         }
@@ -170,8 +172,11 @@ namespace CheeseLogix
                 dataGridView2.Columns["DV"].Visible = false;
             }
         }
+
         #endregion Controles de Usuario
+
         #region Actualizaciones
+
         public void ActualizarGrid()
         {
             dataGridView1.DataSource = null;
@@ -180,8 +185,11 @@ namespace CheeseLogix
             dataGridView1.Columns["Contraseña"].Visible = false;
             dataGridView1.Columns["DV"].Visible = false;
         }
+
         #endregion Actualizaciones
+
         #region Idiomas
+
         public void Actualizar(IIdioma idioma)
         {
             foreach (Control control in ListaControles)
@@ -203,6 +211,7 @@ namespace CheeseLogix
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
         private void CargarIdiomas()
         {
             try
@@ -245,6 +254,7 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Idiomas
     }
 }

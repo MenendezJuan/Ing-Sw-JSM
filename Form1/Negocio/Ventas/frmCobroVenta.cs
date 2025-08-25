@@ -11,12 +11,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Rectangle = iTextSharp.text.Rectangle;
 
 namespace CheeseLogix.Negocio.Ventas
 {
@@ -30,14 +26,14 @@ namespace CheeseLogix.Negocio.Ventas
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
-        
+
         // Venta actual
         private Venta _ventaActual;
-        
+
         // Lista de ventas disponibles para cobro
         private List<Venta> _ventasDisponibles;
 
-        #endregion
+        #endregion Propiedades y Variables
 
         #region Constructor y Inicialización
 
@@ -82,7 +78,7 @@ namespace CheeseLogix.Negocio.Ventas
                 Buscar(sesion.Permisos[0]);
             }
         }
-        
+
         /// <summary>
         /// Cargar datos cuando se pasa una venta específica desde frmTramitarOrdenCarrito
         /// </summary>
@@ -101,7 +97,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_ventasDisponibles == null || _ventasDisponibles.Count == 0)
                 {
-                    MessageBox.Show("No hay ventas disponibles para cobrar.", ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show("No hay ventas disponibles para cobrar.", ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                     return;
@@ -114,13 +110,13 @@ namespace CheeseLogix.Negocio.Ventas
                     this.Close();
                     return;
                 }
-                
+
                 // Cargar datos de la venta seleccionada
                 CargarDatosVenta();
             }
         }
 
-        #endregion
+        #endregion Constructor y Inicialización
 
         #region Configuración de Datos
 
@@ -270,22 +266,26 @@ namespace CheeseLogix.Negocio.Ventas
                 case EstadoVenta.EnProceso:
                     labelEstado.ForeColor = Color.Orange;
                     break;
+
                 case EstadoVenta.Cobrada:
                     labelEstado.ForeColor = Color.Yellow;
                     break;
+
                 case EstadoVenta.Entregada:
                     labelEstado.ForeColor = Color.LightGreen;
                     break;
+
                 case EstadoVenta.Cancelada:
                     labelEstado.ForeColor = Color.Red;
                     break;
+
                 default:
                     labelEstado.ForeColor = Color.Gainsboro;
                     break;
             }
         }
 
-        #endregion
+        #endregion Configuración de Datos
 
         #region Eventos de Botones
 
@@ -372,7 +372,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.Close();
         }
 
-        #endregion
+        #endregion Eventos de Botones
 
         #region Procesamiento de Pago
 
@@ -400,9 +400,9 @@ namespace CheeseLogix.Negocio.Ventas
                     ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Preguntar si desea ver la factura generada
-                var verFactura = MessageBox.Show($"¿Desea abrir la factura generada?\n\nRuta: {rutaFactura}", 
+                var verFactura = MessageBox.Show($"¿Desea abrir la factura generada?\n\nRuta: {rutaFactura}",
                     ConstantesUI.Titulos.Confirmacion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (verFactura == DialogResult.Yes)
                 {
                     try
@@ -411,7 +411,7 @@ namespace CheeseLogix.Negocio.Ventas
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"No se pudo abrir la factura: {ex.Message}", ConstantesUI.Titulos.Error, 
+                        MessageBox.Show($"No se pudo abrir la factura: {ex.Message}", ConstantesUI.Titulos.Error,
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -457,7 +457,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Procesamiento de Pago
 
         #region Generación de Factura
 
@@ -479,11 +479,11 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Generación de Factura
 
         #region Gestión de Idiomas y Permisos
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
 
         public void BuscarControles(ICollection controles)
         {
@@ -498,6 +498,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -525,7 +526,8 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
-        #endregion
+
+        #endregion Permisos
 
         public void Actualizar(IIdioma idioma)
         {
@@ -637,7 +639,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Si solo hay una venta, seleccionarla automáticamente
                 if (ventasDisplay.Count == 1)
                 {
-                    var confirmar = MessageBox.Show($"¿Desea cobrar la venta:\n{ventasDisplay[0].Display}?", 
+                    var confirmar = MessageBox.Show($"¿Desea cobrar la venta:\n{ventasDisplay[0].Display}?",
                         "Confirmar Venta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     return confirmar == DialogResult.Yes ? ventasDisplay[0].Venta : null;
                 }
@@ -645,7 +647,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Para múltiples ventas, mostrar lista y solicitar número
                 mensaje += "\n\n¿Continuar con la selección?";
                 var resultado = MessageBox.Show(mensaje, "Ventas Disponibles para Cobro", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                
+
                 if (resultado != DialogResult.Yes)
                     return null;
 
@@ -660,6 +662,6 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Gestión de Idiomas y Permisos
     }
 }

@@ -45,11 +45,11 @@ namespace CheeseLogix.Tecnica
                     catch (Exception ex)
                     {
                         MessageBox.Show($"No se pudo cargar el visor PDF integrado: {ex.Message}\n\n" +
-                                      "Se abrirá el PDF con el visor predeterminado del sistema.", 
+                                      "Se abrirá el PDF con el visor predeterminado del sistema.",
                                       "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+
                         AbrirPDFExterno(rutaPDF);
-                        
+
                         MostrarMensajeAlternativo();
                     }
                 }
@@ -88,7 +88,7 @@ namespace CheeseLogix.Tecnica
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"No se pudo abrir el PDF: {ex.Message}", 
+                MessageBox.Show($"No se pudo abrir el PDF: {ex.Message}",
                     ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -98,7 +98,7 @@ namespace CheeseLogix.Tecnica
             try
             {
                 pdfViewer1.Visible = false;
-                
+
                 var lblMensaje = new Label
                 {
                     Text = "El PDF de ayuda se ha abierto en el visor predeterminado de su sistema.\n\n" +
@@ -110,7 +110,7 @@ namespace CheeseLogix.Tecnica
                     BackColor = System.Drawing.Color.FromArgb(45, 45, 45),
                     Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular)
                 };
-                
+
                 if (pdfViewer1.Parent != null)
                 {
                     pdfViewer1.Parent.Controls.Add(lblMensaje);
@@ -225,6 +225,6 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Idiomas
     }
 }

@@ -19,6 +19,7 @@ namespace CheeseLogix
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
+
         public frmControlSolicitudesCotizacion()
         {
             InitializeComponent();
@@ -36,12 +37,10 @@ namespace CheeseLogix
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-
         }
 
         private void frmControlSolicitudesCotizacion_Load(object sender, EventArgs e)
         {
-
         }
 
         private void btnAprobSolicitud_Click(object sender, EventArgs e)
@@ -87,13 +86,11 @@ namespace CheeseLogix
 
         private void ActualizarDataGridViewCotizacionRecibiendoLista(List<Cotizacion> cotizaciones)
         {
-
             dataGridViewCotizaciones.DataSource = null;
             dataGridViewDetalleCotizacion.DataSource = null;
             dataGridViewCotizaciones.DataSource = cotizaciones;
             ConfigurarColumnasCotizacion();
             Actualizar(sesion.Idioma);
-
         }
 
         private void CargarDetallesCotizacion(int cotizacionId)
@@ -134,6 +131,7 @@ namespace CheeseLogix
                 MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("una cotización primero"), BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void ConfigurarColumnasCotizacion()
         {
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
@@ -148,7 +146,6 @@ namespace CheeseLogix
 
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
             dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
-
 
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].HeaderText = "Estado";
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
@@ -174,7 +171,7 @@ namespace CheeseLogix
             dataGridViewDetalleCotizacion.Columns["Fecha"].Tag = "FechaSolicitud_Column";
         }
 
-        #endregion
+        #endregion MetodosPrivados
 
         private void dataGridViewCotizaciones_SelectionChanged(object sender, EventArgs e)
         {
@@ -202,6 +199,7 @@ namespace CheeseLogix
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -223,6 +221,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -286,9 +285,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -302,6 +303,7 @@ namespace CheeseLogix
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -329,10 +331,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Permisos
 
-
         #region Extras
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
@@ -352,6 +355,7 @@ namespace CheeseLogix
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
@@ -372,4 +376,3 @@ namespace CheeseLogix
         }
     }
 }
-

@@ -1,6 +1,5 @@
 ﻿using BEs;
 using BEs.Clases;
-using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
@@ -80,26 +79,26 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (dataGridViewCliente.DataSource == null)
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 DataTable dtClientes = ConvertirDataGridViewADataTable(dataGridViewCliente);
-                
+
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionClientes");
-                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName,
                     (dtClientes, ConstantesUI.Exportacion.HojaClientes, ConstantesUI.Exportacion.TituloClientes));
 
                 if (exportado)
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
-                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
+                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}",
                         ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado,
                         ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
+
                     if (result == DialogResult.Yes)
                     {
                         _bllExportacion.AbrirArchivo(rutaCompleta);
@@ -107,13 +106,13 @@ namespace CheeseLogix.Negocio.Ventas
                 }
                 else
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -154,7 +153,7 @@ namespace CheeseLogix.Negocio.Ventas
                 string mensajeError;
                 if (!ValidarEntradaBusquedaClientes(criterio, textoBusqueda, out mensajeError))
                 {
-                MessageBox.Show(mensajeError, ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(mensajeError, ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -175,6 +174,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region MetodosPrivados
+
         private bool ValidarEntradaBusquedaClientes(string criterio, string texto, out string mensajeError)
         {
             mensajeError = string.Empty;
@@ -193,27 +193,33 @@ namespace CheeseLogix.Negocio.Ventas
                     if (limpio.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Cuit; return false; }
                     if (limpio.Length == 11 && !BLL_VALIDACION.ValidarCUIT(val)) { mensajeError = ConstantesUI.Validaciones.CUITNoValido; return false; }
                     return true;
+
                 case "email":
                     if (val.Length < 3) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos3Email; return false; }
                     if (val.Contains("@") && !BLL_VALIDACION.ValidarEmail(val)) { mensajeError = ConstantesUI.Validaciones.EmailNoValido; return false; }
                     return true;
+
                 case "telefono":
                 case "teléfono":
                     if (val.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Telefono; return false; }
                     return true;
+
                 case "estado":
                     var aceptados = new[] { "activo", "inactivo", "true", "false", "1", "0" };
                     if (!aceptados.Contains(valNorm)) { mensajeError = ConstantesUI.Validaciones.EstadoInvalido; return false; }
                     return true;
+
                 case "nombre":
                 case "apellido":
                 case "direccion":
                     if (val.Length < 2) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos2; return false; }
                     return true;
+
                 default:
                     return true;
             }
         }
+
         private void CargarComboBuscar()
         {
             comboBuscar.Items.Clear();
@@ -228,6 +234,7 @@ namespace CheeseLogix.Negocio.Ventas
             if (comboBuscar.Items.Count > 0)
                 comboBuscar.SelectedIndex = 0;
         }
+
         private void LimpiarControles()
         {
             txtCuit.Clear();
@@ -305,7 +312,7 @@ namespace CheeseLogix.Negocio.Ventas
         {
             var clientes = _bllCliente.ObtenerTodos();
             dataGridViewCliente.DataSource = clientes;
-            
+
             if (dataGridViewCliente.Columns["Estado"] != null)
                 dataGridViewCliente.Columns["Estado"].Visible = false;
 
@@ -337,7 +344,7 @@ namespace CheeseLogix.Negocio.Ventas
         private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
         {
             DataTable dt = new DataTable();
-            
+
             // Agregar columnas visibles
             foreach (DataGridViewColumn column in dgv.Columns)
             {
@@ -346,7 +353,7 @@ namespace CheeseLogix.Negocio.Ventas
                     dt.Columns.Add(column.HeaderText, typeof(string));
                 }
             }
-            
+
             // Agregar filas
             foreach (DataGridViewRow row in dgv.Rows)
             {
@@ -354,7 +361,7 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     DataRow dataRow = dt.NewRow();
                     int columnIndex = 0;
-                    
+
                     foreach (DataGridViewColumn column in dgv.Columns)
                     {
                         if (column.Visible)
@@ -363,14 +370,15 @@ namespace CheeseLogix.Negocio.Ventas
                             columnIndex++;
                         }
                     }
-                    
+
                     dt.Rows.Add(dataRow);
                 }
             }
-            
+
             return dt;
         }
-        #endregion
+
+        #endregion MetodosPrivados
 
         private void buttonAgregarCliente_Click(object sender, EventArgs e)
         {
@@ -446,7 +454,6 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void frmGestionarClientes_Load(object sender, EventArgs e)
         {
-            
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -455,6 +462,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -540,9 +548,11 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
+
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -556,6 +566,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -583,9 +594,11 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
+
         #endregion Permisos
 
         #region Extras
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
@@ -605,6 +618,7 @@ namespace CheeseLogix.Negocio.Ventas
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private void buttonReactivacionCliente_Click(object sender, EventArgs e)
@@ -613,6 +627,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Reactivacion
+
         private void CargarClientesInactivosEnGrid()
         {
             var clientesInactivos = _bllCliente.ObtenerClientesInactivos();
@@ -679,7 +694,8 @@ namespace CheeseLogix.Negocio.Ventas
             panelDatosFiltrar.Enabled = true;
             btnReactivarCliente.Enabled = false;
         }
-        #endregion
+
+        #endregion Reactivacion
 
         private void btnReactivarCliente_Click(object sender, EventArgs e)
         {
@@ -741,4 +757,3 @@ namespace CheeseLogix.Negocio.Ventas
         }
     }
 }
-

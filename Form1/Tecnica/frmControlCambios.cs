@@ -123,7 +123,7 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Configuración de Entidades
 
         #region Configuración de Columnas
 
@@ -194,7 +194,7 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Configuración de Columnas
 
         #region Eventos de Selección
 
@@ -226,9 +226,11 @@ namespace CheeseLogix.Tecnica
                     case "Usuario":
                         entidadId = ((Usuario)_entidadSeleccionada).Id;
                         break;
+
                     case "Producto":
                         entidadId = ((BEs.Clases.Negocio.Producto)_entidadSeleccionada).Id;
                         break;
+
                     case "Venta":
                         entidadId = ((BEs.Clases.Negocio.Ventas.Venta)_entidadSeleccionada).Id;
                         break;
@@ -319,7 +321,7 @@ namespace CheeseLogix.Tecnica
             lblHistorialInfo.Text = "Seleccione una entidad para ver su historial";
         }
 
-        #endregion
+        #endregion Eventos de Selección
 
         #region Acciones
 
@@ -385,11 +387,11 @@ namespace CheeseLogix.Tecnica
             this.Close();
         }
 
-        #endregion
+        #endregion Acciones
 
         #region Idiomas y Permisos
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
 
         public void BuscarControles(ICollection controles)
         {
@@ -501,6 +503,6 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Idiomas y Permisos
     }
 }

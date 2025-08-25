@@ -251,9 +251,7 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-
-
-        #endregion
+        #endregion Métodos de Backup y Restore
 
         #region Eventos
 
@@ -267,11 +265,11 @@ namespace CheeseLogix.Tecnica
             // Aquí podrías mostrar información adicional del backup seleccionado
         }
 
-        #endregion
+        #endregion Eventos
 
         #region Gestión de Idiomas y Permisos
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
 
         public void BuscarControles(ICollection controles)
         {
@@ -286,6 +284,7 @@ namespace CheeseLogix.Tecnica
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -313,6 +312,7 @@ namespace CheeseLogix.Tecnica
                 }
             }
         }
+
         #endregion Permisos
 
         public void Actualizar(IIdioma idioma)
@@ -390,7 +390,7 @@ namespace CheeseLogix.Tecnica
             }
         }
 
-        #endregion
+        #endregion Gestión de Idiomas y Permisos
     }
 
     #region Clase auxiliar para items de backup
@@ -402,5 +402,5 @@ namespace CheeseLogix.Tecnica
         public string DisplayText { get; set; }
     }
 
-    #endregion
+    #endregion Clase auxiliar para items de backup
 }

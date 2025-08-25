@@ -25,6 +25,7 @@ namespace CheeseLogix.Negocio
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
+
         public frmVerificacionProductos()
         {
             InitializeComponent();
@@ -76,8 +77,11 @@ namespace CheeseLogix.Negocio
                 MessageBox.Show("Por favor, complete todos los campos antes de aprobar la recepción.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         public event Action OnRecepcionRechazada;
+
         public event Action OnRecepcionAprobada;
+
         private void btnRechazarRecepcion_Click(object sender, EventArgs e)
         {
             if (!FirmaRealizada())
@@ -107,6 +111,7 @@ namespace CheeseLogix.Negocio
         }
 
         #region metodosPrivados
+
         private void CargarDatos()
         {
             CargarDetallesCompra();
@@ -128,7 +133,6 @@ namespace CheeseLogix.Negocio
             dataGridViewDetalleCompra.Columns["Fecha"].Tag = "FechaCompra_column";
             dataGridViewDetalleCompra.Columns["Cantidad"].HeaderText = "Cantidad";
             dataGridViewDetalleCompra.Columns["Cantidad"].Tag = "Cantidad_Column";
-
         }
 
         private void OcultarColumnasDetalleCompra()
@@ -189,15 +193,18 @@ namespace CheeseLogix.Negocio
                    !string.IsNullOrEmpty(textBoxObservaciones.Text);
         }
 
-        #endregion
+        #endregion metodosPrivados
 
         #region variablesPrivadas
-        bool isDrawing = false;
-        Point lastPoint = Point.Empty;
-        Bitmap firmaBitmap;
-        #endregion
+
+        private bool isDrawing = false;
+        private Point lastPoint = Point.Empty;
+        private Bitmap firmaBitmap;
+
+        #endregion variablesPrivadas
 
         #region metodosFirma
+
         private void pictureBoxFirma_MouseDown(object sender, MouseEventArgs e)
         {
             isDrawing = true;
@@ -242,7 +249,6 @@ namespace CheeseLogix.Negocio
             }
         }
 
-
         private void pictureBoxFirma_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDrawing && lastPoint != Point.Empty)
@@ -286,7 +292,6 @@ namespace CheeseLogix.Negocio
                             MessageBoxIcon.Information);
         }
 
-
         private void LimpiarFirma()
         {
             using (Graphics g = Graphics.FromImage(firmaBitmap))
@@ -296,7 +301,7 @@ namespace CheeseLogix.Negocio
             pictureBoxFirma.Invalidate();
         }
 
-        #endregion
+        #endregion metodosFirma
 
         private void btnFirmarConforme_Click(object sender, EventArgs e)
         {
@@ -309,6 +314,7 @@ namespace CheeseLogix.Negocio
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -330,6 +336,7 @@ namespace CheeseLogix.Negocio
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -393,9 +400,11 @@ namespace CheeseLogix.Negocio
                 }
             }
         }
+
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -409,6 +418,7 @@ namespace CheeseLogix.Negocio
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -436,10 +446,11 @@ namespace CheeseLogix.Negocio
                 }
             }
         }
+
         #endregion Permisos
 
-
         #region Extras
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
@@ -459,6 +470,7 @@ namespace CheeseLogix.Negocio
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)

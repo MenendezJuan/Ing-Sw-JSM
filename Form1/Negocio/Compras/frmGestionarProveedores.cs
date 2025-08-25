@@ -23,6 +23,7 @@ namespace CheeseLogix.Negocio
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
         private Proveedor _proveedorSeleccionado;
+
         public frmGestionarProveedores()
         {
             InitializeComponent();
@@ -43,7 +44,6 @@ namespace CheeseLogix.Negocio
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -79,29 +79,29 @@ namespace CheeseLogix.Negocio
             {
                 if (dataGridViewProveedor.DataSource == null)
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 // Convertir DataGridView a DataTable
                 DataTable dtProveedores = ConvertirDataGridViewADataTable(dataGridViewProveedor);
-                
+
                 // Usar BLL_EXPORTACION para exportar
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionProveedores");
-                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName,
                     (dtProveedores, ConstantesUI.Exportacion.HojaProveedores, ConstantesUI.Exportacion.TituloProveedores));
 
                 if (exportado)
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
-                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
+                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}",
                         ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Preguntar si quiere abrir el archivo
-                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado,
                         ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
+
                     if (result == DialogResult.Yes)
                     {
                         _bllExportacion.AbrirArchivo(rutaCompleta);
@@ -109,13 +109,13 @@ namespace CheeseLogix.Negocio
                 }
                 else
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -135,7 +135,7 @@ namespace CheeseLogix.Negocio
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);   
+                MessageBox.Show($"Error al limpiar búsqueda: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -175,6 +175,7 @@ namespace CheeseLogix.Negocio
         }
 
         #region MetodosPrivados
+
         private void LimpiarControles()
         {
             txtCuit.Clear();
@@ -216,22 +217,27 @@ namespace CheeseLogix.Negocio
                     if (!limpio.All(char.IsDigit)) { mensajeError = ConstantesUI.Validaciones.CUITSoloNumeros; return false; }
                     if (limpio.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Cuit; return false; }
                     return true;
+
                 case "email":
                     if (val.Length < 3) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos3Email; return false; }
                     if (val.Contains("@") && !BLL_VALIDACION.ValidarEmail(val)) { mensajeError = ConstantesUI.Validaciones.EmailNoValido; return false; }
                     return true;
+
                 case "telefono":
                 case "teléfono":
                     if (val.Length < 4) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos4Telefono; return false; }
                     return true;
+
                 case "estado":
                     var aceptados = new[] { "activo", "inactivo", "true", "false", "1", "0" };
                     if (!aceptados.Contains(valNorm)) { mensajeError = ConstantesUI.Validaciones.EstadoInvalido; return false; }
                     return true;
+
                 case "descripcion":
                 case "direccion":
                     if (val.Length < 2) { mensajeError = ConstantesUI.Validaciones.IngreseAlMenos2; return false; }
                     return true;
+
                 default:
                     return true;
             }
@@ -315,7 +321,6 @@ namespace CheeseLogix.Negocio
 
             dataGridViewProveedor.Columns["FechaRegistro"].HeaderText = "Fecha de Registro";
             dataGridViewProveedor.Columns["FechaRegistro"].Tag = "FechaRegistro_Column";
-
         }
 
         /// <summary>
@@ -324,7 +329,7 @@ namespace CheeseLogix.Negocio
         private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
         {
             DataTable dt = new DataTable();
-            
+
             // Agregar columnas visibles
             foreach (DataGridViewColumn column in dgv.Columns)
             {
@@ -333,7 +338,7 @@ namespace CheeseLogix.Negocio
                     dt.Columns.Add(column.HeaderText, typeof(string));
                 }
             }
-            
+
             // Agregar filas
             foreach (DataGridViewRow row in dgv.Rows)
             {
@@ -341,7 +346,7 @@ namespace CheeseLogix.Negocio
                 {
                     DataRow dataRow = dt.NewRow();
                     int columnIndex = 0;
-                    
+
                     foreach (DataGridViewColumn column in dgv.Columns)
                     {
                         if (column.Visible)
@@ -350,14 +355,15 @@ namespace CheeseLogix.Negocio
                             columnIndex++;
                         }
                     }
-                    
+
                     dt.Rows.Add(dataRow);
                 }
             }
-            
+
             return dt;
         }
-        #endregion
+
+        #endregion MetodosPrivados
 
         private void buttonAgregarProveedor_Click(object sender, EventArgs e)
         {
@@ -389,7 +395,6 @@ namespace CheeseLogix.Negocio
             lblSeleccionado.Visible = true;
             lblSeleccionadoEspecifico.Visible = true;
             lblSeleccionadoEspecifico.Text = _proveedorSeleccionado.Descripcion;
-
 
             MapearProveedorAControles(_proveedorSeleccionado);
             btnAceptar.Tag = "Actualizar";
@@ -434,7 +439,6 @@ namespace CheeseLogix.Negocio
 
         private void frmGestionarProveedores_Load(object sender, EventArgs e)
         {
-
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -443,6 +447,7 @@ namespace CheeseLogix.Negocio
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -464,6 +469,7 @@ namespace CheeseLogix.Negocio
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -530,7 +536,8 @@ namespace CheeseLogix.Negocio
 
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -544,6 +551,7 @@ namespace CheeseLogix.Negocio
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -571,10 +579,11 @@ namespace CheeseLogix.Negocio
                 }
             }
         }
+
         #endregion Permisos
 
-
         #region Extras
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
@@ -594,6 +603,7 @@ namespace CheeseLogix.Negocio
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private void buttonReactivacionProv_Click(object sender, EventArgs e)
@@ -645,6 +655,7 @@ namespace CheeseLogix.Negocio
                 MessageBox.Show("Por favor, seleccione un proveedor inactivo para reactivar.");
             }
         }
+
         private void OcultarControlesNormalesSinMover()
         {
             buttonAgregarProveedor.Enabled = false;
@@ -668,6 +679,7 @@ namespace CheeseLogix.Negocio
             panelDatosFiltrar.Enabled = true;
             btnReactivarProveedor.Enabled = false;
         }
+
         #endregion
 
         private void btnReactivarProveedor_Click(object sender, EventArgs e)
@@ -712,8 +724,6 @@ namespace CheeseLogix.Negocio
             }
         }
 
-
-
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboxIdiomas.SelectedItem != null)
@@ -732,4 +742,3 @@ namespace CheeseLogix.Negocio
         }
     }
 }
-

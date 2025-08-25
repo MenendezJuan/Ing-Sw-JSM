@@ -1,9 +1,9 @@
+using MPPs.Tecnica;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using MPPs.Tecnica;
-using Servicios;
 
 namespace BLLs.Tecnica
 {
@@ -75,7 +75,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Gestión de Historial
 
         #region Gestión de Dígitos Verificadores
 
@@ -90,12 +90,12 @@ namespace BLLs.Tecnica
             try
             {
                 DataTable resultado = _mppControlCambios.CalcularDigitoVerificador(tipoEntidad, entidadId);
-                
+
                 if (resultado.Rows.Count > 0)
                 {
                     return resultado.Rows[0]["DigitoVerificador"].ToString();
                 }
-                
+
                 return string.Empty;
             }
             catch (Exception ex)
@@ -134,10 +134,10 @@ namespace BLLs.Tecnica
             {
                 // Obtener DV almacenado
                 string dvAlmacenado = ObtenerDigitoVerificadorAlmacenado(tipoEntidad, entidadId);
-                
+
                 // Calcular DV actual
                 string dvCalculado = CalcularDigitoVerificador(tipoEntidad, entidadId);
-                
+
                 // Comparar
                 return dvAlmacenado.Equals(dvCalculado, StringComparison.OrdinalIgnoreCase);
             }
@@ -165,7 +165,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Gestión de Dígitos Verificadores
 
         #region Dígito Verificador Vertical (DVV)
 
@@ -181,20 +181,20 @@ namespace BLLs.Tecnica
             {
                 // 1. Obtener todos los DVs horizontales de la BD (solo datos)
                 DataTable digitosHorizontales = _mppControlCambios.ObtenerDigitosVerificadoresHorizontales(tipoEntidad);
-                
+
                 // 2. BLL maneja la lógica de concatenación
                 string concatenacion = string.Empty;
                 foreach (DataRow row in digitosHorizontales.Rows)
                 {
                     concatenacion += row["DV"].ToString();
                 }
-                
+
                 // 3. BLL maneja el cálculo del hash usando Seguridad
                 if (!string.IsNullOrEmpty(concatenacion))
                 {
                     return Seguridad.Hash(concatenacion);
                 }
-                
+
                 return string.Empty;
             }
             catch (Exception ex)
@@ -239,7 +239,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Dígito Verificador Vertical (DVV)
 
         #region Métodos de Utilidad
 
@@ -274,7 +274,7 @@ namespace BLLs.Tecnica
             {
                 var estadisticas = new Dictionary<string, object>();
                 DataTable resultado = _mppControlCambios.ObtenerEstadisticasIntegridad(tipoEntidad);
-                
+
                 if (resultado.Rows.Count > 0)
                 {
                     var row = resultado.Rows[0];
@@ -282,12 +282,12 @@ namespace BLLs.Tecnica
                     estadisticas["TotalRegistros"] = Convert.ToInt32(row["TotalRegistros"]);
                     estadisticas["ConDigitoVerificador"] = Convert.ToInt32(row["ConDV"]);
                     estadisticas["SinDigitoVerificador"] = Convert.ToInt32(row["SinDV"]);
-                    estadisticas["PorcentajeIntegridad"] = 
-                        estadisticas["TotalRegistros"].ToString() != "0" 
+                    estadisticas["PorcentajeIntegridad"] =
+                        estadisticas["TotalRegistros"].ToString() != "0"
                             ? Math.Round((double)estadisticas["ConDigitoVerificador"] / (double)estadisticas["TotalRegistros"] * 100, 2)
                             : 0.0;
                 }
-                
+
                 return estadisticas;
             }
             catch (Exception ex)
@@ -296,6 +296,6 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Métodos de Utilidad
     }
 }

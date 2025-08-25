@@ -50,7 +50,7 @@ namespace MPPs.Tecnica
             return oCnx.Guardar("RestaurarDesdeHistorial", parametros);
         }
 
-        #endregion
+        #endregion Gestión de Historial
 
         #region Gestión de Dígitos Verificadores
 
@@ -84,8 +84,6 @@ namespace MPPs.Tecnica
             return oCnx.Guardar("ActualizarDigitoVerificadorEntidad", parametros);
         }
 
-
-
         /// <summary>
         /// Obtiene todos los dígitos verificadores de un tipo de entidad para cálculo vertical
         /// </summary>
@@ -100,12 +98,15 @@ namespace MPPs.Tecnica
                 case "USUARIO":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Usuarios WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
+
                 case "PRODUCTO":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Producto WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
+
                 case "VENTA":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Venta WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
+
                 default:
                     throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
             }
@@ -126,28 +127,31 @@ namespace MPPs.Tecnica
             {
                 case "USUARIO":
                     consulta = @"
-                        SELECT 
+                        SELECT
                             COUNT(*) AS TotalRegistros,
                             COUNT(DigitoVerificador) AS ConDV,
                             COUNT(*) - COUNT(DigitoVerificador) AS SinDV
                         FROM Usuarios";
                     break;
+
                 case "PRODUCTO":
                     consulta = @"
-                        SELECT 
+                        SELECT
                             COUNT(*) AS TotalRegistros,
                             COUNT(DigitoVerificador) AS ConDV,
                             COUNT(*) - COUNT(DigitoVerificador) AS SinDV
                         FROM Producto";
                     break;
+
                 case "VENTA":
                     consulta = @"
-                        SELECT 
+                        SELECT
                             COUNT(*) AS TotalRegistros,
                             COUNT(DigitoVerificador) AS ConDV,
                             COUNT(*) - COUNT(DigitoVerificador) AS SinDV
                         FROM Venta";
                     break;
+
                 default:
                     throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
             }
@@ -155,7 +159,7 @@ namespace MPPs.Tecnica
             return oCnx.LeerConConsulta(consulta, null);
         }
 
-        #endregion
+        #endregion Gestión de Dígitos Verificadores
 
         #region Verificación de Integridad
 
@@ -198,11 +202,11 @@ namespace MPPs.Tecnica
             return oCnx.Guardar("Guardar_Bitacora", parametros);
         }
 
-        #endregion
+        #endregion Verificación de Integridad
 
         #region Dígito Verificador Vertical
 
-                /// <summary>
+        /// <summary>
         /// Obtiene todos los dígitos verificadores horizontales de un tipo de entidad
         /// (Solo acceso a datos - sin lógica de cálculo)
         /// </summary>
@@ -211,18 +215,21 @@ namespace MPPs.Tecnica
         public DataTable ObtenerDigitosVerificadoresHorizontales(string tipoEntidad)
         {
             string consulta = string.Empty;
-            
+
             switch (tipoEntidad.ToUpper())
             {
                 case "USUARIO":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Usuarios WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
+
                 case "PRODUCTO":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Producto WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
+
                 case "VENTA":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Venta WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
+
                 default:
                     throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
             }
@@ -247,12 +254,15 @@ namespace MPPs.Tecnica
                 case "USUARIO":
                     consulta = "SELECT DigitoVerificador FROM Usuarios WHERE Id = @Id";
                     break;
+
                 case "PRODUCTO":
                     consulta = "SELECT DigitoVerificador FROM Producto WHERE Id = @Id";
                     break;
+
                 case "VENTA":
                     consulta = "SELECT DigitoVerificador FROM Venta WHERE Id = @Id";
                     break;
+
                 default:
                     throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
             }
@@ -267,8 +277,6 @@ namespace MPPs.Tecnica
             return string.Empty;
         }
 
-
-
-        #endregion
+        #endregion Dígito Verificador Vertical
     }
 }
