@@ -260,7 +260,6 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.Controls.Add(this.btnRegistrar, 0, 0);
-            this.tableLayoutPanelAcciones.Controls.Add(this.btnCerrar, 1, 0);
             this.tableLayoutPanelAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelAcciones.Location = new System.Drawing.Point(3, 313);
             this.tableLayoutPanelAcciones.Name = "tableLayoutPanelAcciones";

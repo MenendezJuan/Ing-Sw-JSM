@@ -422,13 +422,15 @@ namespace CheeseLogix
                 var bajos = _bllProducto.ObtenerProductosBajoStock();
                 if (bajos != null && bajos.Count > 0)
                 {
-                    // Resaltar filas con bajo stock
+                    // Resaltar filas con bajo stock - CONTRASTE MEJORADO
                     foreach (DataGridViewRow row in dataGridViewProductos.Rows)
                     {
                         var p = row.DataBoundItem as Producto;
                         if (p != null && bajos.Any(b => b.Id == p.Id))
                         {
-                            row.DefaultCellStyle.BackColor = System.Drawing.Color.MistyRose;
+                            row.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(220, 53, 69); // Rojo Bootstrap danger
+                            row.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+                            row.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
                         }
                     }
                 }
@@ -485,7 +487,14 @@ namespace CheeseLogix
                 dataGridViewProductos.Columns["StockMinimo"].Tag = "StockMinimo_Column";
             }
 
+            // Ocultar columnas que no deben ser visibles
             dataGridViewProductos.Columns["Estado"].Visible = false;
+            
+            // OCULTAR COLUMNAS DE DÍGITOS VERIFICADORES - NUNCA VISIBLES
+            if (dataGridViewProductos.Columns.Contains("DigitoVerificador"))
+                dataGridViewProductos.Columns["DigitoVerificador"].Visible = false;
+            if (dataGridViewProductos.Columns.Contains("DV"))
+                dataGridViewProductos.Columns["DV"].Visible = false;
         }
 
         private void CargarProveedores()

@@ -273,7 +273,7 @@ namespace CheeseLogix.Tecnica
             this.dataGridEntidades.ReadOnly = true;
             this.dataGridEntidades.RowHeadersVisible = false;
             this.dataGridEntidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridEntidades.Size = new System.Drawing.Size(584, 504);
+            this.dataGridEntidades.Size = new System.Drawing.Size(584, 464);
             this.dataGridEntidades.TabIndex = 1;
             this.dataGridEntidades.SelectionChanged += new System.EventHandler(this.dataGridEntidades_SelectionChanged);
             // 
@@ -288,6 +288,8 @@ namespace CheeseLogix.Tecnica
             this.lblEntidadSeleccionada.TabIndex = 0;
             this.lblEntidadSeleccionada.Tag = "lblEntidadSeleccionada";
             this.lblEntidadSeleccionada.Text = "Entidades";
+            // panelBotonesCRUD y botones CRUD eliminados - funcionalidad movida a Gestor Usuarios
+            // Configuración de botones CRUD eliminada - funcionalidad movida a Gestor Usuarios
             // 
             // panelHistorial
             // 
@@ -369,7 +371,6 @@ namespace CheeseLogix.Tecnica
             this.ClientSize = new System.Drawing.Size(1200, 700);
             this.Controls.Add(this.tableLayoutPanelPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmControlCambios";
@@ -417,5 +418,6 @@ namespace CheeseLogix.Tecnica
         private System.Windows.Forms.Panel panelHistorialTitulo;
         private System.Windows.Forms.Button btnRestaurar;
         private System.Windows.Forms.Label lblHistorialInfo;
+        // Controles CRUD eliminados - funcionalidad movida a Gestor Usuarios
     }
 }

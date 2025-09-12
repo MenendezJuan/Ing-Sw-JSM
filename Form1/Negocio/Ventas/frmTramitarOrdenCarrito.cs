@@ -551,9 +551,21 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewCarrito.DataSource = _carrito.ToList(); // Nueva lista para forzar actualización
 
             // Habilitar/deshabilitar botones según el estado del carrito
-            btnEliminarProducto.Enabled = false; // Se habilitará en SelectionChanged
             btnVaciarCarrito.Enabled = _carrito.Count > 0;
             btnConfirmarCompra.Enabled = _carrito.Count > 0;
+
+            // Preseleccionar automáticamente el primer item si hay elementos
+            if (_carrito.Count > 0)
+            {
+                dataGridViewCarrito.ClearSelection();
+                dataGridViewCarrito.CurrentCell = dataGridViewCarrito.Rows[0].Cells[0];
+                dataGridViewCarrito.Rows[0].Selected = true;
+                btnEliminarProducto.Enabled = true;
+            }
+            else
+            {
+                btnEliminarProducto.Enabled = false;
+            }
         }
 
         private void ActualizarTotal()

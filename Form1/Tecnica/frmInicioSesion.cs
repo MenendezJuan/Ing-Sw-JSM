@@ -20,7 +20,7 @@ namespace CheeseLogix
             InitializeComponent();
             sesion = SessionManager.GetInstance();
             Bll_Permiso = new BLL_PERMISO();
-            Bll_Usuario = new BLL_USUARIO();
+            Bll_Usuario = new BLL_USUARIO(true);
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
             sesion.RegistrarObservador(this);

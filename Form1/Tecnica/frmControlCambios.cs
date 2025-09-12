@@ -33,26 +33,34 @@ namespace CheeseLogix.Tecnica
 
         private void InicializarComponentes()
         {
-            _bllUsuario = new BLL_USUARIO();
-            _bllProducto = new BLL_PRODUCTO();
-            _bllVenta = new BLL_VENTA();
-            _bllControlCambios = new BLL_CONTROLCAMBIOS();
+            try
+            {
+                _bllUsuario = new BLL_USUARIO();
+                _bllProducto = new BLL_PRODUCTO();
+                _bllVenta = new BLL_VENTA();
+                _bllControlCambios = new BLL_CONTROLCAMBIOS();
 
-            sesion = SessionManager.GetInstance();
-            Bll_Idioma = new BLL_IDIOMA();
-            Bll_Traduccion = new BLL_TRADUCCION();
+                sesion = SessionManager.GetInstance();
+                Bll_Idioma = new BLL_IDIOMA();
+                Bll_Traduccion = new BLL_TRADUCCION();
 
-            CargarTiposEntidad();
-            ActualizarEntidades();
+                // Configurar idiomas y permisos primero
+                sesion.RegistrarObservador(this);
+                IIdioma oIdioma = sesion.Idioma;
+                CargarIdiomas();
+                BuscarControles(this.Controls);
+                Actualizar(oIdioma);
 
-            // Configurar idiomas y permisos
-            sesion.RegistrarObservador(this);
-            IIdioma oIdioma = sesion.Idioma;
-            CargarIdiomas();
-            BuscarControles(this.Controls);
-            Actualizar(oIdioma);
+                // Luego cargar datos
+                CargarTiposEntidad();
+                // ActualizarEntidades se llama automáticamente desde CargarTiposEntidad
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al inicializar el formulario: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
+        
         #region Configuración de Entidades
 
         private void CargarTiposEntidad()
@@ -69,7 +77,16 @@ namespace CheeseLogix.Tecnica
                 comboTipoEntidad.DataSource = tiposEntidad;
                 comboTipoEntidad.DisplayMember = "Texto";
                 comboTipoEntidad.ValueMember = "Valor";
+                
+                // PRESELECIÓN AUTOMÁTICA Y CARGA INMEDIATA
                 comboTipoEntidad.SelectedIndex = 0;
+                
+                // Forzar actualización inmediata después de configurar el combo
+                if (comboTipoEntidad.SelectedValue != null)
+                {
+                    _tipoEntidadActual = comboTipoEntidad.SelectedValue.ToString();
+                    ActualizarEntidades();
+                }
             }
             catch (Exception ex)
             {
@@ -97,33 +114,122 @@ namespace CheeseLogix.Tecnica
                 switch (_tipoEntidadActual)
                 {
                     case "Usuario":
-                        var usuarios = _bllUsuario.Listar();
-                        dataGridEntidades.DataSource = usuarios;
-                        ConfigurarColumnas_Usuario();
+                        try
+                        {
+                            var usuarios = _bllUsuario.ListarParaGestion(); // Usar método sin verificación DV
+                            dataGridEntidades.DataSource = usuarios;
+                            ConfigurarColumnas_Usuario();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al cargar usuarios: {ex.Message}", ConstantesUI.Titulos.Error);
+                            dataGridEntidades.DataSource = null;
+                        }
                         break;
 
                     case "Producto":
-                        var productos = _bllProducto.ObtenerTodos();
-                        dataGridEntidades.DataSource = productos;
-                        ConfigurarColumnas_Producto();
+                        try
+                        {
+                            var productos = _bllProducto.ObtenerTodos();
+                            dataGridEntidades.DataSource = productos;
+                            ConfigurarColumnas_Producto();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al cargar productos: {ex.Message}", ConstantesUI.Titulos.Error);
+                            dataGridEntidades.DataSource = null;
+                        }
                         break;
 
                     case "Venta":
-                        var ventas = _bllVenta.ObtenerTodos();
-                        dataGridEntidades.DataSource = ventas;
-                        ConfigurarColumnas_Venta();
+                        try
+                        {
+                            var ventas = _bllVenta.ObtenerTodos();
+                            dataGridEntidades.DataSource = ventas;
+                            ConfigurarColumnas_Venta();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al cargar ventas: {ex.Message}", ConstantesUI.Titulos.Error);
+                            dataGridEntidades.DataSource = null;
+                        }
+                        break;
+
+                    default:
+                        MessageBox.Show($"Tipo de entidad no reconocido: {_tipoEntidadActual}", ConstantesUI.Titulos.Error);
+                        dataGridEntidades.DataSource = null;
                         break;
                 }
 
+                // Aplicar estilo a los DataGrids
+                AplicarEstiloDataGrid(dataGridEntidades);
+                AplicarEstiloDataGrid(dataGridHistorial);
+
                 lblEntidadSeleccionada.Text = $"Entidades: {_tipoEntidadActual}";
+
+                // Seleccionar automáticamente el primer registro
+                if (dataGridEntidades.Rows.Count > 0)
+                {
+                    dataGridEntidades.CurrentCell = dataGridEntidades.Rows[0].Cells[0];
+                    dataGridEntidades.Rows[0].Selected = true;
+                    dataGridEntidades_SelectionChanged(null, null); // Trigger manual
+                }
+                else
+                {
+                    LimpiarHistorial();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al actualizar entidades: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LimpiarHistorial();
             }
         }
 
         #endregion Configuración de Entidades
+
+        #region Estilos DataGrid
+
+        private void AplicarEstiloDataGrid(DataGridView dataGrid)
+        {
+            // Estilo principal
+            dataGrid.BackgroundColor = System.Drawing.Color.FromArgb(32, 30, 45);
+            dataGrid.ForeColor = System.Drawing.Color.White;
+            dataGrid.GridColor = System.Drawing.Color.FromArgb(50, 50, 50);
+            dataGrid.BorderStyle = BorderStyle.None;
+
+            // Cabeceras
+            dataGrid.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(11, 7, 17);
+            dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            dataGrid.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            dataGrid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGrid.ColumnHeadersHeight = 35;
+
+            // Filas
+            dataGrid.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(32, 30, 45);
+            dataGrid.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            dataGrid.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(70, 70, 70);
+            dataGrid.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            dataGrid.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
+
+            // Filas alternadas
+            dataGrid.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(28, 26, 40);
+            dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+
+            // Configuración general
+            dataGrid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGrid.RowHeadersVisible = false;
+            dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGrid.MultiSelect = false;
+            dataGrid.ReadOnly = true;
+            dataGrid.AllowUserToAddRows = false;
+            dataGrid.AllowUserToDeleteRows = false;
+            dataGrid.AllowUserToResizeRows = false;
+            dataGrid.RowTemplate.Height = 25;
+        }
+
+        #endregion Estilos DataGrid
 
         #region Configuración de Columnas
 
@@ -132,6 +238,8 @@ namespace CheeseLogix.Tecnica
             if (dataGridEntidades.Columns.Count > 0)
             {
                 dataGridEntidades.Columns["Email"].HeaderText = "Email";
+
+                // OCULTAR INFORMACIÓN SENSIBLE Y TÉCNICA
                 dataGridEntidades.Columns["Contraseña"].Visible = false;
                 dataGridEntidades.Columns["DV"].Visible = false;
                 if (dataGridEntidades.Columns.Contains("DigitoVerificador"))
@@ -151,10 +259,13 @@ namespace CheeseLogix.Tecnica
                     dataGridEntidades.Columns["PrecioVenta"].HeaderText = "Precio Venta";
                 if (dataGridEntidades.Columns.Contains("Estado"))
                     dataGridEntidades.Columns["Estado"].HeaderText = "Activo";
+
+                // OCULTAR DÍGITOS VERIFICADORES - NUNCA VISIBLES
                 if (dataGridEntidades.Columns.Contains("DigitoVerificador"))
                     dataGridEntidades.Columns["DigitoVerificador"].Visible = false;
                 if (dataGridEntidades.Columns.Contains("DV"))
                     dataGridEntidades.Columns["DV"].Visible = false;
+
                 // Ocultar propiedades complejas
                 if (dataGridEntidades.Columns.Contains("Proveedores"))
                     dataGridEntidades.Columns["Proveedores"].Visible = false;
@@ -176,10 +287,13 @@ namespace CheeseLogix.Tecnica
                     dataGridEntidades.Columns["EstadoVentaEnum"].HeaderText = "Estado";
                 if (dataGridEntidades.Columns.Contains("ClienteId"))
                     dataGridEntidades.Columns["ClienteId"].HeaderText = "Cliente ID";
+
+                // OCULTAR DÍGITOS VERIFICADORES - NUNCA VISIBLES
                 if (dataGridEntidades.Columns.Contains("DigitoVerificador"))
                     dataGridEntidades.Columns["DigitoVerificador"].Visible = false;
                 if (dataGridEntidades.Columns.Contains("DV"))
                     dataGridEntidades.Columns["DV"].Visible = false;
+
                 // Ocultar propiedades complejas
                 if (dataGridEntidades.Columns.Contains("oCliente"))
                     dataGridEntidades.Columns["oCliente"].Visible = false;
@@ -220,20 +334,15 @@ namespace CheeseLogix.Tecnica
                 int entidadId = 0;
                 string tipoEntidad = _tipoEntidadActual;
 
-                // Obtener ID según el tipo
-                switch (_tipoEntidadActual)
+                // Obtener ID usando reflexión para evitar problemas de cast
+                var idProperty = _entidadSeleccionada.GetType().GetProperty("Id");
+                if (idProperty != null)
                 {
-                    case "Usuario":
-                        entidadId = ((Usuario)_entidadSeleccionada).Id;
-                        break;
-
-                    case "Producto":
-                        entidadId = ((BEs.Clases.Negocio.Producto)_entidadSeleccionada).Id;
-                        break;
-
-                    case "Venta":
-                        entidadId = ((BEs.Clases.Negocio.Ventas.Venta)_entidadSeleccionada).Id;
-                        break;
+                    entidadId = (int)idProperty.GetValue(_entidadSeleccionada);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"No se pudo obtener el ID de la entidad {_tipoEntidadActual}");
                 }
 
                 // Cargar historial específico
@@ -241,6 +350,7 @@ namespace CheeseLogix.Tecnica
                 dataGridHistorial.DataSource = historial;
 
                 ConfigurarColumnasHistorial();
+                AplicarEstiloDataGrid(dataGridHistorial);
                 lblHistorialInfo.Text = $"Historial de {tipoEntidad} ID: {entidadId} ({historial.Rows.Count} registros)";
             }
             catch (Exception ex)
@@ -263,8 +373,12 @@ namespace CheeseLogix.Tecnica
                     dataGridHistorial.Columns["TipoOperacion"].HeaderText = "Operación";
                 if (dataGridHistorial.Columns.Contains("UsuarioModificacion"))
                     dataGridHistorial.Columns["UsuarioModificacion"].HeaderText = "Usuario";
+
+                // OCULTAR DÍGITOS VERIFICADORES EN HISTORIAL - NUNCA VISIBLES
                 if (dataGridHistorial.Columns.Contains("DigitoVerificador"))
                     dataGridHistorial.Columns["DigitoVerificador"].Visible = false;
+                if (dataGridHistorial.Columns.Contains("DV"))
+                    dataGridHistorial.Columns["DV"].Visible = false;
 
                 // Específicos por entidad
                 switch (_tipoEntidadActual)
@@ -274,8 +388,7 @@ namespace CheeseLogix.Tecnica
                             dataGridHistorial.Columns["Email"].HeaderText = "Email";
                         if (dataGridHistorial.Columns.Contains("Fecha"))
                             dataGridHistorial.Columns["Fecha"].HeaderText = "Fecha Registro";
-                        if (dataGridHistorial.Columns.Contains("DV"))
-                            dataGridHistorial.Columns["DV"].Visible = false;
+                        // DV ya oculto arriba - no duplicar
                         break;
 
                     case "Producto":
@@ -388,6 +501,8 @@ namespace CheeseLogix.Tecnica
         }
 
         #endregion Acciones
+
+
 
         #region Idiomas y Permisos
 

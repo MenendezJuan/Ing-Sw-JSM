@@ -146,6 +146,10 @@ namespace CheeseLogix.Negocio.Ventas
             if (gridVentas.Columns.Contains("oVendedor")) gridVentas.Columns["oVendedor"].Visible = false;
             if (gridVentas.Columns.Contains("NombreCliente")) gridVentas.Columns["NombreCliente"].Visible = false;
             if (gridVentas.Columns.Contains("NombreVendedor")) gridVentas.Columns["NombreVendedor"].Visible = false;
+            
+            // OCULTAR DÍGITOS VERIFICADORES - NUNCA VISIBLES
+            if (gridVentas.Columns.Contains("DigitoVerificador")) gridVentas.Columns["DigitoVerificador"].Visible = false;
+            if (gridVentas.Columns.Contains("DV")) gridVentas.Columns["DV"].Visible = false;
         }
 
         private void FormatearGrillaDetalles()

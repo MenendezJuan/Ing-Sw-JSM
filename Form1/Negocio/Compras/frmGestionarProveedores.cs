@@ -35,6 +35,10 @@ namespace CheeseLogix.Negocio
             CargarProveedores();
             CargarComboBuscar();
             panelDatosProv.Visible = false;
+            
+            // HABILITAR el panel de búsqueda
+            HabilitarPanelBusqueda();
+            
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -666,6 +670,36 @@ namespace CheeseLogix.Negocio
             panelDatosProv.Enabled = false;
             panelDatosFiltrar.Enabled = false;
             btnReactivarProveedor.Enabled = true;
+        }
+
+        private void HabilitarPanelBusqueda()
+        {
+            try
+            {
+                // Buscar el panel de filtros y habilitarlo
+                var panelFiltrar = this.Controls.Find("panelDatosFiltrar", true).FirstOrDefault();
+                if (panelFiltrar != null)
+                {
+                    panelFiltrar.Enabled = true;
+                    panelFiltrar.Visible = true;
+                }
+
+                // Habilitar controles de búsqueda específicos
+                var txtBuscar = this.Controls.Find("txtBuscar", true).FirstOrDefault() as TextBox;
+                var comboBuscar = this.Controls.Find("comboBuscar", true).FirstOrDefault() as ComboBox;
+                var btnBuscar = this.Controls.Find("btnBuscar", true).FirstOrDefault() as Button;
+                var btnBorrarBusqueda = this.Controls.Find("btnBorrarBusqueda", true).FirstOrDefault() as Button;
+
+                if (txtBuscar != null) txtBuscar.Enabled = true;
+                if (comboBuscar != null) comboBuscar.Enabled = true;
+                if (btnBuscar != null) btnBuscar.Enabled = true;
+                if (btnBorrarBusqueda != null) btnBorrarBusqueda.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al habilitar panel de búsqueda: {ex.Message}", ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void MostrarControlesNormales()

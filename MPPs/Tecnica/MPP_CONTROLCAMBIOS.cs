@@ -277,6 +277,55 @@ namespace MPPs.Tecnica
             return string.Empty;
         }
 
+        /// <summary>
+        /// Obtiene el DVV almacenado para un tipo de entidad
+        /// </summary>
+        /// <param name="tabla">Nombre de la tabla</param>
+        /// <returns>DVV almacenado o "-1" si no existe</returns>
+        public string ObtenerDigitoVerificadorVerticalAlmacenado(string tabla)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                parametros.Add("@Tabla", tabla);
+
+                DataTable resultado = oCnx.Leer("ListarControlSeguridad", parametros);
+
+                if (resultado.Rows.Count > 0)
+                {
+                    return resultado.Rows[0]["Digito"].ToString();
+                }
+
+                return "-1";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener DVV almacenado para {tabla}: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Guarda el DVV para un tipo de entidad
+        /// </summary>
+        /// <param name="tabla">Nombre de la tabla</param>
+        /// <param name="dvv">DVV a guardar</param>
+        /// <returns>True si se guardó correctamente</returns>
+        public bool GuardarDigitoVerificadorVertical(string tabla, string dvv)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                parametros.Add("@Tabla", tabla);
+                parametros.Add("@DVV", dvv);
+
+                return oCnx.Guardar("Guardar_DigitoVertical", parametros);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al guardar DVV para {tabla}: {ex.Message}", ex);
+            }
+        }
+
         #endregion Dígito Verificador Vertical
     }
 }

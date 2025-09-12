@@ -105,7 +105,7 @@ namespace BLLs.Tecnica
         }
 
         /// <summary>
-        /// Actualiza el dígito verificador de una entidad
+        /// Actualiza el dígito verificador de una entidad Y el DVV de la tabla
         /// </summary>
         /// <param name="tipoEntidad">Tipo de entidad (Usuario, Producto, Venta)</param>
         /// <param name="entidadId">ID de la entidad</param>
@@ -114,7 +114,21 @@ namespace BLLs.Tecnica
         {
             try
             {
-                return _mppControlCambios.ActualizarDigitoVerificador(tipoEntidad, entidadId);
+                // 1. Actualizar DVH de la entidad específica
+                bool dvhActualizado = _mppControlCambios.ActualizarDigitoVerificador(tipoEntidad, entidadId);
+                
+                if (dvhActualizado)
+                {
+                    // 2. Recalcular y actualizar DVV de toda la tabla
+                    string dvvCalculado = CalcularDigitoVerificadorVertical(tipoEntidad);
+                    string nombreTabla = ConvertirNombreEntidadATabla(tipoEntidad);
+                    bool dvvActualizado = _mppControlCambios.GuardarDigitoVerificadorVertical(nombreTabla, dvvCalculado);
+                    
+                    System.Diagnostics.Debug.WriteLine($"DVH actualizado para {tipoEntidad} ID:{entidadId}, DVV actualizado: {dvvActualizado}");
+                    return dvvActualizado;
+                }
+                
+                return false;
             }
             catch (Exception ex)
             {
@@ -297,5 +311,140 @@ namespace BLLs.Tecnica
         }
 
         #endregion Métodos de Utilidad
+
+        #region Verificación Global de Seguridad
+
+        /// <summary>
+        /// Verifica la integridad de TODAS las tablas controladas al iniciar la aplicación
+        /// SOLO verifica consistencia
+        /// </summary>
+        public void VerificarSeguridadGlobal()
+        {
+            try
+            {
+                var tablasControladas = new List<string> { "Usuario", "Producto", "Venta" };
+                var errores = new List<string>();
+
+                foreach (string tabla in tablasControladas)
+                {
+                    try
+                    {
+                        // 1. Calcular DVV actual de la tabla
+                        string dvvCalculado = CalcularDigitoVerificadorVertical(tabla);
+                        
+                        // 2. Obtener DVV almacenado
+                        string nombreTabla = ConvertirNombreEntidadATabla(tabla);
+                        string dvvAlmacenado = _mppControlCambios.ObtenerDigitoVerificadorVerticalAlmacenado(nombreTabla);
+                        
+                        // 3. Verificar que existe DVV
+                        if (string.IsNullOrEmpty(dvvAlmacenado) || dvvAlmacenado == "-1")
+                        {
+                            errores.Add($"TABLA {tabla}: No tiene DVV configurado en ControlSeguridad");
+                        }
+                        // 4. Verificar consistencia
+                        else if (!dvvCalculado.Equals(dvvAlmacenado, StringComparison.OrdinalIgnoreCase))
+                        {
+                            errores.Add($"TABLA {tabla}: DVV_Calculado({dvvCalculado}) != DVV_Almacenado({dvvAlmacenado})");
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine($"DVV OK para {tabla}: {dvvCalculado}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errores.Add($"ERROR en tabla {tabla}: {ex.Message}");
+                    }
+                }
+
+                // Si hay errores, lanzar excepción detallada
+                if (errores.Count > 0)
+                {
+                    string mensajeError = "La base de datos fue comprometida. Detalles:\n" + string.Join("\n", errores);
+                    throw new Exception(mensajeError);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error en verificación global de seguridad: {ex.Message}", ex);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Convierte nombre de entidad a nombre de tabla
+        /// </summary>
+        /// <param name="entidad">Nombre de entidad (Usuario, Producto, Venta)</param>
+        /// <returns>Nombre de tabla (Usuarios, Productos, Ventas)</returns>
+        private string ConvertirNombreEntidadATabla(string entidad)
+        {
+            switch (entidad.ToUpper())
+            {
+                case "USUARIO":
+                    return "Usuarios";
+                case "PRODUCTO":
+                    return "Productos";
+                case "VENTA":
+                    return "Ventas";
+                default:
+                    return entidad;
+            }
+        }
+
+        /// <summary>
+        /// Verifica la integridad de forma silenciosa (sin lanzar excepciones)
+        /// Para usar en validaciones periódicas del sistema
+        /// </summary>
+        /// <returns>True si todo está correcto, False si hay inconsistencias</returns>
+        public bool VerificarIntegridadSilenciosa()
+        {
+            try
+            {
+                var tablasControladas = new List<string> { "Usuario", "Producto", "Venta" };
+                var inconsistencias = new List<string>();
+
+                foreach (string tabla in tablasControladas)
+                {
+                    try
+                    {
+                        string dvvCalculado = CalcularDigitoVerificadorVertical(tabla);
+                        string nombreTabla = ConvertirNombreEntidadATabla(tabla);
+                        string dvvAlmacenado = _mppControlCambios.ObtenerDigitoVerificadorVerticalAlmacenado(nombreTabla);
+                        
+                        if (!string.IsNullOrEmpty(dvvAlmacenado) && 
+                            dvvAlmacenado != "-1" && 
+                            !dvvCalculado.Equals(dvvAlmacenado, StringComparison.OrdinalIgnoreCase))
+                        {
+                            inconsistencias.Add($"{tabla}: Calculado({dvvCalculado}) != Almacenado({dvvAlmacenado})");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        inconsistencias.Add($"{tabla}: Error - {ex.Message}");
+                    }
+                }
+
+                if (inconsistencias.Count > 0)
+                {
+                    // Log para debugging
+                    System.Diagnostics.Debug.WriteLine("INCONSISTENCIAS DETECTADAS:");
+                    foreach (string inconsistencia in inconsistencias)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"  - {inconsistencia}");
+                    }
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en verificación silenciosa: {ex.Message}");
+                return false;
+            }
+        }
+
+        #endregion Verificación Global de Seguridad
     }
 }

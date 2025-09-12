@@ -152,14 +152,14 @@ namespace CheeseLogix
         private void button_Usuarios_Click(object sender, EventArgs e)
         {
             frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
-            frmControlCambios controlCambios = new frmControlCambios();
+            frmGestorUsuarios gestorUsuarios = new frmGestorUsuarios();
 
             if (pForm != null)
             {
-                pForm.AddOwnedForm(controlCambios);
-                pForm.FormHijo(controlCambios);
+                pForm.AddOwnedForm(gestorUsuarios);
+                pForm.FormHijo(gestorUsuarios);
             }
-            controlCambios.Show();
+            gestorUsuarios.Show();
         }
 
         private void button_Bitacora_Click(object sender, EventArgs e)
@@ -249,6 +249,19 @@ namespace CheeseLogix
             pForm.AddOwnedForm(backupRestore);
             pForm.FormHijo(backupRestore);
             backupRestore.Show();
+        }
+
+        private void btnControlCambios_Click(object sender, EventArgs e)
+        {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
+            frmControlCambios controlCambios = new frmControlCambios();
+
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(controlCambios);
+                pForm.FormHijo(controlCambios);
+            }
+            controlCambios.Show();
         }
     }
 }

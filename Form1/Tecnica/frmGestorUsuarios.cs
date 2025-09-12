@@ -1,5 +1,4 @@
 ﻿using BEs;
-using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
 using System;
@@ -142,35 +141,11 @@ namespace CheeseLogix
             }
         }
 
-        private void button_Restaurar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dataGridView2.CurrentRow.Index == -1)
-                {
-                    MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Seleccione("un historial"));
-                }
-                HistorialUsuario oHistorial = (HistorialUsuario)dataGridView2.CurrentRow.DataBoundItem;
-                if (Bll_Usuario.Restaurar(oHistorial))
-                {
-                    MessageBox.Show("Se restauró el usuario", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
-                    ActualizarGrid();
-                }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
-        }
+        // Funcionalidad de historial removida - ahora se maneja desde Control de Cambios
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Index != -1)
-            {
-                Usuario oUsuario = dataGridView1.CurrentRow.DataBoundItem as Usuario;
-                dataGridView2.DataSource = null;
-                dataGridView2.DataSource = Bll_Usuario.ListarHistorial(oUsuario);
-                dataGridView2.Columns["Email"].Tag = "Mail_column";
-                dataGridView2.Columns["Fecha"].Tag = "FechaC_Column";
-                dataGridView2.Columns["DV"].Visible = false;
-            }
+            // Solo para mantener selección visual - sin cargar historial
         }
 
         #endregion Controles de Usuario
@@ -179,11 +154,21 @@ namespace CheeseLogix
 
         public void ActualizarGrid()
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = Bll_Usuario.Listar();
-            dataGridView1.Columns["Email"].Tag = "Mail_column";
-            dataGridView1.Columns["Contraseña"].Visible = false;
-            dataGridView1.Columns["DV"].Visible = false;
+            try
+            {
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = Bll_Usuario.ListarParaGestion(); 
+                dataGridView1.Columns["Email"].Tag = "Mail_column";
+
+                dataGridView1.Columns["Contraseña"].Visible = false;
+                dataGridView1.Columns["DV"].Visible = false;
+                if (dataGridView1.Columns.Contains("DigitoVerificador"))
+                    dataGridView1.Columns["DigitoVerificador"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar usuarios: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         #endregion Actualizaciones
@@ -256,5 +241,10 @@ namespace CheeseLogix
         }
 
         #endregion Idiomas
+
+        private void button_Restaurar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

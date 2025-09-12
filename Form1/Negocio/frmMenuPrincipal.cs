@@ -3,6 +3,7 @@ using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using CheeseLogix.Negocio;
 using CheeseLogix.Negocio.Reportes;
 using CheeseLogix.Negocio.Ventas;
@@ -25,7 +26,10 @@ namespace CheeseLogix
         private BLL_VENTA _bllVenta;
         private BLL_PRODUCTO _bllProducto;
         private BLL_AJUSTESTOCK _bllAjuste;
+        private BLL_CONTROLCAMBIOS _bllControlCambios;
         private Timer alertRefreshTimer;
+        private Timer integridadTimer;
+        private ToolTip alertasToolTip;
 
         public frmMenuPrincipal()
         {
@@ -37,6 +41,7 @@ namespace CheeseLogix
             _bllVenta = new BLL_VENTA();
             _bllProducto = new BLL_PRODUCTO();
             _bllAjuste = new BLL_AJUSTESTOCK();
+            _bllControlCambios = new BLL_CONTROLCAMBIOS();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -49,6 +54,7 @@ namespace CheeseLogix
             labelNombreUser.Text = CargarUsuarioLabel();
             CustomizeDesing();
             InicializarEstilos();
+            InicializarTooltipAlertas();
         }
 
         #region PropiedadesFrm
@@ -72,6 +78,12 @@ namespace CheeseLogix
             alertRefreshTimer.Interval = 60000; // 60s
             alertRefreshTimer.Tick += AlertRefreshTimer_Tick;
             alertRefreshTimer.Start();
+            
+            // Timer para verificación de integridad cada 5 minutos
+            integridadTimer = new Timer();
+            integridadTimer.Interval = 300000; // 5 minutos
+            integridadTimer.Tick += IntegridadTimer_Tick;
+            integridadTimer.Start();
         }
 
         #region MetodosPrivados
@@ -181,6 +193,24 @@ namespace CheeseLogix
             ActualizarIndicadorAlertas();
         }
 
+        private void InicializarTooltipAlertas()
+        {
+            try
+            {
+                alertasToolTip = new ToolTip();
+                alertasToolTip.InitialDelay = 500;
+                alertasToolTip.ReshowDelay = 100;
+                alertasToolTip.AutoPopDelay = 5000;
+                alertasToolTip.IsBalloon = true;
+                alertasToolTip.ToolTipIcon = ToolTipIcon.Warning;
+                alertasToolTip.ToolTipTitle = "Alertas del Sistema";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al inicializar tooltip de alertas: {ex.Message}");
+            }
+        }
+
         private void ActualizarIndicadorAlertas()
         {
             try
@@ -188,22 +218,83 @@ namespace CheeseLogix
                 int bajos = _bllProducto.ContarProductosBajoStock();
                 int ajustesPend = _bllAjuste.ContarPendientes();
                 int total = bajos + ajustesPend;
+                
                 labelAlertas.Text = total > 0 ? $"! {total}" : "! 0";
                 labelAlertas.ForeColor = total > 0 ? Color.OrangeRed : Color.Gainsboro;
                 labelAlertas.Visible = true;
                 labelAlertas.Cursor = Cursors.Hand;
                 labelAlertas.Click -= labelAlertas_Click;
                 labelAlertas.Click += labelAlertas_Click;
+
+                // Actualizar tooltip con información detallada
+                string tooltipText = "";
+                if (total > 0)
+                {
+                    if (bajos > 0)
+                        tooltipText += $"• Productos con stock bajo: {bajos}\n";
+                    if (ajustesPend > 0)
+                        tooltipText += $"• Ajustes de stock pendientes: {ajustesPend}\n";
+                    tooltipText += "\nClick para ver detalles en Gestión de Stock";
+                }
+                else
+                {
+                    tooltipText = "No hay alertas pendientes.\nTodos los productos tienen stock adecuado.";
+                }
+
+                if (alertasToolTip != null)
+                {
+                    alertasToolTip.SetToolTip(labelAlertas, tooltipText);
+                }
             }
-            catch
+            catch (Exception ex)
             {
                 labelAlertas.Text = "! -";
+                if (alertasToolTip != null)
+                {
+                    alertasToolTip.SetToolTip(labelAlertas, $"Error al obtener alertas: {ex.Message}");
+                }
             }
         }
 
         private void AlertRefreshTimer_Tick(object sender, EventArgs e)
         {
             ActualizarIndicadorAlertas();
+        }
+
+        private void IntegridadTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificación silenciosa de integridad
+                bool integridadOK = _bllControlCambios.VerificarIntegridadSilenciosa();
+                
+                if (!integridadOK)
+                {
+                    // Mostrar advertencia visual en la interfaz
+                    this.BeginInvoke(new Action(() => {
+                        labelAlertas.Text = "⚠ BD";
+                        labelAlertas.ForeColor = Color.Red;
+                        labelAlertas.Font = new Font(labelAlertas.Font, FontStyle.Bold);
+                        
+                        // Actualizar tooltip con información de integridad
+                        if (alertasToolTip != null)
+                        {
+                            alertasToolTip.SetToolTip(labelAlertas, 
+                                "⚠ ADVERTENCIA DE INTEGRIDAD ⚠\n\n" +
+                                "Se detectaron inconsistencias en la base de datos.\n" +
+                                "Los dígitos verificadores no coinciden.\n\n" +
+                                "Recomendaciones:\n" +
+                                "• Revisar el Control de Cambios\n" +
+                                "• Verificar la integridad de los datos\n" +
+                                "• Contactar al administrador del sistema");
+                        }
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en verificación de integridad: {ex.Message}");
+            }
         }
 
         private void labelAlertas_Click(object sender, EventArgs e)
@@ -555,6 +646,17 @@ namespace CheeseLogix
                 alertRefreshTimer.Stop();
                 alertRefreshTimer.Dispose();
                 alertRefreshTimer = null;
+            }
+            if (integridadTimer != null)
+            {
+                integridadTimer.Stop();
+                integridadTimer.Dispose();
+                integridadTimer = null;
+            }
+            if (alertasToolTip != null)
+            {
+                alertasToolTip.Dispose();
+                alertasToolTip = null;
             }
             if (isClosing)
             {

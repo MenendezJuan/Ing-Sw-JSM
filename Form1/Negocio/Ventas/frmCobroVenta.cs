@@ -126,6 +126,7 @@ namespace CheeseLogix.Negocio.Ventas
         private void ConfigurarDataGrids()
         {
             ConfigurarDataGridDetalle();
+            ConfigurarComboBoxVentas();
         }
 
         private void ConfigurarDataGridDetalle()
@@ -189,6 +190,70 @@ namespace CheeseLogix.Negocio.Ventas
                 MessageBox.Show($"Error al cargar ventas disponibles: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _ventasDisponibles = new List<Venta>();
+            }
+        }
+
+        private void ConfigurarComboBoxVentas()
+        {
+            try
+            {
+                // Solo configurar si hay ventas disponibles y no se pasó una venta específica
+                if (_ventasDisponibles != null && _ventasDisponibles.Count > 0 && _ventaActual == null)
+                {
+                    // Crear lista de display para las ventas
+                    var ventasDisplay = _ventasDisponibles.Select(v => new
+                    {
+                        Venta = v,
+                        Display = $"#{v.Id} - {v.Fecha:dd/MM/yyyy HH:mm} - {v.oCliente?.NombreCompleto ?? "Sin cliente"} - {v.MontoTotal:C2}"
+                    }).ToList();
+
+                    // Buscar ComboBox en el formulario (debe agregarse en el Designer)
+                    var comboVentas = this.Controls.Find("comboBoxVentas", true).FirstOrDefault() as ComboBox;
+                    if (comboVentas != null)
+                    {
+                        comboVentas.DataSource = ventasDisplay;
+                        comboVentas.DisplayMember = "Display";
+                        comboVentas.ValueMember = "Venta";
+                        
+                        // Preseleccionar la primera venta
+                        if (ventasDisplay.Count > 0)
+                        {
+                            comboVentas.SelectedIndex = 0;
+                            _ventaActual = ventasDisplay[0].Venta;
+                            CargarDatosVenta();
+                        }
+
+                        comboVentas.SelectedIndexChanged += ComboBoxVentas_SelectedIndexChanged;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al configurar selector de ventas: {ex.Message}", ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ComboBoxVentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var comboVentas = sender as ComboBox;
+                if (comboVentas?.SelectedItem != null)
+                {
+                    var selectedItem = comboVentas.SelectedItem;
+                    var ventaProperty = selectedItem.GetType().GetProperty("Venta");
+                    if (ventaProperty != null)
+                    {
+                        _ventaActual = ventaProperty.GetValue(selectedItem) as Venta;
+                        CargarDatosVenta();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cambiar selección de venta: {ex.Message}", ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

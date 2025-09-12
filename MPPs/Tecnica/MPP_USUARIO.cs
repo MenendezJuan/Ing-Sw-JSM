@@ -146,10 +146,19 @@ namespace MPPs
             Parametros.Add("@Tabla", "Usuarios");
 
             DataTable Datos = oCnx.Leer("ListarControlSeguridad", Parametros);
+            
+            System.Diagnostics.Debug.WriteLine($"=== MPP_USUARIO.VerificarSeguridad() ===");
+            System.Diagnostics.Debug.WriteLine($"Filas encontradas en ControlSeguridad: {Datos.Rows.Count}");
+            
             foreach (DataRow row in Datos.Rows)
             {
-                return row["Digito"].ToString();
+                string digito = row["Digito"].ToString();
+                System.Diagnostics.Debug.WriteLine($"DVV Almacenado: {digito}");
+                System.Diagnostics.Debug.WriteLine($"DVV Longitud: {digito.Length}");
+                return digito;
             }
+            
+            System.Diagnostics.Debug.WriteLine("No se encontró registro en ControlSeguridad para tabla 'Usuarios'");
             return "-1";
         }
 

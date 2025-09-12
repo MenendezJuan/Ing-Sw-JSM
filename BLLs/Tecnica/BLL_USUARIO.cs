@@ -1,5 +1,6 @@
 ﻿using BEs;
 using BEs.Clases;
+using BLLs.Tecnica;
 using MPPs;
 using Servicios;
 using System;
@@ -13,7 +14,22 @@ namespace BLLs
         {
             Mpp_Usuario = new MPP_USUARIO();
             Mpp_Bitacora = new MPP_BITACORA();
-            VerificarSeguridad();
+            
+            // Verificación global solo al login, no en gestión
+            // var bllControlCambios = new BLL_CONTROLCAMBIOS();
+            // bllControlCambios.VerificarSeguridadGlobal();
+        }
+
+        public BLL_USUARIO(bool verificarSeguridad)
+        {
+            Mpp_Usuario = new MPP_USUARIO();
+            Mpp_Bitacora = new MPP_BITACORA();
+            
+            if (verificarSeguridad)
+            {
+                var bllControlCambios = new BLL_CONTROLCAMBIOS();
+                bllControlCambios.VerificarSeguridadGlobal();
+            }
         }
 
         private MPP_USUARIO Mpp_Usuario;
@@ -105,6 +121,25 @@ namespace BLLs
             }
         }
 
+        public List<Usuario> ListarParaGestion()
+        {
+            try
+            {
+                List<Usuario> Lista = Mpp_Usuario.Listar();
+                if (Lista != null)
+                {
+                    Mpp_Bitacora.Agregar(SessionManager.GetInstance().oUsuario, Enum_TiposBitacora.ABML, "Se listaron usuarios (gestión)");
+                    return Lista;
+                }
+                throw new Exception("No se encontraron usuarios");
+            }
+            catch (Exception ex)
+            {
+                Mpp_Bitacora.Agregar(SessionManager.GetInstance().oUsuario, Enum_TiposBitacora.ERROR, ex.Message);
+                throw ex;
+            }
+        }
+
         #endregion ABML
 
         #region Login/>Logout
@@ -116,15 +151,18 @@ namespace BLLs
                 Usuario usuario = new Usuario(email, contraseña);
                 Usuario oUsuario = Mpp_Usuario.BuscarUsuarioPorCredenciales(usuario.Email); // Busca el usuario que coincida con el email
                 usuario.Contraseña = Seguridad.Hash(usuario.Contraseña);
-                usuario.DV = Seguridad.CalcularDigitoVerificadorHorizontal(usuario);
 
                 if (oUsuario != null && oUsuario.Contraseña == usuario.Contraseña)
                 {
-                    if (oUsuario.DV != usuario.DV)
+                    string dvCalculado = Seguridad.CalcularDigitoVerificadorHorizontal(oUsuario);
+                    
+                    if (oUsuario.DV != dvCalculado)
                     {
-                        Mpp_Bitacora.Agregar(oUsuario, Enum_TiposBitacora.VALIDACION, "Validacion Digito");
+                        Mpp_Bitacora.Agregar(oUsuario, Enum_TiposBitacora.VALIDACION, 
+                            $"Validacion Digito FALLIDA - DV_BD: {oUsuario.DV}, DV_Calculado: {dvCalculado}");
                         return false;
                     }
+
                     Mpp_Bitacora.Agregar(oUsuario, Enum_TiposBitacora.INFO, "Login");
                     SessionManager sessionManager = SessionManager.GetInstance();
                     sessionManager.Login(oUsuario);
@@ -151,21 +189,45 @@ namespace BLLs
             List<Usuario> Usuarios = Mpp_Usuario.ListarUsuariosActivos();
             if (Usuarios.Count == 0) { return ""; }
             string DV = "";
+
+            // Log de debug para ver qué usuarios se están procesando
+            System.Diagnostics.Debug.WriteLine($"=== CÁLCULO DVV - Usuarios Activos Encontrados: {Usuarios.Count} ===");
+
             foreach (Usuario u in Usuarios)
             {
+                System.Diagnostics.Debug.WriteLine($"Usuario ID: {u.Id}, Email: {u.Email}, DV: {u.DV ?? "NULL"}, DV Length: {u.DV?.Length ?? 0}");
                 DV += u.DV;
             }
-            return Seguridad.Hash(DV);
+
+            System.Diagnostics.Debug.WriteLine($"Concatenación final: {DV}");
+            System.Diagnostics.Debug.WriteLine($"Longitud concatenación: {DV.Length}");
+
+            string hash = Seguridad.Hash(DV);
+            System.Diagnostics.Debug.WriteLine($"Hash final: {hash}");
+
+            return hash;
         }
 
         public void VerificarSeguridad()
         {
             try
             {
-                string DV = CalcularDigitoVertical();
-                if (DV != Mpp_Usuario.VerificarSeguridad())
+                string dvCalculado = CalcularDigitoVertical();
+                string dvAlmacenado = Mpp_Usuario.VerificarSeguridad();
+
+                if (dvCalculado != dvAlmacenado)
                 {
-                    throw new Exception("La base de datos fue comprometida");
+                    // Crear mensaje detallado para debugging
+                    string mensajeDetallado = $"VERIFICACIÓN DE SEGURIDAD FALLIDA:\n" +
+                        $"- DV Calculado: {dvCalculado}\n" +
+                        $"- DV Almacenado: {dvAlmacenado}\n" +
+                        $"- Longitud Calculado: {dvCalculado?.Length ?? 0}\n" +
+                        $"- Longitud Almacenado: {dvAlmacenado?.Length ?? 0}\n" +
+                        $"- ¿Ambos no son null?: {(dvCalculado != null && dvAlmacenado != null)}\n" +
+                        $"- ¿Valores exactamente iguales?: {string.Equals(dvCalculado, dvAlmacenado, StringComparison.Ordinal)}\n" +
+                        $"- ¿Coinciden ignorando case?: {string.Equals(dvCalculado, dvAlmacenado, StringComparison.OrdinalIgnoreCase)}";
+
+                    throw new Exception($"La base de datos fue comprometida. Detalles: {mensajeDetallado}");
                 }
             }
             catch (Exception ex) { throw ex; }

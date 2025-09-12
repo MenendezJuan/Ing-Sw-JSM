@@ -8,14 +8,14 @@ namespace BEs
     {
         [Required(ErrorMessage = "El email es obligatorio")]
         [EmailAddress(ErrorMessage = "El formato del email no es válido")]
-        [PropiedadVerificable]
+        [PropiedadVerificable(1)]
         public string Email { get; set; }
 
         protected string _Contraaseña;
 
         [Required(ErrorMessage = "La contraseña es obligatoria")]
         [MinLength(1)]
-        [PropiedadVerificable]
+        [PropiedadVerificable(2)]
         public string Contraseña
         {
             get
