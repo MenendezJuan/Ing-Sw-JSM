@@ -29,30 +29,48 @@ namespace Servicios
 
         public static string CalcularDigitoVerificadorHorizontal(IVerificableEntity entity)
         {
+            // Reglas deterministas:
+            // - Solo propiedades marcadas con PropiedadVerificable
+            // - Ordenadas por atributo Orden y luego por nombre
+            // - Para cada propiedad: concatenar su valor (normalizado) + suma ASCII de ese valor
+            // - Excluir la propiedad DV
+
             Type t = entity.GetType();
-            string dvh = string.Empty;
-            var props = t.GetProperties();
 
-            foreach (var item in props)
-            {
-                var atributos = item.GetCustomAttributes();
-                var verificable = atributos.FirstOrDefault(i => i.GetType().Equals(typeof(PropiedadVerificable)));
-
-                int len = 0;
-                if (item.Name == "DV") { continue; }
-                if (verificable != null)
+            var verificables = t
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.Name != "DV")
+                .Select(p => new
                 {
-                    dvh += item.GetValue(entity).ToString();
-                    foreach (char c in dvh)
-                    {
-                        int asciiValue = (int)c;
-                        len += asciiValue;
-                    }
-                    dvh += len.ToString();
+                    Prop = p,
+                    Attr = p.GetCustomAttributes().FirstOrDefault(a => a.GetType().Equals(typeof(PropiedadVerificable))) as PropiedadVerificable
+                })
+                .Where(x => x.Attr != null)
+                .OrderBy(x => x.Attr.Orden)
+                .ThenBy(x => x.Prop.Name)
+                .ToList();
+
+            var builder = new StringBuilder();
+
+            foreach (var item in verificables)
+            {
+                object raw = item.Prop.GetValue(entity);
+                string text = raw?.ToString() ?? string.Empty;
+
+                // Normalización mínima para estabilidad
+                text = text.Trim();
+
+                int sum = 0;
+                foreach (char c in text)
+                {
+                    sum += (int)c;
                 }
+
+                builder.Append(text);
+                builder.Append(sum.ToString());
             }
 
-            return Hash(dvh);
+            return Hash(builder.ToString());
         }
     }
 }

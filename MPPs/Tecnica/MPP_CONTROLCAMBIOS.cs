@@ -96,15 +96,15 @@ namespace MPPs.Tecnica
             switch (tipoEntidad.ToUpper())
             {
                 case "USUARIO":
-                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Usuarios WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Usuarios WITH (NOLOCK) WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
 
                 case "PRODUCTO":
-                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Producto WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Producto WITH (NOLOCK) WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
 
                 case "VENTA":
-                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Venta WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Venta WITH (NOLOCK) WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
 
                 default:

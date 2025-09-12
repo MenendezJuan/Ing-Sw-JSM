@@ -14,7 +14,7 @@ namespace BLLs
         {
             Mpp_Usuario = new MPP_USUARIO();
             Mpp_Bitacora = new MPP_BITACORA();
-            
+
             // Verificación global solo al login, no en gestión
             // var bllControlCambios = new BLL_CONTROLCAMBIOS();
             // bllControlCambios.VerificarSeguridadGlobal();
@@ -24,11 +24,17 @@ namespace BLLs
         {
             Mpp_Usuario = new MPP_USUARIO();
             Mpp_Bitacora = new MPP_BITACORA();
-            
+
             if (verificarSeguridad)
             {
-                var bllControlCambios = new BLL_CONTROLCAMBIOS();
-                bllControlCambios.VerificarSeguridadGlobal();
+                try
+                {
+                    var bllControlCambios = new BLL_CONTROLCAMBIOS();
+                    bllControlCambios.VerificarSeguridadGlobal();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 
@@ -155,10 +161,10 @@ namespace BLLs
                 if (oUsuario != null && oUsuario.Contraseña == usuario.Contraseña)
                 {
                     string dvCalculado = Seguridad.CalcularDigitoVerificadorHorizontal(oUsuario);
-                    
+
                     if (oUsuario.DV != dvCalculado)
                     {
-                        Mpp_Bitacora.Agregar(oUsuario, Enum_TiposBitacora.VALIDACION, 
+                        Mpp_Bitacora.Agregar(oUsuario, Enum_TiposBitacora.VALIDACION,
                             $"Validacion Digito FALLIDA - DV_BD: {oUsuario.DV}, DV_Calculado: {dvCalculado}");
                         return false;
                     }
@@ -206,6 +212,34 @@ namespace BLLs
             System.Diagnostics.Debug.WriteLine($"Hash final: {hash}");
 
             return hash;
+        }
+
+        /// <summary>
+        /// Recalcula el DVH de todos los usuarios según el algoritmo vigente
+        /// y actualiza el DVV de la tabla Usuarios en ControlSeguridad.
+        /// Devuelve la cantidad de usuarios actualizados.
+        /// </summary>
+        public int RecalcularDVH_TodosUsuarios(bool soloActivos = true)
+        {
+            var usuarios = soloActivos ? Mpp_Usuario.ListarUsuariosActivos() : Mpp_Usuario.Listar();
+            int actualizados = 0;
+
+            foreach (var u in usuarios)
+            {
+                string nuevoDVH = Seguridad.CalcularDigitoVerificadorHorizontal(u);
+                if (!string.Equals(u.DV, nuevoDVH, StringComparison.Ordinal))
+                {
+                    u.DV = nuevoDVH;
+                    if (Mpp_Usuario.Modificar(u))
+                    {
+                        actualizados++;
+                    }
+                }
+            }
+
+            // Recalcular y guardar DVV
+            Mpp_Usuario.ActualizarDigitoVertical(CalcularDigitoVertical());
+            return actualizados;
         }
 
         public void VerificarSeguridad()

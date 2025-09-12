@@ -50,5 +50,10 @@ namespace CheeseLogix.SplashScreen
                 this.Close(); // Cierra el splash screen después de que el progreso llega al 100%
             }
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
