@@ -24,10 +24,10 @@ namespace MPPs.Tecnica
             try
             {
                 string nombreBD = oCnx.ObtenerNombreBaseDatos();
-                
+
                 string comandoBackup = $@"
-                    BACKUP DATABASE [{nombreBD}] 
-                    TO DISK = '{rutaArchivo}' 
+                    BACKUP DATABASE [{nombreBD}]
+                    TO DISK = '{rutaArchivo}'
                     WITH FORMAT, INIT, NAME = '{nombreBackup}', SKIP, NOREWIND, NOUNLOAD, STATS = 10";
 
                 return oCnx.EjecutarComandoSQL(comandoBackup, 5); // 5 minutos timeout
@@ -57,21 +57,21 @@ namespace MPPs.Tecnica
                 // Paso 1: Poner la base en modo single user
                 string comandoSingleUser = $@"
                     ALTER DATABASE [{nombreBD}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
-                
+
                 oCnx.EjecutarComandoSQL(comandoSingleUser, 2);
 
                 // Paso 2: Ejecutar restore
                 string comandoRestore = $@"
-                    RESTORE DATABASE [{nombreBD}] 
-                    FROM DISK = '{rutaArchivo}' 
+                    RESTORE DATABASE [{nombreBD}]
+                    FROM DISK = '{rutaArchivo}'
                     WITH REPLACE, STATS = 10";
-                
+
                 oCnx.EjecutarComandoSQL(comandoRestore, 10); // 10 minutos timeout
 
                 // Paso 3: Volver a modo multi user
                 string comandoMultiUser = $@"
                     ALTER DATABASE [{nombreBD}] SET MULTI_USER";
-                
+
                 oCnx.EjecutarComandoSQL(comandoMultiUser, 1);
 
                 return true;
@@ -89,7 +89,7 @@ namespace MPPs.Tecnica
                 {
                     // Si no puede volver a multi-user, al menos registrar el error original
                 }
-                
+
                 throw new Exception($"Error al ejecutar restore: {ex.Message}", ex);
             }
         }
@@ -110,4 +110,4 @@ namespace MPPs.Tecnica
             }
         }
     }
-} 
+}

@@ -3,9 +3,8 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
-using Microsoft.Reporting.WinForms; 
+using Microsoft.Reporting.WinForms;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -34,7 +33,7 @@ namespace CheeseLogix.Negocio.Reportes
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
             Actualizar(oIdioma);
-            
+
             ConfigurarReporte();
         }
 
@@ -45,7 +44,7 @@ namespace CheeseLogix.Negocio.Reportes
                 // Configurar fechas por defecto (último mes)
                 DateTime fechaFin = DateTime.Now;
                 DateTime fechaInicio = fechaFin.AddMonths(-1);
-                
+
                 dtpFechaInicio.Value = fechaInicio;
                 dtpFechaFin.Value = fechaFin;
 
@@ -53,7 +52,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al configurar reporte: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al configurar reporte: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -67,11 +66,11 @@ namespace CheeseLogix.Negocio.Reportes
 
                 // PRIMERO: Cargar el reporte usando rutas relativas
                 bool reporteCargado = false;
-                try 
+                try
                 {
                     // Obtener la ruta del archivo RDLC
                     string rutaReporte = BLL_CONFIGURACION.ObtenerRutaAbsolutaRDLC();
-                    
+
                     // Verificar que el archivo existe
                     if (File.Exists(rutaReporte))
                     {
@@ -96,8 +95,8 @@ namespace CheeseLogix.Negocio.Reportes
                                            $"Directorio actual: {Environment.CurrentDirectory}\n" +
                                            $"Directorio base: {AppDomain.CurrentDomain.BaseDirectory}\n\n" +
                                            $"Por favor, verifica que el archivo ReporteVentas.rdlc esté en la ubicación correcta.";
-                            
-                            MessageBox.Show(mensaje, ConstantesUI.Titulos.Error, 
+
+                            MessageBox.Show(mensaje, ConstantesUI.Titulos.Error,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return; // Salir si no se puede cargar el reporte
                         }
@@ -105,7 +104,7 @@ namespace CheeseLogix.Negocio.Reportes
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al cargar el reporte: {ex.Message}", 
+                    MessageBox.Show($"Error al cargar el reporte: {ex.Message}",
                         ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Salir si hay error
                 }
@@ -113,7 +112,7 @@ namespace CheeseLogix.Negocio.Reportes
                 // Solo continuar si el reporte se cargó correctamente
                 if (!reporteCargado)
                 {
-                    MessageBox.Show("No se pudo cargar el reporte. Verifique la configuración.", 
+                    MessageBox.Show("No se pudo cargar el reporte. Verifique la configuración.",
                         ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -127,28 +126,28 @@ namespace CheeseLogix.Negocio.Reportes
                 // Solo ajustar las de ventas por mes si es necesario
                 if (ventasPorMes.Columns.Contains("NombreMes") && !ventasPorMes.Columns.Contains("Mes"))
                     ventasPorMes.Columns["NombreMes"].ColumnName = "Mes";
-                
+
                 if (ventasPorMes.Columns.Contains("NumeroVentas") && !ventasPorMes.Columns.Contains("CantidadVentas"))
                     ventasPorMes.Columns["NumeroVentas"].ColumnName = "CantidadVentas";
 
                 // TERCERO: Configurar ReportViewer con datos reales
                 reportViewer1.LocalReport.DataSources.Clear();
-                
+
                 ReportDataSource dataSourceProductos = new ReportDataSource("ProductosMasVendidos", productosMasVendidos);
                 ReportDataSource dataSourceClientes = new ReportDataSource("ClientesMejores", clientesMejores);
                 ReportDataSource dataSourceVentasMes = new ReportDataSource("VentasPorMes", ventasPorMes);
-                
+
                 reportViewer1.LocalReport.DataSources.Add(dataSourceProductos);
                 reportViewer1.LocalReport.DataSources.Add(dataSourceClientes);
                 reportViewer1.LocalReport.DataSources.Add(dataSourceVentasMes);
-                
+
                 // CONFIGURAR LOGO DE CHEESELOGIX
                 try
                 {
                     // Por ahora, añadimos un título más prominente con el logo
                     // Ya que el RDLC no tiene LogoDataSet configurado
                     System.Diagnostics.Debug.WriteLine("Nota: Para mostrar el logo en el reporte, el archivo ReporteVentas.rdlc debe tener LogoDataSet configurado");
-                    
+
                     // El logo estará visible en las facturas PDF generadas desde frmCobroVenta
                     bool logoConfigurado = BLL_EXPORTACION.ConfigurarLogoReporte(reportViewer1);
                     if (logoConfigurado)
@@ -165,16 +164,15 @@ namespace CheeseLogix.Negocio.Reportes
                     // Log error pero continuar sin logo
                     System.Diagnostics.Debug.WriteLine($"Error al configurar logo: {logoEx.Message}");
                 }
-                
+
                 // CUARTO: Configurar parámetros de fecha (DESPUÉS de cargar el reporte)
                 ReportParameter paramFechaInicio = new ReportParameter("FechaInicio", fechaInicio.ToString("dd/MM/yyyy"));
                 ReportParameter paramFechaFin = new ReportParameter("FechaFin", fechaFin.ToString("dd/MM/yyyy"));
-                
+
                 reportViewer1.LocalReport.SetParameters(new ReportParameter[] { paramFechaInicio, paramFechaFin });
-                
+
                 // QUINTO: Refrescar el reporte
                 reportViewer1.RefreshReport();
-                
 
                 // Generar recomendaciones
                 var recomendaciones = Bll_Reportes.GenerarRecomendaciones();
@@ -182,7 +180,7 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al generar reporte: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al generar reporte: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -279,11 +277,10 @@ namespace CheeseLogix.Negocio.Reportes
             }
         }
 
-        #endregion
+        #endregion Idiomas
 
         private void frmReporteInteligente_Load(object sender, EventArgs e)
         {
-
         }
 
         private void frmReporteInteligente_Load_1(object sender, EventArgs e)
@@ -299,7 +296,7 @@ namespace CheeseLogix.Negocio.Reportes
                 // Usar un método alternativo para exportar PDF que evita el error PInvokeStackImbalance
                 string nombreArchivo = Bll_Exportacion.GenerarNombreArchivoUnico(BLL_CONFIGURACION.ObtenerPrefijoPDFReporte());
                 string rutaCompleta = Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), $"{nombreArchivo}.pdf");
-                
+
                 // Asegurar que el directorio exista
                 string directorio = Path.GetDirectoryName(rutaCompleta);
                 if (!Directory.Exists(directorio))
@@ -323,29 +320,30 @@ namespace CheeseLogix.Negocio.Reportes
                     waitForm.FormBorderStyle = FormBorderStyle.FixedDialog;
                     waitForm.ControlBox = false;
                     waitForm.Text = "Exportando...";
-                    
+
                     // Mostrar el formulario de espera en un hilo separado
-                    System.Threading.Thread thread = new System.Threading.Thread(() => {
+                    System.Threading.Thread thread = new System.Threading.Thread(() =>
+                    {
                         waitForm.ShowDialog();
                     });
                     thread.Start();
-                    
+
                     try
                     {
                         // Usar el método mejorado de exportación
                         bool resultado = Bll_Exportacion.ExportarReporteAPDF(reportViewer1, nombreArchivo);
-                        
+
                         // Cerrar el formulario de espera
                         waitForm.Invoke(new Action(() => { waitForm.Close(); }));
                         thread.Join();
-                        
+
                         if (resultado)
                         {
-                            MessageBox.Show($"Reporte exportado exitosamente a:\n{rutaCompleta}", 
+                            MessageBox.Show($"Reporte exportado exitosamente a:\n{rutaCompleta}",
                                 "Exportación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            
+
                             // Preguntar si desea abrir el archivo
-                            if (MessageBox.Show("¿Desea abrir el archivo PDF?", "Abrir archivo", 
+                            if (MessageBox.Show("¿Desea abrir el archivo PDF?", "Abrir archivo",
                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 Bll_Exportacion.AbrirArchivo(rutaCompleta);
@@ -363,9 +361,9 @@ namespace CheeseLogix.Negocio.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al exportar PDF: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al exportar PDF: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 // Forzar liberación de recursos
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
@@ -379,7 +377,7 @@ namespace CheeseLogix.Negocio.Reportes
                 // Obtener datos actuales
                 DateTime fechaInicio = dtpFechaInicio.Value;
                 DateTime fechaFin = dtpFechaFin.Value;
-                
+
                 DataTable productosMasVendidos = Bll_Reportes.ObtenerProductosTopReporte(fechaInicio, fechaFin);
                 DataTable clientesMejores = Bll_Reportes.ObtenerClientesTopGrafico(fechaInicio, fechaFin);
                 DataTable ventasPorMes = Bll_Reportes.ObtenerVentasPorMes(fechaFin.Year);
@@ -396,23 +394,20 @@ namespace CheeseLogix.Negocio.Reportes
 
                 if (Bll_Exportacion.ExportarMultiplesDataTablesAExcel(nombreArchivo, datosParaExportar))
                 {
-                    MessageBox.Show($"Reporte exportado exitosamente a:\n{rutaCompleta}", 
+                    MessageBox.Show($"Reporte exportado exitosamente a:\n{rutaCompleta}",
                         "Exportación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Abrir el archivo Excel
                     Bll_Exportacion.AbrirArchivo(rutaCompleta);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al exportar Excel: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al exportar Excel: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
-
-        #endregion
-
+        #endregion Exportación
     }
 }

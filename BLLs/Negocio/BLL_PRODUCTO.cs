@@ -1,4 +1,5 @@
 ﻿using BEs.Clases.Negocio;
+using BLLs.Tecnica;
 using MPPs;
 using MPPs.Negocio;
 using System;
@@ -11,11 +12,13 @@ namespace BLLs.Negocio
     {
         private readonly MPP_PRODUCTO _productoRepository;
         private readonly MPP_PROVEEDOR _proveedorRepository;
+        private readonly BLL_CONTROLCAMBIOS _bllControlCambios;
 
         public BLL_PRODUCTO()
         {
             _productoRepository = new MPP_PRODUCTO();
             _proveedorRepository = new MPP_PROVEEDOR(); ;
+            _bllControlCambios = new BLL_CONTROLCAMBIOS();
         }
 
         public void Insertar(Producto producto, int proveedorId)
@@ -23,7 +26,18 @@ namespace BLLs.Negocio
             ValidarProducto(producto);
             ValidarProveedor(proveedorId);
             producto.PrecioVenta = CalcularPrecioVenta(producto.PrecioCompra, producto.CategoriaEnum);
-            _productoRepository.Insertar(producto, proveedorId);
+            int productoId = _productoRepository.Insertar(producto, proveedorId);
+
+            // Calcular y actualizar dígito verificador automáticamente
+            try
+            {
+                _bllControlCambios.ActualizarDigitoVerificador("Producto", productoId);
+            }
+            catch (Exception ex)
+            {
+                // Log del error pero no interrumpir el flujo principal
+                System.Diagnostics.Debug.WriteLine($"Error calculando DV para Producto {productoId}: {ex.Message}");
+            }
         }
 
         public void Actualizar(Producto producto, int nuevoProveedorId)
@@ -33,6 +47,17 @@ namespace BLLs.Negocio
             ValidarProveedor(nuevoProveedorId);
             producto.PrecioVenta = CalcularPrecioVenta(producto.PrecioCompra, producto.CategoriaEnum);
             _productoRepository.Actualizar(producto, nuevoProveedorId);
+
+            // Actualizar dígito verificador después de modificar
+            try
+            {
+                _bllControlCambios.ActualizarDigitoVerificador("Producto", producto.Id);
+            }
+            catch (Exception ex)
+            {
+                // Log del error pero no interrumpir el flujo principal
+                System.Diagnostics.Debug.WriteLine($"Error actualizando DV para Producto {producto.Id}: {ex.Message}");
+            }
         }
 
         public void Eliminar(int id)
@@ -77,6 +102,7 @@ namespace BLLs.Negocio
             ValidarProveedor(proveedorId);
             return _productoRepository.ObtenerProductosProveedorPorCategoria(proveedorId, categoria);
         }
+
         public List<Producto> ObtenerProductosPorProveedor(int proveedorId)
         {
             return _productoRepository.ObtenerProductosPorProveedorId(proveedorId);
@@ -128,6 +154,28 @@ namespace BLLs.Negocio
 
             if (producto.PrecioVenta < producto.PrecioCompra)
                 throw new ArgumentException("El precio de venta no puede ser menor que el precio de compra.", nameof(producto.PrecioVenta));
+
+            if (producto.StockMinimo < 0)
+                throw new ArgumentException("El stock mínimo no puede ser negativo.", nameof(producto.StockMinimo));
+        }
+
+        public List<Producto> ObtenerProductosBajoStock()
+        {
+            var productos = _productoRepository.ObtenerTodos().Where(p => p.Estado).ToList();
+            var bajos = new List<Producto>();
+
+            foreach (var p in productos)
+            {
+                var info = _productoRepository.ObtenerInfoStock(p.Id);
+                // Asignar StockReservado para que StockDisponible se calcule automáticamente
+                p.StockReservado = info?.StockReservado ?? 0;
+
+                if (p.StockDisponible <= p.StockMinimo)
+                {
+                    bajos.Add(p);
+                }
+            }
+            return bajos;
         }
 
         private void ValidarProveedor(int proveedorId)
@@ -167,19 +215,11 @@ namespace BLLs.Negocio
             {
                 if (producto.Estado && producto.Stock > 0)
                 {
-                    // Obtener información de stock real
+                    // Obtener información de stock real y asignar StockReservado
                     var stockInfo = _productoRepository.ObtenerInfoStock(producto.Id);
-                    if (stockInfo != null)
-                    {
-                        producto.StockDisponible = stockInfo.StockDisponible;
-                        producto.StockReservado = stockInfo.StockReservado;
-                    }
-                    else
-                    {
-                        producto.StockDisponible = producto.Stock ?? 0;
-                        producto.StockReservado = 0;
-                    }
-                    
+                    producto.StockReservado = stockInfo?.StockReservado ?? 0;
+
+                    // StockDisponible se calcula automáticamente como Stock - StockReservado
                     // Solo agregar si tiene stock disponible
                     if (producto.StockDisponible > 0)
                     {
@@ -189,6 +229,11 @@ namespace BLLs.Negocio
             }
 
             return productosDisponibles;
+        }
+
+        public int ContarProductosBajoStock()
+        {
+            return _productoRepository.ContarProductosBajoStock();
         }
 
         /// <summary>
@@ -203,6 +248,7 @@ namespace BLLs.Negocio
         }
 
         #region MetodosPrivados
+
         private decimal CalcularPrecioVenta(decimal precioCompra, Categoria categoria)
         {
             if (categoria == Categoria.Fiambres)
@@ -226,13 +272,16 @@ namespace BLLs.Negocio
                 throw new ArgumentException("Categoría de producto no válida.", nameof(categoria));
             }
         }
-        #endregion
+
+        #endregion MetodosPrivados
 
         #region propAuxiliares
+
         private const decimal MARGEN_FIAMBRES = 0.25m;
         private const decimal MARGEN_QUESOS = 0.20m;
         private const decimal MARGEN_ALMACEN = 0.35m;
         private const decimal MARGEN_CONSERVAS = 0.50m;
-        #endregion
+
+        #endregion propAuxiliares
     }
 }

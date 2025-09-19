@@ -68,8 +68,6 @@ namespace BLLs.Negocio
             }
         }
 
-
-
         // Método para eliminar una cotización y sus detalles
         public void Eliminar(int id)
         {

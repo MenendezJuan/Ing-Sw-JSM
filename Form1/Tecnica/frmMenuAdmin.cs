@@ -2,6 +2,7 @@
 using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
+using CheeseLogix.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +34,8 @@ namespace CheeseLogix
             }
         }
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -47,6 +49,7 @@ namespace CheeseLogix
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -74,8 +77,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Permisos
+
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -97,6 +103,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -137,8 +144,11 @@ namespace CheeseLogix
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
         #endregion Idiomas
+
         #region Controles de Usuario
+
         private void button_Usuarios_Click(object sender, EventArgs e)
         {
             frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
@@ -197,7 +207,6 @@ namespace CheeseLogix
             pForm.AddOwnedForm(gestorIdiomas);
             pForm.FormHijo(gestorIdiomas);
             gestorIdiomas.Show();
-
         }
 
         private void MenuInicio_FormClosing(object sender, FormClosingEventArgs e)
@@ -211,9 +220,13 @@ namespace CheeseLogix
             SessionManager.Logout();
             Cerrar();
         }
+
         #endregion Controles de Usuario
+
         #region Extras
-        int i = 0;
+
+        private int i = 0;
+
         public void Cerrar()
         {
             if (i == 0)
@@ -222,11 +235,11 @@ namespace CheeseLogix
                 this.Close();
             }
         }
+
         #endregion Extras
 
         private void frmMenuAdmin_Load(object sender, EventArgs e)
         {
-
         }
 
         private void btnBackupRestore_Click(object sender, EventArgs e)
@@ -236,6 +249,19 @@ namespace CheeseLogix
             pForm.AddOwnedForm(backupRestore);
             pForm.FormHijo(backupRestore);
             backupRestore.Show();
+        }
+
+        private void btnControlCambios_Click(object sender, EventArgs e)
+        {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
+            frmControlCambios controlCambios = new frmControlCambios();
+
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(controlCambios);
+                pForm.FormHijo(controlCambios);
+            }
+            controlCambios.Show();
         }
     }
 }

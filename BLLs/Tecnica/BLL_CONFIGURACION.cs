@@ -117,7 +117,7 @@ namespace BLLs.Tecnica
         {
             return ObtenerConfiguracion("ReporteVentasRDLC", "CheeseLogix.Negocio.Reportes.ReporteVentas.rdlc");
         }
-        
+
         /// <summary>
         /// Obtiene la ruta del archivo RDLC usando rutas relativas
         /// </summary>
@@ -127,26 +127,26 @@ namespace BLLs.Tecnica
             {
                 // Obtener la ruta relativa desde la configuración
                 string rutaRelativa = ObtenerConfiguracion("ReporteVentasRDLCPath", @"Negocio\Reportes\ReporteVentas.rdlc");
-                
+
                 // Buscar en múltiples ubicaciones posibles
                 string[] rutasAIntentar = new string[]
                 {
                     // 1. Relativo al directorio de la aplicación
                     Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaRelativa),
-                    
+
                     // 2. Relativo al directorio de ejecución con carpeta Reportes
                     Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reportes", "ReporteVentas.rdlc"),
-                    
+
                     // 3. Relativo al directorio actual del proceso
                     Path.Combine(Environment.CurrentDirectory, rutaRelativa),
-                    
+
                     // 4. En el directorio de salida bin
                     Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin", "ReporteVentas.rdlc"),
-                    
+
                     // 5. Buscar hacia arriba en la jerarquía de carpetas (modo desarrollo)
                     BuscarArchivoHaciaArriba("ReporteVentas.rdlc")
                 };
-                
+
                 // Intentar cada ruta hasta encontrar el archivo
                 foreach (string ruta in rutasAIntentar)
                 {
@@ -155,7 +155,7 @@ namespace BLLs.Tecnica
                         return ruta;
                     }
                 }
-                
+
                 // Si no se encuentra en ninguna ubicación, devolver la primera opción
                 return rutasAIntentar[0];
             }
@@ -164,7 +164,7 @@ namespace BLLs.Tecnica
                 throw new Exception($"Error al obtener ruta del archivo RDLC: {ex.Message}", ex);
             }
         }
-        
+
         /// <summary>
         /// Busca un archivo hacia arriba en la jerarquía de carpetas
         /// </summary>
@@ -173,17 +173,17 @@ namespace BLLs.Tecnica
             try
             {
                 DirectoryInfo directorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-                
+
                 // Buscar hasta 5 niveles hacia arriba
                 for (int i = 0; i < 5 && directorio != null; i++)
                 {
                     // Buscar en subcarpetas comunes
-                    string[] subCarpetas = { 
-                        @"Form1\Negocio\Reportes", 
-                        @"Negocio\Reportes", 
-                        "Reportes" 
+                    string[] subCarpetas = {
+                        @"Form1\Negocio\Reportes",
+                        @"Negocio\Reportes",
+                        "Reportes"
                     };
-                    
+
                     foreach (string subCarpeta in subCarpetas)
                     {
                         string rutaCompleta = Path.Combine(directorio.FullName, subCarpeta, nombreArchivo);
@@ -192,10 +192,10 @@ namespace BLLs.Tecnica
                             return rutaCompleta;
                         }
                     }
-                    
+
                     directorio = directorio.Parent;
                 }
-                
+
                 return null;
             }
             catch
@@ -220,7 +220,7 @@ namespace BLLs.Tecnica
             return ObtenerConfiguracion("PrefijoExcelReporte", "Reporte_CheeseLogix");
         }
 
-        #endregion
+        #endregion Configuraciones específicas de Reportes
 
         #region Configuraciones específicas de Facturas
 
@@ -274,7 +274,7 @@ namespace BLLs.Tecnica
             return ObtenerConfiguracion("FormatoNumeroFactura", "D6");
         }
 
-        #endregion
+        #endregion Configuraciones específicas de Facturas
 
         #region Configuraciones específicas de Backups
 
@@ -295,7 +295,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Configuraciones específicas de Backups
 
         #region Configuraciones específicas de Firmas
 
@@ -316,7 +316,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Configuraciones específicas de Firmas
 
         #region Configuraciones específicas de Documentación
 
@@ -362,7 +362,7 @@ namespace BLLs.Tecnica
             try
             {
                 string nombreArchivo = ObtenerConfiguracion("ManualUsuarioPDF", "Manual_Usuario_CheeseLogix.pdf");
-                
+
                 // Ubicaciones posibles para el manual
                 string[] posiblesRutas = {
                     // 1. Directorio de documentación configurado
@@ -395,6 +395,6 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Configuraciones específicas de Documentación
     }
 }

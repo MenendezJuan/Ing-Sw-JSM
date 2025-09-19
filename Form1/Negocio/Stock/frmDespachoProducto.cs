@@ -1,6 +1,5 @@
 ﻿using BEs;
 using BEs.Clases;
-using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Enums;
 using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
@@ -10,13 +9,10 @@ using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CheeseLogix.Negocio.Ventas
@@ -29,18 +25,19 @@ namespace CheeseLogix.Negocio.Ventas
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
-        
+
         // Venta seleccionada actualmente
         private Venta _ventaSeleccionada;
-        
+
         // Lista de ventas cobradas
         private List<Venta> _ventasCobradas;
-        
+
         // Control de firma
         private bool _ventaFirmada = false;
+
         private string _archivoFirmaActual = string.Empty;
 
-        #endregion
+        #endregion Propiedades y Variables
 
         #region Constructor y Inicialización
 
@@ -73,10 +70,10 @@ namespace CheeseLogix.Negocio.Ventas
 
             // Configurar DataGridViews
             ConfigurarDataGrids();
-            
+
             // Cargar ventas cobradas
             CargarVentasCobradas();
-            
+
             // Estado inicial de botones
             ActualizarEstadoBotones();
 
@@ -97,7 +94,7 @@ namespace CheeseLogix.Negocio.Ventas
             // El formulario ya está configurado en InicializarComponentes
         }
 
-        #endregion
+        #endregion Constructor y Inicialización
 
         #region Configuración de DataGridViews
 
@@ -205,7 +202,7 @@ namespace CheeseLogix.Negocio.Ventas
             });
         }
 
-        #endregion
+        #endregion Configuración de DataGridViews
 
         #region Carga de Datos
 
@@ -220,7 +217,7 @@ namespace CheeseLogix.Negocio.Ventas
                     .ToList();
 
                 dataGridViewOrdenVenta.DataSource = _ventasCobradas;
-                
+
                 // Limpiar selección
                 LimpiarSeleccion();
             }
@@ -272,7 +269,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Carga de Datos
 
         #region Eventos de Selección
 
@@ -281,13 +278,13 @@ namespace CheeseLogix.Negocio.Ventas
             if (dataGridViewOrdenVenta.CurrentRow?.DataBoundItem is Venta ventaSeleccionada)
             {
                 _ventaSeleccionada = ventaSeleccionada;
-                
+
                 // Cargar detalles de la venta
                 CargarDetalleVenta(ventaSeleccionada.Id);
-                
+
                 // Verificar si ya tiene firma
                 VerificarFirmaExistente(ventaSeleccionada.Id);
-                
+
                 // Actualizar estado de botones
                 ActualizarEstadoBotones();
             }
@@ -302,12 +299,12 @@ namespace CheeseLogix.Negocio.Ventas
             _ventaSeleccionada = null;
             _ventaFirmada = false;
             _archivoFirmaActual = string.Empty;
-            
+
             dataGridViewDetOrdenVenta.DataSource = null;
             ActualizarEstadoBotones();
         }
 
-        #endregion
+        #endregion Eventos de Selección
 
         #region Firma de Conforme
 
@@ -435,7 +432,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Firma de Conforme
 
         #region Control de Estados
 
@@ -460,7 +457,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Control de Estados
 
         #region Eventos de Botones
 
@@ -564,11 +561,11 @@ namespace CheeseLogix.Negocio.Ventas
             this.Close();
         }
 
-        #endregion
+        #endregion Eventos de Botones
 
         #region Gestión de Idiomas y Permisos
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
 
         public void BuscarControles(ICollection controles)
         {
@@ -583,6 +580,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -610,7 +608,8 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
-        #endregion
+
+        #endregion Permisos
 
         public void Actualizar(IIdioma idioma)
         {
@@ -686,7 +685,6 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Gestión de Idiomas y Permisos
     }
 }
-

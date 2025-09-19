@@ -6,11 +6,9 @@ using BEs.Clases.Negocio.Ventas;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
-using CheeseLogix.Negocio.Ventas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,20 +23,20 @@ namespace CheeseLogix.Negocio.Ventas
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
-        
+
         // Cliente actual
         private Cliente _clienteActual;
-        
+
         // Carrito de compras en memoria (usando DetalleVenta)
         private List<DetalleVenta> _carrito;
-        
+
         // Lista de productos disponibles
         private List<Producto> _productos;
-        
+
         // Producto seleccionado actualmente
         private Producto _productoSeleccionado;
 
-        #endregion
+        #endregion Propiedades y Variables
 
         #region Constructor y Inicialización
 
@@ -74,21 +72,21 @@ namespace CheeseLogix.Negocio.Ventas
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllProducto = new BLL_PRODUCTO();
             _bllVenta = new BLL_VENTA();
-            
+
             // Inicializar carrito
             _carrito = new List<DetalleVenta>();
-            
+
             // Configurar fecha actual
             lblFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            
+
             // Configurar total inicial
             ActualizarTotal();
-            
+
             // Cargar datos iniciales
             CargarCategorias();
             CargarProductos();
             ConfigurarDataGrids();
-            
+
             // Configurar idiomas y permisos
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
@@ -126,7 +124,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_bllCliente == null) _bllCliente = new BLL_CLIENTE();
                 var cliente = _bllCliente.BuscarPorCUIT(cuit);
-                
+
                 if (cliente != null)
                 {
                     EstablecerCliente(cliente);
@@ -134,19 +132,19 @@ namespace CheeseLogix.Negocio.Ventas
                 else
                 {
                     lblCliente.Text = $"Cliente con CUIT {cuit} no encontrado";
-                    MessageBox.Show($"No se encontró un cliente con CUIT '{cuit}' en el sistema.", 
+                    MessageBox.Show($"No se encontró un cliente con CUIT '{cuit}' en el sistema.",
                         BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
                 lblCliente.Text = "Error al buscar cliente";
-                MessageBox.Show($"Error al buscar cliente: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al buscar cliente: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        #endregion
+        #endregion Constructor y Inicialización
 
         #region Configuración de DataGridViews
 
@@ -163,65 +161,65 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewProductos.AutoGenerateColumns = false;
             dataGridViewProductos.Columns.Clear();
 
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Id", 
-                HeaderText = "ID", 
-                Name = "Id", 
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Id",
+                HeaderText = "ID",
+                Name = "Id",
                 Width = 50,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Codigo", 
-                HeaderText = "Código", 
-                Name = "Codigo", 
+
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Codigo",
+                HeaderText = "Código",
+                Name = "Codigo",
                 Width = 80,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Nombre", 
-                HeaderText = "Producto", 
-                Name = "Nombre", 
+
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Nombre",
+                HeaderText = "Producto",
+                Name = "Nombre",
                 Width = 200,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "CategoriaEnum", 
-                HeaderText = "Categoría", 
-                Name = "Categoria", 
+
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "CategoriaEnum",
+                HeaderText = "Categoría",
+                Name = "Categoria",
                 Width = 100,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Stock", 
-                HeaderText = "Stock Total", 
-                Name = "StockTotal", 
+
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Stock",
+                HeaderText = "Stock Total",
+                Name = "StockTotal",
                 Width = 80,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "StockDisponible", 
-                HeaderText = "Disponible", 
-                Name = "StockDisponible", 
+
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StockDisponible",
+                HeaderText = "Disponible",
+                Name = "StockDisponible",
                 Width = 80,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "PrecioVenta", 
-                HeaderText = "Precio", 
-                Name = "PrecioVenta", 
+
+            dataGridViewProductos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PrecioVenta",
+                HeaderText = "Precio",
+                Name = "PrecioVenta",
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
@@ -235,46 +233,46 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewCarrito.AutoGenerateColumns = false;
             dataGridViewCarrito.Columns.Clear();
 
-            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "NombreProducto", 
-                HeaderText = "Producto", 
-                Name = "Producto", 
+            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NombreProducto",
+                HeaderText = "Producto",
+                Name = "Producto",
                 Width = 200,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Cantidad", 
-                HeaderText = "Cantidad", 
-                Name = "Cantidad", 
+
+            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Cantidad",
+                HeaderText = "Cantidad",
+                Name = "Cantidad",
                 Width = 80,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Precio", 
-                HeaderText = "Precio Unit.", 
-                Name = "Precio", 
+
+            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Precio",
+                HeaderText = "Precio Unit.",
+                Name = "Precio",
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
-            
-            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "SubTotal", 
-                HeaderText = "Subtotal", 
-                Name = "SubTotal", 
+
+            dataGridViewCarrito.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SubTotal",
+                HeaderText = "Subtotal",
+                Name = "SubTotal",
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
         }
 
-        #endregion
+        #endregion Configuración de DataGridViews
 
         #region Carga de Datos
 
@@ -284,26 +282,26 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 // Cargar todas las categorías del enum
                 var categorias = Enum.GetValues(typeof(Categoria)).Cast<Categoria>().ToList();
-                
+
                 // Crear lista con opción "Todas"
                 var categoriasCombo = new List<object>();
                 categoriasCombo.Add(new { Value = -1, Text = "Todas las categorías" });
-                
+
                 foreach (var categoria in categorias)
                 {
                     categoriasCombo.Add(new { Value = (int)categoria, Text = categoria.ToString() });
                 }
-                
+
                 cmbCategoriaProducto.DataSource = categoriasCombo;
                 cmbCategoriaProducto.DisplayMember = "Text";
                 cmbCategoriaProducto.ValueMember = "Value";
                 cmbCategoriaProducto.SelectedIndex = 0; // Seleccionar "Todas"
-                
+
                 cmbCategoriaProducto.SelectedIndexChanged += CmbCategoriaProducto_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar categorías: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al cargar categorías: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -318,7 +316,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar productos: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al cargar productos: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -328,9 +326,9 @@ namespace CheeseLogix.Negocio.Ventas
             try
             {
                 var categoriaSeleccionada = Convert.ToInt32(cmbCategoriaProducto.SelectedValue);
-                
+
                 List<Producto> productosFiltrados;
-                
+
                 if (categoriaSeleccionada == -1) // Todas las categorías
                 {
                     productosFiltrados = _bllProducto.ObtenerProductosDisponiblesParaVenta();
@@ -339,18 +337,18 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     productosFiltrados = _bllProducto.ObtenerProductosPorCategoriaDisponibles((Categoria)categoriaSeleccionada);
                 }
-                
+
                 dataGridViewProductos.DataSource = productosFiltrados;
                 LimpiarSeleccionProducto();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al filtrar productos: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al filtrar productos: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        #endregion
+        #endregion Carga de Datos
 
         #region Eventos de Selección
 
@@ -359,18 +357,18 @@ namespace CheeseLogix.Negocio.Ventas
             if (dataGridViewProductos.CurrentRow?.DataBoundItem is Producto productoSeleccionado)
             {
                 _productoSeleccionado = productoSeleccionado;
-                
+
                 // Configurar cantidad máxima según stock disponible
                 numericCantidadProducto.Maximum = Math.Max(1, (decimal)productoSeleccionado.StockDisponible);
                 numericCantidadProducto.Value = 1;
                 numericCantidadProducto.Enabled = productoSeleccionado.StockDisponible > 0;
-                
+
                 // Habilitar/deshabilitar botón de agregar
                 btnAgregarACarrito.Enabled = productoSeleccionado.StockDisponible > 0;
-                
+
                 if (productoSeleccionado.StockDisponible <= 0)
                 {
-                    MessageBox.Show($"El producto '{productoSeleccionado.Nombre}' no tiene stock disponible.", 
+                    MessageBox.Show($"El producto '{productoSeleccionado.Nombre}' no tiene stock disponible.",
                         BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
@@ -399,7 +397,7 @@ namespace CheeseLogix.Negocio.Ventas
             btnAgregarACarrito.Enabled = false;
         }
 
-        #endregion
+        #endregion Eventos de Selección
 
         #region Gestión del Carrito
 
@@ -409,35 +407,35 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_productoSeleccionado == null)
                 {
-                    MessageBox.Show("Por favor, seleccione un producto.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, 
+                    MessageBox.Show("Por favor, seleccione un producto.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 decimal cantidadSolicitada = numericCantidadProducto.Value;
-                
+
                 // Verificar stock disponible
                 if (cantidadSolicitada > _productoSeleccionado.StockDisponible)
                 {
-                    MessageBox.Show($"No hay suficiente stock disponible. Stock disponible: {_productoSeleccionado.StockDisponible}", 
+                    MessageBox.Show($"No hay suficiente stock disponible. Stock disponible: {_productoSeleccionado.StockDisponible}",
                         BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 // Verificar si el producto ya está en el carrito
                 var itemExistente = _carrito.FirstOrDefault(i => i.ProductoId == _productoSeleccionado.Id);
-                
+
                 if (itemExistente != null)
                 {
                     // Verificar que la cantidad total no exceda el stock
                     decimal cantidadTotal = itemExistente.Cantidad + cantidadSolicitada;
                     if (cantidadTotal > _productoSeleccionado.StockDisponible)
                     {
-                        MessageBox.Show($"La cantidad total ({cantidadTotal}) excedería el stock disponible ({_productoSeleccionado.StockDisponible}).", 
+                        MessageBox.Show($"La cantidad total ({cantidadTotal}) excedería el stock disponible ({_productoSeleccionado.StockDisponible}).",
                             BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    
+
                     // Actualizar cantidad existente
                     itemExistente.Cantidad = cantidadTotal;
                     itemExistente.SubTotal = itemExistente.Cantidad * itemExistente.Precio;
@@ -454,26 +452,26 @@ namespace CheeseLogix.Negocio.Ventas
                         SubTotal = cantidadSolicitada * (_productoSeleccionado.PrecioVenta ?? 0),
                         Fecha = DateTime.Now
                     };
-                    
+
                     _carrito.Add(nuevoItem);
                 }
 
                 // Guardar información del producto antes de limpiar la selección
                 string nombreProducto = _productoSeleccionado.Nombre;
-                
+
                 // Actualizar vista del carrito
                 ActualizarVistaCarrito();
                 ActualizarTotal();
-                
+
                 // Limpiar selección
                 LimpiarSeleccionProducto();
-                
-                MessageBox.Show($"Producto agregado al carrito: {nombreProducto} x{cantidadSolicitada}", 
+
+                MessageBox.Show($"Producto agregado al carrito: {nombreProducto} x{cantidadSolicitada}",
                     BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al agregar producto al carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al agregar producto al carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -485,30 +483,30 @@ namespace CheeseLogix.Negocio.Ventas
                 if (dataGridViewCarrito.CurrentRow?.DataBoundItem is DetalleVenta itemSeleccionado)
                 {
                     var resultado = MessageBox.Show(
-                        $"¿Está seguro de que desea eliminar '{itemSeleccionado.NombreProducto}' del carrito?", 
-                        BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
-                        MessageBoxButtons.YesNo, 
+                        $"¿Está seguro de que desea eliminar '{itemSeleccionado.NombreProducto}' del carrito?",
+                        BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion,
+                        MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
-                    
+
                     if (resultado == DialogResult.Yes)
                     {
                         _carrito.Remove(itemSeleccionado);
                         ActualizarVistaCarrito();
                         ActualizarTotal();
-                        
-                        MessageBox.Show("Producto eliminado del carrito.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
+
+                        MessageBox.Show("Producto eliminado del carrito.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion,
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione un producto del carrito para eliminar.", 
+                    MessageBox.Show("Por favor, seleccione un producto del carrito para eliminar.",
                         BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar producto del carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al eliminar producto del carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -519,30 +517,30 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (_carrito.Count == 0)
                 {
-                    MessageBox.Show("El carrito ya está vacío.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show("El carrito ya está vacío.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 var resultado = MessageBox.Show(
-                    "¿Está seguro de que desea vaciar todo el carrito?", 
-                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
-                    MessageBoxButtons.YesNo, 
+                    "¿Está seguro de que desea vaciar todo el carrito?",
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion,
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
-                
+
                 if (resultado == DialogResult.Yes)
                 {
                     _carrito.Clear();
                     ActualizarVistaCarrito();
                     ActualizarTotal();
-                    
-                    MessageBox.Show("Carrito vaciado exitosamente.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
+
+                    MessageBox.Show("Carrito vaciado exitosamente.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al vaciar carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al vaciar carrito: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -551,11 +549,23 @@ namespace CheeseLogix.Negocio.Ventas
         {
             dataGridViewCarrito.DataSource = null;
             dataGridViewCarrito.DataSource = _carrito.ToList(); // Nueva lista para forzar actualización
-            
+
             // Habilitar/deshabilitar botones según el estado del carrito
-            btnEliminarProducto.Enabled = false; // Se habilitará en SelectionChanged
             btnVaciarCarrito.Enabled = _carrito.Count > 0;
             btnConfirmarCompra.Enabled = _carrito.Count > 0;
+
+            // Preseleccionar automáticamente el primer item si hay elementos
+            if (_carrito.Count > 0)
+            {
+                dataGridViewCarrito.ClearSelection();
+                dataGridViewCarrito.CurrentCell = dataGridViewCarrito.Rows[0].Cells[0];
+                dataGridViewCarrito.Rows[0].Selected = true;
+                btnEliminarProducto.Enabled = true;
+            }
+            else
+            {
+                btnEliminarProducto.Enabled = false;
+            }
         }
 
         private void ActualizarTotal()
@@ -564,7 +574,7 @@ namespace CheeseLogix.Negocio.Ventas
             lblTotal.Text = total.ToString("C2");
         }
 
-        #endregion
+        #endregion Gestión del Carrito
 
         #region Confirmación de Compra
 
@@ -589,40 +599,42 @@ namespace CheeseLogix.Negocio.Ventas
                 // Guardar la venta (esto reservará automáticamente el stock)
                 int ventaId = _bllVenta.Insertar(nuevaVenta);
                 nuevaVenta.Id = ventaId; // Asignar el ID generado
-                
-                MessageBox.Show($"Venta creada exitosamente con ID: {ventaId}\n\nEl stock ha sido reservado automáticamente.\n\nProcediendo al cobro...", 
+
+                MessageBox.Show($"Venta creada exitosamente con ID: {ventaId}\n\nEl stock ha sido reservado automáticamente.\n\nProcediendo al cobro...",
                     BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                // Redirigir al formulario de cobro
-                var frmCobro = new frmCobroVenta(nuevaVenta);
-                this.Hide();
-                var resultadoCobro = frmCobro.ShowDialog();
-                
-                // Si el cobro fue exitoso o cancelado, cerrar este formulario
-                if (resultadoCobro == DialogResult.OK || resultadoCobro == DialogResult.Cancel)
+
+                // Preguntar si desea realizar otra venta para el mismo cliente
+                var otraVenta = MessageBox.Show(
+                    $"Venta registrada exitosamente.\n\n¿Desea realizar otra venta para el cliente '{_clienteActual.NombreCompleto}'?",
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (otraVenta == DialogResult.Yes)
                 {
-                    // Limpiar carrito y cerrar formulario
+                    // Reiniciar el formulario para nueva venta
                     _carrito.Clear();
                     ActualizarVistaCarrito();
                     ActualizarTotal();
-                    
-                    this.DialogResult = resultadoCobro;
-                    this.Close();
+                    CargarProductos(); // Recargar productos con stock actualizado
+                    MessageBox.Show($"Formulario reiniciado para nueva venta del cliente: {_clienteActual.NombreCompleto}",
+                        BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // Si hay error en el cobro, mostrar este formulario nuevamente
-                    this.Show();
+                    // Cerrar y volver al inicio de órdenes
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear la venta: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al crear la venta: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        #endregion
+        #endregion Confirmación de Compra
 
         #region Eventos de Botones
 
@@ -631,27 +643,27 @@ namespace CheeseLogix.Negocio.Ventas
             if (_carrito.Count > 0)
             {
                 var resultado = MessageBox.Show(
-                    "Hay productos en el carrito. ¿Está seguro de que desea salir sin confirmar la venta?", 
-                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
-                    MessageBoxButtons.YesNo, 
+                    "Hay productos en el carrito. ¿Está seguro de que desea salir sin confirmar la venta?",
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion,
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
-                
+
                 if (resultado == DialogResult.No)
                 {
                     return;
                 }
             }
-            
+
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        #endregion
+        #endregion Eventos de Botones
 
         #region Gestión de Idiomas y Permisos
 
-        List<Control> ListaControles = new List<Control>();
-        
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -665,6 +677,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -692,7 +705,8 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
-        #endregion
+
+        #endregion Permisos
 
         public void Actualizar(IIdioma idioma)
         {
@@ -722,7 +736,7 @@ namespace CheeseLogix.Negocio.Ventas
                 cboxIdiomas.DataSource = idiomas;
                 cboxIdiomas.DisplayMember = "Nombre";
                 cboxIdiomas.ValueMember = "Id";
-                
+
                 if (sesion.Idioma != null)
                 {
                     cboxIdiomas.SelectedValue = sesion.Idioma.Id;
@@ -730,7 +744,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -768,7 +782,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Gestión de Idiomas y Permisos
 
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
@@ -777,14 +791,14 @@ namespace CheeseLogix.Negocio.Ventas
                 // Validaciones previas
                 if (_clienteActual == null)
                 {
-                    MessageBox.Show("No hay un cliente seleccionado para esta venta.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion, 
+                    MessageBox.Show("No hay un cliente seleccionado para esta venta.", BLLs.Tecnica.ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (_carrito.Count == 0)
                 {
-                    MessageBox.Show("No se pueden confirmar compras vacías. Agregue al menos un producto al carrito.", 
+                    MessageBox.Show("No se pueden confirmar compras vacías. Agregue al menos un producto al carrito.",
                         BLLs.Tecnica.ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -792,11 +806,11 @@ namespace CheeseLogix.Negocio.Ventas
                 // Confirmar con el usuario
                 decimal total = _carrito.Sum(item => item.SubTotal);
                 var resultado = MessageBox.Show(
-                    $"¿Confirmar la venta?\n\nCliente: {_clienteActual.NombreCompleto}\nTotal: {total:C2}\nProductos: {_carrito.Count}", 
-                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion, 
-                    MessageBoxButtons.YesNo, 
+                    $"¿Confirmar la venta?\n\nCliente: {_clienteActual.NombreCompleto}\nTotal: {total:C2}\nProductos: {_carrito.Count}",
+                    BLLs.Tecnica.ConstantesUI.Titulos.Confirmacion,
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
-                
+
                 if (resultado == DialogResult.Yes)
                 {
                     CrearVenta();
@@ -804,11 +818,9 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al confirmar la compra: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al confirmar la compra: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
-
-
 }

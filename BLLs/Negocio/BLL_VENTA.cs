@@ -1,6 +1,7 @@
 using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Enums;
 using BEs.Clases.Negocio.Ventas;
+using BLLs.Tecnica;
 using MPPs;
 using MPPs.Negocio;
 using System;
@@ -14,19 +15,21 @@ namespace BLLs.Negocio
         private readonly MPP_VENTA ventaRepository;
         private readonly MPP_DETALLEVENTA detalleVentaRepository;
         private readonly MPP_PRODUCTO productoRepository;
+        private readonly BLL_CONTROLCAMBIOS _bllControlCambios;
 
         public BLL_VENTA()
         {
             ventaRepository = new MPP_VENTA();
             detalleVentaRepository = new MPP_DETALLEVENTA();
             productoRepository = new MPP_PRODUCTO();
+            _bllControlCambios = new BLL_CONTROLCAMBIOS();
         }
 
         // Método para insertar una nueva venta
         public int Insertar(Venta venta)
         {
             ValidarVenta(venta);
-            
+
             // 1. RESERVAR STOCK para todos los productos
             if (!ReservarStockParaVenta(venta.oDetalleVenta))
             {
@@ -37,7 +40,20 @@ namespace BLLs.Negocio
             {
                 // 2. Crear la venta con stock reservado
                 venta.EstadoVentaEnum = EstadoVenta.EnProceso;
-                return ventaRepository.Insertar(venta);
+                int ventaId = ventaRepository.Insertar(venta);
+
+                // 3. Calcular y actualizar dígito verificador automáticamente
+                try
+                {
+                    _bllControlCambios.ActualizarDigitoVerificador("Venta", ventaId);
+                }
+                catch (Exception ex)
+                {
+                    // Log del error pero no interrumpir el flujo principal
+                    System.Diagnostics.Debug.WriteLine($"Error calculando DV para Venta {ventaId}: {ex.Message}");
+                }
+
+                return ventaId;
             }
             catch
             {
@@ -76,6 +92,17 @@ namespace BLLs.Negocio
             }
 
             ventaRepository.Actualizar(venta);
+
+            // Actualizar dígito verificador después de modificar
+            try
+            {
+                _bllControlCambios.ActualizarDigitoVerificador("Venta", venta.Id);
+            }
+            catch (Exception ex)
+            {
+                // Log del error pero no interrumpir el flujo principal
+                System.Diagnostics.Debug.WriteLine($"Error actualizando DV para Venta {venta.Id}: {ex.Message}");
+            }
         }
 
         // Método para eliminar una venta y sus detalles
@@ -162,7 +189,7 @@ namespace BLLs.Negocio
                         }
                     }
                     break;
-                    
+
                 case EstadoVenta.Cobrada:
                     // En estado Cobrada, el stock sigue reservado hasta que se entregue
                     // No se hace nada con el stock aquí
@@ -233,7 +260,7 @@ namespace BLLs.Negocio
                         }
                         return false;
                     }
-                    
+
                     // Agregar a la lista de reservas exitosas
                     reservasHechas.Add((detalle.oProducto.Id, detalle.Cantidad));
                 }
@@ -344,10 +371,10 @@ namespace BLLs.Negocio
             // Actualizar comentario con el motivo si se proporciona
             if (!string.IsNullOrWhiteSpace(motivo))
             {
-                venta.Comentario = string.IsNullOrWhiteSpace(venta.Comentario) 
-                    ? $"Cancelada: {motivo}" 
+                venta.Comentario = string.IsNullOrWhiteSpace(venta.Comentario)
+                    ? $"Cancelada: {motivo}"
                     : $"{venta.Comentario} | Cancelada: {motivo}";
-                
+
                 Actualizar(venta);
             }
 
@@ -405,4 +432,4 @@ namespace BLLs.Negocio
             return ventasEnProceso;
         }
     }
-} 
+}

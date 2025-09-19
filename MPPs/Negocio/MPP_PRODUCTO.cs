@@ -36,7 +36,8 @@ namespace MPPs.Negocio
                 { "@PrecioCompra", producto.PrecioCompra},
                 { "@PrecioVenta", producto.PrecioVenta ?? 0 },
                 { "@Estado", producto.Estado },
-                { "@Fecha", producto.Fecha = DateTime.Now }
+                { "@Fecha", producto.Fecha = DateTime.Now },
+                { "@StockMinimo", producto.StockMinimo }
             };
 
             int productoId = Convert.ToInt32(oCnx.GuardarConRetorno("InsertarProducto", parametros));
@@ -58,7 +59,8 @@ namespace MPPs.Negocio
                 { "@PrecioCompra", producto.PrecioCompra },
                 { "@PrecioVenta", producto.PrecioVenta },
                 { "@Estado", producto.Estado },
-                { "@Fecha", producto.Fecha }
+                { "@Fecha", producto.Fecha },
+                { "@StockMinimo", producto.StockMinimo }
             };
 
             oCnx.Guardar("ActualizarProducto", parametros); // Actualizar producto
@@ -160,9 +162,19 @@ namespace MPPs.Negocio
         {
             var parametros = new Hashtable { { "@ProductoId", productoId } };
             DataTable dt = oCnx.Leer("ObtenerStockDisponible", parametros);
-            
+
             if (dt.Rows.Count > 0)
                 return Convert.ToDecimal(dt.Rows[0]["StockDisponible"]);
+            return 0;
+        }
+
+        public int ContarProductosBajoStock()
+        {
+            DataTable dt = oCnx.Leer("ContarProductosBajoStock", null);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0][0]);
+            }
             return 0;
         }
 
@@ -175,7 +187,7 @@ namespace MPPs.Negocio
         {
             var parametros = new Hashtable { { "@ProductoId", productoId } };
             DataTable dt = oCnx.Leer("ObtenerStockDisponible", parametros);
-            
+
             if (dt.Rows.Count > 0)
             {
                 var row = dt.Rows[0];
@@ -199,7 +211,7 @@ namespace MPPs.Negocio
         {
             var parametros = new Hashtable { { "@MinutosVencimiento", minutosVencimiento } };
             DataTable dt = oCnx.Leer("LiberarReservasVencidas", parametros);
-            
+
             if (dt.Rows.Count > 0)
             {
                 var row = dt.Rows[0];
@@ -248,7 +260,8 @@ namespace MPPs.Negocio
         // Método para obtener todos los productos
         public List<Producto> ObtenerTodos()
         {
-            DataTable dt = oCnx.Leer("ObtenerTodosProductos", null);
+            // Usar la nueva vista que incluye StockReservado calculado
+            DataTable dt = oCnx.Leer("ListarProductosConStock", null);
             List<Producto> productos = new List<Producto>();
             foreach (DataRow row in dt.Rows)
             {
@@ -309,7 +322,6 @@ namespace MPPs.Negocio
 
             return productos;
         }
-
 
         // Método auxiliar para desasociar un producto de un proveedor
         private void DesasociarProductoDeProveedor(int productoId, int proveedorId)
@@ -400,7 +412,6 @@ namespace MPPs.Negocio
             return productos;
         }
 
-
         public List<string> ObtenerCategoriasPorProveedor(int proveedorId)
         {
             var categorias = new List<string>();
@@ -432,9 +443,13 @@ namespace MPPs.Negocio
                 PrecioCompra = Convert.ToDecimal(row["PrecioCompra"]),
                 PrecioVenta = row["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(row["PrecioVenta"]),
                 Estado = Convert.ToBoolean(row["Estado"]),
-                Fecha = Convert.ToDateTime(row["Fecha"])
-                // Nota: StockReservado no se mapea a la clase Producto porque es información de gestión interna
-                // Para obtener esta información usar ObtenerInfoStock() que retorna StockInfo
+                Fecha = Convert.ToDateTime(row["Fecha"]),
+                StockMinimo = row.Table.Columns.Contains("StockMinimo") && row["StockMinimo"] != DBNull.Value
+                    ? Convert.ToDecimal(row["StockMinimo"]) : 0m,
+                // StockReservado: Si viene en la consulta, usarlo; sino calcularlo
+                StockReservado = row.Table.Columns.Contains("StockReservado") && row["StockReservado"] != DBNull.Value
+                    ? Convert.ToDecimal(row["StockReservado"]) : 0m
+                // Nota: StockDisponible se calcula automáticamente como propiedad (Stock - StockReservado)
             };
         }
     }

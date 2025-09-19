@@ -17,6 +17,7 @@ namespace MPPs
         {
             oCnx = Conexion.Instance;
         }
+
         private Conexion oCnx;
 
         private readonly MPP_PRODUCTO productoRepositorio = new MPP_PRODUCTO();
@@ -141,7 +142,6 @@ namespace MPPs
             };
             oCnx.Guardar("EliminarReferenciaCotizacionEnCompra", parametros);
         }
-
 
         public List<Compra> ObtenerComprasPorProveedorId(int proveedorId)
         {

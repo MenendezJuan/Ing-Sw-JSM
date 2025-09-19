@@ -17,5 +17,4 @@ namespace BEs.Clases.Negocio
 
         public string NombreProducto => oProducto?.Nombre ?? "Sin Proveedor";
     }
-
 }

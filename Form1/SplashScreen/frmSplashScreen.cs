@@ -29,7 +29,6 @@ namespace CheeseLogix.SplashScreen
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-
         private void frmSplashScreen_Load(object sender, EventArgs e)
         {
             timer = new Timer();
@@ -50,6 +49,11 @@ namespace CheeseLogix.SplashScreen
                 timer.Stop();
                 this.Close(); // Cierra el splash screen después de que el progreso llega al 100%
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

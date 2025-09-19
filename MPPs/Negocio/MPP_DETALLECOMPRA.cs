@@ -11,6 +11,7 @@ namespace MPPs.Negocio
     {
         private Conexion oCnx;
         private readonly MPP_PRODUCTO productoRepositorio;
+
         public MPP_DETALLECOMPRA()
         {
             oCnx = Conexion.Instance;
@@ -116,6 +117,5 @@ namespace MPPs.Negocio
             };
             return detalleCompra;
         }
-
     }
 }

@@ -165,8 +165,8 @@ namespace CheeseLogix
             LimpiarFormulario();
         }
 
-
         #region MetodosPrivados
+
         private void LimpiarFormulario()
         {
             comboBoxCategoria.SelectedIndex = -1;
@@ -210,7 +210,6 @@ namespace CheeseLogix
             dataGridViewLista.Columns["Nombre"].Tag = "Producto_Column";
             dataGridViewLista.Columns.Add("Cantidad", "Cantidad");
             dataGridViewLista.Columns["Cantidad"].Tag = "Cantidad_Column";
-
 
             foreach (DetalleCotizacion detalle in _detallesCotizacion)
             {
@@ -257,7 +256,6 @@ namespace CheeseLogix
             dataGridViewCotizaciones.Columns["Id"].HeaderText = "Nro. Cotizacion";
             dataGridViewCotizaciones.Columns["Id"].Tag = "Nro.Cotizacion_Column";
 
-
             // Configurar encabezados de otras columnas
             dataGridViewCotizaciones.Columns["FechaCotizacion"].HeaderText = "Fecha de Cotización";
             dataGridViewCotizaciones.Columns["FechaCotizacion"].Tag = "FechaCotizacion_Column";
@@ -265,7 +263,7 @@ namespace CheeseLogix
             dataGridViewCotizaciones.Columns["EstadoCotizacionEnum"].Tag = "Estado_Column";
         }
 
-        #endregion
+        #endregion MetodosPrivados
 
         private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -293,11 +291,8 @@ namespace CheeseLogix
             }
         }
 
-
-
         private void frmGestionarEnvioCotizacion_Load(object sender, EventArgs e)
         {
-
         }
 
         private void comboBoxProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -326,6 +321,7 @@ namespace CheeseLogix
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -347,6 +343,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -410,9 +407,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -426,6 +425,7 @@ namespace CheeseLogix
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -453,10 +453,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Permisos
 
-
         #region Extras
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
@@ -476,6 +477,7 @@ namespace CheeseLogix
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)

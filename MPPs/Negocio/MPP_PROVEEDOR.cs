@@ -12,6 +12,7 @@ namespace MPPs
     {
         private readonly Conexion oCnx;
         private readonly MPP_PRODUCTO mppProducto;
+
         public MPP_PROVEEDOR()
         {
             oCnx = Conexion.Instance;
@@ -130,7 +131,6 @@ namespace MPPs
             return proveedores;
         }
 
-
         private bool HayProductosAsociados(int proveedorId)
         {
             return mppProducto.ObtenerProductosPorProveedorId(proveedorId).Count > 0;
@@ -159,7 +159,7 @@ namespace MPPs
         public DataTable ObtenerProveedoresMasActivos(DateTime? fechaInicio = null, DateTime? fechaFin = null)
         {
             var parametros = new Hashtable();
-            
+
             if (fechaInicio.HasValue)
                 parametros.Add("@FechaInicio", fechaInicio.Value);
             if (fechaFin.HasValue)
@@ -168,6 +168,6 @@ namespace MPPs
             return oCnx.Leer("SP_ObtenerProveedoresMasActivos", parametros);
         }
 
-        #endregion
+        #endregion Métodos de Reportes
     }
 }

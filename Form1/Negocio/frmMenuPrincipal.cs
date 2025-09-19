@@ -3,6 +3,7 @@ using BEs.Clases;
 using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
+using BLLs.Tecnica;
 using CheeseLogix.Negocio;
 using CheeseLogix.Negocio.Reportes;
 using CheeseLogix.Negocio.Ventas;
@@ -23,6 +24,13 @@ namespace CheeseLogix
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
         private BLL_VENTA _bllVenta;
+        private BLL_PRODUCTO _bllProducto;
+        private BLL_AJUSTESTOCK _bllAjuste;
+        private BLL_CONTROLCAMBIOS _bllControlCambios;
+        private Timer alertRefreshTimer;
+        private Timer integridadTimer;
+        private ToolTip alertasToolTip;
+
         public frmMenuPrincipal()
         {
             InitializeComponent();
@@ -31,6 +39,9 @@ namespace CheeseLogix
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllVenta = new BLL_VENTA();
+            _bllProducto = new BLL_PRODUCTO();
+            _bllAjuste = new BLL_AJUSTESTOCK();
+            _bllControlCambios = new BLL_CONTROLCAMBIOS();
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -43,22 +54,37 @@ namespace CheeseLogix
             labelNombreUser.Text = CargarUsuarioLabel();
             CustomizeDesing();
             InicializarEstilos();
+            InicializarTooltipAlertas();
         }
 
         #region PropiedadesFrm
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HTCAPTION = 0x2;
+
         [DllImport("User32.dll")]
         public static extern bool ReleaseCapture();
+
         [DllImport("User32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        #endregion
+
+        #endregion PropiedadesFrm
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
             labelDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            ActualizarIndicadorAlertas();
+            alertRefreshTimer = new Timer();
+            alertRefreshTimer.Interval = 60000; // 60s
+            alertRefreshTimer.Tick += AlertRefreshTimer_Tick;
+            alertRefreshTimer.Start();
+            
+            // Timer para verificación de integridad cada 5 minutos
+            integridadTimer = new Timer();
+            integridadTimer.Interval = 300000; // 5 minutos
+            integridadTimer.Tick += IntegridadTimer_Tick;
+            integridadTimer.Start();
         }
-
 
         #region MetodosPrivados
 
@@ -67,6 +93,7 @@ namespace CheeseLogix
             var nombreUsuario = sesion.oUsuario.Email;
             return nombreUsuario;
         }
+
         public void OcultarPanel()
         {
             panelCentral.Visible = false;
@@ -74,20 +101,21 @@ namespace CheeseLogix
 
         private void CustomizeDesing()
         {
-            panelInsumos.Visible = false;
+            panelGestion.Visible = false;
             panelCotizaciones.Visible = false;
             PanelEntidades.Visible = false;
         }
 
         private void HideSubMenu()
         {
-            if (panelInsumos.Visible)
-                panelInsumos.Visible = false;
+            if (panelGestion.Visible)
+                panelGestion.Visible = false;
             if (panelCotizaciones.Visible)
                 panelCotizaciones.Visible = false;
             if (PanelEntidades.Visible)
                 PanelEntidades.Visible = false;
         }
+
         private void ShowSubMenu(Panel subMenu)
         {
             if (subMenu.Visible == false)
@@ -131,6 +159,7 @@ namespace CheeseLogix
         }
 
         #region Estilos
+
         private void AplicarEstiloBoton(Button boton)
         {
             boton.MouseEnter += (s, e) => Boton_MouseEnter(boton);
@@ -161,6 +190,120 @@ namespace CheeseLogix
             AplicarEstiloBoton(btnGestionProducto);
             AplicarEstiloBoton(btnReportes);
             AplicarEstiloBoton(btnStockProductos);
+            ActualizarIndicadorAlertas();
+        }
+
+        private void InicializarTooltipAlertas()
+        {
+            try
+            {
+                alertasToolTip = new ToolTip();
+                alertasToolTip.InitialDelay = 500;
+                alertasToolTip.ReshowDelay = 100;
+                alertasToolTip.AutoPopDelay = 5000;
+                alertasToolTip.IsBalloon = true;
+                alertasToolTip.ToolTipIcon = ToolTipIcon.Warning;
+                alertasToolTip.ToolTipTitle = "Alertas del Sistema";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al inicializar tooltip de alertas: {ex.Message}");
+            }
+        }
+
+        private void ActualizarIndicadorAlertas()
+        {
+            try
+            {
+                int bajos = _bllProducto.ContarProductosBajoStock();
+                int ajustesPend = _bllAjuste.ContarPendientes();
+                int total = bajos + ajustesPend;
+                
+                labelAlertas.Text = total > 0 ? $"! {total}" : "! 0";
+                labelAlertas.ForeColor = total > 0 ? Color.OrangeRed : Color.Gainsboro;
+                labelAlertas.Visible = true;
+                labelAlertas.Cursor = Cursors.Hand;
+                labelAlertas.Click -= labelAlertas_Click;
+                labelAlertas.Click += labelAlertas_Click;
+
+                // Actualizar tooltip con información detallada
+                string tooltipText = "";
+                if (total > 0)
+                {
+                    if (bajos > 0)
+                        tooltipText += $"• Productos con stock bajo: {bajos}\n";
+                    if (ajustesPend > 0)
+                        tooltipText += $"• Ajustes de stock pendientes: {ajustesPend}\n";
+                    tooltipText += "\nClick para ver detalles en Gestión de Stock";
+                }
+                else
+                {
+                    tooltipText = "No hay alertas pendientes.\nTodos los productos tienen stock adecuado.";
+                }
+
+                if (alertasToolTip != null)
+                {
+                    alertasToolTip.SetToolTip(labelAlertas, tooltipText);
+                }
+            }
+            catch (Exception ex)
+            {
+                labelAlertas.Text = "! -";
+                if (alertasToolTip != null)
+                {
+                    alertasToolTip.SetToolTip(labelAlertas, $"Error al obtener alertas: {ex.Message}");
+                }
+            }
+        }
+
+        private void AlertRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            ActualizarIndicadorAlertas();
+        }
+
+        private void IntegridadTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificación silenciosa de integridad
+                bool integridadOK = _bllControlCambios.VerificarIntegridadSilenciosa();
+                
+                if (!integridadOK)
+                {
+                    // Mostrar advertencia visual en la interfaz
+                    this.BeginInvoke(new Action(() => {
+                        labelAlertas.Text = "⚠ BD";
+                        labelAlertas.ForeColor = Color.Red;
+                        labelAlertas.Font = new Font(labelAlertas.Font, FontStyle.Bold);
+                        
+                        // Actualizar tooltip con información de integridad
+                        if (alertasToolTip != null)
+                        {
+                            alertasToolTip.SetToolTip(labelAlertas, 
+                                "⚠ ADVERTENCIA DE INTEGRIDAD ⚠\n\n" +
+                                "Se detectaron inconsistencias en la base de datos.\n" +
+                                "Los dígitos verificadores no coinciden.\n\n" +
+                                "Recomendaciones:\n" +
+                                "• Revisar el Control de Cambios\n" +
+                                "• Verificar la integridad de los datos\n" +
+                                "• Contactar al administrador del sistema");
+                        }
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en verificación de integridad: {ex.Message}");
+            }
+        }
+
+        private void labelAlertas_Click(object sender, EventArgs e)
+        {
+            // Abrir pantalla de stock para revisar bajos y ajustes pendientes
+            frmGestionStockProductos stockProductos = new frmGestionStockProductos();
+            AddOwnedForm(stockProductos);
+            FormHijo(stockProductos);
+            HideSubMenu();
         }
 
         private void OnMouseDown(object sender, MouseEventArgs e)
@@ -171,12 +314,14 @@ namespace CheeseLogix
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
         }
+
         #endregion Estilos
-        #endregion
+
+        #endregion MetodosPrivados
 
         private void btnGestionProducto_Click(object sender, EventArgs e)
         {
-            ShowSubMenu(panelInsumos);
+            ShowSubMenu(panelGestion);
         }
 
         private void btnStockProductos_Click(object sender, EventArgs e)
@@ -219,7 +364,7 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir reportes: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al abrir reportes: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -229,6 +374,14 @@ namespace CheeseLogix
             ShowSubMenu(panelCaja);
         }
 
+        private void toolStripMenuItemSerializador_Click(object sender, EventArgs e)
+        {
+            var frm = new CheeseLogix.Tecnica.frmSerializacion();
+            AddOwnedForm(frm);
+            FormHijo(frm);
+            HideSubMenu();
+        }
+
         private void btnComprasProductos_Click(object sender, EventArgs e)
         {
             frmGenerarOrdenCompra compraProductos = new frmGenerarOrdenCompra();
@@ -236,8 +389,6 @@ namespace CheeseLogix
             FormHijo(compraProductos);
             HideSubMenu();
         }
-
-
 
         private void btnDespachoProducto_Click(object sender, EventArgs e)
         {
@@ -269,12 +420,10 @@ namespace CheeseLogix
 
         private void AusuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void perfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void idiomasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -287,7 +436,6 @@ namespace CheeseLogix
 
         private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItemAyuda_Click(object sender, EventArgs e)
@@ -301,12 +449,13 @@ namespace CheeseLogix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al abrir la ayuda: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -328,6 +477,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -399,9 +549,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -415,6 +567,7 @@ namespace CheeseLogix
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -442,10 +595,13 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Permisos
 
         #region Extras
-        int i = 0;
+
+        private int i = 0;
+
         public void CerrarFrmPrin()
         {
             if (i == 0)
@@ -476,13 +632,32 @@ namespace CheeseLogix
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private Timer fadeOutTimer;
         private int fadeOutValue = 100;
         private bool isClosing = false;
+
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (alertRefreshTimer != null)
+            {
+                alertRefreshTimer.Stop();
+                alertRefreshTimer.Dispose();
+                alertRefreshTimer = null;
+            }
+            if (integridadTimer != null)
+            {
+                integridadTimer.Stop();
+                integridadTimer.Dispose();
+                integridadTimer = null;
+            }
+            if (alertasToolTip != null)
+            {
+                alertasToolTip.Dispose();
+                alertasToolTip = null;
+            }
             if (isClosing)
             {
                 e.Cancel = false;
@@ -541,9 +716,16 @@ namespace CheeseLogix
             HideSubMenu();
         }
 
+        private void btnSerializacion_Click(object sender, EventArgs e)
+        {
+            var frm = new CheeseLogix.Tecnica.frmSerializacion();
+            AddOwnedForm(frm);
+            FormHijo(frm);
+            HideSubMenu();
+        }
+
         private void toolStripMenuItemUsuario_Click(object sender, EventArgs e)
         {
-
         }
 
         private void frmMenuPrincipal_MdiChildActivate(object sender, EventArgs e)
@@ -567,10 +749,10 @@ namespace CheeseLogix
             try
             {
                 var ventasPendientes = _bllVenta.ObtenerVentasPorEstado(BEs.Clases.Negocio.Enums.EstadoVenta.EnProceso);
-                
+
                 if (ventasPendientes == null || !ventasPendientes.Any())
                 {
-                    MessageBox.Show("No hay ventas pendientes de cobro.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show("No hay ventas pendientes de cobro.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -606,6 +788,30 @@ namespace CheeseLogix
             frmGestionarClientes gestionarClientes = new frmGestionarClientes();
             AddOwnedForm(gestionarClientes);
             FormHijo(gestionarClientes);
+            HideSubMenu();
+        }
+
+        private void btnAjustesStock_Click(object sender, EventArgs e)
+        {
+            frmAjustesStock ajustes = new frmAjustesStock();
+            AddOwnedForm(ajustes);
+            FormHijo(ajustes);
+            HideSubMenu();
+        }
+
+        private void btnHistorialVentas_Click(object sender, EventArgs e)
+        {
+            var frm = new CheeseLogix.Negocio.Ventas.frmHistorialVentas();
+            AddOwnedForm(frm);
+            FormHijo(frm);
+            HideSubMenu();
+        }
+
+        private void btnRegistrarDevolucion_Click(object sender, EventArgs e)
+        {
+            var frm = new CheeseLogix.Negocio.Ventas.frmRegistrarDevolucion();
+            AddOwnedForm(frm);
+            FormHijo(frm);
             HideSubMenu();
         }
     }

@@ -6,7 +6,6 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
-using BLLs.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +25,7 @@ namespace CheeseLogix
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
+
         public frmGestionStockProductos()
         {
             InitializeComponent();
@@ -46,7 +46,6 @@ namespace CheeseLogix
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
             }
-
         }
 
         private void buttonAgregarProductoProveedorSelec_Click(object sender, System.EventArgs e)
@@ -236,29 +235,29 @@ namespace CheeseLogix
             {
                 if (dataGridViewProductos.DataSource == null)
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion, 
+                    MessageBox.Show(ConstantesUI.Mensajes.NoHayDatosParaExportar, ConstantesUI.Titulos.Informacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 // Convertir DataGridView a DataTable
                 DataTable dtProductos = ConvertirDataGridViewADataTable(dataGridViewProductos);
-                
+
                 // Usar BLL_EXPORTACION para exportar
                 string fileName = _bllExportacion.GenerarNombreArchivoUnico("InformacionProductos");
-                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName, 
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(fileName,
                     (dtProductos, ConstantesUI.Exportacion.HojaProductos, ConstantesUI.Exportacion.TituloProductos));
 
                 if (exportado)
                 {
                     string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), fileName + ".xlsx");
-                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}", 
+                    MessageBox.Show($"Archivo exportado correctamente a: {rutaCompleta}",
                         ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Preguntar si quiere abrir el archivo
-                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado, 
+                    DialogResult result = MessageBox.Show(ConstantesUI.Mensajes.DeseaAbrirArchivoExportado,
                         ConstantesUI.Titulos.AbrirArchivo, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
+
                     if (result == DialogResult.Yes)
                     {
                         _bllExportacion.AbrirArchivo(rutaCompleta);
@@ -266,13 +265,13 @@ namespace CheeseLogix
                 }
                 else
                 {
-                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error, 
+                    MessageBox.Show(ConstantesUI.Mensajes.ErrorExportacion, ConstantesUI.Titulos.Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error durante la exportación: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -312,7 +311,6 @@ namespace CheeseLogix
 
         private void frmGestionStockProductos_Load(object sender, System.EventArgs e)
         {
-
         }
 
         #region MetodosPrivados
@@ -323,6 +321,7 @@ namespace CheeseLogix
             CargarCategorias();
             ConfigurarEncabezadosColumnas();
         }
+
         private void LimpiarControlesBusqueda()
         {
             comboBuscar.SelectedIndex = -1;
@@ -335,7 +334,7 @@ namespace CheeseLogix
         private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
         {
             DataTable dt = new DataTable();
-            
+
             // Agregar columnas visibles
             foreach (DataGridViewColumn column in dgv.Columns)
             {
@@ -344,7 +343,7 @@ namespace CheeseLogix
                     dt.Columns.Add(column.HeaderText, typeof(string));
                 }
             }
-            
+
             // Agregar filas
             foreach (DataGridViewRow row in dgv.Rows)
             {
@@ -352,7 +351,7 @@ namespace CheeseLogix
                 {
                     DataRow dataRow = dt.NewRow();
                     int columnIndex = 0;
-                    
+
                     foreach (DataGridViewColumn column in dgv.Columns)
                     {
                         if (column.Visible)
@@ -361,11 +360,11 @@ namespace CheeseLogix
                             columnIndex++;
                         }
                     }
-                    
+
                     dt.Rows.Add(dataRow);
                 }
             }
-            
+
             return dt;
         }
 
@@ -373,6 +372,7 @@ namespace CheeseLogix
         {
             comboCategoria.DataSource = Enum.GetValues(typeof(Categoria));
         }
+
         private void MapearProductoAControles(Producto producto)
         {
             txtCodigo.Text = producto.Codigo;
@@ -380,6 +380,7 @@ namespace CheeseLogix
             comboCategoria.SelectedItem = producto.CategoriaEnum;
             txtDescripcion.Text = producto.Descripcion;
             numericUpDownPrecioCompra.Value = producto.PrecioCompra;
+            numericUpDownStockMinimo.Value = producto.StockMinimo >= 0 ? producto.StockMinimo : 0;
             lblSeleccionadoEspecifico.Text = producto.Nombre;
         }
 
@@ -390,6 +391,7 @@ namespace CheeseLogix
             producto.CategoriaEnum = (Categoria)comboCategoria.SelectedItem;
             producto.Descripcion = txtDescripcion.Text;
             producto.PrecioCompra = numericUpDownPrecioCompra.Value;
+            producto.StockMinimo = numericUpDownStockMinimo.Value;
 
             int proveedorId = (int)comboProveedor.SelectedValue;
             if (!producto.Proveedores.Any(pp => pp.ProveedorId == proveedorId))
@@ -414,6 +416,43 @@ namespace CheeseLogix
             var productos = _bllProducto.ObtenerTodos();
             dataGridViewProductos.DataSource = productos;
             ConfigurarEncabezadosColumnas();
+
+            try
+            {
+                var bajos = _bllProducto.ObtenerProductosBajoStock();
+                if (bajos != null && bajos.Count > 0)
+                {
+                    // Resaltar filas con bajo stock - CONTRASTE MEJORADO
+                    foreach (DataGridViewRow row in dataGridViewProductos.Rows)
+                    {
+                        var p = row.DataBoundItem as Producto;
+                        if (p != null && bajos.Any(b => b.Id == p.Id))
+                        {
+                            row.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(220, 53, 69); // Rojo Bootstrap danger
+                            row.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+                            row.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void chkSoloBajoStock_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkSoloBajoStock.Checked)
+                {
+                    var bajos = _bllProducto.ObtenerProductosBajoStock();
+                    dataGridViewProductos.DataSource = bajos;
+                }
+                else
+                {
+                    CargarProductos();
+                }
+            }
+            catch { }
         }
 
         private void ConfigurarEncabezadosColumnas()
@@ -442,8 +481,22 @@ namespace CheeseLogix
             dataGridViewProductos.Columns["Fecha"].HeaderText = "Fecha de Registro";
             dataGridViewProductos.Columns["Fecha"].Tag = "FechaRegistro_Column";
 
+            if (dataGridViewProductos.Columns.Contains("StockMinimo"))
+            {
+                dataGridViewProductos.Columns["StockMinimo"].HeaderText = "Stock Mínimo";
+                dataGridViewProductos.Columns["StockMinimo"].Tag = "StockMinimo_Column";
+            }
+
+            // Ocultar columnas que no deben ser visibles
             dataGridViewProductos.Columns["Estado"].Visible = false;
+            
+            // OCULTAR COLUMNAS DE DÍGITOS VERIFICADORES - NUNCA VISIBLES
+            if (dataGridViewProductos.Columns.Contains("DigitoVerificador"))
+                dataGridViewProductos.Columns["DigitoVerificador"].Visible = false;
+            if (dataGridViewProductos.Columns.Contains("DV"))
+                dataGridViewProductos.Columns["DV"].Visible = false;
         }
+
         private void CargarProveedores()
         {
             var proveedores = _bllProveedor.ObtenerTodos();
@@ -583,11 +636,7 @@ namespace CheeseLogix
             }
         }
 
-        #endregion
-
-        #region PropiedadesAux
-
-        #endregion
+        #endregion MetodosPrivados
 
         private void dataGridViewProductos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -640,6 +689,7 @@ namespace CheeseLogix
         }
 
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -661,6 +711,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -727,7 +778,8 @@ namespace CheeseLogix
 
         #endregion Idiomas
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -741,6 +793,7 @@ namespace CheeseLogix
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -768,10 +821,11 @@ namespace CheeseLogix
                 }
             }
         }
+
         #endregion Permisos
 
-
         #region Extras
+
         public void Cerrar()
         {
             Form frmMenu = Application.OpenForms.OfType<frmMenuPrincipal>().FirstOrDefault();
@@ -791,6 +845,7 @@ namespace CheeseLogix
             // Cierra el formulario actual
             this.Close();
         }
+
         #endregion Extras
 
         private void cboxIdiomas_SelectedIndexChanged(object sender, EventArgs e)

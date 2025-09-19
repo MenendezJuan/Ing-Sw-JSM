@@ -1,5 +1,4 @@
 ﻿using BEs;
-using BEs.Interfaces;
 using BLLs;
 using System;
 using System.Collections.Generic;
@@ -22,15 +21,17 @@ namespace CheeseLogix
                 usuario = u;
             }
         }
-        BLL_USUARIO Bll_Usuario;
+
+        private BLL_USUARIO Bll_Usuario;
         private Usuario usuario = null;
 
         #region Controles de Usuario
+
         private void button_Registrarse_Click(object sender, EventArgs e)
         {
             try
             {
-                if(usuario != null)
+                if (usuario != null)
                 {
                     Modificar();
                 }
@@ -39,15 +40,18 @@ namespace CheeseLogix
                     Agregar();
                 }
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void button_Cancelar_Click(object sender, EventArgs e)
         {
             this.Hide();
         }
+
         #endregion Controles de Usuario
+
         #region Demas Funciones
+
         public void Agregar()
         {
             Usuario nuevoUsuario = new Usuario(textBox_Email.Text, textBox_Contraseña.Text);
@@ -73,7 +77,6 @@ namespace CheeseLogix
 
             if (ValidarCampos(usuario))
             {
-                
                 if (Bll_Usuario.Modificar(usuario))
                 {
                     MessageBox.Show("Modificacion exitosa", "Éxito");
@@ -117,6 +120,7 @@ namespace CheeseLogix
             }
             return null;
         }
+
         #endregion Demas Funciones
     }
 }

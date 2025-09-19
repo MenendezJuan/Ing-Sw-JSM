@@ -49,6 +49,7 @@ namespace BLLs.Negocio
         {
             return _proveedorRepository.ObtenerTodos();
         }
+
         public List<Proveedor> ObtenerProveedoresInactivos()
         {
             return _proveedorRepository.ObtenerProveedoresInactivos();
@@ -87,21 +88,27 @@ namespace BLLs.Negocio
                     return todos.FindAll(p => !string.IsNullOrEmpty(p.CUIT) &&
                                               p.CUIT.Replace("-", string.Empty).Replace(" ", string.Empty)
                                                   .Contains(cuitLimpio));
+
                 case "descripcion":
                     return todos.FindAll(p => (p.Descripcion ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+
                 case "direccion":
                     return todos.FindAll(p => (p.Direccion ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+
                 case "email":
                 case "mail":
                     return todos.FindAll(p => (p.Mail ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+
                 case "telefono":
                 case "teléfono":
                     return todos.FindAll(p => (p.Telefono ?? string.Empty).ToLowerInvariant().Contains(valorNorm));
+
                 case "estado":
                     bool? estado = null;
                     if (valorNorm == "activo") estado = true;
                     if (valorNorm == "inactivo") estado = false;
                     return estado.HasValue ? todos.FindAll(p => p.Estado == estado.Value) : todos;
+
                 default:
                     // Búsqueda amplia
                     return todos.FindAll(p =>

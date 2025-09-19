@@ -1,9 +1,6 @@
 ﻿using BEs;
 using BEs.Interfaces;
 using BLLs;
-using CheeseLogix.Negocio.Reportes;
-using CheeseLogix.Negocio.Ventas;
-using CheeseLogix.Tecnica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,12 +14,13 @@ namespace CheeseLogix
     public partial class frmInicioSesion : Form, IObservador
     {
         private SessionManager sesion;
+
         public frmInicioSesion()
         {
             InitializeComponent();
             sesion = SessionManager.GetInstance();
             Bll_Permiso = new BLL_PERMISO();
-            Bll_Usuario = new BLL_USUARIO();
+            Bll_Usuario = new BLL_USUARIO(true);
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
             sesion.RegistrarObservador(this);
@@ -30,12 +28,13 @@ namespace CheeseLogix
             CargarIdiomas();
             BuscarControles(this.Controls);
         }
+
         private BLL_USUARIO Bll_Usuario;
         private BLL_PERMISO Bll_Permiso;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
 
         public void BuscarControles(ICollection controles)
         {
@@ -53,8 +52,8 @@ namespace CheeseLogix
             }
         }
 
-
         #region Idiomas
+
         private void CargarIdiomas()
         {
             try
@@ -75,6 +74,7 @@ namespace CheeseLogix
                 MessageBox.Show($"Error al cargar los idiomas: {ex.Message}", BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ActualizarTextosControles(Idioma idioma)
         {
             try
@@ -115,9 +115,11 @@ namespace CheeseLogix
                 cboxIdiomas.SelectedValue = idioma.Id;
             }
         }
+
         #endregion Idiomas
 
         #region Controles de Usuario
+
         private void button_IniciarSesion_Click(object sender, EventArgs e)
         {
             Usuario oUsuario = new Usuario(textBox_Email.Text, textBox_Contraseña.Text);
@@ -166,8 +168,11 @@ namespace CheeseLogix
                 textBox_Contraseña.Text = "tutu@gmail.com";
             }
         }
+
         #endregion Controles de Usuario
+
         #region Validaciones
+
         public bool ValidarCampos(Usuario oUsuario)
         {
             errorProvider1.Clear();
@@ -198,6 +203,7 @@ namespace CheeseLogix
             }
             return null;
         }
+
         #endregion Validaciones
 
         private void cboxIdiomas_SelectedIndexChanged_1(object sender, EventArgs e)

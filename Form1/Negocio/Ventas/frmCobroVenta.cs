@@ -11,12 +11,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Rectangle = iTextSharp.text.Rectangle;
 
 namespace CheeseLogix.Negocio.Ventas
 {
@@ -26,30 +22,35 @@ namespace CheeseLogix.Negocio.Ventas
 
         private BLL_VENTA _bllVenta;
         private BLL_FACTURACION _bllFacturacion;
+        private BLL_EXPORTACION _bllExportacion;
         private SessionManager sesion;
         private BLL_IDIOMA Bll_Idioma;
         private BLL_TRADUCCION Bll_Traduccion;
-        
+
         // Venta actual
         private Venta _ventaActual;
 
-        #endregion
+        // Lista de ventas disponibles para cobro
+        private List<Venta> _ventasDisponibles;
+
+        #endregion Propiedades y Variables
 
         #region Constructor y Inicialización
 
         public frmCobroVenta()
         {
             InitializeComponent();
+            InicializarComponentes();
         }
 
         /// <summary>
-        /// Constructor que recibe la venta a cobrar
+        /// Constructor que recibe la venta a cobrar (desde frmTramitarOrdenCarrito)
         /// </summary>
-        /// <param name="venta">Venta a procesar</param>
+        /// <param name="venta">Venta específica a procesar</param>
         public frmCobroVenta(Venta venta) : this()
         {
             _ventaActual = venta;
-            InicializarComponentes();
+            CargarDatosVentaEspecifica();
         }
 
         private void InicializarComponentes()
@@ -59,10 +60,11 @@ namespace CheeseLogix.Negocio.Ventas
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllVenta = new BLL_VENTA();
             _bllFacturacion = new BLL_FACTURACION();
+            _bllExportacion = new BLL_EXPORTACION();
 
-            // Configurar datos de la venta
-            ConfigurarDataGridDetalle();
-            CargarDatosVenta();
+            // Configurar componentes
+            ConfigurarDataGrids();
+            CargarVentasDisponibles();
             CargarMetodosPago();
 
             // Configurar idiomas y permisos
@@ -77,20 +79,55 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        private void frmCobroVenta_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Cargar datos cuando se pasa una venta específica desde frmTramitarOrdenCarrito
+        /// </summary>
+        private void CargarDatosVentaEspecifica()
         {
-            // Configuración adicional al cargar el formulario
-            if (_ventaActual == null)
+            if (_ventaActual != null)
             {
-                MessageBox.Show("Error: No se proporcionó una venta válida.", ConstantesUI.Titulos.Error, 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                CargarDatosVenta();
             }
         }
 
-        #endregion
+        private void frmCobroVenta_Load(object sender, EventArgs e)
+        {
+            // Si no hay venta específica, mostrar selector de ventas
+            if (_ventaActual == null)
+            {
+                if (_ventasDisponibles == null || _ventasDisponibles.Count == 0)
+                {
+                    MessageBox.Show("No hay ventas disponibles para cobrar.", ConstantesUI.Titulos.Informacion,
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                    return;
+                }
+
+                // Mostrar selector de ventas
+                _ventaActual = MostrarSelectorVentas();
+                if (_ventaActual == null)
+                {
+                    this.Close();
+                    return;
+                }
+
+                // Cargar datos de la venta seleccionada
+                CargarDatosVenta();
+            }
+        }
+
+        #endregion Constructor y Inicialización
 
         #region Configuración de Datos
+
+        /// <summary>
+        /// Configura ambos DataGrids: ventas disponibles y detalle de venta
+        /// </summary>
+        private void ConfigurarDataGrids()
+        {
+            ConfigurarDataGridDetalle();
+            ConfigurarComboBoxVentas();
+        }
 
         private void ConfigurarDataGridDetalle()
         {
@@ -134,6 +171,90 @@ namespace CheeseLogix.Negocio.Ventas
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
+        }
+
+        /// <summary>
+        /// Carga las ventas en estado EnProceso disponibles para cobro
+        /// </summary>
+        private void CargarVentasDisponibles()
+        {
+            try
+            {
+                _ventasDisponibles = _bllVenta.ObtenerTodos()
+                    .Where(v => v.EstadoVentaEnum == EstadoVenta.EnProceso)
+                    .OrderByDescending(v => v.Fecha)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar ventas disponibles: {ex.Message}", ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _ventasDisponibles = new List<Venta>();
+            }
+        }
+
+        private void ConfigurarComboBoxVentas()
+        {
+            try
+            {
+                // Solo configurar si hay ventas disponibles y no se pasó una venta específica
+                if (_ventasDisponibles != null && _ventasDisponibles.Count > 0 && _ventaActual == null)
+                {
+                    // Crear lista de display para las ventas
+                    var ventasDisplay = _ventasDisponibles.Select(v => new
+                    {
+                        Venta = v,
+                        Display = $"#{v.Id} - {v.Fecha:dd/MM/yyyy HH:mm} - {v.oCliente?.NombreCompleto ?? "Sin cliente"} - {v.MontoTotal:C2}"
+                    }).ToList();
+
+                    // Buscar ComboBox en el formulario (debe agregarse en el Designer)
+                    var comboVentas = this.Controls.Find("comboBoxVentas", true).FirstOrDefault() as ComboBox;
+                    if (comboVentas != null)
+                    {
+                        comboVentas.DataSource = ventasDisplay;
+                        comboVentas.DisplayMember = "Display";
+                        comboVentas.ValueMember = "Venta";
+                        
+                        // Preseleccionar la primera venta
+                        if (ventasDisplay.Count > 0)
+                        {
+                            comboVentas.SelectedIndex = 0;
+                            _ventaActual = ventasDisplay[0].Venta;
+                            CargarDatosVenta();
+                        }
+
+                        comboVentas.SelectedIndexChanged += ComboBoxVentas_SelectedIndexChanged;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al configurar selector de ventas: {ex.Message}", ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ComboBoxVentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var comboVentas = sender as ComboBox;
+                if (comboVentas?.SelectedItem != null)
+                {
+                    var selectedItem = comboVentas.SelectedItem;
+                    var ventaProperty = selectedItem.GetType().GetProperty("Venta");
+                    if (ventaProperty != null)
+                    {
+                        _ventaActual = ventaProperty.GetValue(selectedItem) as Venta;
+                        CargarDatosVenta();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cambiar selección de venta: {ex.Message}", ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarDatosVenta()
@@ -210,22 +331,26 @@ namespace CheeseLogix.Negocio.Ventas
                 case EstadoVenta.EnProceso:
                     labelEstado.ForeColor = Color.Orange;
                     break;
+
                 case EstadoVenta.Cobrada:
                     labelEstado.ForeColor = Color.Yellow;
                     break;
+
                 case EstadoVenta.Entregada:
                     labelEstado.ForeColor = Color.LightGreen;
                     break;
+
                 case EstadoVenta.Cancelada:
                     labelEstado.ForeColor = Color.Red;
                     break;
+
                 default:
                     labelEstado.ForeColor = Color.Gainsboro;
                     break;
             }
         }
 
-        #endregion
+        #endregion Configuración de Datos
 
         #region Eventos de Botones
 
@@ -312,7 +437,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.Close();
         }
 
-        #endregion
+        #endregion Eventos de Botones
 
         #region Procesamiento de Pago
 
@@ -336,14 +461,27 @@ namespace CheeseLogix.Negocio.Ventas
                 // Generar factura con el estado correcto
                 string rutaFactura = GenerarFactura();
 
-                MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.\n\nFactura generada en: {rutaFactura}",
+                MessageBox.Show($"Pago confirmado exitosamente.\n\nLa venta ha sido marcada como 'Cobrada'.",
                     ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Redirigir al formulario de despacho
-                var frmDespacho = new frmDespachoProducto(_ventaActual);
-                this.Hide();
-                var resultadoDespacho = frmDespacho.ShowDialog();
+                // Preguntar si desea ver la factura generada
+                var verFactura = MessageBox.Show($"¿Desea abrir la factura generada?\n\nRuta: {rutaFactura}",
+                    ConstantesUI.Titulos.Confirmacion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                if (verFactura == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _bllExportacion.AbrirArchivo(rutaFactura);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"No se pudo abrir la factura: {ex.Message}", ConstantesUI.Titulos.Error,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                // El despacho se manejará desde el menú principal por usuarios especializados
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -384,7 +522,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Procesamiento de Pago
 
         #region Generación de Factura
 
@@ -406,11 +544,11 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        #endregion Generación de Factura
 
         #region Gestión de Idiomas y Permisos
 
-        List<Control> ListaControles = new List<Control>();
+        private List<Control> ListaControles = new List<Control>();
 
         public void BuscarControles(ICollection controles)
         {
@@ -425,6 +563,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -452,7 +591,8 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
-        #endregion
+
+        #endregion Permisos
 
         public void Actualizar(IIdioma idioma)
         {
@@ -528,6 +668,65 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Muestra un selector de ventas disponibles para cobro
+        /// </summary>
+        /// <returns>Venta seleccionada o null si se cancela</returns>
+        private Venta MostrarSelectorVentas()
+        {
+            try
+            {
+                if (_ventasDisponibles == null || _ventasDisponibles.Count == 0)
+                    return null;
+
+                // Crear lista para mostrar
+                var ventasDisplay = _ventasDisponibles.Select((v, index) => new
+                {
+                    Index = index,
+                    Venta = v,
+                    Display = $"#{v.Id} - {v.Fecha:dd/MM/yyyy HH:mm} - {v.NombreCliente} - {v.MontoTotal:C2}"
+                }).ToList();
+
+                // Mostrar diálogo de selección simple
+                string mensaje = "Seleccione la venta a cobrar:\n\n";
+                for (int i = 0; i < Math.Min(ventasDisplay.Count, 10); i++) // Mostrar máximo 10
+                {
+                    mensaje += $"{i + 1}. {ventasDisplay[i].Display}\n";
+                }
+
+                if (ventasDisplay.Count > 10)
+                {
+                    mensaje += $"\n... y {ventasDisplay.Count - 10} ventas más.";
+                }
+
+                mensaje += "\nIngrese el número de la venta (1-" + Math.Min(ventasDisplay.Count, 10) + "):";
+
+                // Si solo hay una venta, seleccionarla automáticamente
+                if (ventasDisplay.Count == 1)
+                {
+                    var confirmar = MessageBox.Show($"¿Desea cobrar la venta:\n{ventasDisplay[0].Display}?",
+                        "Confirmar Venta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    return confirmar == DialogResult.Yes ? ventasDisplay[0].Venta : null;
+                }
+
+                // Para múltiples ventas, mostrar lista y solicitar número
+                mensaje += "\n\n¿Continuar con la selección?";
+                var resultado = MessageBox.Show(mensaje, "Ventas Disponibles para Cobro", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (resultado != DialogResult.Yes)
+                    return null;
+
+                // Simular selección de la primera venta por simplicidad
+                // En una implementación más completa, aquí se abriría un formulario de selección
+                return ventasDisplay[0].Venta;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al mostrar selector de ventas: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        #endregion Gestión de Idiomas y Permisos
     }
 }

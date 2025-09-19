@@ -105,7 +105,6 @@ namespace Servicios
             }
         }
 
-
         // Método para leer datos de la base de datos de forma asincrona
         public DataTable Leer(string Query, Hashtable Parametros)
         {
@@ -114,6 +113,43 @@ namespace Servicios
                 oCnx.Open(); // Abrir la conexión
                 oCmd = new SqlCommand(Query, oCnx); // Crear el comando SQL
                 oCmd.CommandType = CommandType.StoredProcedure;
+
+                if (Parametros != null)
+                {
+                    foreach (string entry in Parametros.Keys)
+                    {
+                        oCmd.Parameters.AddWithValue(entry, Parametros[entry]); // Añadir parámetros al comando
+                    }
+                }
+
+                SqlDataAdapter Da = new SqlDataAdapter(oCmd); // Crear un adaptador de datos
+                DataTable Datos = new DataTable(); // Crear tabla para almacenar los datos
+                Da.Fill(Datos); // Llenar la tabla con los datos
+                oCnx.Close();
+                return Datos;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("SQL Error: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oCnx.Close(); // Cerrar la conexión
+            }
+        }
+
+        // Método para ejecutar consultas SQL directas (no stored procedures)
+        public DataTable LeerConConsulta(string sqlQuery, Hashtable Parametros)
+        {
+            try
+            {
+                oCnx.Open(); // Abrir la conexión
+                oCmd = new SqlCommand(sqlQuery, oCnx); // Crear el comando SQL
+                oCmd.CommandType = CommandType.Text; // Consulta directa, no SP
 
                 if (Parametros != null)
                 {
@@ -152,7 +188,7 @@ namespace Servicios
                 oCmd = new SqlCommand(sqlCommand, oCnx);
                 oCmd.CommandType = CommandType.Text; // Comando SQL directo
                 oCmd.CommandTimeout = timeoutMinutos * 60; // Convertir minutos a segundos
-                
+
                 oCmd.ExecuteNonQuery();
                 return true;
             }

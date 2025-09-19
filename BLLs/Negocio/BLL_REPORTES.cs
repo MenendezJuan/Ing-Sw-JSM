@@ -1,8 +1,8 @@
+using MPPs;
+using MPPs.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using MPPs;
-using MPPs.Negocio;
 
 namespace BLLs.Negocio
 {
@@ -84,7 +84,7 @@ namespace BLLs.Negocio
             }
         }
 
-        #endregion
+        #endregion Reportes Optimizados
 
         #region Métodos de Análisis
 
@@ -146,6 +146,6 @@ namespace BLLs.Negocio
             }
         }
 
-        #endregion
+        #endregion Métodos de Análisis
     }
 }

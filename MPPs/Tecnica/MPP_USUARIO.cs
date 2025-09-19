@@ -79,6 +79,32 @@ namespace MPPs
             catch (Exception ex) { throw ex; }
         }
 
+        public Usuario ObtenerPorId(int id)
+        {
+            try
+            {
+                Hashtable parametros = new Hashtable();
+                parametros.Add("@Id", id);
+                DataTable dt = oCnx.Leer("Obtener_Usuario_Por_Id", parametros);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    return new Usuario(
+                        (int)row["Id"],
+                        row["Email"].ToString(),
+                        row["Contraseña"].ToString(),
+                        row["DigitoVerificador"].ToString()
+                    );
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion ABML
 
         #region Login/LogOut
@@ -120,10 +146,19 @@ namespace MPPs
             Parametros.Add("@Tabla", "Usuarios");
 
             DataTable Datos = oCnx.Leer("ListarControlSeguridad", Parametros);
+            
+            System.Diagnostics.Debug.WriteLine($"=== MPP_USUARIO.VerificarSeguridad() ===");
+            System.Diagnostics.Debug.WriteLine($"Filas encontradas en ControlSeguridad: {Datos.Rows.Count}");
+            
             foreach (DataRow row in Datos.Rows)
             {
-                return row["Digito"].ToString();
+                string digito = row["Digito"].ToString();
+                System.Diagnostics.Debug.WriteLine($"DVV Almacenado: {digito}");
+                System.Diagnostics.Debug.WriteLine($"DVV Longitud: {digito.Length}");
+                return digito;
             }
+            
+            System.Diagnostics.Debug.WriteLine("No se encontró registro en ControlSeguridad para tabla 'Usuarios'");
             return "-1";
         }
 

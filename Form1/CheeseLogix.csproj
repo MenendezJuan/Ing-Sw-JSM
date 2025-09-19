@@ -93,13 +93,13 @@
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.135\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="Patagames.Pdf, Version=11.87.48.472, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pdfium.Net.SDK.4.100.2704\lib\net472\Patagames.Pdf.dll</HintPath>
+      <HintPath>..\packages\Pdfium.Net.SDK.4.101.2704\lib\net472\Patagames.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="Patagames.Pdf.WinForms, Version=4.29.19.472, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pdfium.Net.SDK.4.100.2704\lib\net472\Patagames.Pdf.WinForms.dll</HintPath>
+      <HintPath>..\packages\Pdfium.Net.SDK.4.101.2704\lib\net472\Patagames.Pdf.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Patagames.Pdf.Wpf, Version=4.29.21.472, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pdfium.Net.SDK.4.100.2704\lib\net472\Patagames.Pdf.Wpf.dll</HintPath>
+      <HintPath>..\packages\Pdfium.Net.SDK.4.101.2704\lib\net472\Patagames.Pdf.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -135,6 +135,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +170,18 @@
     </Compile>
     <Compile Include="Negocio\Ventas\frmCobroVenta.Designer.cs">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmHistorialVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmHistorialVentas.Designer.cs">
+      <DependentUpon>frmHistorialVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmRegistrarDevolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Ventas\frmRegistrarDevolucion.Designer.cs">
+      <DependentUpon>frmRegistrarDevolucion.cs</DependentUpon>
     </Compile>
     <Compile Include="Negocio\Ventas\frmGestionarClientes.cs">
       <SubType>Form</SubType>
@@ -228,6 +243,12 @@
     </Compile>
     <Compile Include="Negocio\Stock\frmGestionStockProductos.Designer.cs">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmAjustesStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Negocio\Stock\frmAjustesStock.Designer.cs">
+      <DependentUpon>frmAjustesStock.cs</DependentUpon>
     </Compile>
     <Compile Include="Tecnica\frmGestorBitacora.cs">
       <SubType>Form</SubType>
@@ -291,6 +312,12 @@
     <Compile Include="Tecnica\frmAyuda.Designer.cs">
       <DependentUpon>frmAyuda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tecnica\frmControlCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnica\frmControlCambios.Designer.cs">
+      <DependentUpon>frmControlCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Negocio\Reportes\frmReporteInteligente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,6 +333,9 @@
     <EmbeddedResource Include="Negocio\Stock\frmGestionStockProductos.resx">
       <DependentUpon>frmGestionStockProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Stock\frmAjustesStock.resx">
+      <DependentUpon>frmAjustesStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Stock\frmVerificacionProductos.resx">
       <DependentUpon>frmVerificacionProductos.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +344,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmCobroVenta.resx">
       <DependentUpon>frmCobroVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmHistorialVentas.resx">
+      <DependentUpon>frmHistorialVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Negocio\Ventas\frmRegistrarDevolucion.resx">
+      <DependentUpon>frmRegistrarDevolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Negocio\Ventas\frmGestionarClientes.resx">
       <DependentUpon>frmGestionarClientes.cs</DependentUpon>
@@ -503,10 +539,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets'))" />
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\packages\Pdfium.Net.SDK.4.101.2704\build\Pdfium.Net.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Pdfium.Net.SDK.4.101.2704\build\Pdfium.Net.SDK.targets'))" />
   </Target>
-  <Import Project="..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets" Condition="Exists('..\packages\Pdfium.Net.SDK.4.100.2704\build\Pdfium.Net.SDK.targets')" />
   <Import Project="..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" />
   <PropertyGroup>
     <PostBuildEvent>
@@ -519,4 +554,5 @@
       echo Archivos RDLC copiados.
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\Pdfium.Net.SDK.4.101.2704\build\Pdfium.Net.SDK.targets" Condition="Exists('..\packages\Pdfium.Net.SDK.4.101.2704\build\Pdfium.Net.SDK.targets')" />
 </Project>

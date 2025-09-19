@@ -197,7 +197,6 @@ namespace BLLs.Tecnica
             {
                 using (FileStream fs = File.OpenRead(rutaBackup))
                 {
-
                 }
             }
             catch (IOException ex)
@@ -206,6 +205,6 @@ namespace BLLs.Tecnica
             }
         }
 
-        #endregion
+        #endregion Validaciones Privadas
     }
 }

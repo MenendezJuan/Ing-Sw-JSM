@@ -6,7 +6,6 @@ using BEs.Interfaces;
 using BLLs;
 using BLLs.Negocio;
 using BLLs.Tecnica;
-using CheeseLogix.Negocio.Ventas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,16 +33,16 @@ namespace CheeseLogix.Negocio.Ventas
             Bll_Traduccion = new BLL_TRADUCCION();
             _bllVenta = new BLL_VENTA();
             _bllCliente = new BLL_CLIENTE();
-            
+
             dateTimePickerDesde.Value = DateTime.Now.AddDays(-30);
             dateTimePickerHasta.Value = DateTime.Now;
-            
+
             // Configurar validación de CUIT
             ConfigurarValidacionCUIT();
-            
+
             CargarVentas();
             ConfigurarDataGrids();
-            
+
             sesion.RegistrarObservador(this);
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
@@ -70,7 +69,7 @@ namespace CheeseLogix.Negocio.Ventas
             txtCuitCliente.KeyPress += TxtCuitCliente_KeyPress;
             txtCuitCliente.TextChanged += TxtCuitCliente_TextChanged;
             txtCuitCliente.Leave += TxtCuitCliente_Leave;
-            
+
             // Configurar tooltip de ayuda (más compatible que PlaceholderText)
             ToolTip tooltipCuit = new ToolTip();
             tooltipCuit.SetToolTip(txtCuitCliente, "Ingrese el CUIT del cliente (11 dígitos)\nEjemplo: 20123456789 o 20-12345678-9");
@@ -106,7 +105,7 @@ namespace CheeseLogix.Negocio.Ventas
         private bool ValidarFormatoCUIT()
         {
             string cuit = txtCuitCliente.Text.Trim();
-            
+
             if (string.IsNullOrWhiteSpace(cuit))
             {
                 return true; // Válido si está vacío (no es obligatorio hasta que presione el botón)
@@ -152,12 +151,15 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     case "20": // Hombre
                         return cuit.EndsWith("2");
+
                     case "27": // Mujer
                         return cuit.EndsWith("4");
+
                     case "30": // Empresa
                     case "33":
                     case "34":
                         return true;
+
                     default:
                         return false;
                 }
@@ -176,7 +178,7 @@ namespace CheeseLogix.Negocio.Ventas
             toolTip.Show(mensaje, txtCuitCliente, 0, txtCuitCliente.Height, 3000);
         }
 
-        #endregion
+        #endregion Configuración de Validaciones
 
         #region Gestión de DataGridViews
 
@@ -186,97 +188,97 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewOrdenVenta.SelectionChanged += DataGridViewOrdenVenta_SelectionChanged;
             dataGridViewOrdenVenta.AutoGenerateColumns = false;
             dataGridViewOrdenVenta.Columns.Clear();
-            
+
             // Configurar selección
             dataGridViewOrdenVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewOrdenVenta.MultiSelect = false;
             dataGridViewOrdenVenta.ReadOnly = true;
 
             // Configurar columnas para ventas
-            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Id", 
-                HeaderText = "ID", 
-                Name = "Id", 
+            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Id",
+                HeaderText = "ID",
+                Name = "Id",
                 Width = 60,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "NombreCliente", 
-                HeaderText = "Cliente", 
-                Name = "Cliente", 
+
+            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NombreCliente",
+                HeaderText = "Cliente",
+                Name = "Cliente",
                 Width = 200,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Fecha", 
-                HeaderText = "Fecha", 
-                Name = "Fecha", 
+
+            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                Name = "Fecha",
                 Width = 120,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" }
             });
-            
-            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "MontoTotal", 
-                HeaderText = "Total", 
-                Name = "Total", 
+
+            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MontoTotal",
+                HeaderText = "Total",
+                Name = "Total",
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
-            
-            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "EstadoVentaEnum", 
-                HeaderText = "Estado", 
-                Name = "Estado", 
+
+            dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "EstadoVentaEnum",
+                HeaderText = "Estado",
+                Name = "Estado",
                 Width = 120,
-                ReadOnly = true 
+                ReadOnly = true
             });
 
             // Configurar DataGridView de Detalles
             dataGridViewDetalle.AutoGenerateColumns = false;
             dataGridViewDetalle.Columns.Clear();
-            
-            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "NombreProducto", 
-                HeaderText = "Producto", 
-                Name = "Producto", 
+
+            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NombreProducto",
+                HeaderText = "Producto",
+                Name = "Producto",
                 Width = 200,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Cantidad", 
-                HeaderText = "Cantidad", 
-                Name = "Cantidad", 
+
+            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Cantidad",
+                HeaderText = "Cantidad",
+                Name = "Cantidad",
                 Width = 80,
-                ReadOnly = true 
+                ReadOnly = true
             });
-            
-            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "Precio", 
-                HeaderText = "Precio Unit.", 
-                Name = "Precio", 
+
+            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Precio",
+                HeaderText = "Precio Unit.",
+                Name = "Precio",
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
-            
-            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
-                DataPropertyName = "SubTotal", 
-                HeaderText = "Subtotal", 
-                Name = "SubTotal", 
+
+            dataGridViewDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SubTotal",
+                HeaderText = "Subtotal",
+                Name = "SubTotal",
                 Width = 100,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
@@ -292,7 +294,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -310,7 +312,7 @@ namespace CheeseLogix.Negocio.Ventas
                 .ToList();
 
             dataGridViewOrdenVenta.DataSource = ventasFiltradas;
-            
+
             // Auto-seleccionar la primera fila si hay datos
             SeleccionarPrimeraFila();
         }
@@ -321,7 +323,7 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 dataGridViewOrdenVenta.Rows[0].Selected = true;
                 dataGridViewOrdenVenta.CurrentCell = dataGridViewOrdenVenta.Rows[0].Cells[0];
-                
+
                 // Llamar manualmente al evento para asegurar que se actualice el estado
                 DataGridViewOrdenVenta_SelectionChanged(dataGridViewOrdenVenta, EventArgs.Empty);
             }
@@ -357,22 +359,26 @@ namespace CheeseLogix.Negocio.Ventas
         private void ActualizarEstadoLabel(EstadoVenta estado)
         {
             labelEstado.Text = $"Estado: {ObtenerDescripcionEstado(estado)}";
-            
+
             // Cambiar color según el estado
             switch (estado)
             {
                 case EstadoVenta.EnProceso:
                     labelEstado.ForeColor = Color.Orange;
                     break;
+
                 case EstadoVenta.Cobrada:
                     labelEstado.ForeColor = Color.Yellow;
                     break;
+
                 case EstadoVenta.Entregada:
                     labelEstado.ForeColor = Color.LightGreen;
                     break;
+
                 case EstadoVenta.Cancelada:
                     labelEstado.ForeColor = Color.Red;
                     break;
+
                 default:
                     labelEstado.ForeColor = Color.Gainsboro;
                     break;
@@ -399,7 +405,7 @@ namespace CheeseLogix.Negocio.Ventas
             labelEstado.ForeColor = Color.Gainsboro;
         }
 
-        #endregion
+        #endregion Gestión de DataGridViews
 
         #region Eventos de Botones
 
@@ -409,20 +415,20 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 if (dateTimePickerDesde.Value > dateTimePickerHasta.Value)
                 {
-                    MessageBox.Show("La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.", 
+                    MessageBox.Show("La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
                         ConstantesUI.Titulos.Validacion, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 AplicarFiltroFechas();
-                
+
                 var cantidadResultados = dataGridViewOrdenVenta.Rows.Count;
-                MessageBox.Show($"Se encontraron {cantidadResultados} ventas en el rango de fechas seleccionado.", 
+                MessageBox.Show($"Se encontraron {cantidadResultados} ventas en el rango de fechas seleccionado.",
                     ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al realizar la búsqueda: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al realizar la búsqueda: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -434,16 +440,16 @@ namespace CheeseLogix.Negocio.Ventas
                 // Restablecer fechas al último mes
                 dateTimePickerDesde.Value = DateTime.Now.AddDays(-30);
                 dateTimePickerHasta.Value = DateTime.Now;
-                
+
                 // Recargar todas las ventas
                 CargarVentas();
-                
-                MessageBox.Show("Los filtros han sido restablecidos.", ConstantesUI.Titulos.Informacion, 
+
+                MessageBox.Show("Los filtros han sido restablecidos.", ConstantesUI.Titulos.Informacion,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al restablecer filtros: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al restablecer filtros: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -454,10 +460,10 @@ namespace CheeseLogix.Negocio.Ventas
             {
                 // Obtener CUIT del textbox
                 string cuit = txtCuitCliente.Text.Trim();
-                
+
                 if (string.IsNullOrWhiteSpace(cuit))
                 {
-                    MessageBox.Show("Por favor, ingrese el CUIT del cliente.", ConstantesUI.Titulos.Validacion, 
+                    MessageBox.Show("Por favor, ingrese el CUIT del cliente.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCuitCliente.Focus();
                     return;
@@ -466,7 +472,7 @@ namespace CheeseLogix.Negocio.Ventas
                 // Validar formato de CUIT antes de continuar
                 if (!ValidarFormatoCUIT())
                 {
-                    MessageBox.Show("Por favor, ingrese un CUIT válido antes de continuar.", ConstantesUI.Titulos.Validacion, 
+                    MessageBox.Show("Por favor, ingrese un CUIT válido antes de continuar.", ConstantesUI.Titulos.Validacion,
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCuitCliente.Focus();
                     return;
@@ -477,25 +483,25 @@ namespace CheeseLogix.Negocio.Ventas
 
                 // Buscar cliente por CUIT (usar CUIT limpio)
                 var cliente = _bllCliente.BuscarPorCUIT(cuitLimpio);
-                
+
                 if (cliente != null)
                 {
                     // Cliente encontrado - Mostrar mensaje y redirigir
                     var resultado = MessageBox.Show(
-                        $"Cliente encontrado: {cliente.NombreCompleto}\n\n¿Desea iniciar una nueva orden de venta para este cliente?", 
-                        ConstantesUI.Titulos.Informacion, 
-                        MessageBoxButtons.YesNo, 
+                        $"Cliente encontrado: {cliente.NombreCompleto}\n\n¿Desea iniciar una nueva orden de venta para este cliente?",
+                        ConstantesUI.Titulos.Informacion,
+                        MessageBoxButtons.YesNo,
                         MessageBoxIcon.Information);
-                    
+
                     if (resultado == DialogResult.Yes)
                     {
                         // Redirigir a frmTramitarOrdenCarrito pasando el CUIT limpio para que busque automáticamente
                         var frmTramitar = new frmTramitarOrdenCarrito(cuitLimpio);
-                        
+
                         this.Hide();
                         frmTramitar.ShowDialog();
                         this.Show();
-                        
+
                         // Limpiar textbox y recargar ventas por si se creó una nueva
                         txtCuitCliente.Clear();
                         CargarVentas();
@@ -505,30 +511,30 @@ namespace CheeseLogix.Negocio.Ventas
                 {
                     // Cliente no encontrado - Preguntar si quiere agregarlo
                     var resultado = MessageBox.Show(
-                        $"No se encontró un cliente con CUIT '{cuitLimpio}' en nuestro sistema.\n\n¿Desea agregar este cliente?", 
-                        ConstantesUI.Titulos.Informacion, 
-                        MessageBoxButtons.YesNo, 
+                        $"No se encontró un cliente con CUIT '{cuitLimpio}' en nuestro sistema.\n\n¿Desea agregar este cliente?",
+                        ConstantesUI.Titulos.Informacion,
+                        MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
-                    
+
                     if (resultado == DialogResult.Yes)
                     {
                         // Redirigir a frmGestionarClientes
                         var frmGestionClientes = new frmGestionarClientes();
                         // TODO: Si es posible, pre-llenar el CUIT en el formulario de gestión
-                        
+
                         this.Hide();
                         frmGestionClientes.ShowDialog();
                         this.Show();
-                        
-                                                 // Limpiar textbox
-                         txtCuitCliente.Clear();
+
+                        // Limpiar textbox
+                        txtCuitCliente.Clear();
                     }
                     else
                     {
                         // Usuario eligió no agregar cliente
-                        MessageBox.Show("Por favor, elija un cliente válido o agregue el cliente al sistema.", 
+                        MessageBox.Show("Por favor, elija un cliente válido o agregue el cliente al sistema.",
                             ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+
                         // Limpiar textbox y mantener foco
                         txtCuitCliente.Clear();
                         txtCuitCliente.Focus();
@@ -537,9 +543,9 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar el cliente: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al buscar el cliente: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 // En caso de error, limpiar y mantener foco
                 txtCuitCliente.Clear();
                 txtCuitCliente.Focus();
@@ -551,10 +557,12 @@ namespace CheeseLogix.Negocio.Ventas
             this.Close();
         }
 
-        #endregion
+        #endregion Eventos de Botones
 
         #region Gestión de Idiomas y Permisos
-        List<Control> ListaControles = new List<Control>();
+
+        private List<Control> ListaControles = new List<Control>();
+
         public void BuscarControles(ICollection controles)
         {
             foreach (Control c in controles)
@@ -568,6 +576,7 @@ namespace CheeseLogix.Negocio.Ventas
         }
 
         #region Permisos
+
         public void Buscar(Componente c)
         {
             GrupoPermisos grupo = (GrupoPermisos)c;
@@ -595,7 +604,9 @@ namespace CheeseLogix.Negocio.Ventas
                 }
             }
         }
+
         #endregion Permisos
+
         public void Actualizar(IIdioma idioma)
         {
             foreach (Control control in ListaControles)
@@ -624,7 +635,7 @@ namespace CheeseLogix.Negocio.Ventas
                 cboxIdiomas.DataSource = idiomas;
                 cboxIdiomas.DisplayMember = "Nombre";
                 cboxIdiomas.ValueMember = "Id";
-                
+
                 if (sesion.Idioma != null)
                 {
                     cboxIdiomas.SelectedValue = sesion.Idioma.Id;
@@ -632,7 +643,7 @@ namespace CheeseLogix.Negocio.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", ConstantesUI.Titulos.Error, 
+                MessageBox.Show($"Error al cargar idiomas: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -669,6 +680,7 @@ namespace CheeseLogix.Negocio.Ventas
                 sesion.CambiarIdioma(idiomaSeleccionado);
             }
         }
-        #endregion
+
+        #endregion Gestión de Idiomas y Permisos
     }
 }
