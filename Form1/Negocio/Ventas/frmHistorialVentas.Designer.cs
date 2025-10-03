@@ -70,7 +70,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelHeader.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelHeader.Name = "tableLayoutPanelHeader";
-            this.tableLayoutPanelHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanelHeader.Size = new System.Drawing.Size(994, 54);
             this.tableLayoutPanelHeader.TabIndex = 0;
             // 
@@ -84,7 +84,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelIdioma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelIdioma.Location = new System.Drawing.Point(599, 3);
             this.tableLayoutPanelIdioma.Name = "tableLayoutPanelIdioma";
-            this.tableLayoutPanelIdioma.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelIdioma.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanelIdioma.Size = new System.Drawing.Size(392, 48);
             this.tableLayoutPanelIdioma.TabIndex = 1;
             // 
@@ -120,7 +120,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutGrids.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutGrids.Location = new System.Drawing.Point(3, 63);
             this.tableLayoutGrids.Name = "tableLayoutGrids";
-            this.tableLayoutGrids.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutGrids.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 484F));
             this.tableLayoutGrids.Size = new System.Drawing.Size(994, 484);
             this.tableLayoutGrids.TabIndex = 1;
             // 
@@ -169,10 +169,10 @@ namespace CheeseLogix.Negocio.Ventas
             this.btnRegistrarDevolucion.FlatAppearance.BorderSize = 0;
             this.btnRegistrarDevolucion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrarDevolucion.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnRegistrarDevolucion.Location = new System.Drawing.Point(3, 7);
+            this.btnRegistrarDevolucion.Location = new System.Drawing.Point(3, 6);
             this.btnRegistrarDevolucion.Name = "btnRegistrarDevolucion";
             this.btnRegistrarDevolucion.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
-            this.btnRegistrarDevolucion.Size = new System.Drawing.Size(101, 30);
+            this.btnRegistrarDevolucion.Size = new System.Drawing.Size(101, 32);
             this.btnRegistrarDevolucion.TabIndex = 0;
             this.btnRegistrarDevolucion.Tag = "RegistrarDevolucion";
             this.btnRegistrarDevolucion.Text = "Registrar Devolución";

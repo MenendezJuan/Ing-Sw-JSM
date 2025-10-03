@@ -29,6 +29,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.lblSeleccionarIdioma = new System.Windows.Forms.Label();
             this.tableLayoutPanelCampos = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelAcciones = new System.Windows.Forms.TableLayoutPanel();
+            this.btnCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericCantidad)).BeginInit();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelHeader.SuspendLayout();
@@ -81,6 +82,7 @@ namespace CheeseLogix.Negocio.Ventas
             // chkApto
             // 
             this.chkApto.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkApto.ForeColor = System.Drawing.Color.Gainsboro;
             this.chkApto.Location = new System.Drawing.Point(210, 202);
             this.chkApto.Name = "chkApto";
             this.chkApto.Size = new System.Drawing.Size(104, 24);
@@ -197,7 +199,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelHeader.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelHeader.Name = "tableLayoutPanelHeader";
-            this.tableLayoutPanelHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanelHeader.Size = new System.Drawing.Size(594, 54);
             this.tableLayoutPanelHeader.TabIndex = 0;
             // 
@@ -211,7 +213,7 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelIdioma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelIdioma.Location = new System.Drawing.Point(359, 3);
             this.tableLayoutPanelIdioma.Name = "tableLayoutPanelIdioma";
-            this.tableLayoutPanelIdioma.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelIdioma.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanelIdioma.Size = new System.Drawing.Size(232, 48);
             this.tableLayoutPanelIdioma.TabIndex = 1;
             // 
@@ -260,25 +262,23 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.Controls.Add(this.btnRegistrar, 0, 0);
+            this.tableLayoutPanelAcciones.Controls.Add(this.btnCerrar, 1, 0);
             this.tableLayoutPanelAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelAcciones.Location = new System.Drawing.Point(3, 313);
             this.tableLayoutPanelAcciones.Name = "tableLayoutPanelAcciones";
             this.tableLayoutPanelAcciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelAcciones.Size = new System.Drawing.Size(594, 44);
             this.tableLayoutPanelAcciones.TabIndex = 2;
-
             // 
             // btnCerrar
             // 
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.tableLayoutPanelAcciones.Controls.Add(this.btnCerrar, 1, 0);
             this.btnCerrar.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnCerrar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.btnCerrar.FlatAppearance.BorderSize = 2;
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(398, 4);
+            this.btnCerrar.Location = new System.Drawing.Point(300, 4);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
             this.btnCerrar.Size = new System.Drawing.Size(120, 35);

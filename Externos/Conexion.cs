@@ -223,5 +223,33 @@ namespace Servicios
                 oCnx.Close();
             }
         }
+
+        // Método para verificar si existe un registro con una consulta específica
+        public bool VerificarExistenciaRegistro(string sqlQuery)
+        {
+            try
+            {
+                oCnx.Open();
+                oCmd = new SqlCommand(sqlQuery, oCnx);
+                oCmd.CommandType = CommandType.Text;
+
+                var resultado = oCmd.ExecuteScalar();
+                int count = Convert.ToInt32(resultado);
+
+                return count > 0;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("SQL Error: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                oCnx.Close();
+            }
+        }
     }
 }

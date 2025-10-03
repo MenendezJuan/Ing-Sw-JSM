@@ -109,5 +109,123 @@ namespace MPPs.Tecnica
                 throw new Exception($"Error al obtener nombre de base de datos: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Verifica si un usuario existe en la base de datos actual por su ID
+        /// </summary>
+        /// <param name="idUsuario">ID del usuario a verificar</param>
+        /// <returns>True si el usuario existe, False en caso contrario</returns>
+        public bool VerificarExistenciaUsuario(int idUsuario)
+        {
+            try
+            {
+                string consulta = $"SELECT COUNT(*) FROM Usuarios WHERE Id = {idUsuario} AND Activo = 1";
+                return oCnx.VerificarExistenciaRegistro(consulta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al verificar existencia de usuario: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Verifica si un usuario existe en un archivo de backup SIN afectar la BD actual
+        /// Crea una BD temporal, restaura el backup ahí, verifica el usuario, y elimina la BD temporal
+        /// </summary>
+        /// <param name="rutaBackup">Ruta del archivo .bak</param>
+        /// <param name="idUsuario">ID del usuario a verificar</param>
+        /// <returns>True si el usuario existe en el backup, False en caso contrario</returns>
+        public bool VerificarUsuarioEnBackup(string rutaBackup, int idUsuario)
+        {
+            string nombreBDTemporal = $"TempVerify_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+            
+            try
+            {
+                // Paso 1: Obtener el nombre lógico de los archivos del backup
+                string consultaFileList = $@"RESTORE FILELISTONLY FROM DISK = '{rutaBackup}'";
+                var archivos = oCnx.LeerConConsulta(consultaFileList, null);
+                
+                if (archivos.Rows.Count < 2)
+                {
+                    throw new InvalidOperationException("El archivo de backup no contiene la estructura esperada.");
+                }
+
+                string nombreLogicoData = archivos.Rows[0]["LogicalName"].ToString();
+                string nombreLogicoLog = archivos.Rows[1]["LogicalName"].ToString();
+
+                // Paso 2: Crear rutas temporales para los archivos de la BD temporal
+                string rutaTempData = Path.Combine(Path.GetTempPath(), $"{nombreBDTemporal}.mdf");
+                string rutaTempLog = Path.Combine(Path.GetTempPath(), $"{nombreBDTemporal}_log.ldf");
+
+                // Paso 3: Restaurar el backup en la BD temporal
+                string comandoRestoreTemp = $@"
+                    RESTORE DATABASE [{nombreBDTemporal}]
+                    FROM DISK = '{rutaBackup}'
+                    WITH 
+                        MOVE '{nombreLogicoData}' TO '{rutaTempData}',
+                        MOVE '{nombreLogicoLog}' TO '{rutaTempLog}',
+                        REPLACE";
+
+                oCnx.EjecutarComandoSQL(comandoRestoreTemp, 10);
+
+                // Paso 4: Verificar si el usuario existe en la BD temporal
+                string consultaUsuario = $@"
+                    SELECT COUNT(*) 
+                    FROM [{nombreBDTemporal}].dbo.Usuarios 
+                    WHERE Id = {idUsuario} AND Activo = 1";
+
+                bool usuarioExiste = oCnx.VerificarExistenciaRegistro(consultaUsuario);
+
+                // Paso 5: Limpiar - Eliminar la BD temporal
+                try
+                {
+                    string comandoDropDB = $@"
+                        ALTER DATABASE [{nombreBDTemporal}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                        DROP DATABASE [{nombreBDTemporal}]";
+                    oCnx.EjecutarComandoSQL(comandoDropDB, 2);
+                }
+                catch
+                {
+                    // Si no puede eliminar la BD temporal, intentar al menos desconectar
+                    try
+                    {
+                        string comandoDetach = $@"
+                            USE master;
+                            ALTER DATABASE [{nombreBDTemporal}] SET OFFLINE WITH ROLLBACK IMMEDIATE;
+                            EXEC sp_detach_db @dbname = '{nombreBDTemporal}', @skipchecks = 'true'";
+                        oCnx.EjecutarComandoSQL(comandoDetach, 2);
+                    }
+                    catch { }
+                }
+
+                // Paso 6: Limpiar archivos físicos temporales
+                try
+                {
+                    if (File.Exists(rutaTempData)) File.Delete(rutaTempData);
+                    if (File.Exists(rutaTempLog)) File.Delete(rutaTempLog);
+                }
+                catch { }
+
+                return usuarioExiste;
+            }
+            catch (Exception ex)
+            {
+                // Intentar limpiar la BD temporal en caso de error
+                try
+                {
+                    string comandoDropDB = $@"
+                        USE master;
+                        IF EXISTS (SELECT 1 FROM sys.databases WHERE name = '{nombreBDTemporal}')
+                        BEGIN
+                            ALTER DATABASE [{nombreBDTemporal}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                            DROP DATABASE [{nombreBDTemporal}];
+                        END";
+                    oCnx.EjecutarComandoSQL(comandoDropDB, 2);
+                }
+                catch { }
+
+                throw new Exception($"Error al verificar usuario en backup: {ex.Message}", ex);
+            }
+        }
     }
 }

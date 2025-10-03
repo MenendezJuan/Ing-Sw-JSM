@@ -44,6 +44,9 @@ namespace CheeseLogix.Tecnica
                 Bll_Idioma = new BLL_IDIOMA();
                 Bll_Traduccion = new BLL_TRADUCCION();
 
+                // NO conectar CellFormatting - causa problemas con valores incompatibles
+                // dataGridHistorial.CellFormatting += dataGridHistorial_CellFormatting;
+
                 // Configurar idiomas y permisos primero
                 sesion.RegistrarObservador(this);
                 IIdioma oIdioma = sesion.Idioma;
@@ -60,7 +63,7 @@ namespace CheeseLogix.Tecnica
                 MessageBox.Show($"Error al inicializar el formulario: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         #region Configuración de Entidades
 
         private void CargarTiposEntidad()
@@ -77,10 +80,10 @@ namespace CheeseLogix.Tecnica
                 comboTipoEntidad.DataSource = tiposEntidad;
                 comboTipoEntidad.DisplayMember = "Texto";
                 comboTipoEntidad.ValueMember = "Valor";
-                
+
                 // PRESELECIÓN AUTOMÁTICA Y CARGA INMEDIATA
                 comboTipoEntidad.SelectedIndex = 0;
-                
+
                 // Forzar actualización inmediata después de configurar el combo
                 if (comboTipoEntidad.SelectedValue != null)
                 {
@@ -96,11 +99,25 @@ namespace CheeseLogix.Tecnica
 
         private void comboTipoEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboTipoEntidad.SelectedValue != null)
+            try
             {
-                _tipoEntidadActual = comboTipoEntidad.SelectedValue.ToString();
-                ActualizarEntidades();
-                LimpiarHistorial();
+                if (comboTipoEntidad.SelectedValue != null)
+                {
+                    // Obtener el valor correctamente
+                    string tipoEntidad = comboTipoEntidad.SelectedValue.ToString();
+
+                    // Validar que sea un tipo conocido
+                    if (tipoEntidad == "Usuario" || tipoEntidad == "Producto" || tipoEntidad == "Venta")
+                    {
+                        _tipoEntidadActual = tipoEntidad;
+                        ActualizarEntidades();
+                        LimpiarHistorial();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cambiar tipo de entidad: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -347,6 +364,10 @@ namespace CheeseLogix.Tecnica
 
                 // Cargar historial específico
                 var historial = _bllControlCambios.ObtenerHistorialEntidad(tipoEntidad, entidadId);
+
+                // Formatear datos ANTES de asignar al DataGridView
+                FormatearDatosHistorial(historial, tipoEntidad);
+
                 dataGridHistorial.DataSource = historial;
 
                 ConfigurarColumnasHistorial();
@@ -357,6 +378,116 @@ namespace CheeseLogix.Tecnica
             {
                 MessageBox.Show($"Error al cargar historial: {ex.Message}", ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LimpiarHistorial();
+            }
+        }
+
+        /// <summary>
+        /// Formatea los datos del historial ANTES de mostrarlos en el DataGridView
+        /// Esto evita problemas con el evento CellFormatting
+        /// </summary>
+        private void FormatearDatosHistorial(System.Data.DataTable historial, string tipoEntidad)
+        {
+            try
+            {
+                if (historial == null || historial.Rows.Count == 0)
+                    return;
+
+                // Agregar columna de texto formateado si no existe
+                if (tipoEntidad == "Venta" && historial.Columns.Contains("EstadoVenta"))
+                {
+                    // Agregar columna de estado formateado si no existe
+                    if (!historial.Columns.Contains("EstadoTexto"))
+                    {
+                        historial.Columns.Add("EstadoTexto", typeof(string));
+                    }
+
+                    foreach (System.Data.DataRow row in historial.Rows)
+                    {
+                        if (row["EstadoVenta"] != DBNull.Value)
+                        {
+                            int estado = Convert.ToInt32(row["EstadoVenta"]);
+                            string estadoTexto;
+
+                            switch (estado)
+                            {
+                                case 0:
+                                    estadoTexto = "En Proceso";
+                                    break;
+                                case 1:
+                                    estadoTexto = "Cobrada";
+                                    break;
+                                case 2:
+                                    estadoTexto = "Entregada";
+                                    break;
+                                case 3:
+                                    estadoTexto = "Cancelada";
+                                    break;
+                                default:
+                                    estadoTexto = $"Desconocido ({estado})";
+                                    break;
+                            }
+
+                            row["EstadoTexto"] = estadoTexto;
+                        }
+                        else
+                        {
+                            row["EstadoTexto"] = "-";
+                        }
+                    }
+
+
+                    // Ocultar la columna numérica y mostrar la de texto
+                    historial.Columns["EstadoVenta"].ColumnMapping = System.Data.MappingType.Hidden;
+                }
+                else if (tipoEntidad == "Producto" && historial.Columns.Contains("Estado"))
+                {
+                    if (!historial.Columns.Contains("EstadoTexto"))
+                    {
+                        historial.Columns.Add("EstadoTexto", typeof(string));
+                    }
+
+                    foreach (System.Data.DataRow row in historial.Rows)
+                    {
+                        if (row["Estado"] != DBNull.Value)
+                        {
+                            bool estado = Convert.ToBoolean(row["Estado"]);
+                            row["EstadoTexto"] = estado ? "Activo" : "Inactivo";
+                        }
+                        else
+                        {
+                            row["EstadoTexto"] = "-";
+                        }
+                    }
+
+                    historial.Columns["Estado"].ColumnMapping = System.Data.MappingType.Hidden;
+                }
+                else if (tipoEntidad == "Usuario" && historial.Columns.Contains("Activo"))
+                {
+                    if (!historial.Columns.Contains("ActivoTexto"))
+                    {
+                        historial.Columns.Add("ActivoTexto", typeof(string));
+                    }
+
+                    foreach (System.Data.DataRow row in historial.Rows)
+                    {
+                        if (row["Activo"] != DBNull.Value)
+                        {
+                            bool activo = Convert.ToBoolean(row["Activo"]);
+                            row["ActivoTexto"] = activo ? "Activo" : "Inactivo";
+                        }
+                        else
+                        {
+                            row["ActivoTexto"] = "-";
+                        }
+                    }
+
+                    historial.Columns["Activo"].ColumnMapping = System.Data.MappingType.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Si falla el formateo, no es crítico - los datos originales se mostrarán
+                System.Diagnostics.Debug.WriteLine($"Error al formatear datos del historial: {ex.Message}");
             }
         }
 
@@ -388,6 +519,8 @@ namespace CheeseLogix.Tecnica
                             dataGridHistorial.Columns["Email"].HeaderText = "Email";
                         if (dataGridHistorial.Columns.Contains("Fecha"))
                             dataGridHistorial.Columns["Fecha"].HeaderText = "Fecha Registro";
+                        if (dataGridHistorial.Columns.Contains("Activo"))
+                            dataGridHistorial.Columns["Activo"].HeaderText = "Activo";
                         // DV ya oculto arriba - no duplicar
                         break;
 
@@ -398,6 +531,8 @@ namespace CheeseLogix.Tecnica
                             dataGridHistorial.Columns["Codigo"].HeaderText = "Código";
                         if (dataGridHistorial.Columns.Contains("Nombre"))
                             dataGridHistorial.Columns["Nombre"].HeaderText = "Nombre";
+                        if (dataGridHistorial.Columns.Contains("Estado"))
+                            dataGridHistorial.Columns["Estado"].HeaderText = "Estado";
                         break;
 
                     case "Venta":
@@ -405,9 +540,24 @@ namespace CheeseLogix.Tecnica
                             dataGridHistorial.Columns["VentaId"].HeaderText = "Venta ID";
                         if (dataGridHistorial.Columns.Contains("MontoTotal"))
                             dataGridHistorial.Columns["MontoTotal"].HeaderText = "Monto";
+
+                        // Ocultar columna numérica y mostrar la de texto
                         if (dataGridHistorial.Columns.Contains("EstadoVenta"))
-                            dataGridHistorial.Columns["EstadoVenta"].HeaderText = "Estado";
+                            dataGridHistorial.Columns["EstadoVenta"].Visible = false;
+
+                        if (dataGridHistorial.Columns.Contains("EstadoTexto"))
+                        {
+                            dataGridHistorial.Columns["EstadoTexto"].HeaderText = "Estado";
+                            dataGridHistorial.Columns["EstadoTexto"].DisplayIndex = 3; // Posición después de Monto
+                        }
                         break;
+                }
+
+                // Aplicar formato de fecha a la columna FechaModificacion si existe
+                if (dataGridHistorial.Columns.Contains("FechaModificacion") &&
+                    dataGridHistorial.Columns["FechaModificacion"] is DataGridViewTextBoxColumn)
+                {
+                    dataGridHistorial.Columns["FechaModificacion"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
                 }
             }
         }
@@ -425,6 +575,9 @@ namespace CheeseLogix.Tecnica
                 btnRestaurar.Enabled = false;
             }
         }
+
+        // MÉTODO ELIMINADO: CellFormatting causaba FormatException
+        // Ahora usamos FormatearDatosHistorial() que formatea los datos ANTES de mostrarlos
 
         private void LimpiarHistorial()
         {
@@ -485,13 +638,32 @@ namespace CheeseLogix.Tecnica
 
         private int ObtenerIdHistorial(object historialItem)
         {
-            // Obtener ID del historial usando reflexión
-            var idProperty = historialItem.GetType().GetProperty("Id");
-            if (idProperty != null)
+            try
             {
-                return (int)idProperty.GetValue(historialItem);
+                // El historialItem es un DataRowView cuando viene de un DataTable
+                if (historialItem is System.Data.DataRowView rowView)
+                {
+                    if (rowView.Row.Table.Columns.Contains("Id"))
+                    {
+                        return Convert.ToInt32(rowView["Id"]);
+                    }
+                }
+                // Si es un objeto directo, usar reflexión
+                else
+                {
+                    var idProperty = historialItem.GetType().GetProperty("Id");
+                    if (idProperty != null)
+                    {
+                        return (int)idProperty.GetValue(historialItem);
+                    }
+                }
+
+                throw new InvalidOperationException("No se pudo obtener el ID del historial. El objeto no contiene la propiedad 'Id'.");
             }
-            throw new InvalidOperationException("No se pudo obtener el ID del historial");
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al obtener ID del historial: {ex.Message}", ex);
+            }
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

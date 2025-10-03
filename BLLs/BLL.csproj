@@ -124,6 +124,7 @@
     <Compile Include="Tecnica\BLL_CONFIGURACION.cs" />
     <Compile Include="Tecnica\BLL_EXPORTACION.cs" />
     <Compile Include="Tecnica\BLL_IDIOMA.cs" />
+    <Compile Include="Tecnica\BLL_INTEGRIDAD.cs" />
     <Compile Include="Tecnica\BLL_PERMISO.cs" />
     <Compile Include="Tecnica\BLL_SERIALIZACION.cs" />
     <Compile Include="Tecnica\BLL_TRADUCCION.cs" />

@@ -263,5 +263,18 @@ namespace CheeseLogix
             }
             controlCambios.Show();
         }
+
+        private void btnVerificacionIntegridad_Click(object sender, EventArgs e)
+        {
+            frmMenuPrincipal pForm = Owner as frmMenuPrincipal;
+            frmVerificacionIntegridad verificacionIntegridad = new frmVerificacionIntegridad();
+
+            if (pForm != null)
+            {
+                pForm.AddOwnedForm(verificacionIntegridad);
+                pForm.FormHijo(verificacionIntegridad);
+            }
+            verificacionIntegridad.Show();
+        }
     }
 }

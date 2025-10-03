@@ -55,6 +55,7 @@
     <Compile Include="Tecnica\MPP_BITACORA.cs" />
     <Compile Include="Negocio\MPP_COMPRA.cs" />
     <Compile Include="Tecnica\MPP_IDIOMA.cs" />
+    <Compile Include="Tecnica\MPP_INTEGRIDAD.cs" />
     <Compile Include="Tecnica\MPP_PERMISO.cs" />
     <Compile Include="Negocio\MPP_PROVEEDOR.cs" />
     <Compile Include="Tecnica\MPP_TRADUCCION.cs" />

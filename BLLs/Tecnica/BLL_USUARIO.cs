@@ -2,7 +2,6 @@
 using BEs.Clases;
 using BLLs.Tecnica;
 using MPPs;
-using Servicios;
 using System;
 using System.Collections.Generic;
 
@@ -47,8 +46,8 @@ namespace BLLs
         {
             try
             {
-                entidad.Contraseña = Seguridad.Hash(entidad.Contraseña);
-                entidad.DV = Seguridad.CalcularDigitoVerificadorHorizontal(entidad);
+                entidad.Contraseña = Seguridad.Seguridad.Hash(entidad.Contraseña);
+                entidad.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(entidad);
                 if (Mpp_Usuario.Agregar(entidad))
                 {
                     Mpp_Usuario.ActualizarDigitoVertical(CalcularDigitoVertical());
@@ -85,8 +84,8 @@ namespace BLLs
         {
             try
             {
-                entidad.Contraseña = Servicios.Seguridad.Hash(entidad.Contraseña);
-                entidad.DV = Seguridad.CalcularDigitoVerificadorHorizontal(entidad);
+                entidad.Contraseña = Seguridad.Seguridad.Hash(entidad.Contraseña);
+                entidad.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(entidad);
                 if (Mpp_Usuario.Modificar(entidad))
                 {
                     Mpp_Usuario.ActualizarDigitoVertical(CalcularDigitoVertical());
@@ -108,7 +107,7 @@ namespace BLLs
                 List<Usuario> Lista = Mpp_Usuario.Listar();
                 foreach (Usuario u in Lista)
                 {
-                    if (u.DV != Seguridad.CalcularDigitoVerificadorHorizontal(u))
+                    if (u.DV != Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(u))
                     {
                         throw new Exception("Digito verificador no coicide");
                     }
@@ -156,11 +155,11 @@ namespace BLLs
             {
                 Usuario usuario = new Usuario(email, contraseña);
                 Usuario oUsuario = Mpp_Usuario.BuscarUsuarioPorCredenciales(usuario.Email); // Busca el usuario que coincida con el email
-                usuario.Contraseña = Seguridad.Hash(usuario.Contraseña);
+                usuario.Contraseña = Seguridad.Seguridad.Hash(usuario.Contraseña);
 
                 if (oUsuario != null && oUsuario.Contraseña == usuario.Contraseña)
                 {
-                    string dvCalculado = Seguridad.CalcularDigitoVerificadorHorizontal(oUsuario);
+                    string dvCalculado = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(oUsuario);
 
                     if (oUsuario.DV != dvCalculado)
                     {
@@ -208,7 +207,7 @@ namespace BLLs
             System.Diagnostics.Debug.WriteLine($"Concatenación final: {DV}");
             System.Diagnostics.Debug.WriteLine($"Longitud concatenación: {DV.Length}");
 
-            string hash = Seguridad.Hash(DV);
+            string hash = Seguridad.Seguridad.Hash(DV);
             System.Diagnostics.Debug.WriteLine($"Hash final: {hash}");
 
             return hash;
@@ -226,7 +225,7 @@ namespace BLLs
 
             foreach (var u in usuarios)
             {
-                string nuevoDVH = Seguridad.CalcularDigitoVerificadorHorizontal(u);
+                string nuevoDVH = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(u);
                 if (!string.Equals(u.DV, nuevoDVH, StringComparison.Ordinal))
                 {
                     u.DV = nuevoDVH;

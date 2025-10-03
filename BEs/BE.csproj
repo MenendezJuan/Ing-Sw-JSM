@@ -45,6 +45,7 @@
     <Compile Include="Clases\Bitacora.cs" />
     <Compile Include="Clases\Entidad.cs" />
     <Compile Include="Clases\Componente.cs" />
+    <Compile Include="Clases\InconsistenciaIntegridad.cs" />
     <Compile Include="Clases\GrupoPermisos.cs" />
     <Compile Include="Clases\HistorialUsuario.cs" />
     <Compile Include="Clases\Idioma.cs" />

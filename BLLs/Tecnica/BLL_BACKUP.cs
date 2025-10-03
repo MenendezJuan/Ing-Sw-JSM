@@ -56,18 +56,51 @@ namespace BLLs.Tecnica
 
         /// <summary>
         /// Restaura un backup de la base de datos con validaciones de negocio
+        /// IMPORTANTE: Verifica ANTES si el usuario actual existe en el backup para prevenir inconsistencias
         /// </summary>
         /// <param name="rutaBackup">Ruta completa del archivo .bak a restaurar</param>
+        /// <param name="idUsuarioActual">ID del usuario actualmente logueado (0 si no hay usuario)</param>
         /// <returns>True si la restauración fue exitosa</returns>
-        public bool RestaurarBackup(string rutaBackup)
+        /// <exception cref="UsuarioNoExisteException">Se lanza si el usuario actual NO existe en el backup (ANTES de restaurar)</exception>
+        public bool RestaurarBackup(string rutaBackup, int idUsuarioActual = 0)
         {
             // Validaciones de negocio
             ValidarArchivoBackup(rutaBackup);
 
             try
             {
-                // Ejecutar restore a través de la MPP
-                return _backupRepository.EjecutarRestore(rutaBackup);
+                // VALIDACIÓN PREVENTIVA: Verificar si el usuario existe en el backup ANTES de restaurar
+                if (idUsuarioActual > 0)
+                {
+                    bool usuarioExisteEnBackup = _backupRepository.VerificarUsuarioEnBackup(rutaBackup, idUsuarioActual);
+                    
+                    if (!usuarioExisteEnBackup)
+                    {
+                        throw new UsuarioNoExisteException(
+                            $"No se puede restaurar este backup porque el usuario actual (ID: {idUsuarioActual}) no existe en él.\n\n" +
+                            $"Esto indica que el usuario fue creado después de que se generó este backup.\n\n" +
+                            $"Para restaurar este backup, debe:\n" +
+                            $"1. Cerrar sesión\n" +
+                            $"2. Iniciar sesión con un usuario que exista en el backup\n" +
+                            $"3. Realizar la restauración con ese usuario"
+                        );
+                    }
+                }
+
+                // Si el usuario existe en el backup (o no hay usuario logueado), proceder con el restore
+                bool exitoso = _backupRepository.EjecutarRestore(rutaBackup);
+
+                if (!exitoso)
+                {
+                    throw new InvalidOperationException("El restore no se completó exitosamente.");
+                }
+
+                return true;
+            }
+            catch (UsuarioNoExisteException)
+            {
+                // Re-lanzar sin envolver
+                throw;
             }
             catch (Exception ex)
             {
@@ -206,5 +239,19 @@ namespace BLLs.Tecnica
         }
 
         #endregion Validaciones Privadas
+    }
+
+    /// <summary>
+    /// Excepción personalizada que se lanza cuando el usuario actual no existe en el backup restaurado
+    /// </summary>
+    public class UsuarioNoExisteException : Exception
+    {
+        public UsuarioNoExisteException(string message) : base(message)
+        {
+        }
+
+        public UsuarioNoExisteException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

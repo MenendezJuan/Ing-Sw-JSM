@@ -1,5 +1,5 @@
 using MPPs.Tecnica;
-using Servicios;
+using Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -206,7 +206,7 @@ namespace BLLs.Tecnica
                 // 3. BLL maneja el cálculo del hash usando Seguridad
                 if (!string.IsNullOrEmpty(concatenacion))
                 {
-                    return Seguridad.Hash(concatenacion);
+                    return Seguridad.Seguridad.Hash(concatenacion);
                 }
 
                 return string.Empty;
@@ -236,22 +236,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        /// <summary>
-        /// Calcula hash SHA256 de una cadena usando la clase Seguridad existente
-        /// </summary>
-        /// <param name="input">Cadena de entrada</param>
-        /// <returns>Hash SHA256 en hexadecimal</returns>
-        private string CalcularSHA256(string input)
-        {
-            try
-            {
-                return Seguridad.Hash(input);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error al calcular SHA256: {ex.Message}", ex);
-            }
-        }
+        
 
         #endregion Dígito Verificador Vertical (DVV)
 

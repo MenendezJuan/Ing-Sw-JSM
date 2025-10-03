@@ -1,4 +1,6 @@
+using BEs;
 using BEs.Clases.Negocio.Ventas;
+using MPPs;
 using MPPs.Negocio;
 using System;
 using System.Collections.Generic;
@@ -86,6 +88,25 @@ namespace BLLs.Negocio
         {
             ValidarCliente(cliente);
             clienteRepository.Insertar(cliente);
+            
+            // Registrar en bitácora
+            try
+            {
+                var usuario = SessionManager.GetInstance().oUsuario;
+                if (usuario != null)
+                {
+                    var mppBitacora = new MPPs.MPP_BITACORA();
+                    mppBitacora.Agregar(
+                        usuario,
+                        Enum_TiposBitacora.ABML,
+                        $"Cliente creado: {cliente.Nombre} {cliente.Apellido} (CUIT: {cliente.CUIT})"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al registrar en bitácora: {ex.Message}");
+            }
         }
 
         // Método para actualizar un cliente existente
@@ -94,13 +115,52 @@ namespace BLLs.Negocio
             ValidarExistenciaCliente(cliente.Id);
             ValidarCliente(cliente);
             clienteRepository.Actualizar(cliente);
+            
+            // Registrar en bitácora
+            try
+            {
+                var usuario = SessionManager.GetInstance().oUsuario;
+                if (usuario != null)
+                {
+                    var mppBitacora = new MPP_BITACORA();
+                    mppBitacora.Agregar(
+                        usuario,
+                        Enum_TiposBitacora.ABML,
+                        $"Cliente actualizado: ID {cliente.Id} - {cliente.Nombre} {cliente.Apellido}"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al registrar en bitácora: {ex.Message}");
+            }
         }
 
         // Método para eliminar (desactivar) un cliente
         public void Eliminar(int id)
         {
             ValidarExistenciaCliente(id);
+            var cliente = ObtenerPorId(id);
             clienteRepository.Eliminar(id);
+            
+            // Registrar en bitácora
+            try
+            {
+                var usuario = SessionManager.GetInstance().oUsuario;
+                if (usuario != null)
+                {
+                    var mppBitacora = new MPP_BITACORA();
+                    mppBitacora.Agregar(
+                        usuario,
+                        Enum_TiposBitacora.ABML,
+                        $"Cliente desactivado: ID {id} - {cliente?.Nombre} {cliente?.Apellido}"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al registrar en bitácora: {ex.Message}");
+            }
         }
 
         // Método para obtener un cliente por su Id
@@ -125,7 +185,27 @@ namespace BLLs.Negocio
         public void ReactivarCliente(int id)
         {
             ValidarExistenciaCliente(id);
+            var cliente = ObtenerPorId(id);
             clienteRepository.ReactivarCliente(id);
+            
+            // Registrar en bitácora
+            try
+            {
+                var usuario = SessionManager.GetInstance().oUsuario;
+                if (usuario != null)
+                {
+                    var mppBitacora = new MPP_BITACORA();
+                    mppBitacora.Agregar(
+                        usuario,
+                        Enum_TiposBitacora.ABML,
+                        $"Cliente reactivado: ID {id} - {cliente?.Nombre} {cliente?.Apellido}"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al registrar en bitácora: {ex.Message}");
+            }
         }
 
         /// <summary>

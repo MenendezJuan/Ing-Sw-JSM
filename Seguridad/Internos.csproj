@@ -42,12 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Seguridad.cs" />
+    <Compile Include="SeguridadExtendida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BEs\BE.csproj">
       <Project>{d854f6cc-77b8-414e-b36a-fb2233d6706a}</Project>
       <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Externos\Externos.csproj">
+      <Project>{15f97ecf-7d78-4fdc-8e4f-3eacbf9a8e2f}</Project>
+      <Name>Externos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

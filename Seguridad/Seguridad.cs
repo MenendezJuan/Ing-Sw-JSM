@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Servicios
+namespace Seguridad
 {
     public class Seguridad
     {
@@ -71,6 +71,14 @@ namespace Servicios
             }
 
             return Hash(builder.ToString());
+        }
+
+        /// <summary>
+        /// Calcula el dígito verificador para una cadena de texto
+        /// </summary>
+        public static string CalcularDigitoVerificador(string datos)
+        {
+            return Hash(datos);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace BLLs.Tecnica
             public const string AbrirArchivo = "Abrir Archivo";
             public const string Confirmacion = "Confirmación";
             public const string Exito = "Éxito";
+            public const string Advertencia = "Advertencia";
         }
 
         public static class Mensajes

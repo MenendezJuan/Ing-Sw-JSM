@@ -112,7 +112,6 @@ namespace CheeseLogix.Tecnica
         {
             try
             {
-                // Obtener nombre del backup
                 string nombreBackup = ObtenerNombreBackupDelFormulario();
 
                 if (string.IsNullOrWhiteSpace(nombreBackup))
@@ -122,21 +121,17 @@ namespace CheeseLogix.Tecnica
                     return;
                 }
 
-                // Crear backup a través de la BLL
                 string rutaCompleta = Bll_Backup.CrearBackup(nombreBackup, backupDirectory);
 
                 MessageBox.Show($"Backup creado exitosamente:\n{Path.GetFileName(rutaCompleta)}", ConstantesUI.Titulos.Informacion,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Recargar lista de backups disponibles
                 CargarBackupsDisponibles();
 
-                // Limpiar campo de nombre
                 LimpiarCampoNombreBackup();
             }
             catch (InvalidOperationException ex)
             {
-                // Error de negocio - mostrar opción de sobrescribir
                 if (ex.Message.Contains("Ya existe un backup"))
                 {
                     var resultado = MessageBox.Show($"{ex.Message}\n\n¿Desea sobrescribirlo?",
@@ -144,7 +139,6 @@ namespace CheeseLogix.Tecnica
 
                     if (resultado == DialogResult.Yes)
                     {
-                        // Permitir sobrescribir eliminando el archivo existente
                         SobrescribirBackupExistente();
                     }
                 }
@@ -160,8 +154,6 @@ namespace CheeseLogix.Tecnica
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        // Métodos auxiliares para el formulario
         private string ObtenerNombreBackupDelFormulario()
         {
             return txtNombreBackup.Text.Trim();
@@ -178,24 +170,20 @@ namespace CheeseLogix.Tecnica
             {
                 string nombreBackup = ObtenerNombreBackupDelFormulario();
 
-                // Crear nombre completo con fecha
                 string fechaActual = DateTime.Now.ToString("ddMMyyyy");
                 string nombreCompleto = $"{nombreBackup}_{fechaActual}";
                 string rutaCompleta = Path.Combine(backupDirectory, $"{nombreCompleto}.bak");
 
-                // Eliminar archivo existente
                 if (File.Exists(rutaCompleta))
                 {
                     File.Delete(rutaCompleta);
                 }
 
-                // Crear nuevo backup
                 string rutaBackup = Bll_Backup.CrearBackup(nombreBackup, backupDirectory);
 
                 MessageBox.Show($"Backup sobrescrito exitosamente:\n{Path.GetFileName(rutaBackup)}", "Backup completado",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Recargar lista y limpiar campo
                 CargarBackupsDisponibles();
                 LimpiarCampoNombreBackup();
             }
@@ -222,32 +210,100 @@ namespace CheeseLogix.Tecnica
                 var resultado = MessageBox.Show(
                     $"¿Está seguro que desea restaurar el backup '{selectedBackup.FileName}'?\n\n" +
                     "ADVERTENCIA: Esta operación reemplazará completamente la base de datos actual. " +
-                    "Todos los datos no guardados se perderán.",
+                    "Todos los datos no guardados se perderán.\n\n" +
+                    "IMPORTANTE: El sistema verificará que el usuario actual exista en el backup antes de proceder.",
                     ConstantesUI.Titulos.Confirmacion,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
 
                 if (resultado == DialogResult.Yes)
                 {
-                    // Restaurar a través de la BLL
-                    bool exitoso = Bll_Backup.RestaurarBackup(selectedBackup.FilePath);
+                    int idUsuarioActual = sesion.oUsuario?.Id ?? 0;
 
-                    if (exitoso)
+                    this.Cursor = Cursors.WaitCursor;
+                    this.Enabled = false;
+
+                    try
                     {
-                        MessageBox.Show("Base de datos restaurada exitosamente.", ConstantesUI.Titulos.Informacion,
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        bool exitoso = Bll_Backup.RestaurarBackup(selectedBackup.FilePath, idUsuarioActual);
+
+                        if (exitoso)
+                        {
+                            MessageBox.Show(
+                                "Base de datos restaurada exitosamente.\n\n" +
+                                "✓ El usuario actual sigue vigente.\n" +
+                                "✓ Todos los datos fueron restaurados correctamente.",
+                                ConstantesUI.Titulos.Informacion,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                            CargarBackupsDisponibles();
+                        }
+                        else
+                        {
+                            MessageBox.Show("La restauración no se completó correctamente.",
+                                ConstantesUI.Titulos.Error,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
                     }
-                    else
+                    finally
                     {
-                        MessageBox.Show("La restauración no se completó correctamente.", ConstantesUI.Titulos.Error,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Cursor = Cursors.Default;
+                        this.Enabled = true;
                     }
                 }
+            }
+            catch (UsuarioNoExisteException ex)
+            {
+                this.Cursor = Cursors.Default;
+                this.Enabled = true;
+
+                MessageBox.Show(
+                    ex.Message,
+                    "⛔ Restauración Bloqueada - Usuario No Existe en Backup",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al restaurar el backup: {ex.Message}", ConstantesUI.Titulos.Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Cierra la sesión actual y redirige al formulario de inicio de sesión
+        /// </summary>
+        private void CerrarSesionYRedirigirAlLogin()
+        {
+            try
+            {
+                // Limpiar la sesión
+                SessionManager.Logout();
+
+                // Cerrar todos los formularios abiertos excepto el principal
+                foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
+                {
+                    if (form != this && form.Name != "frmInicioSesion")
+                    {
+                        form.Close();
+                    }
+                }
+
+                // Cerrar este formulario
+                this.Close();
+
+                // Abrir formulario de inicio de sesión
+                var frmInicioSesion = new frmInicioSesion();
+                frmInicioSesion.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cerrar sesión: {ex.Message}\n\nPor favor, reinicie la aplicación.",
+                    ConstantesUI.Titulos.Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
 
