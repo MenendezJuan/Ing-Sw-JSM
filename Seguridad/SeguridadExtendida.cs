@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.IO;
 using System.Linq;
 
 namespace Seguridad
@@ -21,24 +20,7 @@ namespace Seguridad
 
                 if (entidad is BEs.Interfaces.IVerificableEntity verificable)
                 {
-                    string dvhCalculado = CalcularDigitoVerificadorHorizontalOriginal(verificable);
-                    
-                    // ✅ LOGGING: Guardar DVH completos en archivo para análisis
-                    try
-                    {
-                        string logPath = @"C:\Logs\DVH_Calculados.txt";
-                        Directory.CreateDirectory(Path.GetDirectoryName(logPath));
-                        
-                        int id = row.Table.Columns.Contains("Id") ? Convert.ToInt32(row["Id"]) : 0;
-                        string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | {tipoEntidad} | ID:{id} | DVH:{dvhCalculado}";
-                        File.AppendAllText(logPath, logEntry + Environment.NewLine);
-                    }
-                    catch
-                    {
-                        // Si falla el logging, continuar sin romper
-                    }
-                    
-                    return dvhCalculado;
+                    return CalcularDigitoVerificadorHorizontalOriginal(verificable);
                 }
 
                 throw new Exception($"La entidad {tipoEntidad} no implementa IVerificableEntity");

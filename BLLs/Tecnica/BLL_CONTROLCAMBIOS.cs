@@ -66,13 +66,11 @@ namespace BLLs.Tecnica
         {
             try
             {
-                // IMPORTANTE: Si es una Venta, manejar el stock antes de restaurar
                 if (tipoEntidad.Equals("Venta", StringComparison.OrdinalIgnoreCase))
                 {
                     RevertirTransicionesDeStockAntesDeRestaurarVenta(historialId);
                 }
 
-                // Realizar la restauración en la base de datos
                 bool resultado = _mppControlCambios.RestaurarDesdeHistorial(tipoEntidad, historialId);
 
                 if (resultado)
@@ -95,12 +93,10 @@ namespace BLLs.Tecnica
         {
             try
             {
-                // Obtener el ID de la entidad restaurada desde el historial
                 int entidadId = _mppControlCambios.ObtenerEntidadIdDesdeHistorial(tipoEntidad, historialId);
 
                 if (entidadId > 0)
                 {
-                    // Recalcular DVH usando el algoritmo C# correcto
                     bool dvhActualizado = ActualizarDigitoVerificador(tipoEntidad, entidadId);
 
                     if (dvhActualizado)
@@ -116,7 +112,6 @@ namespace BLLs.Tecnica
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"⚠ Error al recalcular DVH después de restaurar: {ex.Message}");
-                // No lanzar excepción para no romper la restauración
             }
         }
 
@@ -128,9 +123,6 @@ namespace BLLs.Tecnica
         {
             try
             {
-                // El manejo del stock se realiza en el SP RestaurarDesdeHistorial
-                // Este método existe para validaciones pre-restauración si son necesarias
-
                 System.Diagnostics.Debug.WriteLine($"✓ Preparando restauración de venta desde historial ID: {historialId}");
                 System.Diagnostics.Debug.WriteLine($"  El SP manejará automáticamente las transiciones de stock");
             }

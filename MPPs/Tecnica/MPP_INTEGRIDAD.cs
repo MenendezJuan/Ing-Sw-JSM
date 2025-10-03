@@ -169,6 +169,42 @@ namespace MPPs
         }
 
         /// <summary>
+        /// Actualiza el DVH de una entidad usando consulta SQL directa
+        /// </summary>
+        public bool ActualizarDVHDirecto(string tipoEntidad, int entidadId, string nuevoDVH)
+        {
+            try
+            {
+                string consulta = string.Empty;
+                
+                switch (tipoEntidad.ToUpper())
+                {
+                    case "USUARIO":
+                    case "USUARIOS":
+                        consulta = $"UPDATE Usuarios SET DigitoVerificador = '{nuevoDVH}' WHERE Id = {entidadId}";
+                        break;
+                    case "PRODUCTO":
+                    case "PRODUCTOS":
+                        consulta = $"UPDATE Producto SET DigitoVerificador = '{nuevoDVH}' WHERE Id = {entidadId}";
+                        break;
+                    case "VENTA":
+                    case "VENTAS":
+                        consulta = $"UPDATE Venta SET DigitoVerificador = '{nuevoDVH}' WHERE Id = {entidadId}";
+                        break;
+                    default:
+                        throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
+                }
+
+                oCnx.LeerConConsulta(consulta, null);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar DVH directo: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
         /// Ejecuta una consulta SQL directa
         /// </summary>
         public DataTable EjecutarConsultaDirecta(string consulta)

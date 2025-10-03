@@ -130,11 +130,26 @@ namespace CheeseLogix
                 {
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
 
-                    // ✅ HABILITADO: Verificación de integridad al login
                     if (!VerificarIntegridadBaseDatos())
                     {
-                        SessionManager.Logout();
-                        return;
+                        var usuarioLogueado = SessionManager.GetInstance().oUsuario;
+                        bool esAdmin = VerificarSiEsAdmin(usuarioLogueado);
+                        
+                        if (!esAdmin)
+                        {
+                            MessageBox.Show(
+                                "⚠️ ACCESO DENEGADO ⚠️\n\n" +
+                                "Se detectaron inconsistencias en la base de datos.\n\n" +
+                                "Solo el administrador puede acceder para corregir estos errores.\n\n" +
+                                "Contacte al administrador del sistema.",
+                                "Acceso Restringido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            
+                            SessionManager.Logout();
+                            return;
+                        }
                     }
 
                     MessageBox.Show("Inicio de sesión exitoso.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
@@ -178,29 +193,47 @@ namespace CheeseLogix
 
                     if (resultado == DialogResult.Yes)
                     {
-                        var frmIntegridad = new CheeseLogix.Tecnica.frmVerificacionIntegridad();
-                        frmIntegridad.ShowDialog();
+                        var usuarioLogueado = SessionManager.GetInstance().oUsuario;
+                        bool esAdmin = VerificarSiEsAdmin(usuarioLogueado);
+                        
+                        if (esAdmin)
+                        {
+                            var frmIntegridad = new CheeseLogix.Tecnica.frmVerificacionIntegridad();
+                            frmIntegridad.ShowDialog();
 
-                        bool integridadCorregida = bllIntegridad.VerificarIntegridadBaseDatos(out errores);
+                            bool integridadCorregida = bllIntegridad.VerificarIntegridadBaseDatos(out errores);
 
-                        if (!integridadCorregida)
+                            if (!integridadCorregida)
+                            {
+                                MessageBox.Show(
+                                    "Aún existen inconsistencias. No se puede continuar.\n\n" +
+                                    "Por seguridad, la sesión será cerrada.",
+                                    "Integridad No Corregida",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error
+                                );
+                                return false;
+                            }
+
+                            MessageBox.Show(
+                                "✓ Integridad corregida exitosamente.",
+                                "Corrección Exitosa",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+                        }
+                        else
                         {
                             MessageBox.Show(
-                                "Aún existen inconsistencias. No se puede continuar.\n\n" +
-                                "Por seguridad, la sesión será cerrada.",
-                                "Integridad No Corregida",
+                                "⚠️ ACCESO DENEGADO ⚠️\n\n" +
+                                "Solo el administrador puede corregir inconsistencias de integridad.\n\n" +
+                                "La sesión se cerrará por seguridad.",
+                                "Sin Permisos de Administrador",
                                 MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
+                                MessageBoxIcon.Warning
                             );
                             return false;
                         }
-
-                        MessageBox.Show(
-                            "✓ Integridad corregida exitosamente.",
-                            "Corrección Exitosa",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
                     }
                     else
                     {
@@ -230,6 +263,39 @@ namespace CheeseLogix
                     MessageBoxIcon.Warning
                 );
                 return true; // Permitir continuar si falla la verificación
+            }
+        }
+
+        /// <summary>
+        /// Verifica si un usuario es administrador
+        /// </summary>
+        private bool VerificarSiEsAdmin(Usuario usuario)
+        {
+            try
+            {
+                if (usuario == null) return false;
+                
+                var permisos = SessionManager.GetInstance().Permisos;
+                
+                if (permisos != null)
+                {
+                    foreach (var permiso in permisos)
+                    {
+                        if (permiso.Id == 26 ||
+                            permiso.Nombre.Contains("ADMIN") ||
+                            permiso.Nombre.Contains("GestionUsuarios") ||
+                            permiso.Nombre.Contains("GestionPermisos"))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
+                return false;
+            }
+            catch
+            {
+                return false;
             }
         }
 
