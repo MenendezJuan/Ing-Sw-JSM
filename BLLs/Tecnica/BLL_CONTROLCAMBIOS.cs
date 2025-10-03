@@ -1,5 +1,4 @@
 using MPPs.Tecnica;
-using Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -72,16 +71,15 @@ namespace BLLs.Tecnica
                 {
                     RevertirTransicionesDeStockAntesDeRestaurarVenta(historialId);
                 }
-                
+
                 // Realizar la restauración en la base de datos
                 bool resultado = _mppControlCambios.RestaurarDesdeHistorial(tipoEntidad, historialId);
-                
-                // ✅ AGREGADO: Recalcular DVH usando el algoritmo C# original después de restaurar
+
                 if (resultado)
                 {
                     RecalcularDVHDespuesDeRestaurar(tipoEntidad, historialId);
                 }
-                
+
                 return resultado;
             }
             catch (Exception ex)
@@ -99,12 +97,12 @@ namespace BLLs.Tecnica
             {
                 // Obtener el ID de la entidad restaurada desde el historial
                 int entidadId = _mppControlCambios.ObtenerEntidadIdDesdeHistorial(tipoEntidad, historialId);
-                
+
                 if (entidadId > 0)
                 {
                     // Recalcular DVH usando el algoritmo C# correcto
                     bool dvhActualizado = ActualizarDigitoVerificador(tipoEntidad, entidadId);
-                    
+
                     if (dvhActualizado)
                     {
                         System.Diagnostics.Debug.WriteLine($"✓ DVH recalculado correctamente para {tipoEntidad} ID {entidadId}");
@@ -132,7 +130,7 @@ namespace BLLs.Tecnica
             {
                 // El manejo del stock se realiza en el SP RestaurarDesdeHistorial
                 // Este método existe para validaciones pre-restauración si son necesarias
-                
+
                 System.Diagnostics.Debug.WriteLine($"✓ Preparando restauración de venta desde historial ID: {historialId}");
                 System.Diagnostics.Debug.WriteLine($"  El SP manejará automáticamente las transiciones de stock");
             }
@@ -183,18 +181,18 @@ namespace BLLs.Tecnica
             try
             {
                 bool dvhActualizado = ActualizarDVHConAlgoritmoOriginal(tipoEntidad, entidadId);
-                
+
                 if (dvhActualizado)
                 {
                     // 2. Recalcular y actualizar DVV de toda la tabla
                     string dvvCalculado = CalcularDigitoVerificadorVertical(tipoEntidad);
                     string nombreTabla = ConvertirNombreEntidadATabla(tipoEntidad);
                     bool dvvActualizado = _mppControlCambios.GuardarDigitoVerificadorVertical(nombreTabla, dvvCalculado);
-                    
+
                     System.Diagnostics.Debug.WriteLine($"DVH actualizado para {tipoEntidad} ID:{entidadId}, DVV actualizado: {dvvActualizado}");
                     return dvvActualizado;
                 }
-                
+
                 return false;
             }
             catch (Exception ex)
@@ -212,18 +210,18 @@ namespace BLLs.Tecnica
             {
                 // 1. Obtener la entidad desde la BD
                 DataTable tabla = _mppControlCambios.ObtenerEntidadParaActualizar(tipoEntidad, entidadId);
-                
+
                 if (tabla != null && tabla.Rows.Count > 0)
                 {
                     DataRow row = tabla.Rows[0];
-                    
+
                     // 2. Calcular DVH usando el algoritmo C# original
                     string dvhNuevo = Seguridad.SeguridadExtendida.CalcularDVHorizontal(tipoEntidad, row);
-                    
+
                     // 3. Actualizar en la BD usando consulta directa (no SP)
                     return _mppControlCambios.ActualizarDVHDirecto(tipoEntidad, entidadId, dvhNuevo);
                 }
-                
+
                 return false;
             }
             catch (Exception ex)
@@ -333,7 +331,7 @@ namespace BLLs.Tecnica
             }
         }
 
-        
+
 
         #endregion Dígito Verificador Vertical (DVV)
 
@@ -413,11 +411,11 @@ namespace BLLs.Tecnica
                     {
                         // 1. Calcular DVV actual de la tabla
                         string dvvCalculado = CalcularDigitoVerificadorVertical(tabla);
-                        
+
                         // 2. Obtener DVV almacenado
                         string nombreTabla = ConvertirNombreEntidadATabla(tabla);
                         string dvvAlmacenado = _mppControlCambios.ObtenerDigitoVerificadorVerticalAlmacenado(nombreTabla);
-                        
+
                         // 3. Verificar que existe DVV
                         if (string.IsNullOrEmpty(dvvAlmacenado) || dvvAlmacenado == "-1")
                         {
@@ -493,9 +491,9 @@ namespace BLLs.Tecnica
                         string dvvCalculado = CalcularDigitoVerificadorVertical(tabla);
                         string nombreTabla = ConvertirNombreEntidadATabla(tabla);
                         string dvvAlmacenado = _mppControlCambios.ObtenerDigitoVerificadorVerticalAlmacenado(nombreTabla);
-                        
-                        if (!string.IsNullOrEmpty(dvvAlmacenado) && 
-                            dvvAlmacenado != "-1" && 
+
+                        if (!string.IsNullOrEmpty(dvvAlmacenado) &&
+                            dvvAlmacenado != "-1" &&
                             !dvvCalculado.Equals(dvvAlmacenado, StringComparison.OrdinalIgnoreCase))
                         {
                             inconsistencias.Add($"{tabla}: Calculado({dvvCalculado}) != Almacenado({dvvAlmacenado})");
