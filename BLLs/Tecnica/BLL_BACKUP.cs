@@ -69,30 +69,47 @@ namespace BLLs.Tecnica
 
             try
             {
-                // VALIDACIÓN PREVENTIVA: Verificar si el usuario existe en el backup ANTES de restaurar
+                // ✅ VALIDACIÓN SIMPLIFICADA: Sin usar BD temporal
                 if (idUsuarioActual > 0)
                 {
-                    bool usuarioExisteEnBackup = _backupRepository.VerificarUsuarioEnBackup(rutaBackup, idUsuarioActual);
+                    // Verificar que el usuario actual existe en la BD antes del restore
+                    bool usuarioExisteActualmente = _backupRepository.VerificarExistenciaUsuario(idUsuarioActual);
                     
-                    if (!usuarioExisteEnBackup)
+                    if (!usuarioExisteActualmente)
                     {
                         throw new UsuarioNoExisteException(
-                            $"No se puede restaurar este backup porque el usuario actual (ID: {idUsuarioActual}) no existe en él.\n\n" +
-                            $"Esto indica que el usuario fue creado después de que se generó este backup.\n\n" +
-                            $"Para restaurar este backup, debe:\n" +
-                            $"1. Cerrar sesión\n" +
-                            $"2. Iniciar sesión con un usuario que exista en el backup\n" +
-                            $"3. Realizar la restauración con ese usuario"
+                            $"El usuario actual (ID: {idUsuarioActual}) no existe en la base de datos.\n\n" +
+                            $"No se puede proceder con la restauración."
                         );
                     }
+                    
+                    // ADVERTENCIA: No podemos verificar si existe en el backup sin BD temporal
+                    // Pero podemos advertir al usuario
+                    System.Diagnostics.Debug.WriteLine($"⚠ Restaurando backup sin verificar existencia de usuario en backup");
                 }
 
-                // Si el usuario existe en el backup (o no hay usuario logueado), proceder con el restore
+                // Proceder con el restore
                 bool exitoso = _backupRepository.EjecutarRestore(rutaBackup);
 
                 if (!exitoso)
                 {
                     throw new InvalidOperationException("El restore no se completó exitosamente.");
+                }
+
+                // ✅ VALIDACIÓN POST-RESTORE: Verificar si el usuario sigue existiendo
+                if (idUsuarioActual > 0)
+                {
+                    bool usuarioExisteDespuesDeRestore = _backupRepository.VerificarExistenciaUsuario(idUsuarioActual);
+                    
+                    if (!usuarioExisteDespuesDeRestore)
+                    {
+                        throw new UsuarioNoExisteException(
+                            $"⚠️ ATENCIÓN: Restore completado exitosamente, pero el usuario actual (ID: {idUsuarioActual}) no existe en los datos restaurados.\n\n" +
+                            $"Esto indica que el usuario fue creado después de que se generó este backup.\n\n" +
+                            $"La sesión se cerrará automáticamente por seguridad.\n\n" +
+                            $"Para continuar, inicie sesión con un usuario que exista en los datos restaurados."
+                        );
+                    }
                 }
 
                 return true;
@@ -151,6 +168,77 @@ namespace BLLs.Tecnica
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Obtiene información detallada de un archivo de backup
+        /// </summary>
+        /// <param name="rutaBackup">Ruta del archivo de backup</param>
+        /// <returns>Información del backup (tamaño, fecha, checksum)</returns>
+        public InfoBackup ObtenerInformacionBackup(string rutaBackup)
+        {
+            try
+            {
+                if (!File.Exists(rutaBackup))
+                    throw new FileNotFoundException("El archivo de backup no existe", rutaBackup);
+
+                FileInfo fileInfo = new FileInfo(rutaBackup);
+                
+                return new InfoBackup
+                {
+                    NombreArchivo = fileInfo.Name,
+                    RutaCompleta = rutaBackup,
+                    TamañoBytes = fileInfo.Length,
+                    TamañoFormateado = FormatearTamaño(fileInfo.Length),
+                    FechaCreacion = fileInfo.CreationTime,
+                    FechaModificacion = fileInfo.LastWriteTime,
+                    Checksum = CalcularChecksumMD5(rutaBackup)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener información del backup: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Calcula el checksum MD5 de un archivo de backup
+        /// </summary>
+        private string CalcularChecksumMD5(string rutaArchivo)
+        {
+            try
+            {
+                using (var md5 = System.Security.Cryptography.MD5.Create())
+                {
+                    using (var stream = File.OpenRead(rutaArchivo))
+                    {
+                        byte[] hash = md5.ComputeHash(stream);
+                        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                    }
+                }
+            }
+            catch
+            {
+                return "N/A";
+            }
+        }
+
+        /// <summary>
+        /// Formatea un tamaño en bytes a una representación legible (KB, MB, GB)
+        /// </summary>
+        private string FormatearTamaño(long bytes)
+        {
+            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+            int suffixIndex = 0;
+            double size = bytes;
+
+            while (size >= 1024 && suffixIndex < suffixes.Length - 1)
+            {
+                size /= 1024;
+                suffixIndex++;
+            }
+
+            return $"{size:N2} {suffixes[suffixIndex]}";
         }
 
         #region Validaciones Privadas
@@ -252,6 +340,25 @@ namespace BLLs.Tecnica
 
         public UsuarioNoExisteException(string message, Exception innerException) : base(message, innerException)
         {
+        }
+    }
+
+    /// <summary>
+    /// Clase que contiene información detallada de un archivo de backup
+    /// </summary>
+    public class InfoBackup
+    {
+        public string NombreArchivo { get; set; }
+        public string RutaCompleta { get; set; }
+        public long TamañoBytes { get; set; }
+        public string TamañoFormateado { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
+        public string Checksum { get; set; }
+
+        public override string ToString()
+        {
+            return $"{NombreArchivo} ({TamañoFormateado})";
         }
     }
 }

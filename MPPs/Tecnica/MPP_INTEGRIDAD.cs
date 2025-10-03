@@ -1,7 +1,5 @@
 using Servicios;
-using Seguridad;
 using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace MPPs
@@ -25,13 +23,16 @@ namespace MPPs
                 switch (tipoEntidad)
                 {
                     case "Usuario":
-                        consulta = "SELECT Id, Email, Activo, DigitoVerificador FROM Usuarios ORDER BY Id";
+                    case "Usuarios":
+                        consulta = "SELECT Id, Email, Contraseña, DigitoVerificador FROM Usuarios ORDER BY Id";
                         break;
                     case "Producto":
-                        consulta = "SELECT Id, Codigo, Nombre, PrecioVenta, Stock, Estado, DigitoVerificador FROM Producto ORDER BY Id";
+                    case "Productos":
+                        consulta = "SELECT Id, Codigo, CategoriaEnum, Nombre, Descripcion, PrecioCompra, Estado, Fecha, DigitoVerificador FROM Producto ORDER BY Id";
                         break;
                     case "Venta":
-                        consulta = "SELECT Id, MontoTotal, EstadoVenta, Fecha, DigitoVerificador FROM Venta ORDER BY Id";
+                    case "Ventas":
+                        consulta = "SELECT Id, MontoTotal, Fecha, TipoPagoEnum, ClienteId, EstadoVenta, UsuarioVendedorId, DigitoVerificador FROM Venta ORDER BY Id";
                         break;
                     default:
                         throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
@@ -52,7 +53,7 @@ namespace MPPs
         {
             try
             {
-                string consulta = "SELECT TipoEntidad, Columna, DigitoVerificador FROM DigitosVerticales";
+                string consulta = "SELECT Tabla as TipoEntidad, 'DigitoVerificador' as Columna, Digito as DigitoVerificador FROM ControlSeguridad";
                 return oCnx.LeerConConsulta(consulta, null);
             }
             catch (Exception ex)
@@ -101,8 +102,7 @@ namespace MPPs
         {
             try
             {
-                // Primero verificamos si existe el registro
-                string consultaExiste = $"SELECT COUNT(*) FROM DigitosVerticales WHERE TipoEntidad = '{tipoEntidad}' AND Columna = '{columna}'";
+                string consultaExiste = $"SELECT COUNT(*) FROM ControlSeguridad WHERE Tabla = '{tipoEntidad}'";
                 var tablaExiste = oCnx.LeerConConsulta(consultaExiste, null);
                 int count = tablaExiste.Rows.Count > 0 ? Convert.ToInt32(tablaExiste.Rows[0][0]) : 0;
 
@@ -111,14 +111,14 @@ namespace MPPs
                 if (count > 0)
                 {
                     // UPDATE si ya existe
-                    consulta = $"UPDATE DigitosVerticales SET DigitoVerificador = '{nuevoDV}' " +
-                               $"WHERE TipoEntidad = '{tipoEntidad}' AND Columna = '{columna}'";
+                    consulta = $"UPDATE ControlSeguridad SET Digito = '{nuevoDV}' " +
+                               $"WHERE Tabla = '{tipoEntidad}'";
                 }
                 else
                 {
                     // INSERT si no existe
-                    consulta = $"INSERT INTO DigitosVerticales (TipoEntidad, Columna, DigitoVerificador) " +
-                               $"VALUES ('{tipoEntidad}', '{columna}', '{nuevoDV}')";
+                    consulta = $"INSERT INTO ControlSeguridad (Tabla, Digito) " +
+                               $"VALUES ('{tipoEntidad}', '{nuevoDV}')";
                 }
 
                 return oCnx.EjecutarComandoSQL(consulta);
@@ -154,7 +154,7 @@ namespace MPPs
                 }
 
                 var tabla = oCnx.LeerConConsulta(consulta, null);
-                
+
                 if (tabla != null && tabla.Rows.Count > 0)
                 {
                     return tabla.Rows[0];
@@ -165,6 +165,21 @@ namespace MPPs
             catch (Exception ex)
             {
                 throw new Exception($"Error al obtener detalle de {tipoEntidad} ID {entidadId}: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Ejecuta una consulta SQL directa
+        /// </summary>
+        public DataTable EjecutarConsultaDirecta(string consulta)
+        {
+            try
+            {
+                return oCnx.LeerConConsulta(consulta, null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al ejecutar consulta directa: {ex.Message}", ex);
             }
         }
     }

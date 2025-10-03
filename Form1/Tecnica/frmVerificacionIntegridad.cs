@@ -389,16 +389,29 @@ namespace CheeseLogix.Tecnica
 
         private void DataGridViewInconsistencias_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewInconsistencias.SelectedRows.Count > 0)
+            try
             {
-                var inconsistencia = dataGridViewInconsistencias.SelectedRows[0].DataBoundItem as InconsistenciaIntegridad;
-                if (inconsistencia != null)
+                if (dataGridViewInconsistencias.SelectedRows.Count > 0 && 
+                    dataGridViewInconsistencias.SelectedRows[0] != null)
                 {
-                    MostrarDetalleEntidad(inconsistencia);
+                    var inconsistencia = dataGridViewInconsistencias.SelectedRows[0].DataBoundItem as InconsistenciaIntegridad;
+                    if (inconsistencia != null)
+                    {
+                        MostrarDetalleEntidad(inconsistencia);
+                    }
+                    else
+                    {
+                        txtDetalleEntidad.Clear();
+                    }
+                }
+                else
+                {
+                    txtDetalleEntidad.Clear();
                 }
             }
-            else
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error en SelectionChanged: {ex.Message}");
                 txtDetalleEntidad.Clear();
             }
         }

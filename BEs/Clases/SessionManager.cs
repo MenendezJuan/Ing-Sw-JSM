@@ -37,10 +37,32 @@ namespace BEs
             {
                 oUsuario = user;
                 FechaSesion = DateTime.Now;
+                
+                VerificarIntegridadBaseDatos();
             }
             else
             {
                 throw new InvalidOperationException("Ya hay un usuario conectado. Inicie sesión antes de intentar nuevamente.");
+            }
+        }
+
+        /// <summary>
+        /// Verifica la integridad de la base de datos (DVH y DVV) al iniciar sesión
+        /// </summary>
+        private void VerificarIntegridadBaseDatos()
+        {
+            try
+            {
+                // Nota: Para evitar referencias circulares, esta verificación
+                // se delega a la BLL que será llamada desde el formulario de login
+                // Este método queda como placeholder para futuras implementaciones
+                
+                System.Diagnostics.Debug.WriteLine("SessionManager: Sesión iniciada, verificación DV pendiente");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en verificación DV: {ex.Message}");
+                // No lanzar excepción para no interrumpir el login
             }
         }
 

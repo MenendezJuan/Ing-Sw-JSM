@@ -54,25 +54,21 @@ namespace MPPs.Tecnica
 
                 string nombreBD = oCnx.ObtenerNombreBaseDatos();
 
-                // Paso 1: Poner la base en modo single user
-                string comandoSingleUser = $@"
-                    ALTER DATABASE [{nombreBD}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
-
-                oCnx.EjecutarComandoSQL(comandoSingleUser, 2);
-
-                // Paso 2: Ejecutar restore
                 string comandoRestore = $@"
+                    USE master;
+                    
+                    -- Paso 1: Terminar conexiones y poner en single user
+                    ALTER DATABASE [{nombreBD}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                    
+                    -- Paso 2: Ejecutar restore
                     RESTORE DATABASE [{nombreBD}]
                     FROM DISK = '{rutaArchivo}'
-                    WITH REPLACE, STATS = 10";
+                    WITH REPLACE, STATS = 10;
+                    
+                    -- Paso 3: Volver a multi user inmediatamente
+                    ALTER DATABASE [{nombreBD}] SET MULTI_USER;";
 
-                oCnx.EjecutarComandoSQL(comandoRestore, 10); // 10 minutos timeout
-
-                // Paso 3: Volver a modo multi user
-                string comandoMultiUser = $@"
-                    ALTER DATABASE [{nombreBD}] SET MULTI_USER";
-
-                oCnx.EjecutarComandoSQL(comandoMultiUser, 1);
+                oCnx.EjecutarComandoSQL(comandoRestore, 15);
 
                 return true;
             }
@@ -80,14 +76,14 @@ namespace MPPs.Tecnica
             {
                 try
                 {
-                    // Intentar volver a multi-user si algo falla
                     string nombreBD = oCnx.ObtenerNombreBaseDatos();
-                    string comandoMultiUser = $@"ALTER DATABASE [{nombreBD}] SET MULTI_USER";
+                    string comandoMultiUser = $@"
+                        USE master;
+                        ALTER DATABASE [{nombreBD}] SET MULTI_USER";
                     oCnx.EjecutarComandoSQL(comandoMultiUser, 1);
                 }
                 catch
                 {
-                    // Si no puede volver a multi-user, al menos registrar el error original
                 }
 
                 throw new Exception($"Error al ejecutar restore: {ex.Message}", ex);
@@ -138,13 +134,13 @@ namespace MPPs.Tecnica
         public bool VerificarUsuarioEnBackup(string rutaBackup, int idUsuario)
         {
             string nombreBDTemporal = $"TempVerify_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
-            
+
             try
             {
                 // Paso 1: Obtener el nombre lógico de los archivos del backup
                 string consultaFileList = $@"RESTORE FILELISTONLY FROM DISK = '{rutaBackup}'";
                 var archivos = oCnx.LeerConConsulta(consultaFileList, null);
-                
+
                 if (archivos.Rows.Count < 2)
                 {
                     throw new InvalidOperationException("El archivo de backup no contiene la estructura esperada.");

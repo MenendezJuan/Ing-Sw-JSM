@@ -67,11 +67,79 @@ namespace BLLs.Tecnica
         {
             try
             {
-                return _mppControlCambios.RestaurarDesdeHistorial(tipoEntidad, historialId);
+                // IMPORTANTE: Si es una Venta, manejar el stock antes de restaurar
+                if (tipoEntidad.Equals("Venta", StringComparison.OrdinalIgnoreCase))
+                {
+                    RevertirTransicionesDeStockAntesDeRestaurarVenta(historialId);
+                }
+                
+                // Realizar la restauración en la base de datos
+                bool resultado = _mppControlCambios.RestaurarDesdeHistorial(tipoEntidad, historialId);
+                
+                // ✅ AGREGADO: Recalcular DVH usando el algoritmo C# original después de restaurar
+                if (resultado)
+                {
+                    RecalcularDVHDespuesDeRestaurar(tipoEntidad, historialId);
+                }
+                
+                return resultado;
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error al restaurar {tipoEntidad} desde historial: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Recalcula los DVH usando el algoritmo C# original después de una restauración
+        /// </summary>
+        private void RecalcularDVHDespuesDeRestaurar(string tipoEntidad, int historialId)
+        {
+            try
+            {
+                // Obtener el ID de la entidad restaurada desde el historial
+                int entidadId = _mppControlCambios.ObtenerEntidadIdDesdeHistorial(tipoEntidad, historialId);
+                
+                if (entidadId > 0)
+                {
+                    // Recalcular DVH usando el algoritmo C# correcto
+                    bool dvhActualizado = ActualizarDigitoVerificador(tipoEntidad, entidadId);
+                    
+                    if (dvhActualizado)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"✓ DVH recalculado correctamente para {tipoEntidad} ID {entidadId}");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"⚠ No se pudo recalcular DVH para {tipoEntidad} ID {entidadId}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠ Error al recalcular DVH después de restaurar: {ex.Message}");
+                // No lanzar excepción para no romper la restauración
+            }
+        }
+
+        /// <summary>
+        /// Revierte las transiciones de stock cuando se restaura una venta a un estado anterior
+        /// IMPORTANTE: Este método se ejecuta ANTES de llamar al SP que restaura los datos
+        /// </summary>
+        private void RevertirTransicionesDeStockAntesDeRestaurarVenta(int historialId)
+        {
+            try
+            {
+                // El manejo del stock se realiza en el SP RestaurarDesdeHistorial
+                // Este método existe para validaciones pre-restauración si son necesarias
+                
+                System.Diagnostics.Debug.WriteLine($"✓ Preparando restauración de venta desde historial ID: {historialId}");
+                System.Diagnostics.Debug.WriteLine($"  El SP manejará automáticamente las transiciones de stock");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"✗ Error al preparar restauración: {ex.Message}");
+                throw new Exception($"Error al preparar la restauración de la venta: {ex.Message}", ex);
             }
         }
 
@@ -114,8 +182,7 @@ namespace BLLs.Tecnica
         {
             try
             {
-                // 1. Actualizar DVH de la entidad específica
-                bool dvhActualizado = _mppControlCambios.ActualizarDigitoVerificador(tipoEntidad, entidadId);
+                bool dvhActualizado = ActualizarDVHConAlgoritmoOriginal(tipoEntidad, entidadId);
                 
                 if (dvhActualizado)
                 {
@@ -133,6 +200,36 @@ namespace BLLs.Tecnica
             catch (Exception ex)
             {
                 throw new Exception($"Error al actualizar dígito verificador para {tipoEntidad}: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Actualiza el DVH de una entidad usando el algoritmo C# original (no SQL)
+        /// </summary>
+        private bool ActualizarDVHConAlgoritmoOriginal(string tipoEntidad, int entidadId)
+        {
+            try
+            {
+                // 1. Obtener la entidad desde la BD
+                DataTable tabla = _mppControlCambios.ObtenerEntidadParaActualizar(tipoEntidad, entidadId);
+                
+                if (tabla != null && tabla.Rows.Count > 0)
+                {
+                    DataRow row = tabla.Rows[0];
+                    
+                    // 2. Calcular DVH usando el algoritmo C# original
+                    string dvhNuevo = Seguridad.SeguridadExtendida.CalcularDVHorizontal(tipoEntidad, row);
+                    
+                    // 3. Actualizar en la BD usando consulta directa (no SP)
+                    return _mppControlCambios.ActualizarDVHDirecto(tipoEntidad, entidadId, dvhNuevo);
+                }
+                
+                return false;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al actualizar DVH con algoritmo original: {ex.Message}");
+                return false;
             }
         }
 

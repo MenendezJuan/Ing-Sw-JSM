@@ -50,6 +50,50 @@ namespace MPPs.Tecnica
             return oCnx.Guardar("RestaurarDesdeHistorial", parametros);
         }
 
+        /// <summary>
+        /// Obtiene el ID de la entidad desde un registro de historial
+        /// </summary>
+        /// <param name="tipoEntidad">Tipo de entidad</param>
+        /// <param name="historialId">ID del registro de historial</param>
+        /// <returns>ID de la entidad</returns>
+        public int ObtenerEntidadIdDesdeHistorial(string tipoEntidad, int historialId)
+        {
+            try
+            {
+                string consulta = string.Empty;
+                var parametros = new Hashtable();
+                parametros.Add("@HistorialId", historialId);
+
+                switch (tipoEntidad.ToUpper())
+                {
+                    case "USUARIO":
+                        consulta = "SELECT UsuarioId FROM Historial_Usuarios WHERE Id = @HistorialId";
+                        break;
+                    case "PRODUCTO":
+                        consulta = "SELECT ProductoId FROM Historial_Productos WHERE Id = @HistorialId";
+                        break;
+                    case "VENTA":
+                        consulta = "SELECT VentaId FROM Historial_Ventas WHERE Id = @HistorialId";
+                        break;
+                    default:
+                        throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
+                }
+
+                DataTable resultado = oCnx.LeerConConsulta(consulta, parametros);
+                
+                if (resultado.Rows.Count > 0 && resultado.Rows[0][0] != DBNull.Value)
+                {
+                    return Convert.ToInt32(resultado.Rows[0][0]);
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener ID de entidad desde historial: {ex.Message}", ex);
+            }
+        }
+
         #endregion Gestión de Historial
 
         #region Gestión de Dígitos Verificadores
@@ -70,18 +114,80 @@ namespace MPPs.Tecnica
         }
 
         /// <summary>
-        /// Actualiza el dígito verificador de una entidad
+        /// Obtiene una entidad completa para actualizar su DVH
         /// </summary>
-        /// <param name="tipoEntidad">Tipo de entidad</param>
-        /// <param name="entidadId">ID de la entidad</param>
-        /// <returns>True si la actualización fue exitosa</returns>
-        public bool ActualizarDigitoVerificador(string tipoEntidad, int entidadId)
+        public DataTable ObtenerEntidadParaActualizar(string tipoEntidad, int entidadId)
         {
-            var parametros = new Hashtable();
-            parametros.Add("@TipoEntidad", tipoEntidad);
-            parametros.Add("@EntidadId", entidadId);
+            try
+            {
+                string consulta = string.Empty;
+                var parametros = new Hashtable();
+                parametros.Add("@Id", entidadId);
 
-            return oCnx.Guardar("ActualizarDigitoVerificadorEntidad", parametros);
+                switch (tipoEntidad.ToUpper())
+                {
+                    case "USUARIO":
+                    case "USUARIOS":
+                        consulta = "SELECT Id, Email, Contraseña FROM Usuarios WHERE Id = @Id";
+                        break;
+                    case "PRODUCTO":
+                    case "PRODUCTOS":
+                        consulta = "SELECT Id, Codigo, CategoriaEnum, Nombre, Descripcion, PrecioCompra, Estado, Fecha FROM Producto WHERE Id = @Id";
+                        break;
+                    case "VENTA":
+                    case "VENTAS":
+                        consulta = "SELECT Id, Comentario, MontoTotal, Fecha, TipoPagoEnum, EstadoVenta, ClienteId, UsuarioVendedorId FROM Venta WHERE Id = @Id";
+                        break;
+                    default:
+                        throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
+                }
+
+                return oCnx.LeerConConsulta(consulta, parametros);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener entidad para actualizar: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Actualiza el DVH de una entidad usando consulta SQL directa (no SP)
+        /// </summary>
+        public bool ActualizarDVHDirecto(string tipoEntidad, int entidadId, string nuevoDVH)
+        {
+            try
+            {
+                string consulta = string.Empty;
+                var parametros = new Hashtable();
+                parametros.Add("@Id", entidadId);
+                parametros.Add("@DVH", nuevoDVH);
+
+                switch (tipoEntidad.ToUpper())
+                {
+                    case "USUARIO":
+                    case "USUARIOS":
+                        consulta = "UPDATE Usuarios SET DigitoVerificador = @DVH WHERE Id = @Id";
+                        break;
+                    case "PRODUCTO":
+                    case "PRODUCTOS":
+                        consulta = "UPDATE Producto SET DigitoVerificador = @DVH WHERE Id = @Id";
+                        break;
+                    case "VENTA":
+                    case "VENTAS":
+                        consulta = "UPDATE Venta SET DigitoVerificador = @DVH WHERE Id = @Id";
+                        break;
+                    default:
+                        throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
+                }
+
+                // Ejecutar UPDATE usando LeerConConsulta (devuelve DataTable vacía si es exitoso)
+                DataTable resultado = oCnx.LeerConConsulta(consulta, parametros);
+                return true; // Si no lanza excepción, fue exitoso
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar DVH directo: {ex.Message}", ex);
+            }
         }
 
         /// <summary>

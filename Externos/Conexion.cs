@@ -118,13 +118,13 @@ namespace Servicios
                 {
                     foreach (string entry in Parametros.Keys)
                     {
-                        oCmd.Parameters.AddWithValue(entry, Parametros[entry]); // Añadir parámetros al comando
+                        oCmd.Parameters.AddWithValue(entry, Parametros[entry]);
                     }
                 }
 
-                SqlDataAdapter Da = new SqlDataAdapter(oCmd); // Crear un adaptador de datos
-                DataTable Datos = new DataTable(); // Crear tabla para almacenar los datos
-                Da.Fill(Datos); // Llenar la tabla con los datos
+                SqlDataAdapter Da = new SqlDataAdapter(oCmd);
+                DataTable Datos = new DataTable();
+                Da.Fill(Datos);
                 oCnx.Close();
                 return Datos;
             }
@@ -138,11 +138,10 @@ namespace Servicios
             }
             finally
             {
-                oCnx.Close(); // Cerrar la conexión
+                oCnx.Close();
             }
         }
 
-        // Método para ejecutar consultas SQL directas (no stored procedures)
         public DataTable LeerConConsulta(string sqlQuery, Hashtable Parametros)
         {
             try

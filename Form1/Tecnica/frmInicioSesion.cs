@@ -125,11 +125,18 @@ namespace CheeseLogix
             Usuario oUsuario = new Usuario(textBox_Email.Text, textBox_Contraseña.Text);
             if (ValidarCampos(oUsuario))
             {
-                // Intentar iniciar sesión utilizando las credenciales y el método actualizado
                 bool usuarioValidado = Bll_Usuario.LogIn(textBox_Email.Text, textBox_Contraseña.Text);
                 if (usuarioValidado)
                 {
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
+
+                    // ✅ HABILITADO: Verificación de integridad al login
+                    if (!VerificarIntegridadBaseDatos())
+                    {
+                        SessionManager.Logout();
+                        return;
+                    }
+
                     MessageBox.Show("Inicio de sesión exitoso.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
                     //frmReporteInteligente menuPrincipal = new frmReporteInteligente();
@@ -142,6 +149,87 @@ namespace CheeseLogix
                 {
                     MessageBox.Show("Email o contraseña incorrectos.", BLLs.Tecnica.ConstantesUI.Titulos.Error);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Verifica la integridad de la base de datos (DVH y DVV) al iniciar sesión
+        /// </summary>
+        /// <returns>True si la integridad es correcta, False si hay problemas</returns>
+        private bool VerificarIntegridadBaseDatos()
+        {
+            try
+            {
+                var bllIntegridad = new BLL_INTEGRIDAD();
+                bool integridadOK = bllIntegridad.VerificarIntegridadBaseDatos(out List<BEs.InconsistenciaIntegridad> errores);
+
+                if (!integridadOK && errores != null && errores.Count > 0)
+                {
+                    DialogResult resultado = MessageBox.Show(
+                        $"⚠️ ALERTA DE SEGURIDAD ⚠️\n\n" +
+                        $"Se detectaron {errores.Count} inconsistencias en los dígitos verificadores.\n\n" +
+                        $"Esto indica que la base de datos fue modificada externamente.\n" +
+                        $"Es necesario corregir estos errores antes de continuar.\n\n" +
+                        $"¿Desea abrir el módulo de corrección ahora?",
+                        "Error de Integridad Detectado",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Error
+                    );
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        var frmIntegridad = new CheeseLogix.Tecnica.frmVerificacionIntegridad();
+                        frmIntegridad.ShowDialog();
+
+                        bool integridadCorregida = bllIntegridad.VerificarIntegridadBaseDatos(out errores);
+
+                        if (!integridadCorregida)
+                        {
+                            MessageBox.Show(
+                                "Aún existen inconsistencias. No se puede continuar.\n\n" +
+                                "Por seguridad, la sesión será cerrada.",
+                                "Integridad No Corregida",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            return false;
+                        }
+
+                        MessageBox.Show(
+                            "✓ Integridad corregida exitosamente.",
+                            "Corrección Exitosa",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "No se puede iniciar sesión sin corregir los errores de integridad.\n\n" +
+                            "Por seguridad, la sesión será cerrada.",
+                            "Inicio de Sesión Cancelado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return false;
+                    }
+                }
+
+                return true; // Integridad OK o corregida
+            }
+            catch (Exception ex)
+            {
+                // Si hay error en la verificación, registrar pero permitir continuar
+                System.Diagnostics.Debug.WriteLine($"Error en verificación DV: {ex.Message}");
+                MessageBox.Show(
+                    $"Advertencia: No se pudo verificar la integridad de la base de datos.\n\n" +
+                    $"Error: {ex.Message}\n\n" +
+                    $"La aplicación continuará en modo normal.",
+                    "Advertencia de Verificación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return true; // Permitir continuar si falla la verificación
             }
         }
 
