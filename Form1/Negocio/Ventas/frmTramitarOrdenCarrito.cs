@@ -283,7 +283,6 @@ namespace CheeseLogix.Negocio.Ventas
                 // Cargar todas las categorías del enum
                 var categorias = Enum.GetValues(typeof(Categoria)).Cast<Categoria>().ToList();
 
-                // Crear lista con opción "Todas"
                 var categoriasCombo = new List<object>();
                 categoriasCombo.Add(new { Value = -1, Text = "Todas las categorías" });
 
@@ -436,7 +435,6 @@ namespace CheeseLogix.Negocio.Ventas
                         return;
                     }
 
-                    // Actualizar cantidad existente
                     itemExistente.Cantidad = cantidadTotal;
                     itemExistente.SubTotal = itemExistente.Cantidad * itemExistente.Precio;
                 }
@@ -459,7 +457,6 @@ namespace CheeseLogix.Negocio.Ventas
                 // Guardar información del producto antes de limpiar la selección
                 string nombreProducto = _productoSeleccionado.Nombre;
 
-                // Actualizar vista del carrito
                 ActualizarVistaCarrito();
                 ActualizarTotal();
 
@@ -582,7 +579,6 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                // Crear la venta
                 var nuevaVenta = new Venta
                 {
                     ClienteId = _clienteActual.Id,

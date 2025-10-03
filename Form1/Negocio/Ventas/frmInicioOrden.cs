@@ -458,7 +458,6 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                // Obtener CUIT del textbox
                 string cuit = txtCuitCliente.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(cuit))
@@ -481,7 +480,6 @@ namespace CheeseLogix.Negocio.Ventas
                 // Limpiar formato del CUIT para la búsqueda
                 string cuitLimpio = cuit.Replace("-", "").Replace(" ", "");
 
-                // Buscar cliente por CUIT (usar CUIT limpio)
                 var cliente = _bllCliente.BuscarPorCUIT(cuitLimpio);
 
                 if (cliente != null)

@@ -226,7 +226,6 @@ namespace CheeseLogix
                 labelAlertas.Click -= labelAlertas_Click;
                 labelAlertas.Click += labelAlertas_Click;
 
-                // Actualizar tooltip con información detallada
                 string tooltipText = "";
                 if (total > 0)
                 {
@@ -276,7 +275,6 @@ namespace CheeseLogix
                         labelAlertas.ForeColor = Color.Red;
                         labelAlertas.Font = new Font(labelAlertas.Font, FontStyle.Bold);
                         
-                        // Actualizar tooltip con información de integridad
                         if (alertasToolTip != null)
                         {
                             alertasToolTip.SetToolTip(labelAlertas, 

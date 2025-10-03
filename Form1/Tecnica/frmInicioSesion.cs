@@ -132,24 +132,19 @@ namespace CheeseLogix
 
                     if (!VerificarIntegridadBaseDatos())
                     {
-                        var usuarioLogueado = SessionManager.GetInstance().oUsuario;
-                        bool esAdmin = VerificarSiEsAdmin(usuarioLogueado);
+                        MessageBox.Show(
+                            "🚨 ALERTA DE SEGURIDAD 🚨\n\n" +
+                            "Se detectaron inconsistencias en la base de datos.\n\n" +
+                            "Esto indica que la base de datos fue comprometida externamente.\n\n" +
+                            "ACCESO DENEGADO por seguridad.\n\n" +
+                            "Contacte al administrador del sistema inmediatamente.",
+                            "Base de Datos Comprometida",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
                         
-                        if (!esAdmin)
-                        {
-                            MessageBox.Show(
-                                "⚠️ ACCESO DENEGADO ⚠️\n\n" +
-                                "Se detectaron inconsistencias en la base de datos.\n\n" +
-                                "Solo el administrador puede acceder para corregir estos errores.\n\n" +
-                                "Contacte al administrador del sistema.",
-                                "Acceso Restringido",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
-                            
-                            SessionManager.Logout();
-                            return;
-                        }
+                        SessionManager.Logout();
+                        return;
                     }
 
                     MessageBox.Show("Inicio de sesión exitoso.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);

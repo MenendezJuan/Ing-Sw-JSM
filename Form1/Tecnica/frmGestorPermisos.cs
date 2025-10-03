@@ -270,7 +270,6 @@ namespace CheeseLogix
                 treeView1.Nodes.Clear();
                 GrupoPermisos oGrupo = (GrupoPermisos)comboBox_Grupos.SelectedItem;
 
-                // Crear el nodo para el grupo seleccionado
                 tn = new TreeNode();
                 tn.Text = oGrupo.Nombre;
                 tn.Tag = oGrupo;

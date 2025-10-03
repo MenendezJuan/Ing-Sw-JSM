@@ -31,12 +31,12 @@ namespace BLLs
 
             try
             {
-                // ✅ HABILITADO: Verificación con algoritmo sincronizado
-                // Verificar solo entidades (DVH), NO verificar DVV
+
                 VerificarEntidades("Usuario", inconsistencias);
                 VerificarEntidades("Producto", inconsistencias);
                 VerificarEntidades("Venta", inconsistencias);
-                // VerificarDigitosVerticales(inconsistencias); // ✅ REMOVIDO: No mostrar DVV
+                // VerificarDigitosVerticales(inconsistencias); // DVV deshabilitado
+
 
                 return inconsistencias.Count == 0;
             }
@@ -72,13 +72,13 @@ namespace BLLs
                         int id = Convert.ToInt32(row["Id"]);
                         string dvAlmacenado = row["DigitoVerificador"]?.ToString() ?? string.Empty;
 
-                        bool dvhEsInvalido = string.IsNullOrEmpty(dvAlmacenado) || 
-                                           dvAlmacenado.Length < 10 || 
-                                           dvAlmacenado == "desa" || 
-                                           dvAlmacenado.Contains("test") ||
-                                           dvAlmacenado.Contains("invalid");
+                        string dvEsperado = CalcularDVHUsandoAlgoritmoLogin(tipoEntidad, id);
 
-                        if (dvhEsInvalido)
+                        // Si no se puede calcular, saltar esta entidad
+                        if (string.IsNullOrEmpty(dvEsperado))
+                            continue;
+
+                        if (!string.Equals(dvAlmacenado, dvEsperado, StringComparison.OrdinalIgnoreCase))
                         {
                             string descripcion = SeguridadExtendida.ObtenerDescripcionEntidad(tipoEntidad, row);
 
@@ -87,7 +87,7 @@ namespace BLLs
                                 TipoEntidad = tipoEntidad,
                                 EntidadId = id,
                                 Descripcion = descripcion,
-                                DVEsperado = "DVH válido",
+                                DVEsperado = dvEsperado,
                                 DVActual = dvAlmacenado,
                                 TipoError = "DV Horizontal"
                             });
@@ -210,7 +210,6 @@ namespace BLLs
         {
             try
             {
-                // Obtener datos desde MPP
                 DataTable dvVerticales = _mppIntegridad.ObtenerDigitosVerticales();
 
                 if (dvVerticales != null && dvVerticales.Rows.Count > 0)
@@ -225,7 +224,7 @@ namespace BLLs
 
                         if (tablaEntidad != null && tablaEntidad.Columns.Contains(columna))
                         {
-                            string dvEsperado = CalcularDVVConMismaLogicaQueSQL(tipoEntidad); 
+                            string dvEsperado = CalcularDVVConMismaLogicaQueSQL(tipoEntidad);
 
                             if (!string.Equals(dvAlmacenado, dvEsperado, StringComparison.OrdinalIgnoreCase))
                             {
@@ -259,12 +258,14 @@ namespace BLLs
             {
                 if (inconsistencia.TipoError == "DV Horizontal")
                 {
-                    // ✅ REPARACIÓN AUTOMÁTICA: Actualizar BD con valor calculado por código
-                    return ActualizarDVHConValorCalculado(inconsistencia.TipoEntidad, inconsistencia.EntidadId);
+                    return _mppIntegridad.ActualizarDVHDirecto(
+                        inconsistencia.TipoEntidad, 
+                        inconsistencia.EntidadId, 
+                        inconsistencia.DVEsperado
+                    );
                 }
                 else if (inconsistencia.TipoError == "DV Vertical")
                 {
-                    // ✅ DVV: No tocar, se recalcula automáticamente cuando sea necesario
                     System.Diagnostics.Debug.WriteLine($"DVV inconsistente para {inconsistencia.TipoEntidad} - No se corrige automáticamente");
                     return true;
                 }
@@ -277,55 +278,6 @@ namespace BLLs
             }
         }
 
-        /// <summary>
-        /// Actualiza el DVH en BD con el valor calculado por el código
-        /// </summary>
-        private bool ActualizarDVHConValorCalculado(string tipoEntidad, int entidadId)
-        {
-            try
-            {
-                // ✅ USAR EL SP QUE FUNCIONA (no algoritmos problemáticos)
-                // El SP ActualizarDigitoVerificadorEntidad tiene el algoritmo correcto
-                switch (tipoEntidad.ToUpper())
-                {
-                    case "USUARIO":
-                    case "USUARIOS":
-                        return EjecutarSPActualizarDV("Usuario", entidadId);
-                    case "PRODUCTO":
-                    case "PRODUCTOS":
-                        return EjecutarSPActualizarDV("Producto", entidadId);
-                    case "VENTA":
-                    case "VENTAS":
-                        return EjecutarSPActualizarDV("Venta", entidadId);
-                    default:
-                        return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al actualizar DVH: {ex.Message}");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Ejecuta el SP ActualizarDigitoVerificadorEntidad que tiene el algoritmo correcto
-        /// </summary>
-        private bool EjecutarSPActualizarDV(string tipoEntidad, int entidadId)
-        {
-            try
-            {
-                // Usar el SP que ya funciona correctamente
-                string consulta = $"EXEC ActualizarDigitoVerificadorEntidad '{tipoEntidad}', {entidadId}";
-                _mppIntegridad.EjecutarConsultaDirecta(consulta);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error al ejecutar SP ActualizarDigitoVerificadorEntidad: {ex.Message}");
-                return false;
-            }
-        }
 
         /// <summary>
         /// Restaura todos los dígitos verificadores de una lista de inconsistencias
@@ -356,6 +308,7 @@ namespace BLLs
 
             return (exitosos, fallidos);
         }
+
 
         /// <summary>
         /// Obtiene el detalle formateado de una entidad para mostrar en la UI

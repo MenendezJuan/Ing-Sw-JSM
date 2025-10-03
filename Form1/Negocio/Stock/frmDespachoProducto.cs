@@ -382,7 +382,6 @@ namespace CheeseLogix.Negocio.Ventas
                     return;
                 }
 
-                // Crear archivo de conforme
                 using (var writer = new StreamWriter(rutaCompleta, false, System.Text.Encoding.UTF8))
                 {
                     writer.WriteLine("===============================================");

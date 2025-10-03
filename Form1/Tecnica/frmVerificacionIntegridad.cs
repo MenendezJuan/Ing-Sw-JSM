@@ -63,6 +63,11 @@ namespace CheeseLogix.Tecnica
             dataGridViewInconsistencias.RowHeadersVisible = false;
             dataGridViewInconsistencias.BackgroundColor = Color.White;
 
+            dataGridViewInconsistencias.DataError += (s, e) =>
+            {
+                e.ThrowException = false;
+            };
+
             dataGridViewInconsistencias.Columns.Clear();
 
             dataGridViewInconsistencias.Columns.Add(new DataGridViewTextBoxColumn
@@ -207,8 +212,20 @@ namespace CheeseLogix.Tecnica
                     lblEstadoIntegridad.ForeColor = Color.OrangeRed;
                     lblInconsistenciasEncontradas.Text = $"Inconsistencias encontradas: {_inconsistencias.Count}";
 
-                    dataGridViewInconsistencias.DataSource = null;
-                    dataGridViewInconsistencias.DataSource = _inconsistencias;
+                    try
+                    {
+                        dataGridViewInconsistencias.DataSource = null;
+                        dataGridViewInconsistencias.Refresh();
+                        dataGridViewInconsistencias.DataSource = _inconsistencias;
+                        dataGridViewInconsistencias.Refresh();
+                    }
+                    catch (Exception dgvEx)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error al asignar DataSource: {dgvEx.Message}");
+                        // Si falla, limpiar completamente
+                        dataGridViewInconsistencias.DataSource = null;
+                        dataGridViewInconsistencias.Rows.Clear();
+                    }
 
                     btnRestaurarSeleccionado.Enabled = _inconsistencias.Count > 0;
                     btnRestaurarTodos.Enabled = _inconsistencias.Count > 0;
@@ -273,10 +290,31 @@ namespace CheeseLogix.Tecnica
 
         private void btnRestaurarTodos_Click(object sender, EventArgs e)
         {
+            var resultado = MessageBox.Show(
+                $"🔄 SINCRONIZACIÓN COMPLETA 🔄\n\n" +
+                $"Esta operación:\n" +
+                $"1. Recalculará TODOS los DVH usando el algoritmo del código\n" +
+                $"2. Recalculará TODOS los DVV basándose en los DVH nuevos\n" +
+                $"3. Sincronizará completamente BD con código\n\n" +
+                $"Esto puede tomar unos momentos.\n\n" +
+                $"¿Continuar?",
+                "Sincronizar BD con Código",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (resultado == DialogResult.Yes)
+            {
+                SincronizarCompletamente();
+            }
+        }
+
+        private void SincronizarCompletamente()
+        {
             if (_inconsistencias == null || _inconsistencias.Count == 0)
             {
                 MessageBox.Show(
-                    "No hay inconsistencias para restaurar.",
+                    "No hay inconsistencias para sincronizar.",
                     "Sin inconsistencias",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
@@ -285,13 +323,15 @@ namespace CheeseLogix.Tecnica
             }
 
             var resultado = MessageBox.Show(
-                $"⚠ ADVERTENCIA ⚠\n\n" +
-                $"Está a punto de restaurar TODOS los dígitos verificadores inconsistentes ({_inconsistencias.Count} registros).\n\n" +
-                $"Esto recalculará los DV basándose en los datos actuales de cada entidad.\n\n" +
-                $"¿Está completamente seguro?",
-                "Confirmar Restauración Masiva",
+                $"🔄 SINCRONIZAR BD CON CÓDIGO 🔄\n\n" +
+                $"Esta operación reemplazará {_inconsistencias.Count} DVH inconsistentes\n" +
+                $"con los valores calculados por el código.\n\n" +
+                $"Los valores actuales (incorrectos) serán reemplazados\n" +
+                $"con los valores esperados (correctos).\n\n" +
+                $"¿Continuar?",
+                "Sincronizar BD con Código",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
+                MessageBoxIcon.Question
             );
 
             if (resultado == DialogResult.Yes)
@@ -353,6 +393,18 @@ namespace CheeseLogix.Tecnica
             try
             {
                 Cursor = Cursors.WaitCursor;
+                btnRestaurarTodos.Enabled = false;
+
+                if (_inconsistencias == null || _inconsistencias.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No hay inconsistencias para restaurar.",
+                        "Sin inconsistencias",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
 
                 // Restaurar todos usando la BLL
                 var resultado = _bllIntegridad.RestaurarTodosDigitosVerificadores(_inconsistencias);
@@ -384,6 +436,7 @@ namespace CheeseLogix.Tecnica
             finally
             {
                 Cursor = Cursors.Default;
+                btnRestaurarTodos.Enabled = true;
             }
         }
 
@@ -391,18 +444,17 @@ namespace CheeseLogix.Tecnica
         {
             try
             {
-                if (dataGridViewInconsistencias.SelectedRows.Count > 0 && 
-                    dataGridViewInconsistencias.SelectedRows[0] != null)
+                if (dataGridViewInconsistencias.Rows.Count == 0 ||
+                    dataGridViewInconsistencias.SelectedRows.Count == 0)
                 {
-                    var inconsistencia = dataGridViewInconsistencias.SelectedRows[0].DataBoundItem as InconsistenciaIntegridad;
-                    if (inconsistencia != null)
-                    {
-                        MostrarDetalleEntidad(inconsistencia);
-                    }
-                    else
-                    {
-                        txtDetalleEntidad.Clear();
-                    }
+                    txtDetalleEntidad.Clear();
+                    return;
+                }
+
+                var selectedRow = dataGridViewInconsistencias.SelectedRows[0];
+                if (selectedRow?.DataBoundItem is InconsistenciaIntegridad inconsistencia)
+                {
+                    MostrarDetalleEntidad(inconsistencia);
                 }
                 else
                 {
@@ -418,7 +470,6 @@ namespace CheeseLogix.Tecnica
 
         private void MostrarDetalleEntidad(InconsistenciaIntegridad inconsistencia)
         {
-            // Obtener detalle formateado desde la BLL
             string detalle = _bllIntegridad.ObtenerDetalleEntidadFormateado(inconsistencia);
 
             txtDetalleEntidad.Clear();

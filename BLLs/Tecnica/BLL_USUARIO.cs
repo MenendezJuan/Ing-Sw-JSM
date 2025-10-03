@@ -250,7 +250,6 @@ namespace BLLs
 
                 if (dvCalculado != dvAlmacenado)
                 {
-                    // Crear mensaje detallado para debugging
                     string mensajeDetallado = $"VERIFICACIÓN DE SEGURIDAD FALLIDA:\n" +
                         $"- DV Calculado: {dvCalculado}\n" +
                         $"- DV Almacenado: {dvAlmacenado}\n" +

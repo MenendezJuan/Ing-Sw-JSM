@@ -50,7 +50,7 @@ namespace Servicios
         {
             oCnx.Open(); // Abrir la conexión
             oTransaction = oCnx.BeginTransaction(); // Iniciar una transacción
-            oCmd = new SqlCommand(Query, oCnx, oTransaction); // Crear el comando SQL
+            oCmd = new SqlCommand(Query, oCnx, oTransaction);
             oCmd.CommandType = CommandType.StoredProcedure;
             foreach (string key in Parametros.Keys)
             {
@@ -78,7 +78,7 @@ namespace Servicios
         {
             oCnx.Open(); // Abrir la conexión
             oTransaction = oCnx.BeginTransaction(); // Iniciar una transacción
-            oCmd = new SqlCommand(Query, oCnx, oTransaction); // Crear el comando SQL
+            oCmd = new SqlCommand(Query, oCnx, oTransaction);
             oCmd.CommandType = CommandType.StoredProcedure;
 
             // Agregar parámetros al comando
@@ -158,8 +158,8 @@ namespace Servicios
                     }
                 }
 
-                SqlDataAdapter Da = new SqlDataAdapter(oCmd); // Crear un adaptador de datos
-                DataTable Datos = new DataTable(); // Crear tabla para almacenar los datos
+                SqlDataAdapter Da = new SqlDataAdapter(oCmd);
+                DataTable Datos = new DataTable();
                 Da.Fill(Datos); // Llenar la tabla con los datos
                 oCnx.Close();
                 return Datos;

@@ -68,7 +68,6 @@ namespace CheeseLogix.Negocio.Reportes
                 bool reporteCargado = false;
                 try
                 {
-                    // Obtener la ruta del archivo RDLC
                     string rutaReporte = BLL_CONFIGURACION.ObtenerRutaAbsolutaRDLC();
 
                     // Verificar que el archivo existe
@@ -374,7 +373,6 @@ namespace CheeseLogix.Negocio.Reportes
         {
             try
             {
-                // Obtener datos actuales
                 DateTime fechaInicio = dtpFechaInicio.Value;
                 DateTime fechaFin = dtpFechaFin.Value;
 

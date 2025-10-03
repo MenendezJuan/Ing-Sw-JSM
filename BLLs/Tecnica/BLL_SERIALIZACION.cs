@@ -111,7 +111,6 @@ namespace BLLs.Tecnica
                     doc.LoadXml(contenido); // Valida XML
                 }
 
-                // Crear directorio si no existe
                 string directorio = Path.GetDirectoryName(rutaArchivo);
                 if (!string.IsNullOrEmpty(directorio) && !Directory.Exists(directorio))
                 {

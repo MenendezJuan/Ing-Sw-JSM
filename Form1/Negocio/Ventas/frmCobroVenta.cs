@@ -200,7 +200,6 @@ namespace CheeseLogix.Negocio.Ventas
                 // Solo configurar si hay ventas disponibles y no se pasó una venta específica
                 if (_ventasDisponibles != null && _ventasDisponibles.Count > 0 && _ventaActual == null)
                 {
-                    // Crear lista de display para las ventas
                     var ventasDisplay = _ventasDisponibles.Select(v => new
                     {
                         Venta = v,
@@ -445,7 +444,6 @@ namespace CheeseLogix.Negocio.Ventas
         {
             try
             {
-                // Actualizar método de pago
                 var metodoPagoSeleccionado = (TipoPago)Convert.ToInt32(comboBoxMetodoPago.SelectedValue);
                 _ventaActual.TipoPagoEnum = metodoPagoSeleccionado;
 
@@ -454,7 +452,6 @@ namespace CheeseLogix.Negocio.Ventas
                 _ventaActual.EstadoVentaEnum = EstadoVenta.Cobrada;
 
                 // Generar factura en PDF con el estado ya actualizado
-                // Actualizar vista
                 labelEstado.Text = ObtenerDescripcionEstado(EstadoVenta.Cobrada);
                 ActualizarColorEstado(EstadoVenta.Cobrada);
 
@@ -500,7 +497,6 @@ namespace CheeseLogix.Negocio.Ventas
                 _bllVenta.CambiarEstadoVenta(_ventaActual.Id, EstadoVenta.Cancelada);
                 _ventaActual.EstadoVentaEnum = EstadoVenta.Cancelada;
 
-                // Actualizar vista
                 labelEstado.Text = ObtenerDescripcionEstado(EstadoVenta.Cancelada);
                 ActualizarColorEstado(EstadoVenta.Cancelada);
 
@@ -679,7 +675,6 @@ namespace CheeseLogix.Negocio.Ventas
                 if (_ventasDisponibles == null || _ventasDisponibles.Count == 0)
                     return null;
 
-                // Crear lista para mostrar
                 var ventasDisplay = _ventasDisponibles.Select((v, index) => new
                 {
                     Index = index,

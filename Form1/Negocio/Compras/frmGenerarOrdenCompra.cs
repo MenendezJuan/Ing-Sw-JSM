@@ -86,7 +86,6 @@ namespace CheeseLogix
                 return;
             }
 
-            // Crear la instancia de Compra y definir propiedades iniciales
             Compra nuevaCompra = new Compra
             {
                 Fecha = DateTime.Now,
@@ -366,7 +365,6 @@ namespace CheeseLogix
 
             if (compraSeleccionada != null)
             {
-                // Obtener y mostrar los detalles de la orden de compra seleccionada
                 if (compraSeleccionada.oProveedor != null)
                 {
                     var proveedorSeleccionado = _bllProveedor.ObtenerPorId(compraSeleccionada.oProveedor.Id);

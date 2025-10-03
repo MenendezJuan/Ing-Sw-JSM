@@ -69,12 +69,10 @@ namespace BLLs.Tecnica
 
             try
             {
-                // ✅ VALIDACIÓN SIMPLIFICADA: Sin usar BD temporal
                 if (idUsuarioActual > 0)
                 {
-                    // Verificar que el usuario actual existe en la BD antes del restore
                     bool usuarioExisteActualmente = _backupRepository.VerificarExistenciaUsuario(idUsuarioActual);
-                    
+
                     if (!usuarioExisteActualmente)
                     {
                         throw new UsuarioNoExisteException(
@@ -82,9 +80,7 @@ namespace BLLs.Tecnica
                             $"No se puede proceder con la restauración."
                         );
                     }
-                    
-                    // ADVERTENCIA: No podemos verificar si existe en el backup sin BD temporal
-                    // Pero podemos advertir al usuario
+
                     System.Diagnostics.Debug.WriteLine($"⚠ Restaurando backup sin verificar existencia de usuario en backup");
                 }
 
@@ -96,11 +92,10 @@ namespace BLLs.Tecnica
                     throw new InvalidOperationException("El restore no se completó exitosamente.");
                 }
 
-                // ✅ VALIDACIÓN POST-RESTORE: Verificar si el usuario sigue existiendo
                 if (idUsuarioActual > 0)
                 {
                     bool usuarioExisteDespuesDeRestore = _backupRepository.VerificarExistenciaUsuario(idUsuarioActual);
-                    
+
                     if (!usuarioExisteDespuesDeRestore)
                     {
                         throw new UsuarioNoExisteException(
@@ -183,7 +178,7 @@ namespace BLLs.Tecnica
                     throw new FileNotFoundException("El archivo de backup no existe", rutaBackup);
 
                 FileInfo fileInfo = new FileInfo(rutaBackup);
-                
+
                 return new InfoBackup
                 {
                     NombreArchivo = fileInfo.Name,

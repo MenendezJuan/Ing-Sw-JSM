@@ -333,7 +333,6 @@ namespace BLLs.Tecnica
 
                 if (logoBytes != null)
                 {
-                    // Crear un DataTable con el logo para el reporte
                     var logoTable = new System.Data.DataTable("LogoDataSet");
                     logoTable.Columns.Add("Logo", typeof(byte[]));
                     logoTable.Columns.Add("NombreEmpresa", typeof(string));

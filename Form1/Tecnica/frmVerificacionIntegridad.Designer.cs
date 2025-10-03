@@ -116,7 +116,7 @@ namespace CheeseLogix.Tecnica
             this.btnRestaurarTodos.Name = "btnRestaurarTodos";
             this.btnRestaurarTodos.Size = new System.Drawing.Size(188, 54);
             this.btnRestaurarTodos.TabIndex = 2;
-            this.btnRestaurarTodos.Text = "Restaurar Todos";
+            this.btnRestaurarTodos.Text = "Sincronizar BD";
             this.btnRestaurarTodos.UseVisualStyleBackColor = false;
             this.btnRestaurarTodos.Click += new System.EventHandler(this.btnRestaurarTodos_Click);
             // 

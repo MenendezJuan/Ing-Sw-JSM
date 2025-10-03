@@ -22,7 +22,6 @@ namespace BLLs.Tecnica
                     directorio = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CheeseLogix", "Exportaciones");
                 }
 
-                // Crear el directorio si no existe
                 if (!Directory.Exists(directorio))
                 {
                     Directory.CreateDirectory(directorio);
@@ -128,7 +127,6 @@ namespace BLLs.Tecnica
                 // Obtener la ruta relativa desde la configuración
                 string rutaRelativa = ObtenerConfiguracion("ReporteVentasRDLCPath", @"Negocio\Reportes\ReporteVentas.rdlc");
 
-                // Buscar en múltiples ubicaciones posibles
                 string[] rutasAIntentar = new string[]
                 {
                     // 1. Relativo al directorio de la aplicación
@@ -174,7 +172,6 @@ namespace BLLs.Tecnica
             {
                 DirectoryInfo directorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
 
-                // Buscar hasta 5 niveles hacia arriba
                 for (int i = 0; i < 5 && directorio != null; i++)
                 {
                     // Buscar en subcarpetas comunes
