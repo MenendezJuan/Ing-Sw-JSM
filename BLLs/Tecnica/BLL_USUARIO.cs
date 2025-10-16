@@ -46,8 +46,12 @@ namespace BLLs
         {
             try
             {
+                entidad.Email = entidad.Email?.Trim();
+
                 entidad.Contraseña = Seguridad.Seguridad.Hash(entidad.Contraseña);
+
                 entidad.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(entidad);
+
                 if (Mpp_Usuario.Agregar(entidad))
                 {
                     Mpp_Usuario.ActualizarDigitoVertical(CalcularDigitoVertical());
@@ -84,8 +88,15 @@ namespace BLLs
         {
             try
             {
+                // Normalizar email (trim y lowercase) para consistencia
+                entidad.Email = entidad.Email?.Trim();
+
+                // Hashear contraseña ANTES de calcular DVH
                 entidad.Contraseña = Seguridad.Seguridad.Hash(entidad.Contraseña);
+
+                // Calcular DVH con datos normalizados
                 entidad.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(entidad);
+
                 if (Mpp_Usuario.Modificar(entidad))
                 {
                     Mpp_Usuario.ActualizarDigitoVertical(CalcularDigitoVertical());

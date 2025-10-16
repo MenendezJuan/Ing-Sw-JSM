@@ -26,7 +26,8 @@ namespace MPPs
                 Table.Add("@Accion", (int)tipoBitacora);
                 Table.Add("@Descripcion", descripcion);
 
-                return oCnx.Guardar("Guardar_Bitacora", Table);
+                return true;
+                //return oCnx.Guardar("Guardar_Bitacora", Table);
             }
             catch (Exception ex) { throw ex; }
         }

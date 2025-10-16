@@ -59,7 +59,17 @@
             this.dgvIdiomas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvIdiomas.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvIdiomas.BackgroundColor = System.Drawing.Color.White;
+            this.dgvIdiomas.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.dgvIdiomas.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvIdiomas.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.dgvIdiomas.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvIdiomas.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.dgvIdiomas.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dgvIdiomas.AlternatingRowsDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvIdiomas.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.MistyRose;
+            this.dgvIdiomas.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvIdiomas.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.dgvIdiomas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIdiomas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvIdiomas.Location = new System.Drawing.Point(123, 68);

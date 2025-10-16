@@ -137,8 +137,8 @@ namespace CheeseLogix
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
             dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
 
-            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Id";
-            dataGridViewCotizaciones.Columns["Id"].Tag = "Id_Column";
+            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Nro. Cotización";
+            dataGridViewCotizaciones.Columns["Id"].Tag = "NroCotizacion_Column";
 
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].Tag = "Proveedor_Column";

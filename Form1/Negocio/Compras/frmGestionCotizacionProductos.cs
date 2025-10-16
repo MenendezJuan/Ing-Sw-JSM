@@ -61,7 +61,11 @@ namespace CheeseLogix
 
             // Ocultar columnas que no deseas mostrar
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
-            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false; // Oculta la columna de objeto `Proveedor`
+            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
+
+            // Configurar ID como Nro. Cotización
+            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Nro. Cotización";
+            dataGridViewCotizaciones.Columns["Id"].Tag = "NroCotizacion_Column";
 
             // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";
@@ -82,7 +86,11 @@ namespace CheeseLogix
 
             // Ocultar columnas que no deseas mostrar
             dataGridViewCotizaciones.Columns["ProveedorId"].Visible = false;
-            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false; // Oculta la columna de objeto `Proveedor`
+            dataGridViewCotizaciones.Columns["Proveedor"].Visible = false;
+
+            // Configurar ID como Nro. Cotización
+            dataGridViewCotizaciones.Columns["Id"].HeaderText = "Nro. Cotización";
+            dataGridViewCotizaciones.Columns["Id"].Tag = "NroCotizacion_Column";
 
             // Ajustar el encabezado y la ubicación de la columna `DescripcionProveedor`
             dataGridViewCotizaciones.Columns["DescripcionProveedor"].HeaderText = "Proveedor";

@@ -13,22 +13,22 @@ namespace BEs
 
         protected string _Contraaseña;
 
-        [Required(ErrorMessage = "La contraseña es obligatoria")]
-        [MinLength(1)]
-        [PropiedadVerificable(2)]
-        public string Contraseña
+    [Required(ErrorMessage = "La contraseña es obligatoria")]
+    [MinLength(1)]
+    [PropiedadVerificable(2)]
+    public string Contraseña
+    {
+        get
         {
-            get
-            {
-                return _Contraaseña;
-            }
-            set
-            {
-                _Contraaseña = value;
-            }
+            return _Contraaseña;
         }
+        set
+        {
+            _Contraaseña = value;
+        }
+    }
 
-        public string DV { get; set; }
+    public string DV { get; set; }
 
         public Usuario()
         { }

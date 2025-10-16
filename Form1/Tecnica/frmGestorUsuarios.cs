@@ -69,7 +69,21 @@ namespace CheeseLogix
                 if (oUsuario.Email == SessionManager.GetInstance().oUsuario.Email)
                 {
                     MessageBox.Show("No se puede eliminar el usuario si está logueado", BLLs.Tecnica.ConstantesUI.Titulos.Validacion);
+                    return; 
                 }
+
+                var resultado = MessageBox.Show(
+                    $"¿Está seguro de que desea eliminar al usuario '{oUsuario.Email}'?\n\nEsta acción no se puede deshacer.",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (resultado != DialogResult.Yes)
+                {
+                    return; 
+                }
+
                 if (Bll_Usuario.Borrar(oUsuario))
                 {
                     MessageBox.Show("Se eliminó el usuario exitosamente", BLLs.Tecnica.ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK);

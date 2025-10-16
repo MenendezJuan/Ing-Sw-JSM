@@ -130,23 +130,6 @@ namespace CheeseLogix
                 {
                     SessionManager.GetInstance().Permisos = Bll_Permiso.BuscarPermisosAsignados(SessionManager.GetInstance().oUsuario);
 
-                    if (!VerificarIntegridadBaseDatos())
-                    {
-                        MessageBox.Show(
-                            "🚨 ALERTA DE SEGURIDAD 🚨\n\n" +
-                            "Se detectaron inconsistencias en la base de datos.\n\n" +
-                            "Esto indica que la base de datos fue comprometida externamente.\n\n" +
-                            "ACCESO DENEGADO por seguridad.\n\n" +
-                            "Contacte al administrador del sistema inmediatamente.",
-                            "Base de Datos Comprometida",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                        
-                        SessionManager.Logout();
-                        return;
-                    }
-
                     MessageBox.Show("Inicio de sesión exitoso.", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
                     frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
                     //frmReporteInteligente menuPrincipal = new frmReporteInteligente();
@@ -190,7 +173,7 @@ namespace CheeseLogix
                     {
                         var usuarioLogueado = SessionManager.GetInstance().oUsuario;
                         bool esAdmin = VerificarSiEsAdmin(usuarioLogueado);
-                        
+
                         if (esAdmin)
                         {
                             var frmIntegridad = new CheeseLogix.Tecnica.frmVerificacionIntegridad();
@@ -269,9 +252,9 @@ namespace CheeseLogix
             try
             {
                 if (usuario == null) return false;
-                
+
                 var permisos = SessionManager.GetInstance().Permisos;
-                
+
                 if (permisos != null)
                 {
                     foreach (var permiso in permisos)
@@ -285,7 +268,7 @@ namespace CheeseLogix
                         }
                     }
                 }
-                
+
                 return false;
             }
             catch

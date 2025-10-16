@@ -184,17 +184,16 @@ namespace CheeseLogix.Tecnica
 
                 _inconsistencias.Clear();
 
-                // Verificar integridad usando la BLL
                 bool integridadOK = _bllIntegridad.VerificarIntegridadBaseDatos(out List<InconsistenciaIntegridad> errores);
 
                 if (integridadOK)
                 {
-                    lblEstadoIntegridad.Text = "✓ Integridad verificada correctamente";
+                    lblEstadoIntegridad.Text = "Integridad verificada correctamente";
                     lblEstadoIntegridad.ForeColor = Color.LimeGreen;
                     lblInconsistenciasEncontradas.Text = "Inconsistencias encontradas: 0";
 
                     MessageBox.Show(
-                        "✓ La verificación de integridad se completó exitosamente.\n\n" +
+                        "La verificación de integridad se completó exitosamente.\n\n" +
                         "No se encontraron inconsistencias en los dígitos verificadores.",
                         "Verificación Exitosa",
                         MessageBoxButtons.OK,

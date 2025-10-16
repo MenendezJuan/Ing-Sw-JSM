@@ -65,13 +65,21 @@
             this.dgvTraducciones.AllowUserToDeleteRows = false;
             this.dgvTraducciones.AllowUserToResizeColumns = false;
             this.dgvTraducciones.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.dgvTraducciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTraducciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvTraducciones.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvTraducciones.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTraducciones.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.dgvTraducciones.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvTraducciones.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.MistyRose;
+            this.dgvTraducciones.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvTraducciones.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.dgvTraducciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTraducciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvTraducciones.Location = new System.Drawing.Point(295, 70);
@@ -238,13 +246,21 @@
             this.dgvPalabras.AllowUserToDeleteRows = false;
             this.dgvPalabras.AllowUserToResizeColumns = false;
             this.dgvPalabras.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.dgvPalabras.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPalabras.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvPalabras.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvPalabras.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPalabras.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.dgvPalabras.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvPalabras.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.MistyRose;
+            this.dgvPalabras.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dgvPalabras.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.dgvPalabras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPalabras.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvPalabras.Location = new System.Drawing.Point(588, 70);

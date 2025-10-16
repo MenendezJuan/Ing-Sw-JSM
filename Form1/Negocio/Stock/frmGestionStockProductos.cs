@@ -457,13 +457,16 @@ namespace CheeseLogix
 
         private void ConfigurarEncabezadosColumnas()
         {
+            if (dataGridViewProductos.Columns.Contains("Id"))
+                dataGridViewProductos.Columns["Id"].Visible = false;
+
             dataGridViewProductos.Columns["Codigo"].HeaderText = "Código";
             dataGridViewProductos.Columns["Codigo"].Tag = "Codigo_Column";
 
             dataGridViewProductos.Columns["CategoriaEnum"].HeaderText = "Categoría";
             dataGridViewProductos.Columns["CategoriaEnum"].Tag = "Categoria_Column";
 
-            dataGridViewProductos.Columns["Stock"].HeaderText = "Stock";
+            dataGridViewProductos.Columns["Stock"].HeaderText = "Stock Disponible";
             dataGridViewProductos.Columns["Stock"].Tag = "Stock_Column";
 
             dataGridViewProductos.Columns["Descripcion"].HeaderText = "Descripcion";
@@ -487,14 +490,19 @@ namespace CheeseLogix
                 dataGridViewProductos.Columns["StockMinimo"].Tag = "StockMinimo_Column";
             }
 
-            // Ocultar columnas que no deben ser visibles
-            dataGridViewProductos.Columns["Estado"].Visible = false;
-            
-            // OCULTAR COLUMNAS DE DÍGITOS VERIFICADORES - NUNCA VISIBLES
+            // ✅ OCULTAR COLUMNAS TÉCNICAS - NUNCA VISIBLES PARA USUARIO
+            if (dataGridViewProductos.Columns.Contains("Estado"))
+                dataGridViewProductos.Columns["Estado"].Visible = false;
+            if (dataGridViewProductos.Columns.Contains("StockReserva"))
+                dataGridViewProductos.Columns["StockReserva"].Visible = false;
+            if (dataGridViewProductos.Columns.Contains("StockDisponible"))
+                dataGridViewProductos.Columns["StockDisponible"].Visible = false;
             if (dataGridViewProductos.Columns.Contains("DigitoVerificador"))
                 dataGridViewProductos.Columns["DigitoVerificador"].Visible = false;
             if (dataGridViewProductos.Columns.Contains("DV"))
                 dataGridViewProductos.Columns["DV"].Visible = false;
+            if (dataGridViewProductos.Columns.Contains("Proveedores"))
+                dataGridViewProductos.Columns["Proveedores"].Visible = false;
         }
 
         private void CargarProveedores()

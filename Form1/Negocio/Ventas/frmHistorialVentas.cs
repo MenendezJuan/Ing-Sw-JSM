@@ -99,7 +99,11 @@ namespace CheeseLogix.Negocio.Ventas
             if (gridVentas.Columns.Count == 0) return;
 
             // Configurar columnas visibles con nombres correctos
-            if (gridVentas.Columns.Contains("Id")) gridVentas.Columns["Id"].HeaderText = "Nro. Venta";
+            if (gridVentas.Columns.Contains("Id"))
+            {
+                gridVentas.Columns["Id"].HeaderText = "Nro. Venta";
+                gridVentas.Columns["Id"].Tag = "NroVenta_Column";
+            }
             if (gridVentas.Columns.Contains("MontoTotal")) gridVentas.Columns["MontoTotal"].HeaderText = "Monto";
             if (gridVentas.Columns.Contains("TipoPagoEnum")) gridVentas.Columns["TipoPagoEnum"].HeaderText = "Pago";
             if (gridVentas.Columns.Contains("Fecha")) gridVentas.Columns["Fecha"].HeaderText = "Fecha";

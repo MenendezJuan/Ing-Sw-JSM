@@ -313,7 +313,10 @@ namespace CheeseLogix.Negocio.Ventas
             var clientes = _bllCliente.ObtenerTodos();
             dataGridViewCliente.DataSource = clientes;
 
-            if (dataGridViewCliente.Columns["Estado"] != null)
+            // Ocultar columnas técnicas
+            if (dataGridViewCliente.Columns.Contains("Id"))
+                dataGridViewCliente.Columns["Id"].Visible = false;
+            if (dataGridViewCliente.Columns.Contains("Estado"))
                 dataGridViewCliente.Columns["Estado"].Visible = false;
 
             dataGridViewCliente.Columns["CUIT"].HeaderText = "C.U.I.T";

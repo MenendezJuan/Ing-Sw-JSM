@@ -207,7 +207,6 @@
     <Compile Include="SplashScreen\frmSplashScreen.Designer.cs">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Tecnica\frmBackupRestore.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -461,6 +460,10 @@
       <Project>{5764fc25-e67b-4030-befa-05ae93b29c28}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MPPs\MPP.csproj">
+      <Project>{35EF7750-29B9-4004-88AB-966778C8585C}</Project>
+      <Name>MPP</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Cheese_Logix-removebg-preview.png" />
@@ -519,20 +522,6 @@
   <ItemGroup>
     <Content Include="icons8-battle.net.ico" />
     <Content Include="icudt.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MetroFramework.txt" />
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="x64\pdfium.dll">

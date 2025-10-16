@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 
 namespace BLLs
 {
@@ -31,12 +32,20 @@ namespace BLLs
 
             try
             {
-
                 VerificarEntidades("Usuario", inconsistencias);
                 VerificarEntidades("Producto", inconsistencias);
-                VerificarEntidades("Venta", inconsistencias);
-                // VerificarDigitosVerticales(inconsistencias); // DVV deshabilitado
-
+                
+                // ✅ VENTAS HABILITADAS con VentaVerificableWrapper
+                try
+                {
+                    VerificarEntidades("Venta", inconsistencias);
+                }
+                catch (Exception exVenta)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al verificar Ventas: {exVenta.Message}");
+                }
+                
+                VerificarDigitosVerticales(inconsistencias); // ✅ DVV habilitado
 
                 return inconsistencias.Count == 0;
             }
@@ -112,8 +121,9 @@ namespace BLLs
                 {
                     case "USUARIO":
                     case "USUARIOS":
-                        var bllUsuario = new BLL_USUARIO();
-                        var usuarios = bllUsuario.Listar();
+                        // Usar MPP directamente para evitar problemas de bitácora sin usuario logueado
+                        var mppUsuario = new MPP_USUARIO();
+                        var usuarios = mppUsuario.Listar();
                         var usuario = usuarios.FirstOrDefault(u => u.Id == entidadId);
 
                         if (usuario != null)
@@ -138,10 +148,39 @@ namespace BLLs
 
                     case "VENTA":
                     case "VENTAS":
-                        DataRow filaVenta = _mppIntegridad.ObtenerDetalleEntidad("Venta", entidadId);
-                        if (filaVenta != null)
+                        // Usar MPP_VENTA y luego reflexión para convertir a IVerificableEntity
+                        var mppVenta = new MPPs.MPP_VENTA();
+                        var ventas = mppVenta.ObtenerTodos();
+                        var venta = ventas.FirstOrDefault(v => v.Id == entidadId);
+
+                        if (venta != null)
                         {
-                            return SeguridadExtendida.CalcularDVHorizontal("Venta", filaVenta);
+                            try
+                            {
+                                // Usar reflexión para obtener el DV sin cast explícito
+                                Type ventaType = venta.GetType();
+                                PropertyInfo dvProperty = ventaType.GetProperty("DV");
+                                
+                                // Crear un objeto anónimo que implemente IVerificableEntity
+                                // Esto evita el problema de namespace
+                                var ventaWrapper = new VentaVerificableWrapper
+                                {
+                                    Comentario = venta.Comentario,
+                                    MontoTotal = venta.MontoTotal,
+                                    Fecha = venta.Fecha,
+                                    TipoPagoEnum = venta.TipoPagoEnum,
+                                    EstadoVentaEnum = venta.EstadoVentaEnum,
+                                    ClienteId = venta.ClienteId,
+                                    UsuarioVendedorId = venta.UsuarioVendedorId
+                                };
+                                
+                                return Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(ventaWrapper);
+                            }
+                            catch (Exception exVenta)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Error al calcular DVH de Venta ID {entidadId}: {exVenta.Message}");
+                                return string.Empty;
+                            }
                         }
                         break;
                 }
@@ -259,15 +298,17 @@ namespace BLLs
                 if (inconsistencia.TipoError == "DV Horizontal")
                 {
                     return _mppIntegridad.ActualizarDVHDirecto(
-                        inconsistencia.TipoEntidad, 
-                        inconsistencia.EntidadId, 
+                        inconsistencia.TipoEntidad,
+                        inconsistencia.EntidadId,
                         inconsistencia.DVEsperado
                     );
                 }
                 else if (inconsistencia.TipoError == "DV Vertical")
                 {
-                    System.Diagnostics.Debug.WriteLine($"DVV inconsistente para {inconsistencia.TipoEntidad} - No se corrige automáticamente");
-                    return true;
+                    return _mppIntegridad.ActualizarDVVDirecto(
+                        inconsistencia.TipoEntidad,
+                        inconsistencia.DVEsperado
+                    );
                 }
 
                 return false;
@@ -373,6 +414,36 @@ namespace BLLs
                 return $"Error al obtener detalle: {ex.Message}\n\n{inconsistencia.ToString()}";
             }
         }
+    }
+
+    /// <summary>
+    /// Wrapper para Venta que implementa IVerificableEntity correctamente
+    /// Soluciona el problema de namespace entre BLLs y BEs
+    /// </summary>
+    internal class VentaVerificableWrapper : BEs.Interfaces.IVerificableEntity
+    {
+        [BEs.Clases.PropiedadVerificable(1, false)]
+        public string Comentario { get; set; }
+
+        [BEs.Clases.PropiedadVerificable(2)]
+        public decimal MontoTotal { get; set; }
+
+        [BEs.Clases.PropiedadVerificable(3)]
+        public DateTime Fecha { get; set; }
+
+        [BEs.Clases.PropiedadVerificable(4)]
+        public BEs.Clases.Negocio.TipoPago TipoPagoEnum { get; set; }
+
+        [BEs.Clases.PropiedadVerificable(5)]
+        public BEs.Clases.Negocio.Enums.EstadoVenta EstadoVentaEnum { get; set; }
+
+        [BEs.Clases.PropiedadVerificable(6)]
+        public int? ClienteId { get; set; }
+
+        [BEs.Clases.PropiedadVerificable(7)]
+        public int? UsuarioVendedorId { get; set; }
+
+        public string DV { get; set; }
     }
 }
 

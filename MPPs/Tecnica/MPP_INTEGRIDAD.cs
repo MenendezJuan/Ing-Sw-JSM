@@ -218,6 +218,22 @@ namespace MPPs
                 throw new Exception($"Error al ejecutar consulta directa: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Actualiza el DVV directamente en la tabla ControlSeguridad
+        /// </summary>
+        public bool ActualizarDVVDirecto(string tipoEntidad, string dvvNuevo)
+        {
+            try
+            {
+                string consulta = $"UPDATE ControlSeguridad SET Digito = '{dvvNuevo}' WHERE Tabla = '{tipoEntidad}'";
+                return oCnx.EjecutarComandoSQL(consulta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar DVV directo: {ex.Message}", ex);
+            }
+        }
     }
 }
 

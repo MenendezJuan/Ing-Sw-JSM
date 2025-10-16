@@ -64,7 +64,12 @@ namespace MPPs
             try
             {
                 DataTable dt = oCnx.Leer("Leer_Usuarios", null);
-                return dt?.AsEnumerable().Select(row => new Usuario((int)row["Id"], row["Email"].ToString(), row["Contraseña"].ToString(), row["DigitoVerificador"].ToString())).ToList();
+                return dt?.AsEnumerable().Select(row => new Usuario(
+                    (int)row["Id"], 
+                    row["Email"].ToString().Trim(),  
+                    row["Contraseña"].ToString(), 
+                    row["DigitoVerificador"].ToString()
+                )).ToList();
             }
             catch (Exception ex) { throw ex; }
         }
@@ -74,7 +79,12 @@ namespace MPPs
             try
             {
                 DataTable dt = oCnx.Leer("Leer_Usuarios_Activos", null);
-                return dt?.AsEnumerable().Select(row => new Usuario((int)row["Id"], row["Email"].ToString(), row["Contraseña"].ToString(), row["DigitoVerificador"].ToString())).ToList();
+                return dt?.AsEnumerable().Select(row => new Usuario(
+                    (int)row["Id"], 
+                    row["Email"].ToString().Trim(), 
+                    row["Contraseña"].ToString(), 
+                    row["DigitoVerificador"].ToString()
+                )).ToList();
             }
             catch (Exception ex) { throw ex; }
         }
@@ -92,7 +102,7 @@ namespace MPPs
                     var row = dt.Rows[0];
                     return new Usuario(
                         (int)row["Id"],
-                        row["Email"].ToString(),
+                        row["Email"].ToString().Trim(),  // Normalizar email
                         row["Contraseña"].ToString(),
                         row["DigitoVerificador"].ToString()
                     );
@@ -118,7 +128,12 @@ namespace MPPs
                 DataTable dt = oCnx.Leer("LogIn", Parametros);
                 if (dt.Rows.Count > 0)
                 {
-                    return dt?.AsEnumerable().Select(row => new Usuario((int)row["Id"], row["Email"].ToString(), row["Contraseña"].ToString(), row["DigitoVerificador"].ToString())).FirstOrDefault();
+                    return dt?.AsEnumerable().Select(row => new Usuario(
+                        (int)row["Id"], 
+                        row["Email"].ToString().Trim(),  // Normalizar email
+                        row["Contraseña"].ToString(), 
+                        row["DigitoVerificador"].ToString()
+                    )).FirstOrDefault();
                 }
                 else
                 {

@@ -305,7 +305,10 @@ namespace CheeseLogix.Negocio
         {
             var proveedores = _bllProveedor.ObtenerTodos();
             dataGridViewProveedor.DataSource = proveedores;
-            if (dataGridViewProveedor.Columns["Estado"] != null)
+            
+            if (dataGridViewProveedor.Columns.Contains("Id"))
+                dataGridViewProveedor.Columns["Id"].Visible = false;
+            if (dataGridViewProveedor.Columns.Contains("Estado"))
                 dataGridViewProveedor.Columns["Estado"].Visible = false;
 
             dataGridViewProveedor.Columns["CUIT"].HeaderText = "C.U.I.T";

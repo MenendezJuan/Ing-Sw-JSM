@@ -198,9 +198,9 @@ namespace CheeseLogix.Negocio.Ventas
             dataGridViewOrdenVenta.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Id",
-                HeaderText = "ID",
+                HeaderText = "Nro. Venta",
                 Name = "Id",
-                Width = 60,
+                Width = 80,
                 ReadOnly = true
             });
 
