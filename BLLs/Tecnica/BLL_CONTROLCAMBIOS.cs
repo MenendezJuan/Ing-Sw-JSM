@@ -335,7 +335,7 @@ namespace BLLs.Tecnica
         /// <returns>Lista de tipos de entidades</returns>
         public List<string> ObtenerTiposEntidadesSoportados()
         {
-            return new List<string> { "Usuario", "Producto", "Venta" };
+            return new List<string> { "Usuario", "Producto", "Venta", "Devolucion", "Devolucion_Detalle" };
         }
 
         /// <summary>
@@ -459,8 +459,29 @@ namespace BLLs.Tecnica
                     return "Productos";
                 case "VENTA":
                     return "Ventas";
+                case "DEVOLUCION":
+                    return "Devolucion";
+                case "DEVOLUCION_DETALLE":
+                    return "Devolucion_Detalle";
                 default:
                     return entidad;
+            }
+        }
+
+        /// <summary>
+        /// Recalcula y guarda el DVV de la tabla indicada (sin tocar DVH de filas)
+        /// </summary>
+        public bool ActualizarDVVTabla(string tipoEntidad)
+        {
+            try
+            {
+                string dvv = CalcularDigitoVerificadorVertical(tipoEntidad);
+                string tabla = ConvertirNombreEntidadATabla(tipoEntidad);
+                return _mppControlCambios.GuardarDigitoVerificadorVertical(tabla, dvv);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar DVV para {tipoEntidad}: {ex.Message}", ex);
             }
         }
 

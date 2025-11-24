@@ -71,6 +71,7 @@
             this.btnAjustesStock = new System.Windows.Forms.Button();
             this.btnDespachoProducto = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
+            this.btnDevoluciones = new System.Windows.Forms.Button();
             this.btnComprasProductos = new System.Windows.Forms.Button();
             this.btnStockProductos = new System.Windows.Forms.Button();
             this.btnHistorialVentas = new System.Windows.Forms.Button();
@@ -603,6 +604,7 @@
             this.panelGestion.Controls.Add(this.btnAjustesStock);
             this.panelGestion.Controls.Add(this.btnDespachoProducto);
             this.panelGestion.Controls.Add(this.btnVentas);
+            this.panelGestion.Controls.Add(this.btnDevoluciones);
             this.panelGestion.Controls.Add(this.btnComprasProductos);
             this.panelGestion.Controls.Add(this.btnStockProductos);
             this.panelGestion.Controls.Add(this.btnHistorialVentas);
@@ -619,7 +621,7 @@
             this.btnAjustesStock.FlatAppearance.BorderSize = 0;
             this.btnAjustesStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAjustesStock.ForeColor = System.Drawing.Color.LightGray;
-            this.btnAjustesStock.Location = new System.Drawing.Point(0, 225);
+            this.btnAjustesStock.Location = new System.Drawing.Point(0, 270);
             this.btnAjustesStock.Name = "btnAjustesStock";
             this.btnAjustesStock.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnAjustesStock.Size = new System.Drawing.Size(211, 45);
@@ -637,7 +639,7 @@
             this.btnDespachoProducto.FlatAppearance.BorderSize = 0;
             this.btnDespachoProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDespachoProducto.ForeColor = System.Drawing.Color.LightGray;
-            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 180);
+            this.btnDespachoProducto.Location = new System.Drawing.Point(0, 225);
             this.btnDespachoProducto.Name = "btnDespachoProducto";
             this.btnDespachoProducto.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnDespachoProducto.Size = new System.Drawing.Size(211, 45);
@@ -655,7 +657,7 @@
             this.btnVentas.FlatAppearance.BorderSize = 0;
             this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVentas.ForeColor = System.Drawing.Color.LightGray;
-            this.btnVentas.Location = new System.Drawing.Point(0, 135);
+            this.btnVentas.Location = new System.Drawing.Point(0, 180);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnVentas.Size = new System.Drawing.Size(211, 45);
@@ -666,6 +668,24 @@
             this.btnVentas.UseVisualStyleBackColor = true;
             this.btnVentas.Visible = false;
             this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
+            // 
+            // btnDevoluciones
+            // 
+            this.btnDevoluciones.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDevoluciones.FlatAppearance.BorderSize = 0;
+            this.btnDevoluciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDevoluciones.ForeColor = System.Drawing.Color.LightGray;
+            this.btnDevoluciones.Location = new System.Drawing.Point(0, 135);
+            this.btnDevoluciones.Name = "btnDevoluciones";
+            this.btnDevoluciones.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnDevoluciones.Size = new System.Drawing.Size(211, 45);
+            this.btnDevoluciones.TabIndex = 11;
+            this.btnDevoluciones.Tag = "btnDevoluciones_formPrincipal";
+            this.btnDevoluciones.Text = "Devoluciones";
+            this.btnDevoluciones.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDevoluciones.UseVisualStyleBackColor = true;
+            this.btnDevoluciones.Visible = false;
+            this.btnDevoluciones.Click += new System.EventHandler(this.btnDevoluciones_Click);
             // 
             // btnComprasProductos
             // 
@@ -920,6 +940,7 @@
         private System.Windows.Forms.Panel PanelEntidades;
         private System.Windows.Forms.Button buttonGestionarClientes;
         private System.Windows.Forms.Button btnVentas;
+        private System.Windows.Forms.Button btnDevoluciones;
         private System.Windows.Forms.Button btnDespachoProducto;
         private System.Windows.Forms.Button btnAjustesStock;
         private System.Windows.Forms.Button btnHistorialVentas;

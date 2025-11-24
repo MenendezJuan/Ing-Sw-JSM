@@ -78,7 +78,7 @@ namespace CheeseLogix
             alertRefreshTimer.Interval = 60000; // 60s
             alertRefreshTimer.Tick += AlertRefreshTimer_Tick;
             alertRefreshTimer.Start();
-            
+
             // Timer para verificación de integridad cada 5 minutos
             integridadTimer = new Timer();
             integridadTimer.Interval = 300000; // 5 minutos
@@ -218,7 +218,7 @@ namespace CheeseLogix
                 int bajos = _bllProducto.ContarProductosBajoStock();
                 int ajustesPend = _bllAjuste.ContarPendientes();
                 int total = bajos + ajustesPend;
-                
+
                 labelAlertas.Text = total > 0 ? $"! {total}" : "! 0";
                 labelAlertas.ForeColor = total > 0 ? Color.OrangeRed : Color.Gainsboro;
                 labelAlertas.Visible = true;
@@ -266,18 +266,19 @@ namespace CheeseLogix
             {
                 // Verificación silenciosa de integridad
                 bool integridadOK = _bllControlCambios.VerificarIntegridadSilenciosa();
-                
+
                 if (!integridadOK)
                 {
                     // Mostrar advertencia visual en la interfaz
-                    this.BeginInvoke(new Action(() => {
+                    this.BeginInvoke(new Action(() =>
+                    {
                         labelAlertas.Text = "⚠ BD";
                         labelAlertas.ForeColor = Color.Red;
                         labelAlertas.Font = new Font(labelAlertas.Font, FontStyle.Bold);
-                        
+
                         if (alertasToolTip != null)
                         {
-                            alertasToolTip.SetToolTip(labelAlertas, 
+                            alertasToolTip.SetToolTip(labelAlertas,
                                 "⚠ ADVERTENCIA DE INTEGRIDAD ⚠\n\n" +
                                 "Se detectaron inconsistencias en la base de datos.\n" +
                                 "Los dígitos verificadores no coinciden.\n\n" +
@@ -739,6 +740,14 @@ namespace CheeseLogix
             frmInicioOrden inicioOrden = new frmInicioOrden();
             AddOwnedForm(inicioOrden);
             FormHijo(inicioOrden);
+            HideSubMenu();
+        }
+
+        private void btnDevoluciones_Click(object sender, EventArgs e)
+        {
+            frmDevolucionProducto devoluciones = new frmDevolucionProducto();
+            AddOwnedForm(devoluciones);
+            FormHijo(devoluciones);
             HideSubMenu();
         }
 

@@ -1,4 +1,5 @@
 using BEs;
+using BEs.Clases.Negocio.Ventas;
 using MPPs;
 using Seguridad;
 using System;
@@ -34,8 +35,7 @@ namespace BLLs
             {
                 VerificarEntidades("Usuario", inconsistencias);
                 VerificarEntidades("Producto", inconsistencias);
-                
-                // ✅ VENTAS HABILITADAS con VentaVerificableWrapper
+
                 try
                 {
                     VerificarEntidades("Venta", inconsistencias);
@@ -44,14 +44,31 @@ namespace BLLs
                 {
                     System.Diagnostics.Debug.WriteLine($"Error al verificar Ventas: {exVenta.Message}");
                 }
+
+                try
+                {
+                    VerificarEntidades("Devolucion", inconsistencias);
+                }
+                catch (Exception exDevolucion)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al verificar Devoluciones: {exDevolucion.Message}");
+                }
+
+                try
+                {
+                    VerificarEntidades("Devolucion_Detalle", inconsistencias);
+                }
+                catch (Exception exDetalle)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error al verificar Detalles de Devolución: {exDetalle.Message}");
+                }
                 
-                VerificarDigitosVerticales(inconsistencias); // ✅ DVV habilitado
+                VerificarDigitosVerticales(inconsistencias); 
 
                 return inconsistencias.Count == 0;
             }
             catch (Exception ex)
             {
-                // En caso de error crítico, agregar como inconsistencia
                 inconsistencias.Add(new InconsistenciaIntegridad
                 {
                     TipoEntidad = "Sistema",
@@ -183,6 +200,37 @@ namespace BLLs
                             }
                         }
                         break;
+
+                    case "DEVOLUCION":
+                    case "DEVOLUCIONES":
+                        // Usar MPP_DEVOLUCION para obtener devoluciones
+                        var mppDevolucion = new MPPs.MPP_DEVOLUCION();
+                        var devoluciones = mppDevolucion.Listar();
+                        var devolucion = devoluciones.FirstOrDefault(d => d.Id == entidadId);
+
+                        if (devolucion != null)
+                        {
+                            return Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(devolucion);
+                        }
+                        break;
+
+                    case "DEVOLUCION_DETALLE":
+                    case "DEVOLUCION_DETALLES":
+                        // Para detalles, necesitamos obtener la devolución completa
+                        var mppDevolucionDetalle = new MPPs.MPP_DEVOLUCION();
+                        var devolucionesParaDetalle = mppDevolucionDetalle.Listar();
+                        var devolucionPadre = devolucionesParaDetalle.FirstOrDefault(d =>
+                            d.oDetalles != null && d.oDetalles.Any(dd => dd.Id == entidadId));
+
+                        if (devolucionPadre != null)
+                        {
+                            var detalle = devolucionPadre.oDetalles.FirstOrDefault(dd => dd.Id == entidadId);
+                            if (detalle != null)
+                            {
+                                return Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(detalle);
+                            }
+                        }
+                        break;
                 }
 
                 return string.Empty;
@@ -215,6 +263,14 @@ namespace BLLs
                     case "VENTA":
                     case "VENTAS":
                         consulta = "SELECT COALESCE(STRING_AGG(ISNULL(DigitoVerificador, ''), '') WITHIN GROUP (ORDER BY Id), '') FROM Venta";
+                        break;
+                    case "DEVOLUCION":
+                    case "DEVOLUCIONES":
+                        consulta = "SELECT COALESCE(STRING_AGG(ISNULL(DigitoVerificador, ''), '') WITHIN GROUP (ORDER BY Id), '') FROM Devolucion";
+                        break;
+                    case "DEVOLUCION_DETALLE":
+                    case "DEVOLUCION_DETALLES":
+                        consulta = "SELECT COALESCE(STRING_AGG(ISNULL(DigitoVerificador, ''), '') WITHIN GROUP (ORDER BY Id), '') FROM Devolucion_Detalle";
                         break;
                     default:
                         return string.Empty;

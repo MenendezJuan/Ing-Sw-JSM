@@ -117,6 +117,41 @@ namespace Seguridad
                             (int?)null
                     };
 
+                case "Devolucion":
+                case "DEVOLUCION":
+                    return new BEs.Clases.Negocio.Ventas.Devolucion
+                    {
+                        Id = row.Table.Columns.Contains("Id") ? Convert.ToInt32(row["Id"]) : 0,
+                        VentaId = row.Table.Columns.Contains("VentaId") ? Convert.ToInt32(row["VentaId"]) : 0,
+                        FechaSolicitud = row.Table.Columns.Contains("FechaSolicitud") && row["FechaSolicitud"] != DBNull.Value
+                            ? Convert.ToDateTime(row["FechaSolicitud"]) : DateTime.Now,
+                        Estado = row.Table.Columns.Contains("Estado") && row["Estado"] != DBNull.Value
+                            ? (BEs.Clases.Negocio.Enums.EstadoDevolucion)Convert.ToInt32(row["Estado"])
+                            : BEs.Clases.Negocio.Enums.EstadoDevolucion.Iniciada,
+                        Motivo = row.Table.Columns.Contains("Motivo") ? row["Motivo"]?.ToString() : string.Empty,
+                        ObservacionesGerente = row.Table.Columns.Contains("ObservacionesGerente") ? row["ObservacionesGerente"]?.ToString() : string.Empty,
+                        FechaDecision = row.Table.Columns.Contains("FechaDecision") && row["FechaDecision"] != DBNull.Value
+                            ? Convert.ToDateTime(row["FechaDecision"]) : (DateTime?)null,
+                        UsuarioGerenteId = row.Table.Columns.Contains("UsuarioGerenteId") && row["UsuarioGerenteId"] != DBNull.Value
+                            ? Convert.ToInt32(row["UsuarioGerenteId"]) : (int?)null,
+                        ObservacionesDeposito = row.Table.Columns.Contains("ObservacionesDeposito") ? row["ObservacionesDeposito"]?.ToString() : string.Empty,
+                        FechaProcesamiento = row.Table.Columns.Contains("FechaProcesamiento") && row["FechaProcesamiento"] != DBNull.Value
+                            ? Convert.ToDateTime(row["FechaProcesamiento"]) : (DateTime?)null,
+                        UsuarioDepositoId = row.Table.Columns.Contains("UsuarioDepositoId") && row["UsuarioDepositoId"] != DBNull.Value
+                            ? Convert.ToInt32(row["UsuarioDepositoId"]) : (int?)null
+                    };
+
+                case "Devolucion_Detalle":
+                case "DEVOLUCION_DETALLE":
+                    return new BEs.Clases.Negocio.Ventas.DevolucionDetalle
+                    {
+                        Id = row.Table.Columns.Contains("Id") ? Convert.ToInt32(row["Id"]) : 0,
+                        DevolucionId = row.Table.Columns.Contains("DevolucionId") ? Convert.ToInt32(row["DevolucionId"]) : 0,
+                        ProductoId = row.Table.Columns.Contains("ProductoId") ? Convert.ToInt32(row["ProductoId"]) : 0,
+                        Cantidad = row.Table.Columns.Contains("Cantidad") && row["Cantidad"] != DBNull.Value
+                            ? Convert.ToDecimal(row["Cantidad"]) : 0m
+                    };
+
                 default:
                     throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
             }

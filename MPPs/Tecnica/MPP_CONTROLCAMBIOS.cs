@@ -138,6 +138,14 @@ namespace MPPs.Tecnica
                     case "VENTAS":
                         consulta = "SELECT Id, Comentario, MontoTotal, Fecha, TipoPagoEnum, EstadoVenta, ClienteId, UsuarioVendedorId FROM Venta WHERE Id = @Id";
                         break;
+                    case "DEVOLUCION":
+                    case "DEVOLUCIONES":
+                        consulta = "SELECT Id, VentaId, FechaSolicitud, Estado, Motivo, ObservacionesGerente, FechaDecision, UsuarioGerenteId, ObservacionesDeposito, FechaProcesamiento, UsuarioDepositoId FROM Devolucion WHERE Id = @Id";
+                        break;
+                    case "DEVOLUCION_DETALLE":
+                    case "DEVOLUCION_DETALLES":
+                        consulta = "SELECT Id, DevolucionId, ProductoId, Cantidad FROM Devolucion_Detalle WHERE Id = @Id";
+                        break;
                     default:
                         throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
                 }
@@ -176,6 +184,14 @@ namespace MPPs.Tecnica
                     case "VENTAS":
                         consulta = "UPDATE Venta SET DigitoVerificador = @DVH WHERE Id = @Id";
                         break;
+                    case "DEVOLUCION":
+                    case "DEVOLUCIONES":
+                        consulta = "UPDATE Devolucion SET DigitoVerificador = @DVH WHERE Id = @Id";
+                        break;
+                    case "DEVOLUCION_DETALLE":
+                    case "DEVOLUCION_DETALLES":
+                        consulta = "UPDATE Devolucion_Detalle SET DigitoVerificador = @DVH WHERE Id = @Id";
+                        break;
                     default:
                         throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
                 }
@@ -211,6 +227,14 @@ namespace MPPs.Tecnica
 
                 case "VENTA":
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Venta WITH (NOLOCK) WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    break;
+
+                case "DEVOLUCION":
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Devolucion WITH (NOLOCK) WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    break;
+
+                case "DEVOLUCION_DETALLE":
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Devolucion_Detalle WITH (NOLOCK) WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
 
                 default:
@@ -336,6 +360,14 @@ namespace MPPs.Tecnica
                     consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Venta WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
                     break;
 
+                case "DEVOLUCION":
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Devolucion WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    break;
+
+                case "DEVOLUCION_DETALLE":
+                    consulta = "SELECT ISNULL(DigitoVerificador, '') AS DV FROM Devolucion_Detalle WHERE DigitoVerificador IS NOT NULL ORDER BY Id";
+                    break;
+
                 default:
                     throw new ArgumentException($"Tipo de entidad no soportado: {tipoEntidad}");
             }
@@ -367,6 +399,14 @@ namespace MPPs.Tecnica
 
                 case "VENTA":
                     consulta = "SELECT DigitoVerificador FROM Venta WHERE Id = @Id";
+                    break;
+
+                case "DEVOLUCION":
+                    consulta = "SELECT DigitoVerificador FROM Devolucion WHERE Id = @Id";
+                    break;
+
+                case "DEVOLUCION_DETALLE":
+                    consulta = "SELECT DigitoVerificador FROM Devolucion_Detalle WHERE Id = @Id";
                     break;
 
                 default:

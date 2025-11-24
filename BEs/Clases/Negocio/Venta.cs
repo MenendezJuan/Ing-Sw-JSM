@@ -32,6 +32,7 @@ namespace BEs.Clases.Negocio.Ventas
         public Usuario oVendedor { get; set; }
         public List<DetalleVenta> oDetalleVenta { get; set; }
 
+        // Propiedades calculadas para la UI
         public string NombreCliente => oCliente?.NombreCompleto ?? "Cliente no disponible";
         
         public string NombreVendedor 
@@ -40,6 +41,7 @@ namespace BEs.Clases.Negocio.Ventas
             {
                 if (oVendedor?.Email != null)
                 {
+                    // Extraer el nombre antes del @ del email
                     var partes = oVendedor.Email.Split('@');
                     return partes.Length > 0 ? partes[0] : "No disponible";
                 }
@@ -47,6 +49,7 @@ namespace BEs.Clases.Negocio.Ventas
             } 
         }
         
+        // Propiedad para dígito verificador
         public string DV { get; set; }
     }
 }

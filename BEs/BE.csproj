@@ -50,6 +50,7 @@
     <Compile Include="Clases\HistorialUsuario.cs" />
     <Compile Include="Clases\Idioma.cs" />
     <Compile Include="Clases\Negocio\Enums\EstadoVenta.cs" />
+    <Compile Include="Clases\Negocio\Enums\EstadoDevolucion.cs" />
     <Compile Include="Clases\Negocio\Enums\EstadoAjuste.cs" />
     <Compile Include="Clases\Negocio\Enums\TipoAjuste.cs" />
     <Compile Include="Clases\Negocio\Enums\TipoAlerta.cs" />
@@ -60,6 +61,8 @@
     <Compile Include="Clases\Negocio\Compras\Cotizacion.cs" />
     <Compile Include="Clases\Negocio\Compras\DetalleCotizacion.cs" />
     <Compile Include="Clases\Negocio\VentasP\DetalleVenta.cs" />
+    <Compile Include="Clases\Negocio\Ventas\Devolucion.cs" />
+    <Compile Include="Clases\Negocio\Ventas\DevolucionDetalle.cs" />
     <Compile Include="Clases\Negocio\Enums\EstadoCompra.cs" />
     <Compile Include="Clases\Negocio\Enums\Categoria.cs" />
     <Compile Include="Clases\Negocio\Compras\DetalleCompra.cs" />
@@ -67,7 +70,6 @@
     <Compile Include="Clases\Negocio\Inventario\Producto.cs" />
     <Compile Include="Clases\Negocio\Inventario\AjusteStock.cs" />
     <Compile Include="Clases\Negocio\Inventario\Alerta.cs" />
-    <Compile Include="Clases\Negocio\Inventario\Devolucion.cs" />
     <Compile Include="Clases\Negocio\Compras\Proveedor.cs" />
     <Compile Include="Clases\Negocio\Enums\TipoPago.cs" />
     <Compile Include="Clases\Negocio\Inventario\ProductoProveedor.cs" />

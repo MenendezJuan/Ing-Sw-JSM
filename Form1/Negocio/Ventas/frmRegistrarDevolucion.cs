@@ -104,17 +104,15 @@ namespace CheeseLogix.Negocio.Ventas
             bool apto = chkApto.Checked;
             int? usuarioId = sesion.oUsuario != null ? (int?)sesion.oUsuario.Id : null;
 
-            // Validar que no se pueda devolver más de lo que se compró
             if (!ValidarCantidadDevolucion(ventaId, productoId, cantidad))
             {
-                return; // La validación ya muestra el mensaje de error
+                return;
             }
 
             try
             {
-                _bllDevolucion.RegistrarCliente(ventaId, productoId, cantidad, motivo, apto, usuarioId);
+                _bllDevolucion.RegistrarCliente(ventaId, productoId, cantidad, motivo, apto);
 
-                // Generar Nota de Crédito (parcial, solo por lo devuelto)
                 var venta = _bllVenta.ObtenerPorId(ventaId);
                 var producto = _bllProducto.ObtenerPorId(productoId);
                 var items = new System.Collections.Generic.List<(string Producto, decimal Cantidad, decimal PrecioUnit)>
@@ -124,7 +122,6 @@ namespace CheeseLogix.Negocio.Ventas
                 string ruta = _bllFacturacion.GenerarNotaCreditoPDF(venta, items, motivo);
                 MessageBox.Show($"Devolución registrada correctamente.\nNota de Crédito generada en:\n{ruta}", ConstantesUI.Titulos.Informacion, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Preguntar si desea abrir la nota de crédito
                 var abrirNota = MessageBox.Show("¿Desea abrir la Nota de Crédito generada?",
                     ConstantesUI.Titulos.Confirmacion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
