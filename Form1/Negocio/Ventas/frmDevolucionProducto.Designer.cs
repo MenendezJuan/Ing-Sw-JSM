@@ -302,6 +302,7 @@ namespace CheeseLogix
             this.btnHistorial.Tag = "Button_HistorialDevolucion_GesDev";
             this.btnHistorial.Text = "Historial";
             this.btnHistorial.UseVisualStyleBackColor = false;
+            this.btnHistorial.Visible = false;
             this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
             // btnProcesar
@@ -319,6 +320,7 @@ namespace CheeseLogix
             this.btnProcesar.Tag = "Button_ProcesarDevolucion_GesDev";
             this.btnProcesar.Text = "Procesar";
             this.btnProcesar.UseVisualStyleBackColor = false;
+            this.btnProcesar.Visible = false;
             this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click);
             // 
             // btnEvaluar
@@ -336,6 +338,7 @@ namespace CheeseLogix
             this.btnEvaluar.Tag = "Button_EvaluarDevolucion_GesDev";
             this.btnEvaluar.Text = "Evaluar";
             this.btnEvaluar.UseVisualStyleBackColor = false;
+            this.btnEvaluar.Visible = false;
             this.btnEvaluar.Click += new System.EventHandler(this.btnEvaluar_Click);
             // 
             // btnNuevaDevolucion
@@ -353,6 +356,7 @@ namespace CheeseLogix
             this.btnNuevaDevolucion.Tag = "Button_NuevaDevolucion_GesDev";
             this.btnNuevaDevolucion.Text = "Nueva devolución";
             this.btnNuevaDevolucion.UseVisualStyleBackColor = false;
+            this.btnNuevaDevolucion.Visible = false;
             this.btnNuevaDevolucion.Click += new System.EventHandler(this.btnNuevaDevolucion_Click);
             // 
             // tableLayoutPanel2
