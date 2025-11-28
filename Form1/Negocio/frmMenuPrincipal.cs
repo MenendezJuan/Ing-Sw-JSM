@@ -46,13 +46,14 @@ namespace CheeseLogix
             IIdioma oIdioma = sesion.Idioma;
             CargarIdiomas();
             Actualizar(oIdioma);
+            CustomizeDesing();
             if (sesion.Permisos != null)
             {
                 BuscarControles(this.Controls);
                 Buscar(sesion.Permisos[0]);
+                ActualizarVisibilidadSecciones();
             }
             labelNombreUser.Text = CargarUsuarioLabel();
-            CustomizeDesing();
             InicializarEstilos();
             InicializarTooltipAlertas();
         }
@@ -101,9 +102,34 @@ namespace CheeseLogix
 
         private void CustomizeDesing()
         {
+            // Ocultar todos los paneles de submenu inicialmente
+            // Se mostrarán cuando se haga click en el botón principal correspondiente
             panelGestion.Visible = false;
             panelCotizaciones.Visible = false;
             PanelEntidades.Visible = false;
+            panelCaja.Visible = false;
+        }
+
+        private void ActualizarVisibilidadSecciones()
+        {
+            MostrarSeccion(btnGestionProducto, panelGestion);
+            MostrarSeccion(buttonEntidades, PanelEntidades);
+            MostrarSeccion(btnCaja, panelCaja);
+            MostrarSeccion(btnControl, panelCotizaciones);
+        }
+
+        private void MostrarSeccion(Button boton, Panel panel)
+        {
+            if (boton == null || panel == null)
+            {
+                return;
+            }
+
+            bool tieneHijosVisibles = panel.Controls.Cast<Control>().Any(ctrl => ctrl.Visible);
+            if (tieneHijosVisibles)
+            {
+                boton.Visible = true;
+            }
         }
 
         private void HideSubMenu()
@@ -591,6 +617,41 @@ namespace CheeseLogix
                 if (c.Tag != null && c.Tag.ToString() == p.Nombre)
                 {
                     c.Visible = true;
+                    
+                    // Si el control está dentro de un panel de submenu, hacer visible el botón principal
+                    // PERO NO el panel (el panel se despliega al hacer click en el botón principal)
+                    if (c.Parent != null)
+                    {
+                        if (c.Parent.Name == "panelGestion")
+                        {
+                            btnGestionProducto.Visible = true;
+                        }
+                        else if (c.Parent.Name == "panelCotizaciones")
+                        {
+                            btnControl.Visible = true;
+                        }
+                        else if (c.Parent.Name == "PanelEntidades")
+                        {
+                            buttonEntidades.Visible = true;
+                        }
+                        else if (c.Parent.Name == "panelCaja")
+                        {
+                            btnCaja.Visible = true;
+                        }
+                        else
+                        {
+                            // Para otros controles (no en subpaneles), hacer visible la jerarquía completa
+                            Control parent = c.Parent;
+                            while (parent != null && parent != this)
+                            {
+                                if (!parent.Visible)
+                                {
+                                    parent.Visible = true;
+                                }
+                                parent = parent.Parent;
+                            }
+                        }
+                    }
                 }
             }
         }

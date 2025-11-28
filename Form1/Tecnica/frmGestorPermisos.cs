@@ -146,14 +146,37 @@ namespace CheeseLogix
         {
             try
             {
-                if (textBox_Nombre.Text == string.Empty) { MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Ingrese("el nombre del grupo")); return; }
-                GrupoPermisos oGrupo = new GrupoPermisos(0, textBox_Nombre.Text);
-                Bll_Permiso.AgregarGrupo(oGrupo);
-                ActualizarCombos();
-                ActualizarPermisos();
-                textBox_Nombre.Clear();
+                if (string.IsNullOrWhiteSpace(textBox_Nombre.Text)) 
+                { 
+                    MessageBox.Show(BLLs.Tecnica.ConstantesUI.Plantillas.Ingrese("el nombre del grupo"), 
+                                    "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                    return; 
+                }
+                
+                GrupoPermisos oGrupo = new GrupoPermisos(0, textBox_Nombre.Text.Trim());
+                
+                bool resultado = Bll_Permiso.AgregarGrupo(oGrupo);
+                
+                if (resultado)
+                {
+                    MessageBox.Show($"Grupo '{oGrupo.Nombre}' creado exitosamente.", 
+                                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    ActualizarCombos();
+                    ActualizarPermisos();
+                    textBox_Nombre.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo crear el grupo. Verifique que no exista un grupo con el mismo nombre.", 
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show($"Error al crear el grupo:\n{ex.Message}\n\nDetalles: {ex.StackTrace}", 
+                                BLLs.Tecnica.ConstantesUI.Titulos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
         }
 
         private List<TreeNode> Nodos = new List<TreeNode>();
@@ -312,21 +335,63 @@ namespace CheeseLogix
         {
             try
             {
+                // Validar que haya un nodo seleccionado
+                if (treeView1.SelectedNode == null)
+                {
+                    MessageBox.Show("Por favor, seleccione un permiso o grupo para eliminar.", 
+                                    "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Validar que no se intente borrar el nodo raíz ADMIN
+                if (treeView1.SelectedNode.Text == "ADMIN" && treeView1.SelectedNode.Parent == null)
+                {
+                    MessageBox.Show("No se puede eliminar el grupo ADMIN principal.", 
+                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                Componente oComponente = (Componente)treeView1.SelectedNode.Tag;
+                
+                // Confirmar eliminación
+                DialogResult confirmacion = MessageBox.Show(
+                    $"¿Está seguro de eliminar '{oComponente.Nombre}'?\n\n" +
+                    "Esta acción no se puede deshacer.",
+                    "Confirmar eliminación", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+                
+                if (confirmacion != DialogResult.Yes)
+                {
+                    return;
+                }
+
                 GrupoPermisos Padre = null;
-                if (treeView1.Nodes.Count < 1) { Padre = null; }
-                else if (treeView1.SelectedNode.Parent != null)
+                if (treeView1.SelectedNode.Parent != null)
                 {
                     Padre = (GrupoPermisos)treeView1.SelectedNode.Parent.Tag;
                 }
-                Componente oComponente = (Componente)treeView1.SelectedNode.Tag;
 
                 if (Bll_Permiso.Borrar(oComponente, Padre))
                 {
-                    MessageBox.Show("Se eliminó el permiso seleccionado", BLLs.Tecnica.ConstantesUI.Titulos.Informacion);
+                    MessageBox.Show($"Se eliminó '{oComponente.Nombre}' exitosamente.", 
+                                    BLLs.Tecnica.ConstantesUI.Titulos.Informacion, 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ActualizarCombos();
+                    ActualizarPermisos();
                 }
-                ActualizarCombos();
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el elemento seleccionado.", 
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, BLLs.Tecnica.ConstantesUI.Titulos.Error); }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show($"Error al eliminar:\n{ex.Message}", 
+                                BLLs.Tecnica.ConstantesUI.Titulos.Error, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
         }
 
         private void button_AsignarGrupo_Click(object sender, EventArgs e)

@@ -476,6 +476,7 @@
             this.btnReportes.Tag = "btnReportes_formPrincipal";
             this.btnReportes.Text = "Reportes";
             this.btnReportes.UseVisualStyleBackColor = true;
+            this.btnReportes.Visible = false;
             this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
             // 
             // PanelEntidades
@@ -738,6 +739,7 @@
             this.btnHistorialVentas.Text = "Historial de Ventas";
             this.btnHistorialVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHistorialVentas.UseVisualStyleBackColor = true;
+            this.btnHistorialVentas.Visible = false;
             this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
             // 
             // btnGestionProducto

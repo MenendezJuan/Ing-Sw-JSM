@@ -1,7 +1,10 @@
+admin
+tutu@gmail.com
+tutu@gmail.com
+
 Gerente:
 juanceto01@gmail.com
 8970
-
 
 Encargado de compras:
 chamu01@gmail.com
@@ -9,4 +12,12 @@ chamu01@gmail.com
 
 Encargado de deposito
 gonzag@gmail.com
+1234
+
+Cajero:
+pitymartinez@gmail.com
+1234
+
+Vendedor:
+chiqui@tapia.com
 1234
