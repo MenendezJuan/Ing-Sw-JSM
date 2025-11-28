@@ -392,6 +392,82 @@ namespace BLLs.Tecnica
             }
         }
 
+        /// <summary>
+        /// Busca el PDF de ayuda en línea según el idioma seleccionado
+        /// </summary>
+        /// <param name="nombreIdioma">Nombre del idioma (Español, Alemán, Portugués, Inglés)</param>
+        /// <returns>Ruta completa del archivo PDF de ayuda</returns>
+        public static string BuscarAyudaEnLineaPorIdioma(string nombreIdioma)
+        {
+            try
+            {
+                // Mapear nombre de idioma a sufijo de archivo
+                string sufijo = "";
+                if (!string.IsNullOrWhiteSpace(nombreIdioma))
+                {
+                    string nombreLower = nombreIdioma.ToLower();
+                    if (nombreLower.Contains("alemán") || nombreLower.Contains("aleman") || nombreLower.Contains("deutsch") || nombreLower == "de")
+                        sufijo = "-DE";
+                    else if (nombreLower.Contains("portugués") || nombreLower.Contains("portugues") || nombreLower.Contains("português") || nombreLower == "pt")
+                        sufijo = "-PT";
+                    else if (nombreLower.Contains("inglés") || nombreLower.Contains("ingles") || nombreLower.Contains("english") || nombreLower == "en")
+                        sufijo = "-EN";
+                }
+
+                string nombreArchivo = $"Cheeselogix-AyudaEnLinea{sufijo}.pdf";
+
+                string[] posiblesRutas = {
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "..", "..", "Carpeta", nombreArchivo),
+                    Path.Combine(System.Windows.Forms.Application.StartupPath, "Carpeta", nombreArchivo),
+                    Path.Combine(Environment.CurrentDirectory, "Carpeta", nombreArchivo),
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Carpeta", nombreArchivo),
+                    BuscarArchivoHaciaArribaEnCarpeta(nombreArchivo)
+                };
+
+                foreach (string ruta in posiblesRutas)
+                {
+                    if (!string.IsNullOrEmpty(ruta) && File.Exists(ruta))
+                    {
+                        return ruta;
+                    }
+                }
+
+                return posiblesRutas[0];
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error al buscar ayuda en línea por idioma: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Busca un archivo hacia arriba en la jerarquía dentro de la carpeta Carpeta
+        /// </summary>
+        private static string BuscarArchivoHaciaArribaEnCarpeta(string nombreArchivo)
+        {
+            try
+            {
+                DirectoryInfo directorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+
+                for (int i = 0; i < 5 && directorio != null; i++)
+                {
+                    string rutaCompleta = Path.Combine(directorio.FullName, "Carpeta", nombreArchivo);
+                    if (File.Exists(rutaCompleta))
+                    {
+                        return rutaCompleta;
+                    }
+
+                    directorio = directorio.Parent;
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         #endregion Configuraciones específicas de Documentación
     }
 }

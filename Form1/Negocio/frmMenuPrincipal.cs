@@ -814,12 +814,5 @@ namespace CheeseLogix
             HideSubMenu();
         }
 
-        private void btnRegistrarDevolucion_Click(object sender, EventArgs e)
-        {
-            var frm = new CheeseLogix.Negocio.Ventas.frmRegistrarDevolucion();
-            AddOwnedForm(frm);
-            FormHijo(frm);
-            HideSubMenu();
-        }
     }
 }

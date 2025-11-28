@@ -37,17 +37,18 @@ namespace BLLs.Negocio
         {
             ValidarDevolucionParaInicio(devolucion, detalles);
 
-            devolucion.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(devolucion);
+            // DVH/DVV deshabilitado temporalmente
+            //devolucion.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(devolucion);
 
-            foreach (var detalle in detalles)
-            {
-                detalle.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(detalle);
-            }
+            //foreach (var detalle in detalles)
+            //{
+            //    detalle.DV = Seguridad.Seguridad.CalcularDigitoVerificadorHorizontal(detalle);
+            //}
 
             int devolucionId = devolucionRepository.Crear(devolucion, detalles);
 
-            _bllControlCambios.ActualizarDigitoVerificador("DEVOLUCION", devolucionId);
-            _bllControlCambios.ActualizarDVVTabla("DEVOLUCION_DETALLE");
+            //_bllControlCambios.ActualizarDigitoVerificador("DEVOLUCION", devolucionId);
+            //_bllControlCambios.ActualizarDVVTabla("DEVOLUCION_DETALLE");
 
             var bllBitacora = new BLL_BITACORA();
             var mppBitacora = new MPPs.MPP_BITACORA();
@@ -73,16 +74,17 @@ namespace BLLs.Negocio
             // Actualizar evaluación
             devolucionRepository.ActualizarEstadoEvaluacion(devolucionId, decision, observacionesGerente, usuarioGerenteId, DateTime.Now);
 
-            // Actualizar DVH en BD
-            try
-            {
-                _bllControlCambios.ActualizarDigitoVerificador("DEVOLUCION", devolucionId);
-                _bllControlCambios.ActualizarDVVTabla("DEVOLUCION");
-            }
-            catch
-            {
-                System.Diagnostics.Debug.WriteLine("DV para DEVOLUCION no soportado por ControlCambios aún. Continuando.");
-            }
+            // DVH/DVV deshabilitado temporalmente
+            //// Actualizar DVH en BD
+            //try
+            //{
+            //    _bllControlCambios.ActualizarDigitoVerificador("DEVOLUCION", devolucionId);
+            //    _bllControlCambios.ActualizarDVVTabla("DEVOLUCION");
+            //}
+            //catch
+            //{
+            //    System.Diagnostics.Debug.WriteLine("DV para DEVOLUCION no soportado por ControlCambios aún. Continuando.");
+            //}
 
             // Registrar en bitácora
             string mensajeBitacora = decision == EstadoDevolucion.Autorizada

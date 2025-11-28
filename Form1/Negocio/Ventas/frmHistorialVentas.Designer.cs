@@ -21,7 +21,8 @@ namespace CheeseLogix.Negocio.Ventas
             this.gridVentas = new System.Windows.Forms.DataGridView();
             this.gridDetalles = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanelAcciones = new System.Windows.Forms.TableLayoutPanel();
-            this.btnRegistrarDevolucion = new System.Windows.Forms.Button();
+            this.btnExportarPDF = new System.Windows.Forms.Button();
+            this.btnExportarExcel = new System.Windows.Forms.Button();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelHeader.SuspendLayout();
             this.tableLayoutPanelIdioma.SuspendLayout();
@@ -153,7 +154,8 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelAcciones.ColumnCount = 2;
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelAcciones.Controls.Add(this.btnRegistrarDevolucion, 0, 0);
+            this.tableLayoutPanelAcciones.Controls.Add(this.btnExportarPDF, 0, 0);
+            this.tableLayoutPanelAcciones.Controls.Add(this.btnExportarExcel, 1, 0);
             this.tableLayoutPanelAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelAcciones.Location = new System.Drawing.Point(3, 553);
             this.tableLayoutPanelAcciones.Name = "tableLayoutPanelAcciones";
@@ -161,23 +163,39 @@ namespace CheeseLogix.Negocio.Ventas
             this.tableLayoutPanelAcciones.Size = new System.Drawing.Size(994, 44);
             this.tableLayoutPanelAcciones.TabIndex = 2;
             // 
-            // btnRegistrarDevolucion
+            // btnExportarPDF
             // 
-            this.btnRegistrarDevolucion.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRegistrarDevolucion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
-            this.btnRegistrarDevolucion.Enabled = false;
-            this.btnRegistrarDevolucion.FlatAppearance.BorderSize = 0;
-            this.btnRegistrarDevolucion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegistrarDevolucion.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnRegistrarDevolucion.Location = new System.Drawing.Point(3, 6);
-            this.btnRegistrarDevolucion.Name = "btnRegistrarDevolucion";
-            this.btnRegistrarDevolucion.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
-            this.btnRegistrarDevolucion.Size = new System.Drawing.Size(101, 32);
-            this.btnRegistrarDevolucion.TabIndex = 0;
-            this.btnRegistrarDevolucion.Tag = "RegistrarDevolucion";
-            this.btnRegistrarDevolucion.Text = "Registrar Devolución";
-            this.btnRegistrarDevolucion.UseVisualStyleBackColor = false;
-            this.btnRegistrarDevolucion.Click += new System.EventHandler(this.btnRegistrarDevolucion_Click);
+            this.btnExportarPDF.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnExportarPDF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnExportarPDF.FlatAppearance.BorderSize = 0;
+            this.btnExportarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportarPDF.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnExportarPDF.Location = new System.Drawing.Point(3, 6);
+            this.btnExportarPDF.Name = "btnExportarPDF";
+            this.btnExportarPDF.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
+            this.btnExportarPDF.Size = new System.Drawing.Size(120, 32);
+            this.btnExportarPDF.TabIndex = 0;
+            this.btnExportarPDF.Tag = "btnExportarPDF";
+            this.btnExportarPDF.Text = "Exportar a PDF";
+            this.btnExportarPDF.UseVisualStyleBackColor = false;
+            this.btnExportarPDF.Click += new System.EventHandler(this.btnExportarPDF_Click);
+            // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnExportarExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(64)))), ((int)(((byte)(62)))));
+            this.btnExportarExcel.FlatAppearance.BorderSize = 0;
+            this.btnExportarExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportarExcel.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnExportarExcel.Location = new System.Drawing.Point(871, 6);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
+            this.btnExportarExcel.Size = new System.Drawing.Size(120, 32);
+            this.btnExportarExcel.TabIndex = 1;
+            this.btnExportarExcel.Tag = "btnExportarExcel";
+            this.btnExportarExcel.Text = "Exportar a Excel";
+            this.btnExportarExcel.UseVisualStyleBackColor = false;
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
             // 
             // frmHistorialVentas
             // 
@@ -186,8 +204,10 @@ namespace CheeseLogix.Negocio.Ventas
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.tableLayoutPanelMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHistorialVentas";
             this.Text = "Historial de Ventas";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelHeader.ResumeLayout(false);
             this.tableLayoutPanelHeader.PerformLayout();
@@ -211,7 +231,8 @@ namespace CheeseLogix.Negocio.Ventas
 		private System.Windows.Forms.DataGridView gridVentas;
 		private System.Windows.Forms.DataGridView gridDetalles;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanelAcciones;
-		private System.Windows.Forms.Button btnRegistrarDevolucion;
+		private System.Windows.Forms.Button btnExportarPDF;
+		private System.Windows.Forms.Button btnExportarExcel;
 	}
 }
 

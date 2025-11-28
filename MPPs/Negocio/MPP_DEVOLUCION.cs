@@ -1,13 +1,10 @@
-using BEs.Clases.Negocio;
 using BEs.Clases.Negocio.Enums;
 using BEs.Clases.Negocio.Ventas;
 using Servicios;
-using System.Data.SqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace MPPs
 {
@@ -140,9 +137,9 @@ namespace MPPs
 
             DataTable dt = oCnx.Leer("ObtenerCantidadDevueltaAcumulada", parametros);
 
-            if (dt.Rows.Count > 0 && dt.Rows[0]["TotalDevuelto"] != DBNull.Value)
+            if (dt.Rows.Count > 0 && dt.Rows[0]["CantidadDevuelta"] != DBNull.Value)
             {
-                return Convert.ToDecimal(dt.Rows[0]["TotalDevuelto"]);
+                return Convert.ToDecimal(dt.Rows[0]["CantidadDevuelta"]);
             }
 
             return 0;

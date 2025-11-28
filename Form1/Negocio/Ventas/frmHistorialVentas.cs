@@ -7,6 +7,7 @@ using BLLs.Negocio;
 using BLLs.Tecnica;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,6 +19,7 @@ namespace CheeseLogix.Negocio.Ventas
         private readonly BLL_VENTA _bllVenta;
         private readonly BLL_IDIOMA Bll_Idioma;
         private readonly BLL_TRADUCCION Bll_Traduccion;
+        private readonly BLL_EXPORTACION _bllExportacion;
         private readonly SessionManager sesion;
 
         private Venta _ventaSeleccionada;
@@ -29,6 +31,7 @@ namespace CheeseLogix.Negocio.Ventas
             _bllVenta = new BLL_VENTA();
             Bll_Idioma = new BLL_IDIOMA();
             Bll_Traduccion = new BLL_TRADUCCION();
+            _bllExportacion = new BLL_EXPORTACION();
             CargarIdiomas();
             Actualizar(sesion.Idioma);
             ConfigurarEstilosDataGrids();
@@ -86,7 +89,6 @@ namespace CheeseLogix.Negocio.Ventas
                 var detalles = _bllVenta.ObtenerDetallesPorVentaId(ventaId);
                 gridDetalles.DataSource = detalles;
                 FormatearGrillaDetalles();
-                btnRegistrarDevolucion.Enabled = (detalles != null && detalles.Any());
             }
             catch (Exception ex)
             {
@@ -185,28 +187,143 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void gridDetalles_SelectionChanged(object sender, EventArgs e)
         {
-            btnRegistrarDevolucion.Enabled = gridDetalles.CurrentRow != null;
+            // Evento mantenido para compatibilidad, sin funcionalidad específica
         }
 
-        private void btnRegistrarDevolucion_Click(object sender, EventArgs e)
+        private void btnExportarPDF_Click(object sender, EventArgs e)
         {
-            if (_ventaSeleccionada == null || gridDetalles.CurrentRow == null) return;
-            var detalle = gridDetalles.CurrentRow.DataBoundItem as BEs.Clases.Negocio.Ventas.DetalleVenta;
-            if (detalle == null) return;
-
-            // Abrir como modal cuando se llama desde historial de ventas
-            using (var frm = new frmRegistrarDevolucion(_ventaSeleccionada.Id, detalle.oProducto.Id))
+            try
             {
-                frm.StartPosition = FormStartPosition.CenterParent;
-                var dialogResult = frm.ShowDialog(this);
-
-                // Refrescar datos después de cerrar el formulario
-                if (dialogResult == DialogResult.OK || dialogResult == DialogResult.Cancel)
+                if (gridVentas.DataSource == null || gridVentas.Rows.Count == 0)
                 {
-                    CargarDetalles(_ventaSeleccionada.Id);
-                    CargarVentas();
+                    MessageBox.Show("No hay datos para exportar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Por ahora, la exportación a PDF usa Excel como formato intermedio
+                // TODO: Implementar exportación directa a PDF con reporte RDLC
+                MessageBox.Show("La exportación a PDF está en desarrollo. Por favor, use la opción 'Exportar a Excel' y convierta el archivo a PDF desde Excel si lo necesita.",
+                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Alternativamente, exportar a Excel con nombre PDF para referencia
+                // Convertir DataGridViews a DataTables
+                DataTable dtVentas = ConvertirDataGridViewADataTable(gridVentas);
+                DataTable dtDetalles = ConvertirDataGridViewADataTable(gridDetalles);
+
+                // Generar nombre de archivo
+                string nombreArchivo = _bllExportacion.GenerarNombreArchivoUnico("HistorialVentas");
+
+                // Exportar múltiples hojas a Excel (temporalmente como PDF)
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(nombreArchivo + "_ParaPDF",
+                    (dtVentas, "Ventas", "Historial de Ventas"),
+                    (dtDetalles, "Detalles", "Detalles de Ventas"));
+
+                if (exportado)
+                {
+                    string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), nombreArchivo + "_ParaPDF.xlsx");
+                    MessageBox.Show($"Datos exportados a Excel (puede convertir a PDF desde Excel):\n{rutaCompleta}",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo Excel?",
+                        "Abrir archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        _bllExportacion.AbrirArchivo(rutaCompleta);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridVentas.DataSource == null || gridVentas.Rows.Count == 0)
+                {
+                    MessageBox.Show("No hay datos para exportar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Convertir DataGridViews a DataTables
+                DataTable dtVentas = ConvertirDataGridViewADataTable(gridVentas);
+                DataTable dtDetalles = ConvertirDataGridViewADataTable(gridDetalles);
+
+                // Generar nombre de archivo
+                string nombreArchivo = _bllExportacion.GenerarNombreArchivoUnico("HistorialVentas");
+
+                // Exportar múltiples hojas a Excel
+                bool exportado = _bllExportacion.ExportarMultiplesDataTablesAExcel(nombreArchivo,
+                    (dtVentas, "Ventas", "Historial de Ventas"),
+                    (dtDetalles, "Detalles", "Detalles de Ventas"));
+
+                if (exportado)
+                {
+                    string rutaCompleta = System.IO.Path.Combine(BLL_CONFIGURACION.ObtenerDirectorioReporteria(), nombreArchivo + ".xlsx");
+                    MessageBox.Show($"Historial exportado correctamente a:\n{rutaCompleta}",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    DialogResult result = MessageBox.Show("¿Desea abrir el archivo Excel?",
+                        "Abrir archivo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        _bllExportacion.AbrirArchivo(rutaCompleta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al exportar el historial.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar a Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Convierte un DataGridView a DataTable para exportación
+        /// </summary>
+        private DataTable ConvertirDataGridViewADataTable(DataGridView dgv)
+        {
+            DataTable dt = new DataTable();
+
+            // Agregar columnas visibles
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                if (column.Visible)
+                {
+                    dt.Columns.Add(column.HeaderText, typeof(string));
+                }
+            }
+
+            // Agregar filas
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    DataRow dataRow = dt.NewRow();
+                    int columnIndex = 0;
+
+                    foreach (DataGridViewColumn column in dgv.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            dataRow[columnIndex] = row.Cells[column.Index].Value?.ToString() ?? "";
+                            columnIndex++;
+                        }
+                    }
+
+                    dt.Rows.Add(dataRow);
+                }
+            }
+
+            return dt;
         }
 
         #region Idiomas

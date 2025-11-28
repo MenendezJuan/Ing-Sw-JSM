@@ -45,6 +45,7 @@ namespace CheeseLogix
             this.dataGridViewDevoluciones = new System.Windows.Forms.DataGridView();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.btnProcesar = new System.Windows.Forms.Button();
             this.btnEvaluar = new System.Windows.Forms.Button();
             this.btnNuevaDevolucion = new System.Windows.Forms.Button();
@@ -260,6 +261,7 @@ namespace CheeseLogix
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBotones.Controls.Add(this.btnCerrar);
+            this.panelBotones.Controls.Add(this.btnHistorial);
             this.panelBotones.Controls.Add(this.btnProcesar);
             this.panelBotones.Controls.Add(this.btnEvaluar);
             this.panelBotones.Controls.Add(this.btnNuevaDevolucion);
@@ -279,11 +281,28 @@ namespace CheeseLogix
             this.btnCerrar.Location = new System.Drawing.Point(822, 14);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(80, 30);
-            this.btnCerrar.TabIndex = 3;
+            this.btnCerrar.TabIndex = 4;
             this.btnCerrar.Tag = "btnCerrar";
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // btnHistorial
+            // 
+            this.btnHistorial.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnHistorial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.btnHistorial.FlatAppearance.BorderSize = 0;
+            this.btnHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorial.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistorial.ForeColor = System.Drawing.Color.White;
+            this.btnHistorial.Location = new System.Drawing.Point(722, 14);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(80, 30);
+            this.btnHistorial.TabIndex = 3;
+            this.btnHistorial.Tag = "Button_HistorialDevolucion_GesDev";
+            this.btnHistorial.Text = "Historial";
+            this.btnHistorial.UseVisualStyleBackColor = false;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
             // btnProcesar
             // 
@@ -416,6 +435,7 @@ namespace CheeseLogix
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.Panel panelBotones;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.Button btnHistorial;
         private System.Windows.Forms.Button btnProcesar;
         private System.Windows.Forms.Button btnEvaluar;
         private System.Windows.Forms.Button btnNuevaDevolucion;

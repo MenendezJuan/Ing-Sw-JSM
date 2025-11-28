@@ -33,8 +33,13 @@ namespace CheeseLogix.Tecnica
         {
             try
             {
-                // Buscar el PDF de ayuda en múltiples ubicaciones configurables
-                string rutaPDF = BLL_CONFIGURACION.BuscarManualUsuario();
+                string nombreIdioma = "Español"; 
+                if (sesion.Idioma != null && !string.IsNullOrWhiteSpace(sesion.Idioma.Nombre))
+                {
+                    nombreIdioma = sesion.Idioma.Nombre;
+                }
+
+                string rutaPDF = BLL_CONFIGURACION.BuscarAyudaEnLineaPorIdioma(nombreIdioma);
 
                 if (File.Exists(rutaPDF))
                 {
@@ -55,15 +60,24 @@ namespace CheeseLogix.Tecnica
                 }
                 else
                 {
-                    string nombreArchivo = BLL_CONFIGURACION.ObtenerConfiguracion("ManualUsuarioPDF", "Manual_Usuario_CheeseLogix.pdf");
-                    string directorioConfiguracion = BLL_CONFIGURACION.ObtenerDirectorioDocumentacion();
+                    string sufijo = "";
+                    string nombreLower = nombreIdioma.ToLower();
+                    if (nombreLower.Contains("alemán") || nombreLower.Contains("aleman"))
+                        sufijo = "-DE";
+                    else if (nombreLower.Contains("portugués") || nombreLower.Contains("portugues"))
+                        sufijo = "-PT";
+                    else if (nombreLower.Contains("inglés") || nombreLower.Contains("ingles"))
+                        sufijo = "-EN";
+                    
+                    string nombreArchivo = $"Cheeselogix-AyudaEnLinea{sufijo}.pdf";
 
                     MessageBox.Show($"El archivo de ayuda '{nombreArchivo}' no se encuentra.\n\n" +
+                                  $"Idioma seleccionado: {nombreIdioma}\n\n" +
                                   $"Ubicaciones verificadas:\n" +
-                                  $"• {directorioConfiguracion}\n" +
-                                  $"• {Path.Combine(Application.StartupPath, "Documentacion")}\n" +
+                                  $"• Carpeta del proyecto\n" +
+                                  $"• {Path.Combine(Application.StartupPath, "Carpeta")}\n" +
                                   $"• Directorio del proyecto\n\n" +
-                                  $"Asegúrese de que el archivo esté en alguna de estas ubicaciones.",
+                                  $"Asegúrese de que el archivo esté en la carpeta 'Carpeta' del proyecto.",
                                   ConstantesUI.Titulos.Informacion,
                                   MessageBoxButtons.OK,
                                   MessageBoxIcon.Information);
@@ -215,6 +229,8 @@ namespace CheeseLogix.Tecnica
                         if (idiomaSeleccionado != null)
                         {
                             sesion.CambiarIdioma(idiomaSeleccionado);
+                            // Recargar el PDF con el nuevo idioma
+                            CargarPDF();
                         }
                     }
                 }

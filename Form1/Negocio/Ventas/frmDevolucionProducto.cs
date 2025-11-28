@@ -271,6 +271,22 @@ namespace CheeseLogix
             CargarDatos();
         }
 
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CheeseLogix.Negocio.Ventas.frmHistorialDevoluciones frmHistorial = new CheeseLogix.Negocio.Ventas.frmHistorialDevoluciones();
+                frmHistorial.ShowDialog();
+                
+                // Refrescar la lista después de cerrar el historial
+                CargarDatos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir historial: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();

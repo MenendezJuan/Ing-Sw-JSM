@@ -24,6 +24,7 @@ namespace CheeseLogix.Negocio.Ventas
         private BLL_TRADUCCION Bll_Traduccion;
         private List<Venta> _ventasOriginales;
         private Venta _ventaSeleccionada;
+        private frmMenuPrincipal _menuPrincipal;
 
         public frmInicioOrden()
         {
@@ -54,6 +55,12 @@ namespace CheeseLogix.Negocio.Ventas
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            _menuPrincipal = BuscarMenuPrincipal(this) as frmMenuPrincipal;
+        }
+
         private void frmInicioOrden_Load(object sender, EventArgs e)
         {
             // Configuración adicional al cargar el formulario
@@ -77,15 +84,18 @@ namespace CheeseLogix.Negocio.Ventas
 
         private void TxtCuitCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Permitir solo números, backspace, delete y guión
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '-')
+            if (char.IsControl(e.KeyChar))
+            {
+                return; 
+            }
+
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '-')
             {
                 e.Handled = true;
                 return;
             }
 
-            // Limitar longitud máxima (13 caracteres con guiones: XX-XXXXXXXX-X)
-            if (txtCuitCliente.Text.Length >= 13 && e.KeyChar != (char)Keys.Back)
+            if (txtCuitCliente.Text.Length >= 13)
             {
                 e.Handled = true;
             }
@@ -95,6 +105,25 @@ namespace CheeseLogix.Negocio.Ventas
         {
             // Limpiar colores de error mientras escribe
             txtCuitCliente.BackColor = SystemColors.Window;
+
+            // Limpiar caracteres no permitidos si se pegó texto
+            string textoActual = txtCuitCliente.Text;
+            string textoLimpio = new string(textoActual.Where(c => char.IsDigit(c) || c == '-').ToArray());
+            
+            // Si se limpiaron caracteres, actualizar el textbox
+            if (textoActual != textoLimpio)
+            {
+                int cursorPos = txtCuitCliente.SelectionStart;
+                txtCuitCliente.Text = textoLimpio;
+                txtCuitCliente.SelectionStart = Math.Min(cursorPos, textoLimpio.Length);
+            }
+
+            // Limitar a 13 caracteres máximo
+            if (txtCuitCliente.Text.Length > 13)
+            {
+                txtCuitCliente.Text = txtCuitCliente.Text.Substring(0, 13);
+                txtCuitCliente.SelectionStart = 13;
+            }
         }
 
         private void TxtCuitCliente_Leave(object sender, EventArgs e)
@@ -495,14 +524,28 @@ namespace CheeseLogix.Negocio.Ventas
                     {
                         // Redirigir a frmTramitarOrdenCarrito pasando el CUIT limpio para que busque automáticamente
                         var frmTramitar = new frmTramitarOrdenCarrito(cuitLimpio);
-
-                        this.Hide();
-                        frmTramitar.ShowDialog();
-                        this.Show();
-
-                        // Limpiar textbox y recargar ventas por si se creó una nueva
-                        txtCuitCliente.Clear();
-                        CargarVentas();
+                        
+                        if (_menuPrincipal != null)
+                        {
+                            // Abrir dentro del panel central del menú principal
+                            _menuPrincipal.AddOwnedForm(frmTramitar);
+                            _menuPrincipal.FormHijo(frmTramitar);
+                            
+                            // Limpiar textbox y recargar ventas por si se creó una nueva
+                            txtCuitCliente.Clear();
+                            CargarVentas();
+                        }
+                        else
+                        {
+                            // Fallback: abrir como modal si no se encuentra el menú principal
+                            this.Hide();
+                            frmTramitar.ShowDialog();
+                            this.Show();
+                            
+                            // Limpiar textbox y recargar ventas por si se creó una nueva
+                            txtCuitCliente.Clear();
+                            CargarVentas();
+                        }
                     }
                 }
                 else
@@ -520,9 +563,19 @@ namespace CheeseLogix.Negocio.Ventas
                         var frmGestionClientes = new frmGestionarClientes();
                         // TODO: Si es posible, pre-llenar el CUIT en el formulario de gestión
 
-                        this.Hide();
-                        frmGestionClientes.ShowDialog();
-                        this.Show();
+                        if (_menuPrincipal != null)
+                        {
+                            // Abrir dentro del panel central del menú principal
+                            _menuPrincipal.AddOwnedForm(frmGestionClientes);
+                            _menuPrincipal.FormHijo(frmGestionClientes);
+                        }
+                        else
+                        {
+                            // Fallback: abrir como modal si no se encuentra el menú principal
+                            this.Hide();
+                            frmGestionClientes.ShowDialog();
+                            this.Show();
+                        }
 
                         // Limpiar textbox
                         txtCuitCliente.Clear();
@@ -553,6 +606,33 @@ namespace CheeseLogix.Negocio.Ventas
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// Busca el formulario frmMenuPrincipal navegando hacia arriba en la jerarquía de controles
+        /// </summary>
+        private Form BuscarMenuPrincipal(Control control)
+        {
+            Control actual = control;
+            while (actual != null)
+            {
+                if (actual is frmMenuPrincipal)
+                    return actual as Form;
+                
+                // Navegar hacia arriba
+                actual = actual.Parent;
+            }
+            
+            // Si no se encontró por Parent, buscar en Owner
+            Form owner = this.Owner;
+            while (owner != null)
+            {
+                if (owner is frmMenuPrincipal)
+                    return owner;
+                owner = owner.Owner;
+            }
+            
+            return null;
         }
 
         #endregion Eventos de Botones
